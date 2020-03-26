@@ -1,25 +1,32 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Dictionary from 'src/screens/Dictionary';
 import Home from 'src/screens/Home';
-import { headerLayout } from 'src/layout/Header';
+import { color, hexToRGBA } from 'src/theme';
 
-import { RootStackParamList } from './interfaces';
+import { RootTabParamList } from './interfaces';
 
-const Stack = createStackNavigator<RootStackParamList>();
+const Tab = createBottomTabNavigator<RootTabParamList>();
 
 const Navigation = () => (
   <NavigationContainer>
-    <Stack.Navigator screenOptions={{ ...headerLayout }}>
-      <Stack.Screen name="Home" component={Home} options={{ title: 'Home' }} />
-      <Stack.Screen
+    <Tab.Navigator
+      tabBarOptions={{
+        activeBackgroundColor: hexToRGBA(color.green, 0.9),
+        inactiveBackgroundColor: color.green,
+        activeTintColor: color.white,
+        inactiveTintColor: color.white,
+      }}
+    >
+      <Tab.Screen name="Home" component={Home} options={{ title: 'Home' }} />
+      <Tab.Screen
         name="Dictionary"
         component={Dictionary}
         options={{ title: 'Dictionary' }}
       />
-    </Stack.Navigator>
+    </Tab.Navigator>
   </NavigationContainer>
 );
 

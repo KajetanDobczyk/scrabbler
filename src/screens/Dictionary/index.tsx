@@ -4,13 +4,13 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 
 import { color } from 'src/theme';
-import { RootStackParamList } from 'src/layout/interfaces';
+import { RootTabParamList } from 'src/layout/interfaces';
 
 import TwoLettersWordsList from './components/TwoLettersWordsList';
 
 type Props = {
-  navigation: StackNavigationProp<RootStackParamList, 'Dictionary'>;
-  route: RouteProp<RootStackParamList, 'Dictionary'>;
+  navigation: StackNavigationProp<RootTabParamList, 'Dictionary'>;
+  route: RouteProp<RootTabParamList, 'Dictionary'>;
 };
 
 const Dictionary: React.FC<Props> = () => (

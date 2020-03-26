@@ -5,13 +5,13 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 
 import { color } from 'src/theme';
-import { RootStackParamList } from 'src/layout/interfaces';
+import { RootTabParamList } from 'src/layout/interfaces';
 
 import Board from './components/Board';
 
 type Props = {
-  navigation: StackNavigationProp<RootStackParamList, 'Home'>;
-  route: RouteProp<RootStackParamList, 'Home'>;
+  navigation: StackNavigationProp<RootTabParamList, 'Home'>;
+  route: RouteProp<RootTabParamList, 'Home'>;
 };
 
 const Home: React.FC<Props> = ({ navigation }) => (
