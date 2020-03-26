@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Button } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleSheet, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 
@@ -14,15 +13,9 @@ type Props = {
   route: RouteProp<RootTabParamList, 'Home'>;
 };
 
-const Home: React.FC<Props> = ({ navigation }) => (
+const Home: React.FC<Props> = () => (
   <View style={styles.container}>
     <Board />
-    <TouchableOpacity style={{ marginTop: 10 }}>
-      <Button
-        title="See 2-letter words"
-        onPress={() => navigation.navigate('Dictionary')}
-      />
-    </TouchableOpacity>
   </View>
 );
 
