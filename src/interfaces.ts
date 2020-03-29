@@ -32,3 +32,5 @@ export type Letter =
   | 'z'
   | 'ż'
   | 'ź';
+
+export type FieldBonus = 'dl' | 'tl' | 'dw' | 'tw' | 0;

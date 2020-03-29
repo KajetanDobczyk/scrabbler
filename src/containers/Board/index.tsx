@@ -3,16 +3,16 @@ import { StyleSheet, View } from 'react-native';
 import range from 'lodash/range';
 
 import { color } from 'src/theme';
-import { boardWidth, boardHeight } from 'src/config/board';
+import { boardFields } from 'src/config/board';
 
 import BoardField from './components/BoardField';
 
 const Board = () => (
   <View style={styles.container}>
-    {range(boardHeight).map(y => (
-      <View style={styles.row}>
-        {range(boardWidth).map(x => (
-          <BoardField key={x} x={x} y={0} />
+    {boardFields.map((row, y) => (
+      <View key={y} style={styles.row}>
+        {row.map((field, x) => (
+          <BoardField key={x} x={x} y={y} bonus={field} />
         ))}
       </View>
     ))}
