@@ -11,11 +11,9 @@ type Props = {
 };
 
 const Tile: React.FC<Props> = ({ letter }) => (
-  <View style={styles.wrapper}>
-    <View style={styles.container}>
-      <Text style={styles.letter}>{letter}</Text>
-      <Text style={styles.points}>{tilesPoints[letter]}</Text>
-    </View>
+  <View style={styles.container}>
+    <Text style={styles.letter}>{letter}</Text>
+    <Text style={styles.points}>{tilesPoints[letter]}</Text>
   </View>
 );
 

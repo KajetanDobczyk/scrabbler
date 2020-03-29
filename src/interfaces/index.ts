@@ -34,3 +34,5 @@ export type Letter =
   | 'ź';
 
 export type FieldBonus = 'dl' | 'tl' | 'dw' | 'tw' | 0;
+
+export type IBoard = Array<Letter | ' '>[];

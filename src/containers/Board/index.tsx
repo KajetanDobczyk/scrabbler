@@ -29,5 +29,6 @@ const styles = StyleSheet.create({
   row: {
     flexGrow: 1,
     flexDirection: 'row',
+    alignItems: 'stretch',
   },
 });
