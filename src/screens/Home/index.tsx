@@ -5,8 +5,7 @@ import { RouteProp } from '@react-navigation/native';
 
 import { color } from 'src/theme';
 import { RootTabParamList } from 'src/layout/interfaces';
-
-import Board from './components/Board';
+import Board from 'src/containers/Board';
 
 type Props = {
   navigation: StackNavigationProp<RootTabParamList, 'Home'>;

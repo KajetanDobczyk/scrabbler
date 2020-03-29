@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
 import { color } from 'src/theme';
-import { twoLettersWords } from 'src/config/data';
+import { twoLettersWords } from 'src/config/dictionary';
 
 const TwoLettersWordsList = () => (
   <View style={styles.container}>
