@@ -11,7 +11,7 @@ export const color = {
   red: '#da2d37',
 };
 
-export type FontSize = 'sm' | 'base' | 'xl';
+export type FontSize = 'xs' | 'sm' | 'base' | 'xl';
 
 type Font = {
   size: Record<FontSize, number>;
@@ -19,6 +19,7 @@ type Font = {
 
 export const font: Font = {
   size: {
+    xs: 7,
     sm: 10,
     base: 16,
     xl: 25,

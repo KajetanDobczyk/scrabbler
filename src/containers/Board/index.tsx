@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import range from 'lodash/range';
 
 import { color } from 'src/theme';
 import { boardFields } from 'src/config/board';

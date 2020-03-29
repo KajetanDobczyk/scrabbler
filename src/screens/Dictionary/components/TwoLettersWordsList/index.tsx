@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { View, Text } from 'react-native';
 
-import { color } from 'src/theme';
 import { twoLettersWords } from 'src/config/dictionary';
+
+import { styles } from './styles';
 
 const TwoLettersWordsList = () => (
   <View style={styles.container}>
@@ -19,18 +20,3 @@ const TwoLettersWordsList = () => (
 );
 
 export default TwoLettersWordsList;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: color.white,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  wordsRow: {
-    flexDirection: 'row',
-    marginBottom: 5,
-  },
-  word: { marginRight: 5 },
-});

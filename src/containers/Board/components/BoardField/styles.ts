@@ -12,6 +12,6 @@ export const styles = ({ backgroundColor }: StylesProps) =>
       flexGrow: 1,
       backgroundColor,
       borderColor: color.green,
-      borderWidth: 2,
+      borderWidth: 1,
     },
   });
