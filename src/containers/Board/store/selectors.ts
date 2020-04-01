@@ -8,3 +8,13 @@ export const selectBoard = createSelector(
   selectBoardState,
   boardState => boardState.board,
 );
+
+export const selectCurrentPlayer = createSelector(
+  selectBoardState,
+  boardState => boardState.currentPlayer,
+);
+
+export const selectPlayedWords = createSelector(
+  selectBoardState,
+  boardState => boardState.playedWords,
+);
