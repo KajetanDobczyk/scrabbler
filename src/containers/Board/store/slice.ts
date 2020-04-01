@@ -1,24 +1,40 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { emptyBoard } from 'src/config/board';
-import { IBoard, IPlayedWord, IPlayerNumber, Letter } from 'src/interfaces';
+import {
+  IBoard,
+  INewWord,
+  IPlayedWord,
+  IPlayerNumber,
+  Letter,
+  WordDirection,
+} from 'src/interfaces';
 
 type IBoardState = {
   board: IBoard;
   currentPlayer: IPlayerNumber;
-  playedWords: IPlayedWord[];
+  newWord: INewWord;
+  wordsHistory: IPlayedWord[];
+};
+
+const initialNewWord: INewWord = {
+  x: 0,
+  y: 0,
+  direction: 'horizontal',
+  word: '',
 };
 
 const initialState: IBoardState = {
   board: emptyBoard,
   currentPlayer: 0,
-  playedWords: [],
+  newWord: initialNewWord,
+  wordsHistory: [],
 };
 
-type InsertLetterPayload = {
-  letter: Letter;
+type InsertWordStartedPayload = {
   x: number;
   y: number;
+  direction: WordDirection;
 };
 
 const board = createSlice({
@@ -28,18 +44,38 @@ const board = createSlice({
     changeCurrentPlayer(state, action: PayloadAction<IPlayerNumber>) {
       state.currentPlayer = action.payload;
     },
-    insertLetter(state, action: PayloadAction<InsertLetterPayload>) {
-      const { x, y, letter } = action.payload;
-
-      state.board[y][x] = letter;
+    insertWordStarted(state, action: PayloadAction<InsertWordStartedPayload>) {
+      state.newWord = {
+        ...action.payload,
+        word: '',
+      };
     },
-    insertWord(state, action: PayloadAction<IPlayedWord>) {
-      state.playedWords.push(action.payload);
+    insertWordLetter(state, action: PayloadAction<Letter>) {
+      if (state.newWord.word !== '') {
+        state.newWord[state.newWord.direction === 'horizontal' ? 'x' : 'y']++;
+      }
+
+      const { x, y } = state.newWord;
+
+      state.board[y][x] = action.payload;
+      state.newWord.word += action.payload;
+    },
+    insertWordFinished(state) {
+      state.wordsHistory.push({
+        ...state.newWord!,
+        player: state.currentPlayer,
+      });
+      state.newWord = initialNewWord;
     },
   },
 });
 
-export const { changeCurrentPlayer, insertLetter, insertWord } = board.actions;
+export const {
+  changeCurrentPlayer,
+  insertWordStarted,
+  insertWordLetter,
+  insertWordFinished,
+} = board.actions;
 
 export * from './selectors';
 

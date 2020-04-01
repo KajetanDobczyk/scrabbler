@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, GestureResponderEvent } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import { FieldBonus } from 'src/interfaces';
@@ -13,9 +13,10 @@ type Props = {
   x: number;
   y: number;
   bonus: FieldBonus;
+  onTouchEnd: (x: number, y: number) => (event: GestureResponderEvent) => void;
 };
 
-const BoardField: React.FC<Props> = ({ x, y, bonus }) => {
+const BoardField: React.FC<Props> = ({ x, y, bonus, onTouchEnd }) => {
   const board = useSelector(selectBoard);
 
   const fieldLetter = board[y][x];
@@ -25,7 +26,7 @@ const BoardField: React.FC<Props> = ({ x, y, bonus }) => {
   });
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} onTouchEnd={onTouchEnd(x, y)}>
       {fieldLetter !== ' ' && (
         <View style={styles.tileWrapper}>
           <Tile letter={fieldLetter} />

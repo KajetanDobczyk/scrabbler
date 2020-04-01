@@ -14,7 +14,7 @@ export const selectCurrentPlayer = createSelector(
   boardState => boardState.currentPlayer,
 );
 
-export const selectPlayedWords = createSelector(
+export const selectWordsHistory = createSelector(
   selectBoardState,
-  boardState => boardState.playedWords,
+  boardState => boardState.wordsHistory,
 );

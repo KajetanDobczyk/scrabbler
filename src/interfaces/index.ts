@@ -39,9 +39,15 @@ export type IBoard = Array<Letter | ' '>[];
 
 export type IPlayerNumber = 0 | 1 | 2 | 3;
 
-export interface IPlayedWord {
-  player: IPlayerNumber;
-  aligment: 'horizontal' | 'vertical';
-  startCoordinates: number[];
+export type WordDirection = 'horizontal' | 'vertical';
+
+export interface INewWord {
+  x: number;
+  y: number;
+  direction: WordDirection;
   word: string;
+}
+
+export interface IPlayedWord extends INewWord {
+  player: IPlayerNumber;
 }
