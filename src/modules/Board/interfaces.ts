@@ -4,7 +4,7 @@ import { IPlayerId } from '../Players/interfaces';
 
 export type FieldBonus = 'dl' | 'tl' | 'dw' | 'tw' | 0;
 
-export type IBoard = Array<Letter | ' '>[];
+export type IBoardLetters = Array<Letter | ' '>[];
 
 export type WordDirection = 'horizontal' | 'vertical';
 

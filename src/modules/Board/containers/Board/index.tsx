@@ -3,24 +3,44 @@ import {
   View,
   NativeSyntheticEvent,
   TextInputKeyPressEventData,
+  GestureResponderEvent,
+  LayoutChangeEvent,
 } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { useDispatch } from 'react-redux';
 
 import { boardFields } from 'src/modules/Board/config';
+import {
+  boardLoaded,
+  insertWordLetter,
+  insertWordPrepared,
+  insertWordStarted,
+} from 'src/modules/Board/store/slice';
 import { alphabet } from 'src/modules/Tiles/config';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 
 import BoardField from './components/BoardField';
 import { styles } from './styles';
-import { insertWordLetter, insertWordStarted } from '../../store/slice';
 
 const Board = () => {
   const textInputRef = useRef<any>(null); // TODO: Fix type
   const dispatch = useDispatch();
 
-  const initWordInput = (x: number, y: number) => () => {
-    dispatch(insertWordStarted({ x, y, direction: 'horizontal', length: 5 }));
+  const handleOnLayout = (event: LayoutChangeEvent) => {
+    const { x, y, width, height } = event.nativeEvent.layout;
+
+    dispatch(boardLoaded({ x, y, width, height }));
+  };
+
+  const prepareWordInput = (event: GestureResponderEvent) => {
+    // dispatch(insertWordPrepared({ x, y }));
+    console.log(event.nativeEvent);
+    textInputRef.current.focus();
+  };
+
+  const initWordInput = (event: GestureResponderEvent) => {
+    console.log(event.nativeEvent);
+    // dispatch(insertWordStarted({ x, y, direction: 'horizontal', length: 5 }));
     textInputRef.current.focus();
   };
 
@@ -35,18 +55,17 @@ const Board = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={styles.container}
+      onLayout={handleOnLayout}
+      onTouchStart={prepareWordInput}
+      onTouchEnd={initWordInput}
+    >
       <View style={styles.board}>
         {boardFields.map((row, y) => (
           <View key={y} style={styles.row}>
             {row.map((field, x) => (
-              <BoardField
-                key={x}
-                x={x}
-                y={y}
-                bonus={field}
-                onTouchEnd={initWordInput}
-              />
+              <BoardField key={x} x={x} y={y} bonus={field} />
             ))}
           </View>
         ))}

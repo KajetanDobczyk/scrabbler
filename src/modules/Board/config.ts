@@ -1,10 +1,10 @@
 import { color } from 'src/theme';
 
-import { IBoard, FieldBonus } from './interfaces';
+import { IBoardLetters, FieldBonus } from './interfaces';
 
 export const boardSize = 15;
 
-export const emptyBoard: IBoard = [
+export const emptyBoard: IBoardLetters = [
   [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
   [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
   [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
@@ -22,7 +22,7 @@ export const emptyBoard: IBoard = [
   [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
 ];
 
-export const boardFields: Array<FieldBonus>[] = [
+export const boardFields: Array<FieldBonus[]> = [
   ['tw', 0, 0, 'dl', 0, 0, 0, 'tw', 0, 0, 0, 'dl', 0, 0, 'tw'],
   [0, 'dw', 0, 0, 0, 'tl', 0, 0, 0, 'tl', 0, 0, 0, 'dw', 0],
   [0, 0, 'dw', 0, 0, 0, 'dl', 0, 'dl', 0, 0, 0, 'dw', 0, 0],

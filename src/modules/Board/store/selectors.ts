@@ -4,9 +4,9 @@ import { RootState } from 'src/redux/rootReducer';
 
 export const selectBoardState = (state: RootState) => state.board;
 
-export const selectBoard = createSelector(
+export const selectBoardLetters = createSelector(
   selectBoardState,
-  boardState => boardState.board,
+  boardState => boardState.letters,
 );
 
 export const selectWordsHistory = createSelector(
