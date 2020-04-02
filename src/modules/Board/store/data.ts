@@ -264,14 +264,14 @@ export const initialNewWord: INewWord = {
   y: 0,
   direction: 'horizontal',
   word: '',
-  length: 0,
+  targetLength: 0,
 };
 
 export const initialLayout = {
   x: 0,
   y: 0,
-  width: 0,
-  height: 0,
+  size: 0,
+  tileSize: 0,
 };
 
 export const initialState: IBoardState = {

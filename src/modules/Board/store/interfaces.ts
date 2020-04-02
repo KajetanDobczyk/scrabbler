@@ -1,18 +1,16 @@
+import { Letter } from 'src/modules/Dictionary/interfaces';
+import { IPlayerId } from 'src/modules/Players/interfaces';
+
 import {
-  WordDirection,
   INewWord,
   IBoardFields,
+  IBoardLayout,
   IPlayedWord,
 } from '../interfaces';
 
 export type IBoardState = {
   boardFields: IBoardFields;
-  layout: {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-  };
+  layout: IBoardLayout;
   newWord: INewWord;
   wordsHistory: IPlayedWord[];
 };
@@ -20,18 +18,15 @@ export type IBoardState = {
 export type BoardLoadedPayload = {
   x: number;
   y: number;
-  width: number;
-  height: number;
+  size: number;
 };
 
-export type InsertWordPreparedPayload = {
+export type InsertWordPayload = {
   x: number;
   y: number;
 };
 
-export type InsertWordStartedPayload = {
-  x: number;
-  y: number;
-  direction: WordDirection;
-  length: number;
+export type InsertWordLetterPayload = {
+  letter: Letter;
+  playerId: IPlayerId;
 };

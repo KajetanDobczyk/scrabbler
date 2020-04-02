@@ -4,7 +4,7 @@ import { RootState } from 'src/redux/rootReducer';
 
 export const selectPlayersState = (state: RootState) => state.players;
 
-export const selectCurrentPlayer = createSelector(
+export const selectCurrentPlayerId = createSelector(
   selectPlayersState,
-  playersState => playersState.currentPlayer,
+  playersState => playersState.currentPlayerId,
 );

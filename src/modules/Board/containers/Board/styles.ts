@@ -14,5 +14,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'stretch',
   },
-  textInput: {},
+  textInput: {
+    opacity: 0,
+  },
 });

@@ -9,6 +9,16 @@ export const selectBoardFields = createSelector(
   boardState => boardState.boardFields,
 );
 
+export const selectBoardLayout = createSelector(
+  selectBoardState,
+  boardState => boardState.layout,
+);
+
+export const selectNewWord = createSelector(
+  selectBoardState,
+  boardState => boardState.newWord,
+);
+
 export const selectWordsHistory = createSelector(
   selectBoardState,
   boardState => boardState.wordsHistory,

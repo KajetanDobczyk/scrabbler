@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import {
   View,
   NativeSyntheticEvent,
@@ -10,14 +10,17 @@ import { TextInput } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
-  boardLoaded,
+  boardLayoutLoaded,
   insertWordLetter,
   insertWordPrepared,
   insertWordStarted,
   selectBoardFields,
+  selectBoardLayout,
+  selectNewWord,
 } from 'src/modules/Board/store/slice';
 import { alphabet } from 'src/modules/Tiles/data';
 import { Letter } from 'src/modules/Dictionary/interfaces';
+import { selectCurrentPlayerId } from 'src/modules/Players/store/slice';
 
 import BoardField from './components/BoardField';
 import { styles } from './styles';
@@ -25,23 +28,40 @@ import { styles } from './styles';
 const Board = () => {
   const textInputRef = useRef<any>(null); // TODO: Fix type
   const dispatch = useDispatch();
+
   const boardFields = useSelector(selectBoardFields);
+  const boardLayout = useSelector(selectBoardLayout);
+  const newWord = useSelector(selectNewWord);
+  const currentPlayerId = useSelector(selectCurrentPlayerId);
+
+  useEffect(() => {
+    if (newWord.word === '') {
+      textInputRef.current.blur();
+    }
+  }, [newWord.word]);
 
   const handleOnLayout = (event: LayoutChangeEvent) => {
-    const { x, y, width, height } = event.nativeEvent.layout;
+    const { x, y, width } = event.nativeEvent.layout;
 
-    dispatch(boardLoaded({ x, y, width, height }));
+    dispatch(boardLayoutLoaded({ x, y, size: width }));
   };
 
-  const prepareWordInput = (event: GestureResponderEvent) => {
-    // dispatch(insertWordPrepared({ x, y }));
-    console.log(event.nativeEvent);
-    textInputRef.current.focus();
+  const handleOnTouchStart = (event: GestureResponderEvent) => {
+    const { pageX, pageY } = event.nativeEvent;
+
+    const x = Math.floor((pageX - boardLayout.x) / boardLayout.tileSize);
+    const y = Math.floor((pageY - boardLayout.y) / boardLayout.tileSize);
+
+    dispatch(insertWordPrepared({ x, y }));
   };
 
-  const initWordInput = (event: GestureResponderEvent) => {
-    console.log(event.nativeEvent);
-    // dispatch(insertWordStarted({ x, y, direction: 'horizontal', length: 5 }));
+  const handleOnTouchEnd = (event: GestureResponderEvent) => {
+    const { pageX, pageY } = event.nativeEvent;
+
+    const x = Math.floor((pageX - boardLayout.x) / boardLayout.tileSize);
+    const y = Math.floor((pageY - boardLayout.y) / boardLayout.tileSize);
+
+    dispatch(insertWordStarted({ x, y }));
     textInputRef.current.focus();
   };
 
@@ -51,7 +71,7 @@ const Board = () => {
     const key = event.nativeEvent.key.toLowerCase() as Letter;
 
     if (alphabet.includes(key)) {
-      dispatch(insertWordLetter(key));
+      dispatch(insertWordLetter({ letter: key, playerId: currentPlayerId }));
     }
   };
 
@@ -59,8 +79,8 @@ const Board = () => {
     <View
       style={styles.container}
       onLayout={handleOnLayout}
-      onTouchStart={prepareWordInput}
-      onTouchEnd={initWordInput}
+      onTouchStart={handleOnTouchStart}
+      onTouchEnd={handleOnTouchEnd}
     >
       <View style={styles.board}>
         {boardFields.map((row, y) => (
@@ -73,7 +93,6 @@ const Board = () => {
       </View>
       <TextInput
         style={styles.textInput}
-        keyboardType="default"
         ref={textInputRef}
         onKeyPress={handleKeyPress}
       />

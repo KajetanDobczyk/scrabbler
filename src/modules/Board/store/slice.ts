@@ -1,63 +1,82 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { IPlayerId } from 'src/modules/Players/interfaces';
-import { Letter } from 'src/modules/Dictionary/interfaces';
-
 import { initialState, initialNewWord } from './data';
 import {
   BoardLoadedPayload,
-  InsertWordPreparedPayload,
-  InsertWordStartedPayload,
+  InsertWordPayload,
+  InsertWordLetterPayload,
 } from './interfaces';
+import { rowFieldsAmount } from '../data';
 
 const board = createSlice({
   name: 'board',
   initialState,
   reducers: {
-    boardLoaded(state, action: PayloadAction<BoardLoadedPayload>) {
-      state.layout = action.payload;
+    boardLayoutLoaded(state, action: PayloadAction<BoardLoadedPayload>) {
+      const { x, y, size } = action.payload;
+
+      state.layout = {
+        x,
+        y,
+        size: Math.round(size * 100) / 100,
+        tileSize: Math.round((size / rowFieldsAmount) * 100) / 100,
+      };
     },
-    insertWordPrepared(
-      state,
-      action: PayloadAction<InsertWordPreparedPayload>,
-    ) {
+    insertWordPrepared(state, action: PayloadAction<InsertWordPayload>) {
       state.newWord = {
         ...state.newWord,
         ...action.payload,
       };
     },
-    insertWordStarted(state, action: PayloadAction<InsertWordStartedPayload>) {
+    insertWordStarted(state, action: PayloadAction<InsertWordPayload>) {
+      const { x, y } = action.payload;
+      const { newWord } = state;
+
+      const direction = x > newWord.x ? 'horizontal' : 'vertical';
+
       state.newWord = {
-        ...action.payload,
-        word: '',
+        ...newWord,
+        direction,
+        targetLength:
+          direction === 'horizontal' ? x - newWord.x + 1 : y - newWord.y + 1,
       };
     },
-    insertWordLetter(state, action: PayloadAction<Letter>) {
-      if (state.newWord.word !== '') {
-        state.newWord[state.newWord.direction === 'horizontal' ? 'x' : 'y']++;
+    insertWordLetter(state, action: PayloadAction<InsertWordLetterPayload>) {
+      const { letter, playerId } = action.payload;
+      const { x, y, direction, targetLength } = state.newWord;
+
+      state.newWord.word += letter;
+
+      const wordLength = state.newWord.word.length;
+
+      const letterCoordinates = {
+        x: direction === 'horizontal' ? x + wordLength - 1 : x,
+        y: direction === 'vertical' ? y + wordLength - 1 : y,
+      };
+
+      state.boardFields[letterCoordinates.y][
+        letterCoordinates.x
+      ].letter = letter;
+
+      if (wordLength === targetLength) {
+        state.wordsHistory.push({
+          playerId,
+          x,
+          y,
+          direction,
+          word: state.newWord.word,
+        });
+        state.newWord = initialNewWord;
       }
-
-      const { x, y } = state.newWord;
-
-      state.boardFields[y][x].letter = action.payload;
-      state.newWord.word += action.payload;
-    },
-    insertWordFinished(state, action: PayloadAction<IPlayerId>) {
-      state.wordsHistory.push({
-        ...state.newWord,
-        player: action.payload,
-      });
-      state.newWord = initialNewWord;
     },
   },
 });
 
 export const {
-  boardLoaded,
+  boardLayoutLoaded,
   insertWordPrepared,
   insertWordStarted,
   insertWordLetter,
-  insertWordFinished,
 } = board.actions;
 
 export * from './selectors';

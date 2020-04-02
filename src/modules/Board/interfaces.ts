@@ -3,10 +3,17 @@ import { Letter } from 'src/modules/Dictionary/interfaces';
 
 export type FieldBonus = 'dl' | 'tl' | 'dw' | 'tw' | 0;
 
-export type IBoardField = {
+export interface IBoardField {
   letter: Letter | '';
   bonus: FieldBonus;
-};
+}
+
+export interface IBoardLayout {
+  x: number;
+  y: number;
+  size: number;
+  tileSize: number;
+}
 
 export type IBoardFields = IBoardField[][];
 
@@ -20,9 +27,9 @@ export interface IWord {
 }
 
 export interface INewWord extends IWord {
-  length: number;
+  targetLength: number;
 }
 
 export interface IPlayedWord extends IWord {
-  player: IPlayerId;
+  playerId: IPlayerId;
 }

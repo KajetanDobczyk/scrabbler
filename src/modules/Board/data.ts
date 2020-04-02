@@ -2,7 +2,7 @@ import { color } from 'src/theme';
 
 import { FieldBonus } from './interfaces';
 
-export const boardSize = 15;
+export const rowFieldsAmount = 15;
 
 export const boardFieldsColors: Record<FieldBonus, string> = {
   0: color.lightGreen,
