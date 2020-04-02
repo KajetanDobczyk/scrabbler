@@ -1,4 +1,4 @@
-import { Letter } from '../interfaces';
+import { Letter } from '../Dictionary/interfaces';
 
 export const alphabet: Letter[] = [
   '?',

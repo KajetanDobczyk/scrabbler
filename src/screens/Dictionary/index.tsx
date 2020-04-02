@@ -5,8 +5,7 @@ import { RouteProp } from '@react-navigation/native';
 
 import { color } from 'src/theme';
 import { RootTabParamList } from 'src/layout/interfaces';
-
-import TwoLettersWordsList from './components/TwoLettersWordsList';
+import TwoLettersWordsList from 'src/modules/Dictionary/containers/TwoLettersWordsList';
 
 type Props = {
   navigation: StackNavigationProp<RootTabParamList, 'Dictionary'>;

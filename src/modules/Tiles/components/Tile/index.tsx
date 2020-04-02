@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-import { tilesPoints } from 'src/config/tiles';
-import { Letter } from 'src/interfaces';
+import { tilesPoints } from 'src/modules/Tiles/config';
+import { Letter } from 'src/modules/Dictionary/interfaces';
 
 import { styles } from './styles';
 

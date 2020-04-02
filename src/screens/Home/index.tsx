@@ -5,7 +5,7 @@ import { RouteProp } from '@react-navigation/native';
 
 import { color } from 'src/theme';
 import { RootTabParamList } from 'src/layout/interfaces';
-import Board from 'src/containers/Board';
+import Board from 'src/modules/Board/containers/Board';
 
 type Props = {
   navigation: StackNavigationProp<RootTabParamList, 'Home'>;
@@ -26,6 +26,6 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: color.green,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
 });

@@ -9,11 +9,6 @@ export const selectBoard = createSelector(
   boardState => boardState.board,
 );
 
-export const selectCurrentPlayer = createSelector(
-  selectBoardState,
-  boardState => boardState.currentPlayer,
-);
-
 export const selectWordsHistory = createSelector(
   selectBoardState,
   boardState => boardState.wordsHistory,

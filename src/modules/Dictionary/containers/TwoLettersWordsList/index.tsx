@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-import { twoLettersWords } from 'src/config/dictionary';
+import { twoLettersWords } from 'src/modules/Dictionary/config';
 
 import { styles } from './styles';
 

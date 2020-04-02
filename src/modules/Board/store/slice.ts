@@ -1,18 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { emptyBoard } from 'src/config/board';
-import {
-  IBoard,
-  INewWord,
-  IPlayedWord,
-  IPlayerNumber,
-  Letter,
-  WordDirection,
-} from 'src/interfaces';
+import { emptyBoard } from 'src/modules/Board/config';
+import { IPlayerId } from 'src/modules/Players/interfaces';
+import { Letter } from 'src/modules/Dictionary/interfaces';
+
+import { IBoard, INewWord, IPlayedWord, WordDirection } from '../interfaces';
 
 type IBoardState = {
   board: IBoard;
-  currentPlayer: IPlayerNumber;
   newWord: INewWord;
   wordsHistory: IPlayedWord[];
 };
@@ -22,11 +17,11 @@ const initialNewWord: INewWord = {
   y: 0,
   direction: 'horizontal',
   word: '',
+  length: 0,
 };
 
 const initialState: IBoardState = {
   board: emptyBoard,
-  currentPlayer: 0,
   newWord: initialNewWord,
   wordsHistory: [],
 };
@@ -35,15 +30,13 @@ type InsertWordStartedPayload = {
   x: number;
   y: number;
   direction: WordDirection;
+  length: number;
 };
 
 const board = createSlice({
   name: 'board',
   initialState,
   reducers: {
-    changeCurrentPlayer(state, action: PayloadAction<IPlayerNumber>) {
-      state.currentPlayer = action.payload;
-    },
     insertWordStarted(state, action: PayloadAction<InsertWordStartedPayload>) {
       state.newWord = {
         ...action.payload,
@@ -60,10 +53,10 @@ const board = createSlice({
       state.board[y][x] = action.payload;
       state.newWord.word += action.payload;
     },
-    insertWordFinished(state) {
+    insertWordFinished(state, action: PayloadAction<IPlayerId>) {
       state.wordsHistory.push({
-        ...state.newWord!,
-        player: state.currentPlayer,
+        ...state.newWord,
+        player: action.payload,
       });
       state.newWord = initialNewWord;
     },
@@ -71,7 +64,6 @@ const board = createSlice({
 });
 
 export const {
-  changeCurrentPlayer,
   insertWordStarted,
   insertWordLetter,
   insertWordFinished,

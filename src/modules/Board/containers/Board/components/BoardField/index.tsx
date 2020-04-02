@@ -2,12 +2,12 @@ import React from 'react';
 import { View, GestureResponderEvent } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import { FieldBonus } from 'src/interfaces';
-import { boardFieldsColors } from 'src/config/board';
-import Tile from 'src/components/Tile';
+import { boardFieldsColors } from 'src/modules/Board/config';
+import { FieldBonus } from 'src/modules/Board/interfaces';
+import { selectBoard } from 'src/modules/Board/store/slice';
+import Tile from 'src/modules/Tiles/components/Tile';
 
 import { styles as stylesFun } from './styles';
-import { selectBoard } from '../../store/slice';
 
 type Props = {
   x: number;

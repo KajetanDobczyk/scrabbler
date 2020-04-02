@@ -7,20 +7,20 @@ import {
 import { TextInput } from 'react-native-gesture-handler';
 import { useDispatch } from 'react-redux';
 
-import { boardFields } from 'src/config/board';
-import { Letter } from 'src/interfaces';
-import { alphabet } from 'src/config/tiles';
+import { boardFields } from 'src/modules/Board/config';
+import { alphabet } from 'src/modules/Tiles/config';
+import { Letter } from 'src/modules/Dictionary/interfaces';
 
 import BoardField from './components/BoardField';
 import { styles } from './styles';
-import { insertWordLetter, insertWordStarted } from './store/slice';
+import { insertWordLetter, insertWordStarted } from '../../store/slice';
 
 const Board = () => {
   const textInputRef = useRef<any>(null); // TODO: Fix type
   const dispatch = useDispatch();
 
   const initWordInput = (x: number, y: number) => () => {
-    dispatch(insertWordStarted({ x, y, direction: 'horizontal' }));
+    dispatch(insertWordStarted({ x, y, direction: 'horizontal', length: 5 }));
     textInputRef.current.focus();
   };
 
