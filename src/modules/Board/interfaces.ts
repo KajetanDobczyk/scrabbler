@@ -1,10 +1,14 @@
+import { IPlayerId } from 'src/modules/Players/interfaces';
 import { Letter } from 'src/modules/Dictionary/interfaces';
-
-import { IPlayerId } from '../Players/interfaces';
 
 export type FieldBonus = 'dl' | 'tl' | 'dw' | 'tw' | 0;
 
-export type IBoardLetters = Array<Letter | ' '>[];
+export type IBoardField = {
+  letter: Letter | '';
+  bonus: FieldBonus;
+};
+
+export type IBoardFields = IBoardField[][];
 
 export type WordDirection = 'horizontal' | 'vertical';
 

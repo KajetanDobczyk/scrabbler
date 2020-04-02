@@ -7,16 +7,16 @@ import {
   LayoutChangeEvent,
 } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { boardFields } from 'src/modules/Board/config';
 import {
   boardLoaded,
   insertWordLetter,
   insertWordPrepared,
   insertWordStarted,
+  selectBoardFields,
 } from 'src/modules/Board/store/slice';
-import { alphabet } from 'src/modules/Tiles/config';
+import { alphabet } from 'src/modules/Tiles/data';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 
 import BoardField from './components/BoardField';
@@ -25,6 +25,7 @@ import { styles } from './styles';
 const Board = () => {
   const textInputRef = useRef<any>(null); // TODO: Fix type
   const dispatch = useDispatch();
+  const boardFields = useSelector(selectBoardFields);
 
   const handleOnLayout = (event: LayoutChangeEvent) => {
     const { x, y, width, height } = event.nativeEvent.layout;
@@ -65,7 +66,7 @@ const Board = () => {
         {boardFields.map((row, y) => (
           <View key={y} style={styles.row}>
             {row.map((field, x) => (
-              <BoardField key={x} x={x} y={y} bonus={field} />
+              <BoardField key={x} x={x} y={y} field={field} />
             ))}
           </View>
         ))}
