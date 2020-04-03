@@ -1,5 +1,6 @@
 import React from 'react';
 import { Animated, View } from 'react-native';
+import Modal from 'react-native-modal';
 
 import Tile from 'src/modules/Tiles/components/Tile';
 import { Letter } from 'src/modules/Dictionary/interfaces';
@@ -8,7 +9,7 @@ import { boardPadding } from 'src/modules/Board/containers/Board/styles';
 import { styles } from './styles';
 
 type Props = {
-  letter: Letter;
+  letter: Letter | null;
   measurements: {
     x: number;
     y: number;
@@ -30,11 +31,22 @@ const DraggedTile: React.FC<Props> = ({
   };
 
   return (
-    <Animated.View style={wrapperStyle}>
-      <View style={styles.tileWrapper}>
-        <Tile letter={letter} />
-      </View>
-    </Animated.View>
+    <Modal
+      isVisible={!!letter}
+      animationIn="fadeIn"
+      animationOut="fadeOut"
+      hasBackdrop={false}
+    >
+      {letter ? (
+        <Animated.View style={wrapperStyle}>
+          <View style={styles.tileWrapper}>
+            <Tile letter={letter} />
+          </View>
+        </Animated.View>
+      ) : (
+        <View />
+      )}
+    </Modal>
   );
 };
 

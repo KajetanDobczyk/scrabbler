@@ -1,31 +1,30 @@
-import { StyleSheet } from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 import { color } from 'src/theme';
 
 export const boardPadding = 20;
 
-export const styles = StyleSheet.create({
+export const styles = EStyleSheet.create({
   container: {
     padding: boardPadding,
   },
-  board: {
-    position: 'relative',
-    width: '100%',
-    aspectRatio: 1,
-    zIndex: 0,
-    backgroundColor: color.green,
-  },
-  row: {
-    flexGrow: 1,
-    flexDirection: 'row',
-    alignItems: 'stretch',
+  list: {
+    marginTop: boardPadding,
   },
   tileWrapper: {
-    width: 20,
-    height: 20,
+    position: 'relative',
+    aspectRatio: 1,
+    width: 40,
     marginRight: 5,
   },
-  textInput: {
-    opacity: 0,
+  'tileWrapper:last-child': {
+    marginRight: 0,
+  },
+  amount: {
+    position: 'absolute',
+    bottom: -22,
+    width: '100%',
+    textAlign: 'center',
+    color: color.lightGreen,
   },
 });
