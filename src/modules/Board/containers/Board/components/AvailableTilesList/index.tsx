@@ -5,7 +5,7 @@ import {
   LongPressGestureHandlerGestureEvent,
   State,
 } from 'react-native-gesture-handler';
-import { View, Animated } from 'react-native';
+import { View, Animated, Platform } from 'react-native';
 import { useSelector } from 'react-redux';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Modal from 'react-native-modal';
@@ -17,6 +17,11 @@ import { Letter } from 'src/modules/Dictionary/interfaces';
 import { styles } from './styles';
 import DraggedTile from './components/DraggedTile';
 
+const MEASURE_TIMEOUT = Platform.select({
+  android: 300,
+  ios: 100,
+});
+
 const AvailableTilesList = () => {
   const tilesAmount = useSelector(selectTilesAmount);
   const [draggedTile, setDraggedTile] = useState<Letter | null>(null);
@@ -26,6 +31,13 @@ const AvailableTilesList = () => {
   let translate = new Animated.ValueXY({ x: 0, y: 0 });
   let x0 = 0;
   let y0 = 0;
+
+  let tilesRefs: Record<string, View | null> = {};
+  let tilesMeasurements: Record<
+    string,
+    { x: number; y: number; width: number; height: number }
+  > = {};
+  let measureTimeouts: Record<string, number> = {};
 
   const onDragStart = (event: LongPressGestureHandlerGestureEvent) => {
     const { x, y } = event.nativeEvent;
@@ -56,6 +68,42 @@ const AvailableTilesList = () => {
     }
   };
 
+  const measureAllTiles = () => {
+    const itemKeys = Object.keys(tilesRefs);
+    itemKeys.forEach(measureTile);
+  };
+
+  const measureTile = (letter: string) => {
+    // setTimeout is required, otherwise all measurements will be 0
+    if (measureTimeouts[letter]) {
+      clearTimeout(measureTimeouts[letter]);
+    }
+
+    measureTimeouts[letter] = setTimeout(() => {
+      const element = tilesRefs[letter];
+
+      if (!element || draggedTile) {
+        return;
+      }
+
+      element.measureInWindow(_onItemMeasured(letter));
+    }, MEASURE_TIMEOUT);
+  };
+
+  const _onItemMeasured = (letter: string) => (
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+  ) => {
+    tilesMeasurements[letter] = { x, y, width, height };
+  };
+
+  const setListItemRef = (letter: string) => (ref: View | null) => {
+    tilesRefs[letter] = ref;
+    measureTile(letter);
+  };
+
   return (
     <View style={styles.container}>
       <LongPressGestureHandler
@@ -69,6 +117,7 @@ const AvailableTilesList = () => {
             index,
           }))}
           horizontal
+          onMomentumScrollEnd={measureAllTiles}
           renderItem={({ item }) => (
             <View
               style={EStyleSheet.child(
@@ -77,6 +126,7 @@ const AvailableTilesList = () => {
                 item.index,
                 letters.length,
               )}
+              ref={setListItemRef(item.key)}
             >
               <Tile letter={item.key as Letter} />
             </View>
