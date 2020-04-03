@@ -41,11 +41,11 @@ const Navigation = () => (
         inactiveTintColor: color.white,
       }}
     >
-      <Tab.Screen name="Home" component={Home} options={{ title: 'Home' }} />
+      <Tab.Screen name="Home" component={Home} options={{ title: 'Plansza' }} />
       <Tab.Screen
         name="Dictionary"
         component={Dictionary}
-        options={{ title: 'Dictionary' }}
+        options={{ title: 'Dwuliterówki' }}
       />
     </Tab.Navigator>
   </NavigationContainer>

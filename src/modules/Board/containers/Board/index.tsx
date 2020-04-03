@@ -1,21 +1,17 @@
 import React, { useState } from 'react';
-import { View, Animated, Platform, Text } from 'react-native';
+import { View, Animated, Platform } from 'react-native';
 import {
-  FlatList,
   LongPressGestureHandler,
   LongPressGestureHandlerGestureEvent,
   State,
 } from 'react-native-gesture-handler';
-import { useSelector } from 'react-redux';
-import EStyleSheet from 'react-native-extended-stylesheet';
 import isEmpty from 'lodash/isEmpty';
 
-import Tile from 'src/modules/Tiles/components/Tile';
-import { selectTilesAmount } from 'src/modules/Board/store/slice';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 
 import DraggedTile from './components/DraggedTile';
 import GameBoard from './components/GameBoard';
+import TilesList from './components/TilesList';
 import { boardPadding, styles } from './styles';
 
 const MEASURE_TIMEOUT = Platform.select({
@@ -33,10 +29,7 @@ let tilesMeasurements: Record<
 let measureTimeouts: Record<string, number> = {};
 
 const Board = () => {
-  const tilesAmount = useSelector(selectTilesAmount);
   const [draggedTile, setDraggedTile] = useState<Letter | null>(null);
-
-  const letters = Object.keys(tilesAmount);
 
   let translate = new Animated.ValueXY({ x: 0, y: 0 });
 
@@ -118,36 +111,16 @@ const Board = () => {
 
   return (
     <LongPressGestureHandler
-      minDurationMs={200}
+      minDurationMs={500}
       maxDist={Number.MAX_SAFE_INTEGER}
       onGestureEvent={onGestureEvent}
       onHandlerStateChange={onHandlerStateChange}
     >
       <View style={styles.container}>
         <GameBoard />
-        <FlatList
-          style={styles.list}
-          data={letters.map((letter, index) => ({
-            key: letter,
-            amount: tilesAmount[letter as Letter],
-            index,
-          }))}
-          horizontal
+        <TilesList
           onMomentumScrollEnd={measureAllTiles}
-          renderItem={({ item }) => (
-            <View
-              style={EStyleSheet.child(
-                styles,
-                'tileWrapper',
-                item.index,
-                letters.length,
-              )}
-              ref={setTileRef(item.key)}
-            >
-              <Tile letter={item.key as Letter} />
-              <Text style={styles.amount}>{item.amount}</Text>
-            </View>
-          )}
+          onSetTileRef={setTileRef}
         />
         <DraggedTile
           letter={draggedTile}
