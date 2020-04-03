@@ -24,6 +24,7 @@ import { selectCurrentPlayerId } from 'src/modules/Players/store/slice';
 
 import BoardField from './components/BoardField';
 import { styles } from './styles';
+import AvailableTilesList from './components/AvailableTilesList';
 
 const Board = () => {
   const textInputRef = useRef<any>(null); // TODO: Fix type
@@ -91,6 +92,9 @@ const Board = () => {
           </View>
         ))}
       </View>
+
+      <AvailableTilesList />
+
       <TextInput
         style={styles.textInput}
         ref={textInputRef}

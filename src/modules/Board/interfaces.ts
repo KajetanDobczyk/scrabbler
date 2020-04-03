@@ -6,6 +6,7 @@ export type FieldBonus = 'dl' | 'tl' | 'dw' | 'tw' | 0;
 export interface IBoardField {
   letter: Letter | '';
   bonus: FieldBonus;
+  highlight: boolean;
 }
 
 export interface IBoardLayout {
@@ -33,3 +34,5 @@ export interface INewWord extends IWord {
 export interface IPlayedWord extends IWord {
   playerId: IPlayerId;
 }
+
+export type ITilesAmount = Record<Letter, number>;

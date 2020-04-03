@@ -10,11 +10,15 @@ type Props = {
   letter: Letter;
 };
 
-const Tile: React.FC<Props> = ({ letter }) => (
-  <View style={styles.container}>
-    <Text style={styles.letter}>{letter}</Text>
-    <Text style={styles.points}>{tilesPoints[letter]}</Text>
-  </View>
-);
+const Tile: React.FC<Props> = ({ letter }) => {
+  const points = tilesPoints[letter];
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.letter}>{letter !== '?' ? letter : ''}</Text>
+      {points ? <Text style={styles.points}>{tilesPoints[letter]}</Text> : null}
+    </View>
+  );
+};
 
 export default Tile;

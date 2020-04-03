@@ -4,6 +4,7 @@ import { color, font } from 'src/theme';
 
 export const styles = StyleSheet.create({
   container: {
+    aspectRatio: 1,
     position: 'relative',
     backgroundColor: color.cream,
     borderRadius: 2,

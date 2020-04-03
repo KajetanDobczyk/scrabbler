@@ -14,6 +14,11 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'stretch',
   },
+  tileWrapper: {
+    width: 20,
+    height: 20,
+    marginRight: 5,
+  },
   textInput: {
     opacity: 0,
   },

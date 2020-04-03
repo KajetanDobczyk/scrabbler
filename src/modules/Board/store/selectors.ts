@@ -6,20 +6,25 @@ export const selectBoardState = (state: RootState) => state.board;
 
 export const selectBoardFields = createSelector(
   selectBoardState,
-  boardState => boardState.boardFields,
+  (boardState) => boardState.boardFields,
+);
+
+export const selectTilesAmount = createSelector(
+  selectBoardState,
+  (boardState) => boardState.tilesAmount,
 );
 
 export const selectBoardLayout = createSelector(
   selectBoardState,
-  boardState => boardState.layout,
+  (boardState) => boardState.layout,
 );
 
 export const selectNewWord = createSelector(
   selectBoardState,
-  boardState => boardState.newWord,
+  (boardState) => boardState.newWord,
 );
 
 export const selectWordsHistory = createSelector(
   selectBoardState,
-  boardState => boardState.wordsHistory,
+  (boardState) => boardState.wordsHistory,
 );
