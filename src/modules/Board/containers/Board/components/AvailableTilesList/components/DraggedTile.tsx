@@ -2,13 +2,15 @@ import React from 'react';
 import { Animated, StyleSheet, View } from 'react-native';
 
 import Tile from 'src/modules/Tiles/components/Tile';
+import { Letter } from 'src/modules/Dictionary/interfaces';
 
 type Props = {
+  letter: Letter;
   translate: Animated.ValueXY;
 };
 
-const DraggedTile: React.FC<Props> = ({ translate }) => {
-  const style = {
+const DraggedTile: React.FC<Props> = ({ letter, translate }) => {
+  const wrapperStyle = {
     position: 'absolute',
     left: 0,
     top: 0,
@@ -16,9 +18,9 @@ const DraggedTile: React.FC<Props> = ({ translate }) => {
   };
 
   return (
-    <Animated.View style={style}>
+    <Animated.View style={wrapperStyle}>
       <View style={styles.tileWrapper}>
-        <Tile letter={'i'} />
+        <Tile letter={letter} />
       </View>
     </Animated.View>
   );

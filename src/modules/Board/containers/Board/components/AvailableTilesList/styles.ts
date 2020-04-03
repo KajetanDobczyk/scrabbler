@@ -1,5 +1,7 @@
 import EStyleSheet from 'react-native-extended-stylesheet';
 
+export const tileMargin = 5;
+
 export const styles = EStyleSheet.create({
   container: {
     position: 'relative',
@@ -8,7 +10,7 @@ export const styles = EStyleSheet.create({
   tileWrapper: {
     aspectRatio: 1,
     width: 40,
-    marginRight: 5,
+    marginRight: tileMargin,
   },
   'tileWrapper:last-child': {
     marginRight: 0,

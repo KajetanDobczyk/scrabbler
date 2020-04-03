@@ -2,8 +2,12 @@ import { StyleSheet } from 'react-native';
 
 import { color } from 'src/theme';
 
+export const boardPadding = 20;
+
 export const styles = StyleSheet.create({
-  container: {},
+  container: {
+    padding: boardPadding,
+  },
   board: {
     width: '100%',
     aspectRatio: 1,

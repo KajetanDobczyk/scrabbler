@@ -13,6 +13,7 @@ import Modal from 'react-native-modal';
 import Tile from 'src/modules/Tiles/components/Tile';
 import { selectTilesAmount } from 'src/modules/Board/store/slice';
 import { Letter } from 'src/modules/Dictionary/interfaces';
+import { boardPadding } from 'src/modules/Board/containers/Board/styles';
 
 import { styles } from './styles';
 import DraggedTile from './components/DraggedTile';
@@ -21,6 +22,12 @@ const MEASURE_TIMEOUT = Platform.select({
   android: 300,
   ios: 100,
 });
+
+let tilesMeasurements: Record<
+  string,
+  { x: number; y: number; size: number }
+> = {};
+let measureTimeouts: Record<string, number> = {};
 
 const AvailableTilesList = () => {
   const tilesAmount = useSelector(selectTilesAmount);
@@ -32,17 +39,24 @@ const AvailableTilesList = () => {
   let x0 = 0;
   let y0 = 0;
 
-  let tilesRefs: Record<string, View | null> = {};
-  let tilesMeasurements: Record<
-    string,
-    { x: number; y: number; width: number; height: number }
-  > = {};
-  let measureTimeouts: Record<string, number> = {};
+  const tilesRefs: Record<string, View | null> = {};
+
+  const findTouchedTile = (touchX: number) =>
+    Object.keys(tilesRefs).find((letter) => {
+      const { x, size } = tilesMeasurements[letter];
+
+      return touchX + boardPadding - x >= 0 && touchX + boardPadding - x < size;
+    });
 
   const onDragStart = (event: LongPressGestureHandlerGestureEvent) => {
     const { x, y } = event.nativeEvent;
+    const tile = findTouchedTile(x);
 
-    setDraggedTile('i');
+    if (tile && tile !== draggedTile) {
+      x0 = x;
+      y0 = y;
+      setDraggedTile(tile as Letter);
+    }
   };
 
   const onDragEnd = () => {
@@ -86,20 +100,13 @@ const AvailableTilesList = () => {
         return;
       }
 
-      element.measureInWindow(_onItemMeasured(letter));
+      element.measureInWindow((x: number, y: number, width: number) => {
+        tilesMeasurements[letter] = { x, y, size: width };
+      });
     }, MEASURE_TIMEOUT);
   };
 
-  const _onItemMeasured = (letter: string) => (
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-  ) => {
-    tilesMeasurements[letter] = { x, y, width, height };
-  };
-
-  const setListItemRef = (letter: string) => (ref: View | null) => {
+  const setTileRef = (letter: string) => (ref: View | null) => {
     tilesRefs[letter] = ref;
     measureTile(letter);
   };
@@ -126,7 +133,7 @@ const AvailableTilesList = () => {
                 item.index,
                 letters.length,
               )}
-              ref={setListItemRef(item.key)}
+              ref={setTileRef(item.key)}
             >
               <Tile letter={item.key as Letter} />
             </View>
@@ -138,9 +145,12 @@ const AvailableTilesList = () => {
         animationIn="fadeIn"
         animationOut="fadeOut"
         hasBackdrop={false}
-        style={styles.modal}
       >
-        {draggedTile ? <DraggedTile translate={translate} /> : <View />}
+        {draggedTile ? (
+          <DraggedTile letter={draggedTile} translate={translate} />
+        ) : (
+          <View />
+        )}
       </Modal>
     </View>
   );
