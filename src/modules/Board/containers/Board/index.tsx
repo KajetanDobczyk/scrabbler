@@ -92,9 +92,7 @@ const Board = () => {
           </View>
         ))}
       </View>
-
       <AvailableTilesList />
-
       <TextInput
         style={styles.textInput}
         ref={textInputRef}

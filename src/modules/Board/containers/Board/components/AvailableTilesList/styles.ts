@@ -1,9 +1,8 @@
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-import { color } from 'src/theme';
-
 export const styles = EStyleSheet.create({
   container: {
+    position: 'relative',
     marginTop: 20,
   },
   tileWrapper: {
