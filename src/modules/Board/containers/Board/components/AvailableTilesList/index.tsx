@@ -5,7 +5,7 @@ import {
   LongPressGestureHandlerGestureEvent,
   State,
 } from 'react-native-gesture-handler';
-import { View, Animated, Platform } from 'react-native';
+import { View, Animated, Platform, Text } from 'react-native';
 import { useSelector } from 'react-redux';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Modal from 'react-native-modal';
@@ -136,6 +136,7 @@ const AvailableTilesList = () => {
               ref={setTileRef(item.key)}
             >
               <Tile letter={item.key as Letter} />
+              <Text style={styles.amount}>{item.amount}</Text>
             </View>
           )}
         />
