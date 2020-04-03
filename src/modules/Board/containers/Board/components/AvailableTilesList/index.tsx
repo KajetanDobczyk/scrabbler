@@ -23,6 +23,9 @@ const MEASURE_TIMEOUT = Platform.select({
   ios: 100,
 });
 
+let x0 = 0;
+let y0 = 0;
+
 let tilesMeasurements: Record<
   string,
   { x: number; y: number; size: number }
@@ -36,8 +39,6 @@ const AvailableTilesList = () => {
   const letters = Object.keys(tilesAmount);
 
   let translate = new Animated.ValueXY({ x: 0, y: 0 });
-  let x0 = 0;
-  let y0 = 0;
 
   const tilesRefs: Record<string, View | null> = {};
 
@@ -76,8 +77,7 @@ const AvailableTilesList = () => {
 
     if (state === State.ACTIVE) {
       onDragStart(event);
-    }
-    if (state === State.END || state === State.CANCELLED) {
+    } else if (state === State.END || state === State.CANCELLED) {
       onDragEnd();
     }
   };
@@ -114,6 +114,7 @@ const AvailableTilesList = () => {
   return (
     <View style={styles.container}>
       <LongPressGestureHandler
+        maxDist={Number.MAX_SAFE_INTEGER}
         onGestureEvent={onGestureEvent}
         onHandlerStateChange={onHandlerStateChange}
       >
@@ -148,7 +149,11 @@ const AvailableTilesList = () => {
         hasBackdrop={false}
       >
         {draggedTile ? (
-          <DraggedTile letter={draggedTile} translate={translate} />
+          <DraggedTile
+            letter={draggedTile}
+            measurements={tilesMeasurements[draggedTile]}
+            translate={translate}
+          />
         ) : (
           <View />
         )}

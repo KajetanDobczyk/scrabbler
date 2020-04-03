@@ -9,8 +9,10 @@ export const styles = StyleSheet.create({
     padding: boardPadding,
   },
   board: {
+    position: 'relative',
     width: '100%',
     aspectRatio: 1,
+    zIndex: 0,
     backgroundColor: color.green,
   },
   row: {

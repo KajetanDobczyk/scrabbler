@@ -1,19 +1,31 @@
 import React from 'react';
-import { Animated, StyleSheet, View } from 'react-native';
+import { Animated, View } from 'react-native';
 
 import Tile from 'src/modules/Tiles/components/Tile';
 import { Letter } from 'src/modules/Dictionary/interfaces';
+import { boardPadding } from 'src/modules/Board/containers/Board/styles';
+
+import { styles } from './styles';
 
 type Props = {
   letter: Letter;
+  measurements: {
+    x: number;
+    y: number;
+    size: number;
+  };
   translate: Animated.ValueXY;
 };
 
-const DraggedTile: React.FC<Props> = ({ letter, translate }) => {
+const DraggedTile: React.FC<Props> = ({
+  letter,
+  measurements: { x, y },
+  translate,
+}) => {
   const wrapperStyle = {
     position: 'absolute',
-    left: 0,
-    top: 0,
+    left: x - boardPadding,
+    top: y - boardPadding,
     transform: translate.getTranslateTransform(),
   };
 
@@ -27,10 +39,3 @@ const DraggedTile: React.FC<Props> = ({ letter, translate }) => {
 };
 
 export default DraggedTile;
-
-const styles = StyleSheet.create({
-  tileWrapper: {
-    aspectRatio: 1,
-    width: 20,
-  },
-});

@@ -7,6 +7,7 @@ export const styles = EStyleSheet.create({
   container: {
     position: 'relative',
     marginTop: 20,
+    zIndex: 1,
   },
   tileWrapper: {
     position: 'relative',
