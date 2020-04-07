@@ -14,7 +14,11 @@ import DraggedTile from './components/DraggedTile';
 import GameBoard from './components/GameBoard';
 import TilesList from './components/TilesList';
 import { boardPadding, styles } from './styles';
-import { higlightBoardField, cleanBoardHighlights } from '../../store/slice';
+import {
+  higlightBoardField,
+  cleanBoardHighlights,
+  placeTile,
+} from '../../store/slice';
 
 const MEASURE_TIMEOUT = Platform.select({
   android: 300,
@@ -61,9 +65,14 @@ const Board = () => {
     }
   };
 
-  const onDragEnd = () => {
+  const onDragEnd = (x: number, y: number, state: State) => {
     x0 = 0;
     y0 = 0;
+
+    if (state === State.END && draggedTile) {
+      dispatch(placeTile({ x, y, letter: draggedTile }));
+    }
+
     setDraggedTile(null);
     dispatch(cleanBoardHighlights());
   };
@@ -77,12 +86,12 @@ const Board = () => {
   };
 
   const onHandlerStateChange = (event: LongPressGestureHandlerGestureEvent) => {
-    const { state } = event.nativeEvent;
+    const { x, y, state } = event.nativeEvent;
 
     if (state === State.ACTIVE) {
       onDragStart(event);
     } else if (state === State.END || state === State.CANCELLED) {
-      onDragEnd();
+      onDragEnd(x, y, state);
     }
   };
 
@@ -117,7 +126,7 @@ const Board = () => {
 
   return (
     <LongPressGestureHandler
-      minDurationMs={500}
+      minDurationMs={200}
       maxDist={Number.MAX_SAFE_INTEGER}
       onGestureEvent={onGestureEvent}
       onHandlerStateChange={onHandlerStateChange}

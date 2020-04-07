@@ -1,3 +1,5 @@
+import { Letter } from 'src/modules/Dictionary/interfaces';
+
 import {
   INewWord,
   IBoardFields,
@@ -18,4 +20,10 @@ export type HighlightBoardFieldPayload = {
   x: number;
   y: number;
   highlight: boolean;
+};
+
+export type PlaceTilePayload = {
+  x: number;
+  y: number;
+  letter: Letter;
 };

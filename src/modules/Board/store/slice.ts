@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Dimensions } from 'react-native';
 
 import { initialState } from './data';
-import { HighlightBoardFieldPayload } from './interfaces';
+import { HighlightBoardFieldPayload, PlaceTilePayload } from './interfaces';
 import { rowFieldsAmount } from '../data';
 import { boardPadding } from '../containers/Board/styles';
 import { IBoardFields } from '../interfaces';
@@ -64,6 +64,17 @@ const board = createSlice({
     cleanBoardHighlights(state) {
       state.boardFields = _cleanBoardHighlights(state.boardFields);
     },
+    placeTile(state, action: PayloadAction<PlaceTilePayload>) {
+      const { x, y, letter } = action.payload;
+      const { layout } = state;
+
+      const tileX = Math.floor((x - layout.x) / layout.tileSize);
+      const tileY = Math.floor((y - layout.y) / layout.tileSize);
+
+      if (tileX <= rowFieldsAmount - 1 && tileY <= rowFieldsAmount - 1) {
+        state.boardFields[tileY][tileX].letter = letter;
+      }
+    },
   },
 });
 
@@ -71,6 +82,7 @@ export const {
   initBoardLayout,
   higlightBoardField,
   cleanBoardHighlights,
+  placeTile,
 } = board.actions;
 
 export * from './selectors';
