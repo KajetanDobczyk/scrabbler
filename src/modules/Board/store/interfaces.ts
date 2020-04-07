@@ -1,6 +1,3 @@
-import { Letter } from 'src/modules/Dictionary/interfaces';
-import { IPlayerId } from 'src/modules/Players/interfaces';
-
 import {
   INewWord,
   IBoardFields,
@@ -17,18 +14,7 @@ export type IBoardState = {
   wordsHistory: IPlayedWord[];
 };
 
-export type BoardLoadedPayload = {
+export type HighlightBoardFieldPayload = {
   x: number;
   y: number;
-  size: number;
-};
-
-export type InsertWordPayload = {
-  x: number;
-  y: number;
-};
-
-export type InsertWordLetterPayload = {
-  letter: Letter;
-  playerId: IPlayerId;
 };

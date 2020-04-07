@@ -4,9 +4,11 @@ import { Letter } from 'src/modules/Dictionary/interfaces';
 export type FieldBonus = 'dl' | 'tl' | 'dw' | 'tw' | 0;
 
 export interface IBoardField {
+  x: number;
+  y: number;
   letter: Letter | '';
   bonus: FieldBonus;
-  highlight: boolean;
+  isHighlighted: boolean;
 }
 
 export interface IBoardLayout {

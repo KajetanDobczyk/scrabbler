@@ -6,6 +6,7 @@ import {
   State,
 } from 'react-native-gesture-handler';
 import isEmpty from 'lodash/isEmpty';
+import { useDispatch } from 'react-redux';
 
 import { Letter } from 'src/modules/Dictionary/interfaces';
 
@@ -13,6 +14,7 @@ import DraggedTile from './components/DraggedTile';
 import GameBoard from './components/GameBoard';
 import TilesList from './components/TilesList';
 import { boardPadding, styles } from './styles';
+import { higlightBoardField } from '../../store/slice';
 
 const MEASURE_TIMEOUT = Platform.select({
   android: 300,
@@ -29,6 +31,7 @@ let tilesMeasurements: Record<
 let measureTimeouts: Record<string, number> = {};
 
 const Board = () => {
+  const dispatch = useDispatch();
   const [draggedTile, setDraggedTile] = useState<Letter | null>(null);
 
   let translate = new Animated.ValueXY({ x: 0, y: 0 });
@@ -68,6 +71,10 @@ const Board = () => {
     const { x, y } = event.nativeEvent;
 
     translate.setValue({ x: x - x0, y: y - y0 });
+
+    if (draggedTile) {
+      dispatch(higlightBoardField({ x, y }));
+    }
   };
 
   const onHandlerStateChange = (event: LongPressGestureHandlerGestureEvent) => {

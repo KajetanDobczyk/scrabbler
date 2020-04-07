@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { selectBoardFields } from 'src/modules/Board/store/slice';
+import {
+  selectBoardFields,
+  initBoardLayout,
+} from 'src/modules/Board/store/slice';
 
 import BoardField from './components/BoardField';
 import { styles } from './styles';
 
 const Board = () => {
+  const dispatch = useDispatch();
+
   const boardFields = useSelector(selectBoardFields);
+
+  useEffect(() => {
+    dispatch(initBoardLayout());
+  }, []);
 
   return (
     <View style={styles.container}>
