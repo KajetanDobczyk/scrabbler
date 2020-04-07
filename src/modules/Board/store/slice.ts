@@ -5,6 +5,15 @@ import { initialState } from './data';
 import { HighlightBoardFieldPayload } from './interfaces';
 import { rowFieldsAmount } from '../data';
 import { boardPadding } from '../containers/Board/styles';
+import { IBoardFields } from '../interfaces';
+
+const _cleanBoardHighlights = (boardFields: IBoardFields) =>
+  boardFields.map((row) =>
+    row.map((field) => ({
+      ...field,
+      isHighlighted: false,
+    })),
+  );
 
 const board = createSlice({
   name: 'board',
@@ -36,7 +45,7 @@ const board = createSlice({
       state,
       action: PayloadAction<HighlightBoardFieldPayload>,
     ) {
-      const { x, y } = action.payload;
+      const { x, y, highlight } = action.payload;
       const { layout } = state;
 
       const tileX = Math.floor((x - layout.x) / layout.tileSize);
@@ -44,31 +53,25 @@ const board = createSlice({
 
       // Highlight board field
       if (tileX <= rowFieldsAmount - 1 && tileY <= rowFieldsAmount - 1) {
-        state.boardFields[tileY][tileX].isHighlighted = true;
+        // Clean the board highlights if new field is being highlighted
+        if (!state.boardFields[tileY][tileX].isHighlighted) {
+          state.boardFields = _cleanBoardHighlights(state.boardFields);
+        }
 
-        // Clean highlights in fields around
-        if (tileX > 0) {
-          // Left
-          state.boardFields[tileY][tileX - 1].isHighlighted = false;
-        }
-        if (tileX < rowFieldsAmount - 1) {
-          // Right
-          state.boardFields[tileY][tileX + 1].isHighlighted = false;
-        }
-        if (tileY > 0) {
-          // Up
-          state.boardFields[tileY - 1][tileX].isHighlighted = false;
-        }
-        if (tileY < rowFieldsAmount - 1) {
-          // Down
-          state.boardFields[tileY + 1][tileX].isHighlighted = false;
-        }
+        state.boardFields[tileY][tileX].isHighlighted = highlight;
       }
+    },
+    cleanBoardHighlights(state) {
+      state.boardFields = _cleanBoardHighlights(state.boardFields);
     },
   },
 });
 
-export const { initBoardLayout, higlightBoardField } = board.actions;
+export const {
+  initBoardLayout,
+  higlightBoardField,
+  cleanBoardHighlights,
+} = board.actions;
 
 export * from './selectors';
 

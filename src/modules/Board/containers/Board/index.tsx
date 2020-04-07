@@ -14,7 +14,7 @@ import DraggedTile from './components/DraggedTile';
 import GameBoard from './components/GameBoard';
 import TilesList from './components/TilesList';
 import { boardPadding, styles } from './styles';
-import { higlightBoardField } from '../../store/slice';
+import { higlightBoardField, cleanBoardHighlights } from '../../store/slice';
 
 const MEASURE_TIMEOUT = Platform.select({
   android: 300,
@@ -65,6 +65,7 @@ const Board = () => {
     x0 = 0;
     y0 = 0;
     setDraggedTile(null);
+    dispatch(cleanBoardHighlights());
   };
 
   const onGestureEvent = (event: LongPressGestureHandlerGestureEvent) => {
@@ -72,9 +73,7 @@ const Board = () => {
 
     translate.setValue({ x: x - x0, y: y - y0 });
 
-    if (draggedTile) {
-      dispatch(higlightBoardField({ x, y }));
-    }
+    dispatch(higlightBoardField({ x, y, highlight: !!draggedTile }));
   };
 
   const onHandlerStateChange = (event: LongPressGestureHandlerGestureEvent) => {
