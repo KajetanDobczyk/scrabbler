@@ -35,20 +35,22 @@ const TilesList: React.FC<Props> = ({ onMomentumScrollEnd, onSetTileRef }) => {
       }))}
       horizontal
       onMomentumScrollEnd={onMomentumScrollEnd}
-      renderItem={({ item }) => (
-        <View
-          style={EStyleSheet.child(
-            styles,
-            'tileWrapper',
-            item.index,
-            letters.length,
-          )}
-          ref={onSetTileRef(item.key)}
-        >
-          <Tile letter={item.key as Letter} />
-          <Text style={styles.amount}>{item.amount}</Text>
-        </View>
-      )}
+      renderItem={({ item }) =>
+        item.amount ? (
+          <View
+            style={EStyleSheet.child(
+              styles,
+              'tileWrapper',
+              item.index,
+              letters.length,
+            )}
+            ref={onSetTileRef(item.key)}
+          >
+            <Tile letter={item.key as Letter} />
+            <Text style={styles.amount}>{item.amount}</Text>
+          </View>
+        ) : null
+      }
     />
   );
 };

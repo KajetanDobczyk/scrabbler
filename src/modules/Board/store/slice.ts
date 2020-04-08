@@ -71,9 +71,12 @@ const board = createSlice({
       const tileX = Math.floor((x - layout.x) / layout.tileSize);
       const tileY = Math.floor((y - layout.y) / layout.tileSize);
 
+      // Place letter in correct place
       if (tileX <= rowFieldsAmount - 1 && tileY <= rowFieldsAmount - 1) {
         state.boardFields[tileY][tileX].letter = letter;
       }
+
+      state.tilesAmount[letter]--;
     },
   },
 });
