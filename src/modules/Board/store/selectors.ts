@@ -24,16 +24,6 @@ export const selectNewWord = createSelector(
   (boardState) => boardState.newWord,
 );
 
-export const selectBoardLayout = createSelector(
-  selectBoardState,
-  boardState => boardState.layout,
-);
-
-export const selectNewWord = createSelector(
-  selectBoardState,
-  boardState => boardState.newWord,
-);
-
 export const selectWordsHistory = createSelector(
   selectBoardState,
   (boardState) => boardState.wordsHistory,
