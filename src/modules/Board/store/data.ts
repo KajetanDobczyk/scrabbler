@@ -32,15 +32,14 @@ export const getInitialBoardFields: () => IBoardFields = () =>
       bonus,
       letter: '',
       isHighlighted: false,
+      isAllowed: true,
     })),
   );
 
 export const initialNewWord: INewWord = {
   x: 0,
   y: 0,
-  direction: 'horizontal',
   word: '',
-  targetLength: 0,
 };
 
 export const initialLayout = {

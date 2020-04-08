@@ -9,6 +9,7 @@ export interface IBoardField {
   letter: Letter | '';
   bonus: FieldBonus;
   isHighlighted: boolean;
+  isAllowed: boolean;
 }
 
 export interface IBoardLayout {
@@ -29,8 +30,11 @@ export interface IWord {
   word: string;
 }
 
-export interface INewWord extends IWord {
-  targetLength: number;
+export interface INewWord {
+  x: number;
+  y: number;
+  direction?: WordDirection;
+  word: string;
 }
 
 export interface IPlayedWord extends IWord {

@@ -82,7 +82,7 @@ const Board = () => {
 
     translate.setValue({ x: x - x0, y: y - y0 });
 
-    dispatch(higlightBoardField({ x, y, highlight: !!draggedTile }));
+    dispatch(higlightBoardField({ x, y }));
   };
 
   const onHandlerStateChange = (event: LongPressGestureHandlerGestureEvent) => {

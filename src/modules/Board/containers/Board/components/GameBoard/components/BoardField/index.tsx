@@ -16,7 +16,7 @@ type Props = {
 const BoardField: React.FC<Props> = ({ field }) => {
   const styles = stylesFun({
     backgroundColor: boardFieldsColors[field.bonus],
-    opacity: field.isHighlighted ? 0.5 : 1,
+    opacity: field.isAllowed ? (field.isHighlighted ? 0.8 : 1) : 0.6,
   });
 
   return (

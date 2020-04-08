@@ -19,7 +19,6 @@ export type IBoardState = {
 export type HighlightBoardFieldPayload = {
   x: number;
   y: number;
-  highlight: boolean;
 };
 
 export type PlaceTilePayload = {

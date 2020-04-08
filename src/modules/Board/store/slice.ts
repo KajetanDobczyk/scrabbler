@@ -45,7 +45,7 @@ const board = createSlice({
       state,
       action: PayloadAction<HighlightBoardFieldPayload>,
     ) {
-      const { x, y, highlight } = action.payload;
+      const { x, y } = action.payload;
       const { layout } = state;
 
       const tileX = Math.floor((x - layout.x) / layout.tileSize);
@@ -58,7 +58,7 @@ const board = createSlice({
           state.boardFields = _cleanBoardHighlights(state.boardFields);
         }
 
-        state.boardFields[tileY][tileX].isHighlighted = highlight;
+        state.boardFields[tileY][tileX].isHighlighted = true;
       }
     },
     cleanBoardHighlights(state) {
@@ -68,15 +68,60 @@ const board = createSlice({
       const { x, y, letter } = action.payload;
       const { layout } = state;
 
+      if (state.newWord.word.length === 7) {
+        return;
+      }
+
       const tileX = Math.floor((x - layout.x) / layout.tileSize);
       const tileY = Math.floor((y - layout.y) / layout.tileSize);
+      const boardField = state.boardFields[tileY][tileX];
+
+      if (!boardField.isAllowed || boardField.letter !== '') {
+        return;
+      }
 
       // Place letter in correct place
       if (tileX <= rowFieldsAmount - 1 && tileY <= rowFieldsAmount - 1) {
         state.boardFields[tileY][tileX].letter = letter;
       }
 
+      // Remove tile from tiles list
       state.tilesAmount[letter]--;
+
+      //Handle new word being added
+      const { newWord } = state;
+
+      if (newWord.word === '') {
+        state.newWord = {
+          x: tileX,
+          y: tileY,
+          word: letter,
+        };
+
+        //Set isAllowed to true to column and line
+        state.boardFields = state.boardFields.map((row, y) =>
+          row.map((field, x) => ({
+            ...field,
+            isAllowed: y === tileY || x === tileX,
+          })),
+        );
+      } else {
+        const direction = tileY === newWord.y ? 'horizontal' : 'vertical';
+
+        state.newWord = {
+          ...state.newWord,
+          direction,
+          word: newWord.word + letter,
+        };
+
+        //Set isAllowed to true to direction
+        state.boardFields = state.boardFields.map((row, y) =>
+          row.map((field, x) => ({
+            ...field,
+            isAllowed: direction === 'horizontal' ? y === tileY : x === tileX,
+          })),
+        );
+      }
     },
   },
 });
