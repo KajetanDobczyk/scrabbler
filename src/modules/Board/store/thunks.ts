@@ -15,12 +15,13 @@ import {
   initNewWord,
   addNewWordLetter,
   setAllowedBoardFields,
-} from './slice';
-import {
   selectBoardLayout,
   selectBoardFields,
   selectNewWord,
-} from './selectors';
+  resetAllowedBoardFields,
+  resetNewWord,
+  insertNewWord,
+} from './slice';
 
 export const initBoardLayout = (): AppThunk => async (dispatch) => {
   const screenWidth = Dimensions.get('window').width;
@@ -100,4 +101,20 @@ export const dropBoardTile = (
       dispatch(setAllowedBoardFields({ x: tileX, y: tileY }));
     });
   }
+};
+
+export const acceptNewWord = (): AppThunk => async (dispatch) => {
+  batch(() => {
+    dispatch(insertNewWord());
+    dispatch(resetAllowedBoardFields());
+    dispatch(cleanBoardHighlights());
+  });
+};
+
+export const cancelNewWord = (): AppThunk => async (dispatch) => {
+  batch(() => {
+    dispatch(resetNewWord());
+    dispatch(resetAllowedBoardFields());
+    dispatch(cleanBoardHighlights());
+  });
 };

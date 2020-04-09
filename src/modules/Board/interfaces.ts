@@ -26,7 +26,7 @@ export type WordDirection = 'horizontal' | 'vertical';
 export interface IWord {
   x: number;
   y: number;
-  direction: WordDirection;
+  direction?: WordDirection;
   word: string;
 }
 

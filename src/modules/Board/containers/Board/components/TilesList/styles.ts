@@ -7,7 +7,7 @@ import { boardPadding } from '../../styles';
 export const styles = EStyleSheet.create({
   container: {
     marginTop: boardPadding,
-    height: 40,
+    height: 60,
   },
   tileWrapper: {
     position: 'relative',

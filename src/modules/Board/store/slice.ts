@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { initialState } from './data';
+import { initialState, initialNewWord } from './data';
 import { ICoordinates, ICoordinatesWithLetter } from './interfaces';
 import { boardPadding } from '../containers/Board/styles';
 import { IBoardLayout } from '../interfaces';
@@ -63,6 +63,20 @@ const board = createSlice({
         word: newWord.word + letter,
       };
     },
+    insertNewWord(state) {
+      const { newWord } = state;
+
+      state.wordsHistory.push({
+        playerId: 0,
+        ...newWord,
+      });
+
+      state.newWord = initialNewWord;
+    },
+    resetNewWord(state) {
+      //TODO: Reset new word letters
+      state.newWord = initialNewWord;
+    },
     setAllowedBoardFields(state, action: PayloadAction<ICoordinates>) {
       const { x, y } = action.payload;
       const { direction } = state.newWord;
@@ -81,6 +95,14 @@ const board = createSlice({
             })),
           );
     },
+    resetAllowedBoardFields(state) {
+      state.boardFields = state.boardFields.map((row) =>
+        row.map((field) => ({
+          ...field,
+          isAllowed: true,
+        })),
+      );
+    },
   },
 });
 
@@ -92,7 +114,10 @@ export const {
   placeTile,
   initNewWord,
   addNewWordLetter,
+  insertNewWord,
+  resetNewWord,
   setAllowedBoardFields,
+  resetAllowedBoardFields,
 } = board.actions;
 
 export * from './selectors';

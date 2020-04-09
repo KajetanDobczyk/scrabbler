@@ -1,31 +1,40 @@
 import React from 'react';
 import { View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { selectNewWord } from 'src/modules/Board/store/slice';
+import { acceptNewWord, cancelNewWord } from 'src/modules/Board/store/thunks';
 
 import { styles } from './styles';
-import { color } from 'src/theme';
 
 type Props = {};
 
 const NewWordConfirmationButtons: React.FC<Props> = () => {
+  const dispatch = useDispatch();
+
   const newWord = useSelector(selectNewWord);
 
-  // return newWord.word ? (
-  return true ? (
+  const accept = () => {
+    dispatch(acceptNewWord());
+  };
+
+  const cancel = () => {
+    dispatch(cancelNewWord());
+  };
+
+  return newWord.word ? (
     <View style={styles.container}>
       <TouchableOpacity
         style={[styles.button, styles.cancelButton]}
-        onPress={() => console.log('cancel')}
+        onPress={cancel}
       >
         <Ionicons name="ios-close" size={20} style={styles.buttonIcon} />
       </TouchableOpacity>
       <TouchableOpacity
         style={[styles.button, styles.acceptButton]}
-        onPress={() => console.log('accept')}
+        onPress={accept}
       >
         <Ionicons name="ios-checkmark" size={20} style={styles.buttonIcon} />
       </TouchableOpacity>
