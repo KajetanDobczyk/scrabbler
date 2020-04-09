@@ -16,13 +16,11 @@ export type IBoardState = {
   wordsHistory: IPlayedWord[];
 };
 
-export type HighlightBoardFieldPayload = {
+export interface ICoordinates {
   x: number;
   y: number;
-};
+}
 
-export type PlaceTilePayload = {
-  x: number;
-  y: number;
+export interface ICoordinatesWithLetter extends ICoordinates {
   letter: Letter;
-};
+}

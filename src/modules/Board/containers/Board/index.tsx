@@ -14,8 +14,8 @@ import DraggedTile from './components/DraggedTile';
 import GameBoard from './components/GameBoard';
 import TilesList from './components/TilesList';
 import { boardPadding, styles } from './styles';
-import { cleanBoardHighlights, placeTile } from '../../store/slice';
-import { updateBoardHighlights } from '../../store/thunks';
+import { cleanBoardHighlights } from '../../store/slice';
+import { updateBoardHighlights, dropBoardTile } from '../../store/thunks';
 
 const MEASURE_TIMEOUT = Platform.select({
   android: 300,
@@ -67,7 +67,7 @@ const Board = () => {
     y0 = 0;
 
     if (state === State.END && draggedTile) {
-      dispatch(placeTile({ x, y, letter: draggedTile }));
+      dispatch(dropBoardTile(x, y, draggedTile));
     }
 
     setDraggedTile(null);

@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { initialState } from './data';
-import { HighlightBoardFieldPayload, PlaceTilePayload } from './interfaces';
-import { rowFieldsAmount } from '../data';
+import { ICoordinates, ICoordinatesWithLetter } from './interfaces';
 import { boardPadding } from '../containers/Board/styles';
 import { IBoardLayout } from '../interfaces';
 
@@ -24,10 +23,7 @@ const board = createSlice({
         })),
       );
     },
-    highlightBoardField(
-      state,
-      action: PayloadAction<HighlightBoardFieldPayload>,
-    ) {
+    highlightBoardField(state, action: PayloadAction<ICoordinates>) {
       const { x, y } = action.payload;
 
       state.boardFields[y][x].isHighlighted = true;
@@ -40,64 +36,50 @@ const board = createSlice({
         })),
       );
     },
-    placeTile(state, action: PayloadAction<PlaceTilePayload>) {
+    placeTile(state, action: PayloadAction<ICoordinatesWithLetter>) {
       const { x, y, letter } = action.payload;
-      const { layout } = state;
 
-      if (state.newWord.word.length === 7) {
-        return;
-      }
-
-      const tileX = Math.floor((x - layout.x) / layout.tileSize);
-      const tileY = Math.floor((y - layout.y) / layout.tileSize);
-      const boardField = state.boardFields[tileY][tileX];
-
-      if (!boardField.isAllowed || boardField.letter !== '') {
-        return;
-      }
-
-      // Place letter in correct place
-      if (tileX <= rowFieldsAmount - 1 && tileY <= rowFieldsAmount - 1) {
-        state.boardFields[tileY][tileX].letter = letter;
-      }
-
-      // Remove tile from tiles list
+      state.boardFields[y][x].letter = letter;
       state.tilesAmount[letter]--;
+    },
+    initNewWord(state, action: PayloadAction<ICoordinatesWithLetter>) {
+      const { x, y, letter } = action.payload;
 
-      //Handle new word being added
+      state.newWord = {
+        x,
+        y,
+        word: letter,
+      };
+    },
+    addNewWordLetter(state, action: PayloadAction<ICoordinatesWithLetter>) {
+      const { x, y, letter } = action.payload;
       const { newWord } = state;
+      const direction =
+        newWord.direction || y === newWord.y ? 'horizontal' : 'vertical';
 
-      if (newWord.word === '') {
-        state.newWord = {
-          x: tileX,
-          y: tileY,
-          word: letter,
-        };
+      state.newWord = {
+        ...newWord,
+        direction,
+        word: newWord.word + letter,
+      };
+    },
+    setAllowedBoardFields(state, action: PayloadAction<ICoordinates>) {
+      const { x, y } = action.payload;
+      const { direction } = state.newWord;
 
-        //Set isAllowed to true to column and line
-        state.boardFields = state.boardFields.map((row, y) =>
-          row.map((field, x) => ({
-            ...field,
-            isAllowed: y === tileY || x === tileX,
-          })),
-        );
-      } else {
-        const direction = tileY === newWord.y ? 'horizontal' : 'vertical';
-
-        state.newWord = {
-          ...state.newWord,
-          direction,
-          word: newWord.word + letter,
-        };
-
-        //Set isAllowed to true to direction
-        state.boardFields = state.boardFields.map((row, y) =>
-          row.map((field, x) => ({
-            ...field,
-            isAllowed: direction === 'horizontal' ? y === tileY : x === tileX,
-          })),
-        );
-      }
+      state.boardFields = direction
+        ? state.boardFields.map((row, tileY) =>
+            row.map((field, tileX) => ({
+              ...field,
+              isAllowed: direction === 'horizontal' ? y === tileY : x === tileX,
+            })),
+          )
+        : state.boardFields.map((row, tileY) =>
+            row.map((field, tileX) => ({
+              ...field,
+              isAllowed: y === tileY || x === tileX,
+            })),
+          );
     },
   },
 });
@@ -108,6 +90,9 @@ export const {
   highlightBoardField,
   cleanBoardHighlights,
   placeTile,
+  initNewWord,
+  addNewWordLetter,
+  setAllowedBoardFields,
 } = board.actions;
 
 export * from './selectors';
