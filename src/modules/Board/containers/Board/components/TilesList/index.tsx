@@ -26,32 +26,33 @@ const TilesList: React.FC<Props> = ({ onMomentumScrollEnd, onSetTileRef }) => {
   const letters = Object.keys(tilesAmount);
 
   return (
-    <FlatList
-      style={styles.container}
-      data={letters.map((letter, index) => ({
-        key: letter,
-        amount: tilesAmount[letter as Letter],
-        index,
-      }))}
-      horizontal
-      onMomentumScrollEnd={onMomentumScrollEnd}
-      renderItem={({ item }) =>
-        item.amount ? (
-          <View
-            style={EStyleSheet.child(
-              styles,
-              'tileWrapper',
-              item.index,
-              letters.length,
-            )}
-            ref={onSetTileRef(item.key)}
-          >
-            <Tile letter={item.key as Letter} />
-            <Text style={styles.amount}>{item.amount}</Text>
-          </View>
-        ) : null
-      }
-    />
+    <View style={styles.container}>
+      <FlatList
+        data={letters.map((letter, index) => ({
+          key: letter,
+          amount: tilesAmount[letter as Letter],
+          index,
+        }))}
+        horizontal
+        onMomentumScrollEnd={onMomentumScrollEnd}
+        renderItem={({ item }) =>
+          item.amount ? (
+            <View
+              style={EStyleSheet.child(
+                styles,
+                'tileWrapper',
+                item.index,
+                letters.length,
+              )}
+              ref={onSetTileRef(item.key)}
+            >
+              <Tile letter={item.key as Letter} />
+              <Text style={styles.amount}>{item.amount}</Text>
+            </View>
+          ) : null
+        }
+      />
+    </View>
   );
 };
 

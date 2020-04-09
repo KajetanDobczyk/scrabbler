@@ -16,6 +16,7 @@ import TilesList from './components/TilesList';
 import { boardPadding, styles } from './styles';
 import { cleanBoardHighlights } from '../../store/slice';
 import { updateBoardHighlights, dropBoardTile } from '../../store/thunks';
+import NewWordConfirmationButtons from './components/NewWordConfirmationButtons';
 
 const MEASURE_TIMEOUT = Platform.select({
   android: 300,
@@ -134,6 +135,7 @@ const Board = () => {
           onMomentumScrollEnd={measureAllTiles}
           onSetTileRef={setTileRef}
         />
+        <NewWordConfirmationButtons />
         <DraggedTile
           letter={draggedTile}
           measurements={

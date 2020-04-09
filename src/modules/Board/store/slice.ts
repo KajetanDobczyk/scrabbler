@@ -52,7 +52,7 @@ const board = createSlice({
       };
     },
     addNewWordLetter(state, action: PayloadAction<ICoordinatesWithLetter>) {
-      const { x, y, letter } = action.payload;
+      const { y, letter } = action.payload;
       const { newWord } = state;
       const direction =
         newWord.direction || y === newWord.y ? 'horizontal' : 'vertical';
