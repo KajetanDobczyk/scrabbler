@@ -1,11 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Dimensions } from 'react-native';
 
 import { initialState } from './data';
 import { HighlightBoardFieldPayload, PlaceTilePayload } from './interfaces';
 import { rowFieldsAmount } from '../data';
 import { boardPadding } from '../containers/Board/styles';
-import { IBoardFields } from '../interfaces';
+import { IBoardFields, IBoardLayout } from '../interfaces';
 
 const _cleanBoardHighlights = (boardFields: IBoardFields) =>
   boardFields.map((row) =>
@@ -19,20 +18,12 @@ const board = createSlice({
   name: 'board',
   initialState,
   reducers: {
-    initBoardLayout(state) {
-      const screenWidth = Dimensions.get('window').width;
-      const size = screenWidth - 2 * boardPadding;
+    setLayout(state, action: PayloadAction<IBoardLayout>) {
+      state.layout = action.payload;
+    },
+    setBoardFieldsCoordinates(state, action: PayloadAction<number>) {
+      const tileSize = action.payload;
 
-      const tileSize = Math.round((size / rowFieldsAmount) * 100) / 100;
-
-      state.layout = {
-        x: boardPadding,
-        y: boardPadding,
-        size: Math.round(size * 100) / 100,
-        tileSize,
-      };
-
-      // Save tiles coordinates
       state.boardFields = state.boardFields.map((row, fieldY) =>
         row.map((field, fieldX) => ({
           ...field,
@@ -127,12 +118,14 @@ const board = createSlice({
 });
 
 export const {
-  initBoardLayout,
+  setLayout,
+  setBoardFieldsCoordinates,
   higlightBoardField,
   cleanBoardHighlights,
   placeTile,
 } = board.actions;
 
 export * from './selectors';
+export * from './thunks';
 
 export default board.reducer;
