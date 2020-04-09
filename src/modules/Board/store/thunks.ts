@@ -5,7 +5,13 @@ import { AppThunk } from 'src/redux/store';
 
 import { boardPadding } from '../containers/Board/styles';
 import { rowFieldsAmount } from '../data';
-import { setLayout, setBoardFieldsCoordinates } from './slice';
+import {
+  setLayout,
+  setBoardFieldsCoordinates,
+  highlightBoardField,
+  cleanBoardHighlights,
+} from './slice';
+import { selectBoardLayout, selectBoardFields } from './selectors';
 
 export const initBoardLayout = (): AppThunk => async (dispatch) => {
   const screenWidth = Dimensions.get('window').width;
@@ -24,4 +30,26 @@ export const initBoardLayout = (): AppThunk => async (dispatch) => {
     );
     dispatch(setBoardFieldsCoordinates(tileSize));
   });
+};
+
+export const updateBoardHighlights = (x: number, y: number): AppThunk => async (
+  dispatch,
+  getState,
+) => {
+  const layout = selectBoardLayout(getState());
+  const boardFields = selectBoardFields(getState());
+
+  const tileX = Math.floor((x - layout.x) / layout.tileSize);
+  const tileY = Math.floor((y - layout.y) / layout.tileSize);
+
+  if (
+    tileX <= rowFieldsAmount - 1 &&
+    tileY <= rowFieldsAmount - 1 &&
+    !boardFields[tileY][tileX].isHighlighted
+  ) {
+    batch(() => {
+      dispatch(cleanBoardHighlights());
+      dispatch(highlightBoardField({ x: tileX, y: tileY }));
+    });
+  }
 };

@@ -2,10 +2,8 @@ import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
-import {
-  selectBoardFields,
-  initBoardLayout,
-} from 'src/modules/Board/store/slice';
+import { selectBoardFields } from 'src/modules/Board/store/slice';
+import { initBoardLayout } from 'src/modules/Board/store/thunks';
 
 import BoardField from './components/BoardField';
 import { styles } from './styles';
