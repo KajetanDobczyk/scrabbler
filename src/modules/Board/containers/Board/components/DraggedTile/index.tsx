@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Animated, View } from 'react-native';
 import Modal from 'react-native-modal';
 
@@ -9,20 +9,13 @@ import { boardPadding } from 'src/modules/Board/containers/Board/styles';
 import { styles } from './styles';
 
 type Props = {
+  x: number;
+  y: number;
   letter: Letter | null;
-  measurements: {
-    x: number;
-    y: number;
-    size: number;
-  };
   translate: Animated.ValueXY;
 };
 
-const DraggedTile: React.FC<Props> = ({
-  letter,
-  measurements: { x, y },
-  translate,
-}) => {
+const DraggedTile: React.FC<Props> = ({ letter, x, y, translate }) => {
   const wrapperStyle = {
     position: 'absolute',
     left: x - boardPadding,
@@ -50,4 +43,4 @@ const DraggedTile: React.FC<Props> = ({
   );
 };
 
-export default DraggedTile;
+export default memo(DraggedTile);

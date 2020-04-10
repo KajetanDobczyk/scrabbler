@@ -37,9 +37,9 @@ let measureTimeouts: Record<string, number> = {};
 
 const Board = () => {
   const dispatch = useDispatch();
-  const [draggedTile, setDraggedTile] = useState<Letter | null>(null);
+  const [draggedLetter, setDraggedLetter] = useState<Letter | null>(null);
 
-  let translate = new Animated.ValueXY({ x: 0, y: 0 });
+  const translate = new Animated.ValueXY({ x: 0, y: 0 });
 
   const tilesRefs: Record<string, View | null> = {};
 
@@ -59,10 +59,10 @@ const Board = () => {
     const { x, y } = event.nativeEvent;
     const tile = findTouchedTile(x);
 
-    if (tile && tile !== draggedTile) {
+    if (tile && tile !== draggedLetter) {
       x0 = x;
       y0 = y;
-      setDraggedTile(tile as Letter);
+      setDraggedLetter(tile as Letter);
     }
   };
 
@@ -70,12 +70,12 @@ const Board = () => {
     x0 = 0;
     y0 = 0;
 
-    if (state === State.END && draggedTile) {
-      dispatch(dropBoardTile(x, y, draggedTile));
+    if (state === State.END && draggedLetter) {
+      dispatch(dropBoardTile(x, y, draggedLetter));
     }
 
-    setDraggedTile(null);
-    dispatch(resetBoardFieldsHighlights());
+    setDraggedLetter(null);
+    // dispatch(resetBoardFieldsHighlights());
   };
 
   const onGestureEvent = (event: LongPressGestureHandlerGestureEvent) => {
@@ -83,7 +83,7 @@ const Board = () => {
 
     translate.setValue({ x: x - x0, y: y - y0 });
 
-    dispatch(updateBoardFieldsHighlights(x, y));
+    // dispatch(updateBoardFieldsHighlights(x, y));
   };
 
   const onHandlerStateChange = (event: LongPressGestureHandlerGestureEvent) => {
@@ -110,7 +110,7 @@ const Board = () => {
     measureTimeouts[letter] = setTimeout(() => {
       const element = tilesRefs[letter];
 
-      if (!element || draggedTile) {
+      if (!element || draggedLetter) {
         return;
       }
 
@@ -139,15 +139,14 @@ const Board = () => {
           onSetTileRef={setTileRef}
         />
         <NewMoveConfirmationButtons />
-        <DraggedTile
-          letter={draggedTile}
-          measurements={
-            draggedTile
-              ? tilesMeasurements[draggedTile]
-              : { x: 0, y: 0, size: 0 }
-          }
-          translate={translate}
-        />
+        {draggedLetter && (
+          <DraggedTile
+            letter={draggedLetter}
+            x={tilesMeasurements[draggedLetter].x}
+            y={tilesMeasurements[draggedLetter].y}
+            translate={translate}
+          />
+        )}
       </View>
     </LongPressGestureHandler>
   );
