@@ -8,7 +8,6 @@ export interface IBoardField {
   y: number;
   letter: Letter | '';
   bonus: FieldBonus;
-  isHighlighted: boolean;
 }
 
 export interface IBoardLayout {

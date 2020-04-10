@@ -15,11 +15,7 @@ import GameBoard from './components/GameBoard';
 import TilesList from './components/TilesList';
 import NewMoveConfirmationButtons from './components/NewMoveConfirmationButtons';
 import { boardPadding, styles } from './styles';
-import {
-  updateBoardFieldsHighlights,
-  resetBoardFieldsHighlights,
-  dropBoardTile,
-} from '../../store/slice';
+import { dropBoardTile } from '../../store/slice';
 
 const MEASURE_TIMEOUT = Platform.select({
   android: 300,
@@ -75,15 +71,12 @@ const Board = () => {
     }
 
     setDraggedLetter(null);
-    // dispatch(resetBoardFieldsHighlights());
   };
 
   const onGestureEvent = (event: LongPressGestureHandlerGestureEvent) => {
     const { x, y } = event.nativeEvent;
 
     translate.setValue({ x: x - x0, y: y - y0 });
-
-    // dispatch(updateBoardFieldsHighlights(x, y));
   };
 
   const onHandlerStateChange = (event: LongPressGestureHandlerGestureEvent) => {

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { initialState } from './data';
-import { ICoordinates, ICoordinatesWithLetter } from './interfaces';
+import { ICoordinatesWithLetter } from './interfaces';
 import { boardPadding } from '../containers/Board/styles';
 import { IBoardLayout } from '../interfaces';
 
@@ -19,19 +19,6 @@ const board = createSlice({
           ...field,
           x: boardPadding + x * tileSize,
           y: boardPadding + y * tileSize,
-        })),
-      );
-    },
-    highlightBoardField(state, action: PayloadAction<ICoordinates>) {
-      const { x, y } = action.payload;
-
-      state.boardFields[y][x].isHighlighted = true;
-    },
-    resetBoardFieldsHighlights(state) {
-      state.boardFields = state.boardFields.map((row) =>
-        row.map((field) => ({
-          ...field,
-          isHighlighted: false,
         })),
       );
     },
@@ -62,8 +49,6 @@ const board = createSlice({
 
 export const {
   initBoardLayout,
-  highlightBoardField,
-  resetBoardFieldsHighlights,
   placeTile,
   acceptNewMove,
   cancelNewMove,

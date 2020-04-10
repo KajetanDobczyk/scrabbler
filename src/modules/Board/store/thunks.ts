@@ -9,8 +9,6 @@ import { boardPadding } from '../containers/Board/styles';
 import { rowFieldsAmount } from '../data';
 import {
   initBoardLayout,
-  highlightBoardField,
-  resetBoardFieldsHighlights,
   placeTile,
   selectBoardLayout,
   selectBoardFields,
@@ -38,28 +36,6 @@ export const updateBoardLayout = (): AppThunk => async (dispatch) => {
       tileSize,
     }),
   );
-};
-
-export const updateBoardFieldsHighlights = (
-  x: number,
-  y: number,
-): AppThunk => async (dispatch, getState) => {
-  const layout = selectBoardLayout(getState());
-  const boardFields = selectBoardFields(getState());
-
-  const tileX = Math.floor((x - layout.x) / layout.tileSize);
-  const tileY = Math.floor((y - layout.y) / layout.tileSize);
-
-  if (
-    tileX <= rowFieldsAmount - 1 &&
-    tileY <= rowFieldsAmount - 1 &&
-    !boardFields[tileY][tileX].isHighlighted
-  ) {
-    batch(() => {
-      dispatch(resetBoardFieldsHighlights());
-      dispatch(highlightBoardField({ x: tileX, y: tileY }));
-    });
-  }
 };
 
 export const dropBoardTile = (

@@ -26,7 +26,6 @@ export const getInitialBoardFields: () => IBoardFields = () =>
       y: 0,
       bonus,
       letter: '',
-      isHighlighted: false,
     })),
   );
 
