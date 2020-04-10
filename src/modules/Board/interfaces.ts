@@ -9,7 +9,6 @@ export interface IBoardField {
   letter: Letter | '';
   bonus: FieldBonus;
   isHighlighted: boolean;
-  isAllowed: boolean;
 }
 
 export interface IBoardLayout {
@@ -19,25 +18,18 @@ export interface IBoardLayout {
   tileSize: number;
 }
 
+export interface IBoardTile {
+  x: number;
+  y: number;
+  letter: Letter;
+}
+
 export type IBoardFields = IBoardField[][];
 
 export type WordDirection = 'horizontal' | 'vertical';
 
-export interface IWord {
-  x: number;
-  y: number;
-  direction?: WordDirection;
-  word: string;
-}
-
-export interface INewWord {
-  x: number;
-  y: number;
-  direction?: WordDirection;
-  word: string;
-}
-
-export interface IPlayedWord extends IWord {
+export interface IPlayedMove {
+  tiles: IBoardTile[];
   playerId: IPlayerId;
 }
 

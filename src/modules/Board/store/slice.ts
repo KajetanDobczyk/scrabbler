@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { initialState, initialNewWord } from './data';
+import { initialState } from './data';
 import { ICoordinates, ICoordinatesWithLetter } from './interfaces';
 import { boardPadding } from '../containers/Board/styles';
 import { IBoardLayout } from '../interfaces';
@@ -9,11 +9,10 @@ const board = createSlice({
   name: 'board',
   initialState,
   reducers: {
-    setLayout(state, action: PayloadAction<IBoardLayout>) {
+    initBoardLayout(state, action: PayloadAction<IBoardLayout>) {
       state.layout = action.payload;
-    },
-    setBoardFieldsCoordinates(state, action: PayloadAction<number>) {
-      const tileSize = action.payload;
+
+      const { tileSize } = action.payload;
 
       state.boardFields = state.boardFields.map((row, fieldY) =>
         row.map((field, fieldX) => ({
@@ -28,7 +27,7 @@ const board = createSlice({
 
       state.boardFields[y][x].isHighlighted = true;
     },
-    cleanBoardHighlights(state) {
+    resetBoardFieldsHighlights(state) {
       state.boardFields = state.boardFields.map((row) =>
         row.map((field) => ({
           ...field,
@@ -39,87 +38,38 @@ const board = createSlice({
     placeTile(state, action: PayloadAction<ICoordinatesWithLetter>) {
       const { x, y, letter } = action.payload;
 
+      state.newMove.push(action.payload);
       state.boardFields[y][x].letter = letter;
       state.tilesAmount[letter]--;
     },
-    initNewWord(state, action: PayloadAction<ICoordinatesWithLetter>) {
-      const { x, y, letter } = action.payload;
-
-      state.newWord = {
-        x,
-        y,
-        word: letter,
-      };
-    },
-    addNewWordLetter(state, action: PayloadAction<ICoordinatesWithLetter>) {
-      const { y, letter } = action.payload;
-      const { newWord } = state;
-      const direction =
-        newWord.direction || y === newWord.y ? 'horizontal' : 'vertical';
-
-      state.newWord = {
-        ...newWord,
-        direction,
-        word: newWord.word + letter,
-      };
-    },
-    insertNewWord(state) {
-      const { newWord } = state;
-
-      state.wordsHistory.push({
+    acceptNewMove(state) {
+      state.movesHistory.push({
         playerId: 0,
-        ...newWord,
+        tiles: state.newMove,
       });
 
-      state.newWord = initialNewWord;
+      state.newMove = [];
     },
-    resetNewWord(state) {
-      //TODO: Reset new word letters
-      state.newWord = initialNewWord;
-    },
-    setAllowedBoardFields(state, action: PayloadAction<ICoordinates>) {
-      const { x, y } = action.payload;
-      const { direction } = state.newWord;
+    cancelNewMove(state) {
+      state.newMove.forEach((move) => {
+        state.boardFields[move.y][move.x].letter = '';
+      });
 
-      state.boardFields = direction
-        ? state.boardFields.map((row, tileY) =>
-            row.map((field, tileX) => ({
-              ...field,
-              isAllowed: direction === 'horizontal' ? y === tileY : x === tileX,
-            })),
-          )
-        : state.boardFields.map((row, tileY) =>
-            row.map((field, tileX) => ({
-              ...field,
-              isAllowed: y === tileY || x === tileX,
-            })),
-          );
-    },
-    resetAllowedBoardFields(state) {
-      state.boardFields = state.boardFields.map((row) =>
-        row.map((field) => ({
-          ...field,
-          isAllowed: true,
-        })),
-      );
+      state.newMove = [];
     },
   },
 });
 
 export const {
-  setLayout,
-  setBoardFieldsCoordinates,
+  initBoardLayout,
   highlightBoardField,
-  cleanBoardHighlights,
+  resetBoardFieldsHighlights,
   placeTile,
-  initNewWord,
-  addNewWordLetter,
-  insertNewWord,
-  resetNewWord,
-  setAllowedBoardFields,
-  resetAllowedBoardFields,
+  acceptNewMove,
+  cancelNewMove,
 } = board.actions;
 
+export * from './thunks';
 export * from './selectors';
 
 export default board.reducer;

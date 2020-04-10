@@ -19,12 +19,12 @@ export const selectBoardLayout = createSelector(
   (boardState) => boardState.layout,
 );
 
-export const selectNewWord = createSelector(
+export const selectNewMove = createSelector(
   selectBoardState,
-  (boardState) => boardState.newWord,
+  (boardState) => boardState.newMove,
 );
 
-export const selectWordsHistory = createSelector(
+export const selectMovesHistory = createSelector(
   selectBoardState,
-  (boardState) => boardState.wordsHistory,
+  (boardState) => boardState.movesHistory,
 );

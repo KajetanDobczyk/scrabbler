@@ -1,9 +1,4 @@
-import {
-  IBoardFields,
-  INewWord,
-  ITilesAmount,
-  FieldBonus,
-} from '../interfaces';
+import { IBoardFields, ITilesAmount, FieldBonus } from '../interfaces';
 import { IBoardState } from './interfaces';
 
 export const fieldsBonuses: FieldBonus[][] = [
@@ -32,15 +27,8 @@ export const getInitialBoardFields: () => IBoardFields = () =>
       bonus,
       letter: '',
       isHighlighted: false,
-      isAllowed: true,
     })),
   );
-
-export const initialNewWord: INewWord = {
-  x: 0,
-  y: 0,
-  word: '',
-};
 
 export const initialLayout = {
   x: 0,
@@ -89,6 +77,6 @@ export const initialState: IBoardState = {
   boardFields: getInitialBoardFields(),
   tilesAmount: initialTilesAmount,
   layout: initialLayout,
-  newWord: initialNewWord,
-  wordsHistory: [],
+  newMove: [],
+  movesHistory: [],
 };

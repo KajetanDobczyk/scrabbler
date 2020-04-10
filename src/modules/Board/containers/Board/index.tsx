@@ -13,10 +13,13 @@ import { Letter } from 'src/modules/Dictionary/interfaces';
 import DraggedTile from './components/DraggedTile';
 import GameBoard from './components/GameBoard';
 import TilesList from './components/TilesList';
+import NewMoveConfirmationButtons from './components/NewMoveConfirmationButtons';
 import { boardPadding, styles } from './styles';
-import { cleanBoardHighlights } from '../../store/slice';
-import { updateBoardHighlights, dropBoardTile } from '../../store/thunks';
-import NewWordConfirmationButtons from './components/NewWordConfirmationButtons';
+import {
+  updateBoardFieldsHighlights,
+  resetBoardFieldsHighlights,
+  dropBoardTile,
+} from '../../store/slice';
 
 const MEASURE_TIMEOUT = Platform.select({
   android: 300,
@@ -72,7 +75,7 @@ const Board = () => {
     }
 
     setDraggedTile(null);
-    dispatch(cleanBoardHighlights());
+    dispatch(resetBoardFieldsHighlights());
   };
 
   const onGestureEvent = (event: LongPressGestureHandlerGestureEvent) => {
@@ -80,7 +83,7 @@ const Board = () => {
 
     translate.setValue({ x: x - x0, y: y - y0 });
 
-    dispatch(updateBoardHighlights(x, y));
+    dispatch(updateBoardFieldsHighlights(x, y));
   };
 
   const onHandlerStateChange = (event: LongPressGestureHandlerGestureEvent) => {
@@ -124,7 +127,7 @@ const Board = () => {
 
   return (
     <LongPressGestureHandler
-      minDurationMs={200}
+      minDurationMs={100}
       maxDist={Number.MAX_SAFE_INTEGER}
       onGestureEvent={onGestureEvent}
       onHandlerStateChange={onHandlerStateChange}
@@ -135,7 +138,7 @@ const Board = () => {
           onMomentumScrollEnd={measureAllTiles}
           onSetTileRef={setTileRef}
         />
-        <NewWordConfirmationButtons />
+        <NewMoveConfirmationButtons />
         <DraggedTile
           letter={draggedTile}
           measurements={

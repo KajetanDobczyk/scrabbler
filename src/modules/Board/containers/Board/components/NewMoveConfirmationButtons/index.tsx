@@ -1,30 +1,26 @@
 import React from 'react';
 import { View } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import { selectNewWord } from 'src/modules/Board/store/slice';
-import { acceptNewWord, cancelNewWord } from 'src/modules/Board/store/thunks';
+import { acceptNewMove, cancelNewMove } from 'src/modules/Board/store/slice';
 
 import { styles } from './styles';
 
-type Props = {};
-
-const NewWordConfirmationButtons: React.FC<Props> = () => {
+const NewMoveConfirmationButtons: React.FC = () => {
   const dispatch = useDispatch();
 
-  const newWord = useSelector(selectNewWord);
-
   const accept = () => {
-    dispatch(acceptNewWord());
+    dispatch(acceptNewMove());
   };
 
   const cancel = () => {
-    dispatch(cancelNewWord());
+    dispatch(cancelNewMove());
   };
 
-  return newWord.word ? (
+  // return newMove.word ? (
+  return true ? (
     <View style={styles.container}>
       <TouchableOpacity
         style={[styles.button, styles.cancelButton]}
@@ -42,4 +38,4 @@ const NewWordConfirmationButtons: React.FC<Props> = () => {
   ) : null;
 };
 
-export default NewWordConfirmationButtons;
+export default NewMoveConfirmationButtons;

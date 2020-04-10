@@ -7,45 +7,35 @@ import { Letter } from 'src/modules/Dictionary/interfaces';
 import { boardPadding } from '../containers/Board/styles';
 import { rowFieldsAmount } from '../data';
 import {
-  setLayout,
-  setBoardFieldsCoordinates,
+  initBoardLayout,
   highlightBoardField,
-  cleanBoardHighlights,
+  resetBoardFieldsHighlights,
   placeTile,
-  initNewWord,
-  addNewWordLetter,
-  setAllowedBoardFields,
   selectBoardLayout,
   selectBoardFields,
-  selectNewWord,
-  resetAllowedBoardFields,
-  resetNewWord,
-  insertNewWord,
+  selectNewMove,
 } from './slice';
 
-export const initBoardLayout = (): AppThunk => async (dispatch) => {
+export const updateBoardLayout = (): AppThunk => async (dispatch) => {
   const screenWidth = Dimensions.get('window').width;
   const boardSize = screenWidth - 2 * boardPadding;
 
   const tileSize = Math.round((boardSize / rowFieldsAmount) * 100) / 100;
 
-  batch(() => {
-    dispatch(
-      setLayout({
-        x: boardPadding,
-        y: boardPadding,
-        size: Math.round(boardSize * 100) / 100,
-        tileSize,
-      }),
-    );
-    dispatch(setBoardFieldsCoordinates(tileSize));
-  });
+  dispatch(
+    initBoardLayout({
+      x: boardPadding,
+      y: boardPadding,
+      size: Math.round(boardSize * 100) / 100,
+      tileSize,
+    }),
+  );
 };
 
-export const updateBoardHighlights = (x: number, y: number): AppThunk => async (
-  dispatch,
-  getState,
-) => {
+export const updateBoardFieldsHighlights = (
+  x: number,
+  y: number,
+): AppThunk => async (dispatch, getState) => {
   const layout = selectBoardLayout(getState());
   const boardFields = selectBoardFields(getState());
 
@@ -58,7 +48,7 @@ export const updateBoardHighlights = (x: number, y: number): AppThunk => async (
     !boardFields[tileY][tileX].isHighlighted
   ) {
     batch(() => {
-      dispatch(cleanBoardHighlights());
+      dispatch(resetBoardFieldsHighlights());
       dispatch(highlightBoardField({ x: tileX, y: tileY }));
     });
   }
@@ -71,9 +61,9 @@ export const dropBoardTile = (
 ): AppThunk => async (dispatch, getState) => {
   const layout = selectBoardLayout(getState());
   const boardFields = selectBoardFields(getState());
-  const newWord = selectNewWord(getState());
+  const newMove = selectNewMove(getState());
 
-  if (newWord.word.length === 7) {
+  if (newMove.length === 7) {
     return;
   }
 
@@ -81,40 +71,13 @@ export const dropBoardTile = (
   const tileY = Math.floor((y - layout.y) / layout.tileSize);
   const boardField = boardFields[tileY][tileX];
 
-  if (!boardField.isAllowed || boardField.letter !== '') {
+  if (
+    boardField.letter !== '' ||
+    tileX > rowFieldsAmount - 1 ||
+    tileY > rowFieldsAmount - 1
+  ) {
     return;
   }
 
-  // Place letter in correct place
-  if (tileX <= rowFieldsAmount - 1 && tileY <= rowFieldsAmount - 1) {
-    dispatch(placeTile({ x: tileX, y: tileY, letter }));
-  }
-
-  if (newWord.word === '') {
-    batch(() => {
-      dispatch(initNewWord({ x: tileX, y: tileY, letter }));
-      dispatch(setAllowedBoardFields({ x: tileX, y: tileY }));
-    });
-  } else {
-    batch(() => {
-      dispatch(addNewWordLetter({ x: tileX, y: tileY, letter }));
-      dispatch(setAllowedBoardFields({ x: tileX, y: tileY }));
-    });
-  }
-};
-
-export const acceptNewWord = (): AppThunk => async (dispatch) => {
-  batch(() => {
-    dispatch(insertNewWord());
-    dispatch(resetAllowedBoardFields());
-    dispatch(cleanBoardHighlights());
-  });
-};
-
-export const cancelNewWord = (): AppThunk => async (dispatch) => {
-  batch(() => {
-    dispatch(resetNewWord());
-    dispatch(resetAllowedBoardFields());
-    dispatch(cleanBoardHighlights());
-  });
+  dispatch(placeTile({ x: tileX, y: tileY, letter }));
 };

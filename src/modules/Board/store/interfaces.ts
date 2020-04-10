@@ -1,19 +1,19 @@
 import { Letter } from 'src/modules/Dictionary/interfaces';
 
 import {
-  INewWord,
   IBoardFields,
   IBoardLayout,
-  IPlayedWord,
+  IPlayedMove,
   ITilesAmount,
+  IBoardTile,
 } from '../interfaces';
 
 export type IBoardState = {
   boardFields: IBoardFields;
   tilesAmount: ITilesAmount;
   layout: IBoardLayout;
-  newWord: INewWord;
-  wordsHistory: IPlayedWord[];
+  newMove: IBoardTile[];
+  movesHistory: IPlayedMove[];
 };
 
 export interface ICoordinates {

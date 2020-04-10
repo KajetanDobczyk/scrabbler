@@ -2,8 +2,11 @@ import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { selectBoardFields } from 'src/modules/Board/store/slice';
-import { initBoardLayout } from 'src/modules/Board/store/thunks';
+import {
+  updateBoardLayout,
+  selectBoardFields,
+  selectNewMove,
+} from 'src/modules/Board/store/slice';
 
 import BoardField from './components/BoardField';
 import { styles } from './styles';
@@ -12,9 +15,10 @@ const Board = () => {
   const dispatch = useDispatch();
 
   const boardFields = useSelector(selectBoardFields);
+  const newMove = useSelector(selectNewMove);
 
   useEffect(() => {
-    dispatch(initBoardLayout());
+    dispatch(updateBoardLayout());
   }, []);
 
   return (
@@ -22,7 +26,13 @@ const Board = () => {
       {boardFields.map((row, y) => (
         <View key={y} style={styles.row}>
           {row.map((field, x) => (
-            <BoardField key={x} x={x} y={y} field={field} />
+            <BoardField
+              key={x}
+              field={field}
+              isInNewMove={
+                !!newMove.find((tile) => tile.x === x && tile.y === y)
+              }
+            />
           ))}
         </View>
       ))}
