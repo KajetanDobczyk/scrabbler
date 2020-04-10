@@ -14,11 +14,11 @@ const board = createSlice({
 
       const { tileSize } = action.payload;
 
-      state.boardFields = state.boardFields.map((row, fieldY) =>
-        row.map((field, fieldX) => ({
+      state.boardFields = state.boardFields.map((row, y) =>
+        row.map((field, x) => ({
           ...field,
-          x: boardPadding + fieldX * tileSize,
-          y: boardPadding + fieldY * tileSize,
+          x: boardPadding + x * tileSize,
+          y: boardPadding + y * tileSize,
         })),
       );
     },

@@ -1,26 +1,31 @@
 import React from 'react';
 import { View } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import { acceptNewMove, cancelNewMove } from 'src/modules/Board/store/slice';
+import {
+  tryNewMove,
+  cancelNewMove,
+  selectNewMove,
+} from 'src/modules/Board/store/slice';
 
 import { styles } from './styles';
 
 const NewMoveConfirmationButtons: React.FC = () => {
   const dispatch = useDispatch();
 
+  const newMove = useSelector(selectNewMove);
+
   const accept = () => {
-    dispatch(acceptNewMove());
+    dispatch(tryNewMove());
   };
 
   const cancel = () => {
     dispatch(cancelNewMove());
   };
 
-  // return newMove.word ? (
-  return true ? (
+  return newMove.length ? (
     <View style={styles.container}>
       <TouchableOpacity
         style={[styles.button, styles.cancelButton]}

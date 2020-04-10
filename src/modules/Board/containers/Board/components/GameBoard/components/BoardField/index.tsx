@@ -15,14 +15,14 @@ type Props = {
 const BoardField: React.FC<Props> = ({ field, isInNewMove }) => {
   const styles = stylesFun({
     backgroundColor: boardFieldsColors[field.bonus],
-    opacity: field.isHighlighted ? 0.8 : 1,
+    opacity: field.isHighlighted ? 0.9 : 1,
   });
 
   return (
     <View
       style={[
         styles.container,
-        { transform: isInNewMove ? [{ scale: 1.1 }] : undefined },
+        { transform: isInNewMove ? [{ scale: 0.8 }] : undefined },
       ]}
     >
       {field.letter !== '' && (

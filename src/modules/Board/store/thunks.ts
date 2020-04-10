@@ -1,5 +1,6 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, Alert } from 'react-native';
 import { batch } from 'react-redux';
+import noop from 'lodash/noop';
 
 import { AppThunk } from 'src/redux/store';
 import { Letter } from 'src/modules/Dictionary/interfaces';
@@ -14,7 +15,14 @@ import {
   selectBoardLayout,
   selectBoardFields,
   selectNewMove,
+  acceptNewMove,
 } from './slice';
+import { selectMovesHistory } from './selectors';
+import {
+  areLettersUnalligned,
+  isAnyLetterLoose,
+  isMoveThroughCenter,
+} from './helpers';
 
 export const updateBoardLayout = (): AppThunk => async (dispatch) => {
   const screenWidth = Dimensions.get('window').width;
@@ -63,21 +71,46 @@ export const dropBoardTile = (
   const boardFields = selectBoardFields(getState());
   const newMove = selectNewMove(getState());
 
-  if (newMove.length === 7) {
-    return;
-  }
-
   const tileX = Math.floor((x - layout.x) / layout.tileSize);
   const tileY = Math.floor((y - layout.y) / layout.tileSize);
-  const boardField = boardFields[tileY][tileX];
 
   if (
-    boardField.letter !== '' ||
+    newMove.length === 7 ||
     tileX > rowFieldsAmount - 1 ||
-    tileY > rowFieldsAmount - 1
+    tileY > rowFieldsAmount - 1 ||
+    boardFields[tileY][tileX].letter !== ''
   ) {
     return;
   }
 
   dispatch(placeTile({ x: tileX, y: tileY, letter }));
+};
+
+export const tryNewMove = (): AppThunk => async (dispatch, getState) => {
+  const newMove = selectNewMove(getState());
+  const boardFields = selectBoardFields(getState());
+  const movesHistory = selectMovesHistory(getState());
+
+  let errorMessage = undefined;
+
+  if (!movesHistory.length && newMove.length === 1) {
+    errorMessage = 'Pierwszy ruch musi tworzyć wyraz!';
+  } else if (!movesHistory.length && !isMoveThroughCenter(newMove)) {
+    errorMessage = 'Pierwszy ruch musi przechodzić przez środek!';
+  } else if (isAnyLetterLoose(newMove, boardFields)) {
+    errorMessage = 'Nie wszystkie litery przylegają do innych!';
+  } else if (areLettersUnalligned(newMove)) {
+    errorMessage = 'Nowe litery nie są w jednej linii!';
+  }
+
+  if (errorMessage) {
+    Alert.alert(
+      'Niedozwolony ruch',
+      errorMessage,
+      [{ text: 'Ok', onPress: () => noop, style: 'cancel' }],
+      { cancelable: true },
+    );
+  } else {
+    dispatch(acceptNewMove());
+  }
 };
