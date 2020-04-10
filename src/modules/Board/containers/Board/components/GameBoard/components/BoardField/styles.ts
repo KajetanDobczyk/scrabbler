@@ -4,10 +4,9 @@ import { color } from 'src/theme';
 
 export type StylesProps = {
   backgroundColor: string;
-  opacity: number;
 };
 
-export const styles = ({ backgroundColor, opacity }: StylesProps) =>
+export const styles = ({ backgroundColor }: StylesProps) =>
   StyleSheet.create({
     container: {
       position: 'relative',
@@ -15,7 +14,6 @@ export const styles = ({ backgroundColor, opacity }: StylesProps) =>
       backgroundColor,
       borderColor: color.green,
       borderWidth: 1,
-      opacity,
     },
     tileWrapper: {
       position: 'absolute',
