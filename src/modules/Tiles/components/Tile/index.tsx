@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { View, Text, Animated, Easing } from 'react-native';
+import { Text, Animated, Easing } from 'react-native';
 
 import { tilesPoints } from 'src/modules/Tiles/data';
 import { Letter } from 'src/modules/Dictionary/interfaces';

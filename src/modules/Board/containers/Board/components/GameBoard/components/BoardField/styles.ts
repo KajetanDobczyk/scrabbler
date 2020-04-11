@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { color } from 'src/theme';
 
-export type StylesProps = {
+type StylesProps = {
   backgroundColor: string;
 };
 

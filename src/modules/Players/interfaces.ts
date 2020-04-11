@@ -4,3 +4,5 @@ export interface IPlayer {
   name: string;
   points: number;
 }
+
+export type IPlayers = Record<IPlayerId, IPlayer | null>;

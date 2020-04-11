@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { IPlayerId, IPlayer } from 'src/modules/Players/interfaces';
+import { IPlayerId, IPlayers } from 'src/modules/Players/interfaces';
 
 type IPlayersState = {
-  players: Record<IPlayerId, IPlayer | null>;
+  players: IPlayers;
   currentPlayerId: IPlayerId;
 };
 

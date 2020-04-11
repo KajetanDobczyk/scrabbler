@@ -1,29 +1,28 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { useSelector } from 'react-redux';
+import { View } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-import { selectPlayers } from 'src/modules/Players/store/slice';
 import { styles } from './styles';
+import { IPlayers } from 'src/modules/Players/interfaces';
 
-const TurnsHistory = () => {
-  const players = useSelector(selectPlayers);
-
-  return (
-    <View style={styles.container}>
-      {Object.values(players).map((player, i) => (
-        <View
-          key={i}
-          style={EStyleSheet.child(
-            styles,
-            'playerMoves',
-            i,
-            Object.values(players).length,
-          )}
-        ></View>
-      ))}
-    </View>
-  );
+type Props = {
+  players: IPlayers;
 };
+
+const TurnsHistory: React.FC<Props> = ({ players }) => (
+  <View style={styles.container}>
+    {Object.values(players).map((player, i) => (
+      <View
+        key={i}
+        style={EStyleSheet.child(
+          styles,
+          'playerMoves',
+          i,
+          Object.values(players).length,
+        )}
+      ></View>
+    ))}
+  </View>
+);
 
 export default TurnsHistory;

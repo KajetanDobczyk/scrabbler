@@ -28,7 +28,7 @@ export const updateBoardLayout = (): AppThunk => async (dispatch) => {
   dispatch(
     initBoardLayout({
       x: boardPadding,
-      y: boardPadding,
+      y: 0,
       size: Math.round(boardSize * 100) / 100,
       tileSize,
     }),
