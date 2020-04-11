@@ -6,5 +6,10 @@ export const selectPlayersState = (state: RootState) => state.players;
 
 export const selectCurrentPlayerId = createSelector(
   selectPlayersState,
-  playersState => playersState.currentPlayerId,
+  (playersState) => playersState.currentPlayerId,
+);
+
+export const selectPlayers = createSelector(
+  selectPlayersState,
+  (playersState) => playersState.players,
 );
