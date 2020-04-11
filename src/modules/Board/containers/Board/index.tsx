@@ -68,6 +68,7 @@ const Board = () => {
 
     if (state === State.END && draggedLetter) {
       dispatch(dropBoardTile(x, y, draggedLetter));
+      measureAllTiles();
     }
 
     setDraggedLetter(null);
