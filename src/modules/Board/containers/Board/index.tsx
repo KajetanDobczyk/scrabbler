@@ -140,7 +140,7 @@ const Board = () => {
           <DraggedTile
             letter={draggedLetter}
             x={tilesMeasurements[draggedLetter].x}
-            y={tilesMeasurements[draggedLetter].y}
+            y={tilesMeasurements[draggedLetter].y + boardPadding}
             translate={translate}
           />
         )}
