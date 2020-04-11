@@ -6,7 +6,13 @@ import { Letter } from 'src/modules/Dictionary/interfaces';
 
 import { boardPadding } from '../containers/Board/styles';
 import { rowFieldsAmount } from '../data';
-import { initBoardLayout, placeTile, acceptNewMove } from './slice';
+import {
+  initBoardLayout,
+  placeTile,
+  acceptNewMove,
+  resetBoardFieldsHighlights,
+  highlightBoardField,
+} from './slice';
 import {
   selectBoardLayout,
   selectBoardFields,
@@ -18,6 +24,7 @@ import {
   isAnyLetterLoose,
   isMoveThroughCenter,
 } from './helpers';
+import { batch } from 'react-redux';
 
 export const updateBoardLayout = (): AppThunk => async (dispatch) => {
   const screenWidth = Dimensions.get('window').width;
@@ -33,6 +40,28 @@ export const updateBoardLayout = (): AppThunk => async (dispatch) => {
       tileSize,
     }),
   );
+};
+
+export const updateBoardFieldsHighlights = (
+  x: number,
+  y: number,
+): AppThunk => async (dispatch, getState) => {
+  const layout = selectBoardLayout(getState());
+  const boardFields = selectBoardFields(getState());
+
+  const tileX = Math.floor((x - layout.x) / layout.tileSize);
+  const tileY = Math.floor((y - layout.y) / layout.tileSize);
+
+  if (
+    tileX <= rowFieldsAmount - 1 &&
+    tileY <= rowFieldsAmount - 1 &&
+    !boardFields[tileY][tileX].isHighlighted
+  ) {
+    batch(() => {
+      dispatch(resetBoardFieldsHighlights());
+      dispatch(highlightBoardField({ x: tileX, y: tileY }));
+    });
+  }
 };
 
 export const dropBoardTile = (
