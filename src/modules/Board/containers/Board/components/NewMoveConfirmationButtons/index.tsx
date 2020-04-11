@@ -4,11 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import {
-  tryNewMove,
-  cancelNewMove,
-  selectNewMove,
-} from 'src/modules/Board/store/slice';
+import { tryNewMove } from 'src/modules/Board/store/thunks';
+import { cancelNewMove } from 'src/modules/Board/store/slice';
+import { selectNewMove } from 'src/modules/Board/store/selectors';
 
 import { styles } from './styles';
 

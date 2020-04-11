@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { updateBoardLayout } from 'src/modules/Board/store/thunks';
 import {
-  updateBoardLayout,
   selectBoardFields,
   selectNewMove,
-} from 'src/modules/Board/store/slice';
+} from 'src/modules/Board/store/selectors';
 
 import BoardField from './components/BoardField';
 import { styles } from './styles';

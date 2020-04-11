@@ -15,7 +15,7 @@ import GameBoard from './components/GameBoard';
 import TilesList from './components/TilesList';
 import NewMoveConfirmationButtons from './components/NewMoveConfirmationButtons';
 import { boardPadding, styles } from './styles';
-import { dropBoardTile } from '../../store/slice';
+import { dropBoardTile } from '../../store/thunks';
 
 const MEASURE_TIMEOUT = Platform.select({
   android: 300,

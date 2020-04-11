@@ -1,5 +1,4 @@
 import { Dimensions, Alert } from 'react-native';
-import { batch } from 'react-redux';
 import noop from 'lodash/noop';
 
 import { AppThunk } from 'src/redux/store';
@@ -7,15 +6,13 @@ import { Letter } from 'src/modules/Dictionary/interfaces';
 
 import { boardPadding } from '../containers/Board/styles';
 import { rowFieldsAmount } from '../data';
+import { initBoardLayout, placeTile, acceptNewMove } from './slice';
 import {
-  initBoardLayout,
-  placeTile,
   selectBoardLayout,
   selectBoardFields,
   selectNewMove,
-  acceptNewMove,
-} from './slice';
-import { selectMovesHistory } from './selectors';
+  selectMovesHistory,
+} from './selectors';
 import {
   areLettersUnalligned,
   isAnyLetterLoose,

@@ -9,7 +9,7 @@ import {
 import { FlatList } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
 
-import { selectTilesAmount } from 'src/modules/Board/store/slice';
+import { selectTilesAmount } from 'src/modules/Board/store/selectors';
 import Tile from 'src/modules/Tiles/components/Tile';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 

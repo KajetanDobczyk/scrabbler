@@ -54,7 +54,4 @@ export const {
   cancelNewMove,
 } = board.actions;
 
-export * from './thunks';
-export * from './selectors';
-
 export default board.reducer;
