@@ -1,106 +1,80 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { View, Text } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 import { useSelector, useDispatch } from 'react-redux';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import {
-  selectTilesAmount,
-  selectDraggedTile,
-} from 'src/modules/Board/store/selectors';
-import { setTilesList } from 'src/modules/Board/store/slice';
+import { selectTilesList } from 'src/modules/Board/store/selectors';
 import Tile from 'src/modules/Tiles/components/Tile';
 import { Letter } from 'src/modules/Dictionary/interfaces';
-import { MEASURE_TIMEOUT } from 'src/config';
+import { setTilesListMeasurements } from 'src/modules/Board/store/slice';
 
 import { styles } from './styles';
 
-const tilesRefs: Record<string, View | null> = {};
-const tilesMeasurements: Record<
-  string,
-  { x: number; y: number; size: number }
-> = {};
-const measureTimeouts: Record<string, number> = {};
-
 const TilesList = ({}) => {
   const dispatch = useDispatch();
-  const tilesAmount = useSelector(selectTilesAmount);
-  const draggedTile = useSelector(selectDraggedTile);
+  const tilesList = useSelector(selectTilesList);
 
-  useEffect(() => {
-    setTimeout(() => {
-      dispatch(setTilesList({ tilesRefs, tilesMeasurements }));
-    }, MEASURE_TIMEOUT);
-  }, []);
+  const tilesRefs: Record<string, View | null> = {};
 
-  useEffect(() => {
-    if (!draggedTile) {
-      measureAllTiles();
-    }
-  }, [draggedTile]);
+  const measureAllTiles = () => {
+    let measurements: Record<
+      string,
+      { x: number; y: number; size: number }
+    > = {};
 
-  const measureTile = (letter: string) => {
-    // setTimeout is required, otherwise all measurements will be 0
-    if (measureTimeouts[letter]) {
-      clearTimeout(measureTimeouts[letter]);
-    }
-
-    measureTimeouts[letter] = setTimeout(() => {
+    Object.keys(tilesRefs).forEach((letter) => {
       const element = tilesRefs[letter];
 
-      if (!element || draggedTile) {
+      if (!element) {
         return;
       }
 
       element.measureInWindow((x: number, y: number, width: number) => {
-        tilesMeasurements[letter] = { x, y, size: width };
+        measurements[letter] = {
+          x,
+          y,
+          size: width,
+        };
       });
-    }, MEASURE_TIMEOUT);
-  };
-
-  const measureAllTiles = () => {
-    Object.keys(tilesRefs).forEach(measureTile);
+    });
 
     setTimeout(() => {
-      dispatch(setTilesList({ tilesRefs, tilesMeasurements }));
-    }, MEASURE_TIMEOUT);
+      dispatch(setTilesListMeasurements(measurements));
+    }, 1);
   };
 
   const setTileRef = (letter: string) => (ref: View | null) => {
     tilesRefs[letter] = ref;
-    measureTile(letter);
   };
 
-  const availableTiles = Object.keys(tilesAmount);
+  const availableTiles = Object.keys(tilesList) as Letter[];
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={availableTiles.map((letter, index) => ({
-          key: letter,
-          amount: tilesAmount[letter as Letter],
-          index,
-        }))}
-        horizontal
-        onMomentumScrollEnd={measureAllTiles}
-        renderItem={({ item }) =>
-          item.amount ? (
-            <View
-              style={EStyleSheet.child(
-                styles,
-                'tileWrapper',
-                item.index,
-                availableTiles.length,
-              )}
-              ref={setTileRef(item.key)}
-            >
-              <Tile letter={item.key as Letter} />
-              <Text style={styles.amount}>{item.amount}</Text>
-            </View>
-          ) : null
-        }
-      />
-    </View>
+    <ScrollView
+      horizontal
+      onLayout={measureAllTiles}
+      onMomentumScrollEnd={measureAllTiles}
+    >
+      <View style={styles.container}>
+        {availableTiles.map((letter, i) => (
+          <View
+            key={letter}
+            style={EStyleSheet.child(
+              styles,
+              'tileWrapper',
+              i,
+              availableTiles.length,
+            )}
+            ref={setTileRef(letter)}
+          >
+            <Tile letter={letter as Letter} />
+            <Text style={styles.amount}>{tilesList[letter].amountLeft}</Text>
+          </View>
+        ))}
+      </View>
+    </ScrollView>
   );
 };
 

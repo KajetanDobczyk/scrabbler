@@ -1,6 +1,6 @@
 import { Dimensions, Alert } from 'react-native';
 import noop from 'lodash/noop';
-import { batch, useSelector } from 'react-redux';
+import { batch } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 
 import { AppThunk } from 'src/redux/store';
@@ -72,14 +72,14 @@ export const initDraggedTileFromList = (touchX: number): AppThunk => async (
   dispatch,
   getState,
 ) => {
-  const { tilesRefs, tilesMeasurements } = useSelector(selectTilesList);
+  const tilesList = selectTilesList(getState());
 
-  if (isEmpty(tilesMeasurements)) {
+  if (isEmpty(tilesList)) {
     return;
   }
 
-  const foundTile = Object.keys(tilesRefs).find((letter) => {
-    const { x, size } = tilesMeasurements[letter];
+  const foundTile = Object.keys(tilesList).find((letter) => {
+    const { x, size } = (tilesList as any)[letter]?.measurements;
 
     return touchX + boardPadding - x >= 0 && touchX + boardPadding - x < size;
   });

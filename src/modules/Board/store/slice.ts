@@ -1,9 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { Letter } from 'src/modules/Dictionary/interfaces';
+
 import { initialState } from './data';
 import { ICoordinatesWithLetter, ICoordinates } from './interfaces';
 import { boardPadding } from '../containers/Board/styles';
-import { IBoardLayout, IDraggedTile, ITilesList } from '../interfaces';
+import {
+  IBoardLayout,
+  IDraggedTile,
+  SetTilesListMeasurementsPayload,
+} from '../interfaces';
 
 const board = createSlice({
   name: 'board',
@@ -35,8 +41,15 @@ const board = createSlice({
         })),
       );
     },
-    setTilesList(state, action: PayloadAction<ITilesList>) {
-      state.tilesList = action.payload;
+    setTilesListMeasurements(
+      state,
+      action: PayloadAction<SetTilesListMeasurementsPayload>,
+    ) {
+      const measurements = action.payload;
+
+      (Object.keys(action.payload) as Letter[]).forEach((letter) => {
+        state.tilesList[letter].measurements = measurements[letter];
+      });
     },
     setDraggedTile(state, action: PayloadAction<IDraggedTile | null>) {
       state.draggedTile = action.payload;
@@ -46,7 +59,7 @@ const board = createSlice({
 
       state.newMove.push(action.payload);
       state.boardFields[y][x].letter = letter;
-      state.tilesAmount[letter]--;
+      state.tilesList[letter].amountLeft--;
     },
     acceptNewMove(state) {
       state.movesHistory.push({
@@ -70,7 +83,7 @@ export const {
   initBoardLayout,
   highlightBoardField,
   resetBoardFieldsHighlights,
-  setTilesList,
+  setTilesListMeasurements,
   setDraggedTile,
   placeTile,
   acceptNewMove,

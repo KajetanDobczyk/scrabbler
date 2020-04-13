@@ -1,4 +1,6 @@
-import { IBoardFields, ITilesAmount, FieldBonus } from '../interfaces';
+import { Letter } from 'src/modules/Dictionary/interfaces';
+
+import { IBoardFields, FieldBonus, ITilesList } from '../interfaces';
 import { IBoardState } from './interfaces';
 
 export const fieldsBonuses: FieldBonus[][] = [
@@ -37,7 +39,7 @@ export const initialLayout = {
   tileSize: 0,
 };
 
-export const initialTilesAmount: ITilesAmount = {
+export const initialTilesAmount: Record<Letter, number> = {
   ['?']: 2,
   ['a']: 9,
   ['ą']: 1,
@@ -73,15 +75,21 @@ export const initialTilesAmount: ITilesAmount = {
   ['ź']: 1,
 };
 
-export const initialTilesList = {
-  tilesRefs: {},
-  tilesMeasurements: {},
-};
+const getInitialTilesList: () => ITilesList = () =>
+  (Object.keys(initialTilesAmount) as Letter[]).reduce(
+    (acc, letter) => ({
+      ...acc,
+      [letter]: {
+        amountLeft: initialTilesAmount[letter],
+        measurements: undefined,
+      },
+    }),
+    {} as ITilesList,
+  );
 
 export const initialState: IBoardState = {
   boardFields: getInitialBoardFields(),
-  tilesList: initialTilesList,
-  tilesAmount: initialTilesAmount,
+  tilesList: getInitialTilesList(),
   layout: initialLayout,
   newMove: [],
   draggedTile: null,

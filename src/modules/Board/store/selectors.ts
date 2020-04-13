@@ -14,11 +14,6 @@ export const selectTilesList = createSelector(
   (boardState) => boardState.tilesList,
 );
 
-export const selectTilesAmount = createSelector(
-  selectBoardState,
-  (boardState) => boardState.tilesAmount,
-);
-
 export const selectBoardLayout = createSelector(
   selectBoardState,
   (boardState) => boardState.layout,

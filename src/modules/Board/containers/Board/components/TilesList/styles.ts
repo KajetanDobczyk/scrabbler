@@ -6,10 +6,10 @@ import { boardPadding } from '../../styles';
 
 export const styles = EStyleSheet.create({
   container: {
-    height: 60,
+    paddingTop: boardPadding,
+    flexDirection: 'row',
   },
   tileWrapper: {
-    paddingTop: boardPadding,
     position: 'relative',
     aspectRatio: 1,
     width: 40,
@@ -23,7 +23,7 @@ export const styles = EStyleSheet.create({
     width: 15,
     height: 15,
     borderRadius: 10,
-    top: 12,
+    top: -5,
     right: -5,
     textAlign: 'center',
     backgroundColor: color.lightGreen,
