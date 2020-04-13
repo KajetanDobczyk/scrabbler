@@ -11,7 +11,11 @@ import DraggedTile from './components/DraggedTile';
 import GameBoard from './components/GameBoard';
 import TilesList from './components/TilesList';
 import NewMoveConfirmationButtons from './components/NewMoveConfirmationButtons';
-import { dropDraggedTile, initDraggedTileFromList } from '../../store/thunks';
+import {
+  dropDraggedTile,
+  initDraggedTileFromList,
+  initDraggedTileFromBoard,
+} from '../../store/thunks';
 import { setDraggedTile } from '../../store/slice';
 import { selectDraggedTile, selectBoardLayout } from '../../store/selectors';
 import { styles } from './styles';
@@ -29,21 +33,18 @@ const Board = () => {
   const onDragStart = (event: LongPressGestureHandlerGestureEvent) => {
     const { x, y } = event.nativeEvent;
 
-    if (y > layout.size) {
-      x0 = x;
-      y0 = y;
+    x0 = x;
+    y0 = y;
+    translate.setValue({ x: 0, y: 0 });
 
-      translate.setValue({ x: 0, y: 0 });
+    if (y > layout.size) {
       dispatch(initDraggedTileFromList(x));
     } else {
-      //TODO: Init dragged tile from board
+      dispatch(initDraggedTileFromBoard(x, y));
     }
   };
 
   const onDragEnd = (x: number, y: number, state: State) => {
-    x0 = 0;
-    y0 = 0;
-
     if (state === State.END && draggedTile) {
       dispatch(dropDraggedTile(x, y));
     }

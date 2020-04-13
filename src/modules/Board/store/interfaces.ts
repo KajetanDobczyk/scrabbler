@@ -22,7 +22,3 @@ export interface ICoordinates {
   x: number;
   y: number;
 }
-
-export interface ICoordinatesWithLetter extends ICoordinates {
-  letter: Letter;
-}

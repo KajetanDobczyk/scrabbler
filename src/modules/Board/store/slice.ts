@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 
 import { initialState } from './data';
-import { ICoordinatesWithLetter, ICoordinates } from './interfaces';
+import { ICoordinates } from './interfaces';
 import { boardPadding } from '../containers/Board/styles';
 import {
   IBoardLayout,
@@ -54,12 +54,30 @@ const board = createSlice({
     setDraggedTile(state, action: PayloadAction<IDraggedTile | null>) {
       state.draggedTile = action.payload;
     },
-    placeTile(state, action: PayloadAction<ICoordinatesWithLetter>) {
-      const { x, y, letter } = action.payload;
+    addNewMoveTile(state, action: PayloadAction<ICoordinates>) {
+      const { x, y } = action.payload;
+      const { letter } = state.draggedTile!;
 
-      state.newMove.push(action.payload);
+      state.newMove.push({
+        x,
+        y,
+        letter,
+      });
       state.boardFields[y][x].letter = letter;
       state.tilesList[letter].amountLeft--;
+    },
+    removeNewMoveTile(state, action: PayloadAction<ICoordinates>) {
+      const { x, y } = action.payload;
+      const { letter } = state.boardFields[y][x];
+
+      if (letter !== '') {
+        state.tilesList[letter].amountLeft++;
+      }
+
+      state.boardFields[y][x].letter = '';
+      state.newMove = state.newMove.filter(
+        (tile) => tile.x !== x || tile.y !== y,
+      );
     },
     acceptNewMove(state) {
       state.movesHistory.push({
@@ -86,7 +104,8 @@ export const {
   resetBoardFieldsHighlights,
   setTilesListMeasurements,
   setDraggedTile,
-  placeTile,
+  addNewMoveTile,
+  removeNewMoveTile,
   acceptNewMove,
   cancelNewMove,
 } = board.actions;

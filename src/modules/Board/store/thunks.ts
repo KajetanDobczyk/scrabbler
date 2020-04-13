@@ -10,7 +10,8 @@ import { boardPadding } from '../containers/Board/styles';
 import { rowFieldsAmount } from '../data';
 import {
   initBoardLayout,
-  placeTile,
+  addNewMoveTile,
+  removeNewMoveTile,
   acceptNewMove,
   resetBoardFieldsHighlights,
   highlightBoardField,
@@ -39,7 +40,7 @@ export const updateBoardLayout = (): AppThunk => async (dispatch) => {
   dispatch(
     initBoardLayout({
       x: boardPadding,
-      y: 0,
+      y: 0, //TODO: Get board y properly
       size: Math.round(boardSize * 100) / 100,
       tileSize,
     }),
@@ -98,6 +99,39 @@ export const initDraggedTileFromList = (touchX: number): AppThunk => async (
   }
 };
 
+export const initDraggedTileFromBoard = (
+  touchX: number,
+  touchY: number,
+): AppThunk => async (dispatch, getState) => {
+  const layout = selectBoardLayout(getState());
+  const newMove = selectNewMove(getState());
+
+  if (!newMove.length) {
+    return;
+  }
+
+  const tileX = Math.floor((touchX - layout.x) / layout.tileSize);
+  const tileY = Math.floor((touchY - layout.y) / layout.tileSize);
+
+  const tile = newMove.find((tile) => tile.x === tileX && tile.y === tileY);
+
+  if (!tile) {
+    return;
+  }
+
+  batch(() => {
+    dispatch(removeNewMoveTile({ x: tileX, y: tileY }));
+    dispatch(
+      setDraggedTile({
+        x0: tileX * layout.tileSize + layout.x,
+        y0: tileY * layout.tileSize + 70,
+        letter: tile.letter,
+        source: 'board',
+      }),
+    );
+  });
+};
+
 export const dropDraggedTile = (x: number, y: number): AppThunk => async (
   dispatch,
   getState,
@@ -123,7 +157,7 @@ export const dropDraggedTile = (x: number, y: number): AppThunk => async (
     return;
   }
 
-  dispatch(placeTile({ x: tileX, y: tileY, letter: draggedTile.letter }));
+  dispatch(addNewMoveTile({ x: tileX, y: tileY }));
 };
 
 export const tryNewMove = (): AppThunk => async (dispatch, getState) => {
