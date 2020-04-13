@@ -78,5 +78,6 @@ export const initialState: IBoardState = {
   tilesAmount: initialTilesAmount,
   layout: initialLayout,
   newMove: [],
+  draggedTile: null,
   movesHistory: [],
 };

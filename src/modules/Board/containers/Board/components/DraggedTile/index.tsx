@@ -6,21 +6,22 @@ import Tile from 'src/modules/Tiles/components/Tile';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import { boardPadding } from 'src/modules/Board/containers/Board/styles';
 
-import { styles } from './styles';
-
 type Props = {
   x: number;
   y: number;
+  size: number;
   letter: Letter | null;
   translate: Animated.ValueXY;
 };
 
-const DraggedTile: React.FC<Props> = ({ letter, x, y, translate }) => {
+const DraggedTile: React.FC<Props> = ({ letter, x, y, size, translate }) => {
   const wrapperStyle = {
     position: 'absolute',
     left: x - boardPadding,
     top: y - boardPadding,
+    width: size,
     transform: translate.getTranslateTransform(),
+    opacity: 0.7,
   };
 
   return (
@@ -32,9 +33,7 @@ const DraggedTile: React.FC<Props> = ({ letter, x, y, translate }) => {
     >
       {letter ? (
         <Animated.View style={wrapperStyle}>
-          <View style={styles.tileWrapper}>
-            <Tile letter={letter} />
-          </View>
+          <Tile letter={letter} />
         </Animated.View>
       ) : (
         <View />

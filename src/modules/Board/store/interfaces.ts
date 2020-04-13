@@ -6,6 +6,7 @@ import {
   IPlayedMove,
   ITilesAmount,
   IBoardTile,
+  IDraggedTile,
 } from '../interfaces';
 
 export type IBoardState = {
@@ -13,6 +14,7 @@ export type IBoardState = {
   tilesAmount: ITilesAmount;
   layout: IBoardLayout;
   newMove: IBoardTile[];
+  draggedTile: IDraggedTile | null;
   movesHistory: IPlayedMove[];
 };
 

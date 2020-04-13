@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { initialState } from './data';
 import { ICoordinatesWithLetter, ICoordinates } from './interfaces';
 import { boardPadding } from '../containers/Board/styles';
-import { IBoardLayout } from '../interfaces';
+import { IBoardLayout, IDraggedTile } from '../interfaces';
 
 const board = createSlice({
   name: 'board',
@@ -35,6 +35,9 @@ const board = createSlice({
         })),
       );
     },
+    setDraggedTile(state, action: PayloadAction<IDraggedTile | null>) {
+      state.draggedTile = action.payload;
+    },
     placeTile(state, action: PayloadAction<ICoordinatesWithLetter>) {
       const { x, y, letter } = action.payload;
 
@@ -64,6 +67,7 @@ export const {
   initBoardLayout,
   highlightBoardField,
   resetBoardFieldsHighlights,
+  setDraggedTile,
   placeTile,
   acceptNewMove,
   cancelNewMove,

@@ -34,3 +34,9 @@ export interface IPlayedMove {
 }
 
 export type ITilesAmount = Record<Letter, number>;
+
+export interface IDraggedTile {
+  x?: number;
+  y?: number;
+  letter: Letter;
+}

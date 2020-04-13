@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Animated, Platform } from 'react-native';
 import {
   LongPressGestureHandler,
@@ -6,22 +6,19 @@ import {
   State,
 } from 'react-native-gesture-handler';
 import isEmpty from 'lodash/isEmpty';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Letter } from 'src/modules/Dictionary/interfaces';
+import { MEASURE_TIMEOUT } from 'src/config';
 
 import DraggedTile from './components/DraggedTile';
 import GameBoard from './components/GameBoard';
 import TilesList from './components/TilesList';
 import NewMoveConfirmationButtons from './components/NewMoveConfirmationButtons';
 import { boardPadding, styles } from './styles';
-import { dropBoardTile, updateBoardFieldsHighlights } from '../../store/thunks';
-import { resetBoardFieldsHighlights } from '../../store/slice';
-
-const MEASURE_TIMEOUT = Platform.select({
-  android: 300,
-  ios: 100,
-});
+import { dropBoardTile } from '../../store/thunks';
+import { setDraggedTile } from '../../store/slice';
+import { selectDraggedTile } from '../../store/selectors';
 
 let x0 = 0;
 let y0 = 0;
@@ -34,32 +31,33 @@ let measureTimeouts: Record<string, number> = {};
 
 const Board = () => {
   const dispatch = useDispatch();
-  const [draggedLetter, setDraggedLetter] = useState<Letter | null>(null);
+  const draggedTile = useSelector(selectDraggedTile);
 
   const translate = new Animated.ValueXY({ x: 0, y: 0 });
-
   const tilesRefs: Record<string, View | null> = {};
 
-  const findTouchedTile = (touchX: number) => {
+  const findTouchedLetter = (touchX: number) => {
     if (isEmpty(tilesMeasurements)) {
       return;
     }
 
-    return Object.keys(tilesRefs).find((letter) => {
+    const foundTile = Object.keys(tilesRefs).find((letter) => {
       const { x, size } = tilesMeasurements[letter];
 
       return touchX + boardPadding - x >= 0 && touchX + boardPadding - x < size;
     });
+
+    return (foundTile as Letter) || undefined;
   };
 
   const onDragStart = (event: LongPressGestureHandlerGestureEvent) => {
     const { x, y } = event.nativeEvent;
-    const tile = findTouchedTile(x);
+    const letter = findTouchedLetter(x);
 
-    if (tile && tile !== draggedLetter) {
+    if (letter && letter !== draggedTile?.letter) {
       x0 = x;
       y0 = y;
-      setDraggedLetter(tile as Letter);
+      dispatch(setDraggedTile({ letter }));
     }
   };
 
@@ -67,12 +65,12 @@ const Board = () => {
     x0 = 0;
     y0 = 0;
 
-    if (state === State.END && draggedLetter) {
-      dispatch(dropBoardTile(x, y, draggedLetter));
+    if (state === State.END && draggedTile) {
+      dispatch(dropBoardTile(x, y, draggedTile?.letter!));
       measureAllTiles();
     }
 
-    setDraggedLetter(null);
+    dispatch(setDraggedTile(null));
     // dispatch(resetBoardFieldsHighlights());
   };
 
@@ -94,8 +92,7 @@ const Board = () => {
   };
 
   const measureAllTiles = () => {
-    const itemKeys = Object.keys(tilesRefs);
-    itemKeys.forEach(measureTile);
+    Object.keys(tilesRefs).forEach(measureTile);
   };
 
   const measureTile = (letter: string) => {
@@ -107,7 +104,7 @@ const Board = () => {
     measureTimeouts[letter] = setTimeout(() => {
       const element = tilesRefs[letter];
 
-      if (!element || draggedLetter) {
+      if (!element || draggedTile) {
         return;
       }
 
@@ -136,11 +133,12 @@ const Board = () => {
           onSetTileRef={setTileRef}
         />
         <NewMoveConfirmationButtons />
-        {draggedLetter && (
+        {draggedTile && (
           <DraggedTile
-            letter={draggedLetter}
-            x={tilesMeasurements[draggedLetter].x}
-            y={tilesMeasurements[draggedLetter].y + boardPadding}
+            letter={draggedTile.letter}
+            x={tilesMeasurements[draggedTile.letter].x}
+            y={tilesMeasurements[draggedTile.letter].y + boardPadding}
+            size={40}
             translate={translate}
           />
         )}
