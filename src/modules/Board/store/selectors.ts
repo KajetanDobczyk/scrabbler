@@ -9,6 +9,11 @@ export const selectBoardFields = createSelector(
   (boardState) => boardState.boardFields,
 );
 
+export const selectTilesList = createSelector(
+  selectBoardState,
+  (boardState) => boardState.tilesList,
+);
+
 export const selectTilesAmount = createSelector(
   selectBoardState,
   (boardState) => boardState.tilesAmount,

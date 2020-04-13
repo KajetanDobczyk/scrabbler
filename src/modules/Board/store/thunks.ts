@@ -1,5 +1,7 @@
 import { Dimensions, Alert } from 'react-native';
 import noop from 'lodash/noop';
+import { batch, useSelector } from 'react-redux';
+import isEmpty from 'lodash/isEmpty';
 
 import { AppThunk } from 'src/redux/store';
 import { Letter } from 'src/modules/Dictionary/interfaces';
@@ -12,19 +14,21 @@ import {
   acceptNewMove,
   resetBoardFieldsHighlights,
   highlightBoardField,
+  setDraggedTile,
 } from './slice';
 import {
   selectBoardLayout,
   selectBoardFields,
   selectNewMove,
   selectMovesHistory,
+  selectTilesList,
+  selectDraggedTile,
 } from './selectors';
 import {
   areLettersUnalligned,
   isAnyLetterLoose,
   isMoveThroughCenter,
 } from './helpers';
-import { batch } from 'react-redux';
 
 export const updateBoardLayout = (): AppThunk => async (dispatch) => {
   const screenWidth = Dimensions.get('window').width;
@@ -64,14 +68,39 @@ export const updateBoardFieldsHighlights = (
   }
 };
 
-export const dropBoardTile = (
-  x: number,
-  y: number,
-  letter: Letter,
-): AppThunk => async (dispatch, getState) => {
+export const initDraggedTileFromList = (touchX: number): AppThunk => async (
+  dispatch,
+  getState,
+) => {
+  const { tilesRefs, tilesMeasurements } = useSelector(selectTilesList);
+
+  if (isEmpty(tilesMeasurements)) {
+    return;
+  }
+
+  const foundTile = Object.keys(tilesRefs).find((letter) => {
+    const { x, size } = tilesMeasurements[letter];
+
+    return touchX + boardPadding - x >= 0 && touchX + boardPadding - x < size;
+  });
+
+  if (foundTile) {
+    dispatch(setDraggedTile({ letter: foundTile as Letter, source: 'list' }));
+  }
+};
+
+export const dropDraggedTile = (x: number, y: number): AppThunk => async (
+  dispatch,
+  getState,
+) => {
   const layout = selectBoardLayout(getState());
   const boardFields = selectBoardFields(getState());
   const newMove = selectNewMove(getState());
+  const draggedTile = selectDraggedTile(getState());
+
+  if (!draggedTile) {
+    return;
+  }
 
   const tileX = Math.floor((x - layout.x) / layout.tileSize);
   const tileY = Math.floor((y - layout.y) / layout.tileSize);
@@ -85,7 +114,7 @@ export const dropBoardTile = (
     return;
   }
 
-  dispatch(placeTile({ x: tileX, y: tileY, letter }));
+  dispatch(placeTile({ x: tileX, y: tileY, letter: draggedTile.letter }));
 };
 
 export const tryNewMove = (): AppThunk => async (dispatch, getState) => {

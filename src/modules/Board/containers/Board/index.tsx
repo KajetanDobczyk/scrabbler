@@ -1,63 +1,41 @@
 import React from 'react';
-import { View, Animated, Platform } from 'react-native';
+import { View, Animated } from 'react-native';
 import {
   LongPressGestureHandler,
   LongPressGestureHandlerGestureEvent,
   State,
 } from 'react-native-gesture-handler';
-import isEmpty from 'lodash/isEmpty';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { Letter } from 'src/modules/Dictionary/interfaces';
-import { MEASURE_TIMEOUT } from 'src/config';
 
 import DraggedTile from './components/DraggedTile';
 import GameBoard from './components/GameBoard';
 import TilesList from './components/TilesList';
 import NewMoveConfirmationButtons from './components/NewMoveConfirmationButtons';
-import { boardPadding, styles } from './styles';
-import { dropBoardTile } from '../../store/thunks';
+import { styles } from './styles';
+import { dropDraggedTile, initDraggedTileFromList } from '../../store/thunks';
 import { setDraggedTile } from '../../store/slice';
-import { selectDraggedTile } from '../../store/selectors';
+import { selectDraggedTile, selectBoardLayout } from '../../store/selectors';
 
 let x0 = 0;
 let y0 = 0;
 
-let tilesMeasurements: Record<
-  string,
-  { x: number; y: number; size: number }
-> = {};
-let measureTimeouts: Record<string, number> = {};
-
 const Board = () => {
   const dispatch = useDispatch();
   const draggedTile = useSelector(selectDraggedTile);
+  const layout = useSelector(selectBoardLayout);
 
   const translate = new Animated.ValueXY({ x: 0, y: 0 });
-  const tilesRefs: Record<string, View | null> = {};
-
-  const findTouchedLetter = (touchX: number) => {
-    if (isEmpty(tilesMeasurements)) {
-      return;
-    }
-
-    const foundTile = Object.keys(tilesRefs).find((letter) => {
-      const { x, size } = tilesMeasurements[letter];
-
-      return touchX + boardPadding - x >= 0 && touchX + boardPadding - x < size;
-    });
-
-    return (foundTile as Letter) || undefined;
-  };
 
   const onDragStart = (event: LongPressGestureHandlerGestureEvent) => {
     const { x, y } = event.nativeEvent;
-    const letter = findTouchedLetter(x);
 
-    if (letter && letter !== draggedTile?.letter) {
+    if (y > layout.size) {
       x0 = x;
       y0 = y;
-      dispatch(setDraggedTile({ letter }));
+
+      dispatch(initDraggedTileFromList(x));
+    } else {
+      //TODO: Init dragged tile from board
     }
   };
 
@@ -66,19 +44,16 @@ const Board = () => {
     y0 = 0;
 
     if (state === State.END && draggedTile) {
-      dispatch(dropBoardTile(x, y, draggedTile?.letter!));
-      measureAllTiles();
+      dispatch(dropDraggedTile(x, y));
     }
 
     dispatch(setDraggedTile(null));
-    // dispatch(resetBoardFieldsHighlights());
   };
 
   const onGestureEvent = (event: LongPressGestureHandlerGestureEvent) => {
     const { x, y } = event.nativeEvent;
 
     translate.setValue({ x: x - x0, y: y - y0 });
-    // dispatch(updateBoardFieldsHighlights(x, y));
   };
 
   const onHandlerStateChange = (event: LongPressGestureHandlerGestureEvent) => {
@@ -91,34 +66,6 @@ const Board = () => {
     }
   };
 
-  const measureAllTiles = () => {
-    Object.keys(tilesRefs).forEach(measureTile);
-  };
-
-  const measureTile = (letter: string) => {
-    // setTimeout is required, otherwise all measurements will be 0
-    if (measureTimeouts[letter]) {
-      clearTimeout(measureTimeouts[letter]);
-    }
-
-    measureTimeouts[letter] = setTimeout(() => {
-      const element = tilesRefs[letter];
-
-      if (!element || draggedTile) {
-        return;
-      }
-
-      element.measureInWindow((x: number, y: number, width: number) => {
-        tilesMeasurements[letter] = { x, y, size: width };
-      });
-    }, MEASURE_TIMEOUT);
-  };
-
-  const setTileRef = (letter: string) => (ref: View | null) => {
-    tilesRefs[letter] = ref;
-    measureTile(letter);
-  };
-
   return (
     <LongPressGestureHandler
       minDurationMs={100}
@@ -128,16 +75,13 @@ const Board = () => {
     >
       <View style={styles.container}>
         <GameBoard />
-        <TilesList
-          onMomentumScrollEnd={measureAllTiles}
-          onSetTileRef={setTileRef}
-        />
+        <TilesList />
         <NewMoveConfirmationButtons />
         {draggedTile && (
           <DraggedTile
+            x={x0}
+            y={y0}
             letter={draggedTile.letter}
-            x={tilesMeasurements[draggedTile.letter].x}
-            y={tilesMeasurements[draggedTile.letter].y + boardPadding}
             size={40}
             translate={translate}
           />

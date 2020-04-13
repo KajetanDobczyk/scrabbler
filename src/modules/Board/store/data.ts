@@ -73,8 +73,14 @@ export const initialTilesAmount: ITilesAmount = {
   ['ź']: 1,
 };
 
+export const initialTilesList = {
+  tilesRefs: {},
+  tilesMeasurements: {},
+};
+
 export const initialState: IBoardState = {
   boardFields: getInitialBoardFields(),
+  tilesList: initialTilesList,
   tilesAmount: initialTilesAmount,
   layout: initialLayout,
   newMove: [],

@@ -1,40 +1,88 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import {
-  View,
-  Text,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-} from 'react-native';
+import { View, Text } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { selectTilesAmount } from 'src/modules/Board/store/selectors';
+import {
+  selectTilesAmount,
+  selectDraggedTile,
+} from 'src/modules/Board/store/selectors';
+import { setTilesList } from 'src/modules/Board/store/slice';
 import Tile from 'src/modules/Tiles/components/Tile';
 import { Letter } from 'src/modules/Dictionary/interfaces';
+import { MEASURE_TIMEOUT } from 'src/config';
 
 import { styles } from './styles';
 
-type Props = {
-  onMomentumScrollEnd: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
-  onSetTileRef: (letter: string) => (ref: View | null) => void;
-};
+const tilesRefs: Record<string, View | null> = {};
+const tilesMeasurements: Record<
+  string,
+  { x: number; y: number; size: number }
+> = {};
+const measureTimeouts: Record<string, number> = {};
 
-const TilesList: React.FC<Props> = ({ onMomentumScrollEnd, onSetTileRef }) => {
+const TilesList = ({}) => {
+  const dispatch = useDispatch();
   const tilesAmount = useSelector(selectTilesAmount);
+  const draggedTile = useSelector(selectDraggedTile);
 
-  const letters = Object.keys(tilesAmount);
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(setTilesList({ tilesRefs, tilesMeasurements }));
+    }, MEASURE_TIMEOUT);
+  }, []);
+
+  useEffect(() => {
+    if (!draggedTile) {
+      measureAllTiles();
+    }
+  }, [draggedTile]);
+
+  const measureTile = (letter: string) => {
+    // setTimeout is required, otherwise all measurements will be 0
+    if (measureTimeouts[letter]) {
+      clearTimeout(measureTimeouts[letter]);
+    }
+
+    measureTimeouts[letter] = setTimeout(() => {
+      const element = tilesRefs[letter];
+
+      if (!element || draggedTile) {
+        return;
+      }
+
+      element.measureInWindow((x: number, y: number, width: number) => {
+        tilesMeasurements[letter] = { x, y, size: width };
+      });
+    }, MEASURE_TIMEOUT);
+  };
+
+  const measureAllTiles = () => {
+    Object.keys(tilesRefs).forEach(measureTile);
+
+    setTimeout(() => {
+      dispatch(setTilesList({ tilesRefs, tilesMeasurements }));
+    }, MEASURE_TIMEOUT);
+  };
+
+  const setTileRef = (letter: string) => (ref: View | null) => {
+    tilesRefs[letter] = ref;
+    measureTile(letter);
+  };
+
+  const availableTiles = Object.keys(tilesAmount);
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={letters.map((letter, index) => ({
+        data={availableTiles.map((letter, index) => ({
           key: letter,
           amount: tilesAmount[letter as Letter],
           index,
         }))}
         horizontal
-        onMomentumScrollEnd={onMomentumScrollEnd}
+        onMomentumScrollEnd={measureAllTiles}
         renderItem={({ item }) =>
           item.amount ? (
             <View
@@ -42,9 +90,9 @@ const TilesList: React.FC<Props> = ({ onMomentumScrollEnd, onSetTileRef }) => {
                 styles,
                 'tileWrapper',
                 item.index,
-                letters.length,
+                availableTiles.length,
               )}
-              ref={onSetTileRef(item.key)}
+              ref={setTileRef(item.key)}
             >
               <Tile letter={item.key as Letter} />
               <Text style={styles.amount}>{item.amount}</Text>

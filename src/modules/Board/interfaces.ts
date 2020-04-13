@@ -1,3 +1,5 @@
+import { View } from 'react-native';
+
 import { IPlayerId } from 'src/modules/Players/interfaces';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 
@@ -36,7 +38,11 @@ export interface IPlayedMove {
 export type ITilesAmount = Record<Letter, number>;
 
 export interface IDraggedTile {
-  x?: number;
-  y?: number;
   letter: Letter;
+  source: 'list' | 'board';
+}
+
+export interface ITilesList {
+  tilesRefs: Record<string, View | null>;
+  tilesMeasurements: Record<string, { x: number; y: number; size: number }>;
 }

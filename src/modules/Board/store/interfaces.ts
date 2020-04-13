@@ -3,6 +3,7 @@ import { Letter } from 'src/modules/Dictionary/interfaces';
 import {
   IBoardFields,
   IBoardLayout,
+  ITilesList,
   IPlayedMove,
   ITilesAmount,
   IBoardTile,
@@ -11,6 +12,7 @@ import {
 
 export type IBoardState = {
   boardFields: IBoardFields;
+  tilesList: ITilesList;
   tilesAmount: ITilesAmount;
   layout: IBoardLayout;
   newMove: IBoardTile[];
