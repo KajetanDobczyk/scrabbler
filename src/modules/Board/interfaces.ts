@@ -42,12 +42,11 @@ export interface IDraggedTile {
 
 export type ITileMeasurements = { x: number; y: number; size: number };
 
-export type ITilesList = Record<
-  Letter,
-  {
-    amountLeft: number;
-    measurements: ITileMeasurements | undefined;
-  }
->;
+export type ITilesListElement = {
+  amountLeft: number;
+  measurements: ITileMeasurements | undefined;
+};
+
+export type ITilesList = Record<Letter, ITilesListElement>;
 
 export type SetTilesListMeasurementsPayload = Record<Letter, ITileMeasurements>;

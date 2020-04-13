@@ -72,6 +72,7 @@ const board = createSlice({
     cancelNewMove(state) {
       state.newMove.forEach((move) => {
         state.boardFields[move.y][move.x].letter = '';
+        state.tilesList[move.letter].amountLeft++;
       });
 
       state.newMove = [];

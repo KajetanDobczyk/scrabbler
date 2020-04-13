@@ -1,18 +1,16 @@
 import React from 'react';
-import EStyleSheet from 'react-native-extended-stylesheet';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSelector, useDispatch } from 'react-redux';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { selectTilesList } from 'src/modules/Board/store/selectors';
-import Tile from 'src/modules/Tiles/components/Tile';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import { setTilesListMeasurements } from 'src/modules/Board/store/slice';
 
 import { styles } from './styles';
+import TilesListElement from './components/TilesListElement';
 
-const TilesList = ({}) => {
+const TilesList = () => {
   const dispatch = useDispatch();
   const tilesList = useSelector(selectTilesList);
 
@@ -59,19 +57,14 @@ const TilesList = ({}) => {
     >
       <View style={styles.container}>
         {availableTiles.map((letter, i) => (
-          <View
+          <TilesListElement
             key={letter}
-            style={EStyleSheet.child(
-              styles,
-              'tileWrapper',
-              i,
-              availableTiles.length,
-            )}
-            ref={setTileRef(letter)}
-          >
-            <Tile letter={letter as Letter} />
-            <Text style={styles.amount}>{tilesList[letter].amountLeft}</Text>
-          </View>
+            letter={letter}
+            tile={tilesList[letter]}
+            index={i}
+            listLength={availableTiles.length}
+            onSetTileRef={setTileRef(letter)}
+          />
         ))}
       </View>
     </ScrollView>
