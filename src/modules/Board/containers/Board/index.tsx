@@ -11,10 +11,10 @@ import DraggedTile from './components/DraggedTile';
 import GameBoard from './components/GameBoard';
 import TilesList from './components/TilesList';
 import NewMoveConfirmationButtons from './components/NewMoveConfirmationButtons';
-import { styles } from './styles';
 import { dropDraggedTile, initDraggedTileFromList } from '../../store/thunks';
 import { setDraggedTile } from '../../store/slice';
 import { selectDraggedTile, selectBoardLayout } from '../../store/selectors';
+import { styles } from './styles';
 
 let x0 = 0;
 let y0 = 0;
@@ -33,6 +33,7 @@ const Board = () => {
       x0 = x;
       y0 = y;
 
+      translate.setValue({ x: 0, y: 0 });
       dispatch(initDraggedTileFromList(x));
     } else {
       //TODO: Init dragged tile from board
@@ -77,15 +78,10 @@ const Board = () => {
         <GameBoard />
         <TilesList />
         <NewMoveConfirmationButtons />
-        {draggedTile && (
-          <DraggedTile
-            x={x0}
-            y={y0}
-            letter={draggedTile.letter}
-            size={40}
-            translate={translate}
-          />
-        )}
+        <DraggedTile
+          size={draggedTile?.source === 'list' ? 40 : layout.tileSize}
+          translate={translate}
+        />
       </View>
     </LongPressGestureHandler>
   );

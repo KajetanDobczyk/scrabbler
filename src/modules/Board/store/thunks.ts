@@ -78,14 +78,23 @@ export const initDraggedTileFromList = (touchX: number): AppThunk => async (
     return;
   }
 
-  const foundTile = Object.keys(tilesList).find((letter) => {
+  const letter = Object.keys(tilesList).find((letter) => {
     const { x, size } = (tilesList as any)[letter]?.measurements;
 
     return touchX + boardPadding - x >= 0 && touchX + boardPadding - x < size;
-  });
+  }) as Letter | undefined;
 
-  if (foundTile) {
-    dispatch(setDraggedTile({ letter: foundTile as Letter, source: 'list' }));
+  if (letter) {
+    const tile = tilesList[letter];
+
+    dispatch(
+      setDraggedTile({
+        x0: tile.measurements!.x,
+        y0: tile.measurements!.y,
+        letter,
+        source: 'list',
+      }),
+    );
   }
 };
 

@@ -34,6 +34,8 @@ export interface IPlayedMove {
 }
 
 export interface IDraggedTile {
+  x0: number;
+  y0: number;
   letter: Letter;
   source: 'list' | 'board';
 }
