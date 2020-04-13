@@ -3,7 +3,11 @@ import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { selectTilesList } from 'src/modules/Board/store/selectors';
+import {
+  selectTilesList,
+  selectNewMove,
+  selectDraggedTile,
+} from 'src/modules/Board/store/selectors';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import { setTilesListMeasurements } from 'src/modules/Board/store/slice';
 import { ITileMeasurements } from 'src/modules/Board/interfaces';
@@ -14,10 +18,16 @@ import TilesListElement from './components/TilesListElement';
 const TilesList = () => {
   const dispatch = useDispatch();
   const tilesList = useSelector(selectTilesList);
+  const newMove = useSelector(selectNewMove);
+  const draggedTile = useSelector(selectDraggedTile);
 
   useEffect(() => {
     measureAllTiles();
   }, []);
+
+  useEffect(() => {
+    measureAllTiles();
+  }, [newMove, draggedTile]);
 
   const tilesRefs: Record<string, View | null> = {};
 
@@ -42,7 +52,7 @@ const TilesList = () => {
 
     setTimeout(() => {
       dispatch(setTilesListMeasurements(measurements));
-    }, 300);
+    }, 1);
   };
 
   const setTileRef = (letter: string) => (ref: View | null) => {

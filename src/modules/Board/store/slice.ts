@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import isEmpty from 'lodash/isEmpty';
 
 import { Letter } from 'src/modules/Dictionary/interfaces';
 
@@ -47,8 +48,12 @@ const board = createSlice({
     ) {
       const measurements = action.payload;
 
-      (Object.keys(action.payload) as Letter[]).forEach((letter) => {
-        state.tilesList[letter].measurements = measurements[letter];
+      (Object.keys(state.tilesList) as Letter[]).forEach((letter) => {
+        if (isEmpty(measurements[letter])) {
+          state.tilesList[letter].measurements = undefined;
+        } else {
+          state.tilesList[letter].measurements = measurements[letter];
+        }
       });
     },
     setDraggedTile(state, action: PayloadAction<IDraggedTile | null>) {
