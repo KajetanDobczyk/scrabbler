@@ -5,6 +5,7 @@ import isEmpty from 'lodash/isEmpty';
 
 import { AppThunk } from 'src/redux/store';
 import { Letter } from 'src/modules/Dictionary/interfaces';
+import { addCurrentPlayerMove } from 'src/modules/Players/store/slice';
 
 import { boardPadding } from '../containers/Board/styles';
 import { rowFieldsAmount } from '../data';
@@ -12,7 +13,7 @@ import {
   initBoardLayout,
   addNewMoveTile,
   removeNewMoveTile,
-  acceptNewMove,
+  resetNewMove,
   resetBoardFieldsHighlights,
   highlightBoardField,
   setDraggedTile,
@@ -188,6 +189,9 @@ export const tryNewMove = (): AppThunk => async (dispatch, getState) => {
       { cancelable: true },
     );
   } else {
-    dispatch(acceptNewMove());
+    batch(() => {
+      dispatch(addCurrentPlayerMove(newMove));
+      dispatch(resetNewMove());
+    });
   }
 };

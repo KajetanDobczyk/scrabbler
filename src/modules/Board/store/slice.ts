@@ -84,12 +84,7 @@ const board = createSlice({
         (tile) => tile.x !== x || tile.y !== y,
       );
     },
-    acceptNewMove(state) {
-      state.movesHistory.push({
-        playerId: 0,
-        tiles: state.newMove,
-      });
-
+    resetNewMove(state) {
       state.newMove = [];
     },
     cancelNewMove(state) {
@@ -111,7 +106,7 @@ export const {
   setDraggedTile,
   addNewMoveTile,
   removeNewMoveTile,
-  acceptNewMove,
+  resetNewMove,
   cancelNewMove,
 } = board.actions;
 

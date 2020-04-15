@@ -1,4 +1,4 @@
-import { IPlayerId } from 'src/modules/Players/interfaces';
+import { PlayerId } from 'src/modules/Players/interfaces';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 
 export type FieldBonus = 'dl' | 'tl' | 'dw' | 'tw' | 0;
@@ -27,11 +27,6 @@ export interface IBoardTile {
 export type IBoardFields = IBoardField[][];
 
 export type WordDirection = 'horizontal' | 'vertical';
-
-export interface IPlayedMove {
-  tiles: IBoardTile[];
-  playerId: IPlayerId;
-}
 
 export interface IDraggedTile {
   x0: number;

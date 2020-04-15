@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-import { IPlayers, IPlayerId } from 'src/modules/Players/interfaces';
+import { IPlayers } from 'src/modules/Players/interfaces';
 
 import { styles } from './styles';
 
