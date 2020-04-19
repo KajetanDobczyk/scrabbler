@@ -171,26 +171,26 @@ export const tryNewMove = (): AppThunk => async (dispatch, getState) => {
   const boardFields = selectBoardFields(getState());
   const isFirstMove = selectIsFirstMove(getState());
 
-  let errorMessage = undefined;
+  // let errorMessage = undefined;
 
-  if (isFirstMove && newMove.length === 1) {
-    errorMessage = 'Pierwszy ruch musi tworzyć wyraz!';
-  } else if (isFirstMove && !isMoveThroughCenter(newMove)) {
-    errorMessage = 'Pierwszy ruch musi przechodzić przez środek!';
-  } else if (isAnyLetterLoose(newMove, boardFields)) {
-    errorMessage = 'Nie wszystkie litery przylegają do innych!';
-  } else if (areLettersUnalligned(newMove)) {
-    errorMessage = 'Nowe litery nie są w jednej linii!';
-  }
+  // if (isFirstMove && newMove.length === 1) {
+  //   errorMessage = 'Pierwszy ruch musi tworzyć wyraz!';
+  // } else if (isFirstMove && !isMoveThroughCenter(newMove)) {
+  //   errorMessage = 'Pierwszy ruch musi przechodzić przez środek!';
+  // } else if (isAnyLetterLoose(newMove, boardFields)) {
+  //   errorMessage = 'Nie wszystkie litery przylegają do innych!';
+  // } else if (areLettersUnalligned(newMove)) {
+  //   errorMessage = 'Nowe litery nie są w jednej linii!';
+  // }
 
-  if (errorMessage) {
-    return Alert.alert(
-      'Niedozwolony ruch',
-      errorMessage,
-      [{ text: 'Ok', onPress: () => noop, style: 'cancel' }],
-      { cancelable: true },
-    );
-  }
+  // if (errorMessage) {
+  //   return Alert.alert(
+  //     'Niedozwolony ruch',
+  //     errorMessage,
+  //     [{ text: 'Ok', onPress: () => noop, style: 'cancel' }],
+  //     { cancelable: true },
+  //   );
+  // }
 
   //TODO: Logic for checking all words
 

@@ -22,6 +22,7 @@ import { styles } from './styles';
 
 let x0 = 0;
 let y0 = 0;
+let dragInitialY = 0;
 
 const Board = () => {
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ const Board = () => {
     y0 = y;
     translate.setValue({ x: 0, y: 0 });
 
-    if (y > layout.size) {
+    if (dragInitialY > layout.size) {
       dispatch(initDraggedTileFromList(x));
     } else {
       dispatch(initDraggedTileFromBoard(x, y));
@@ -49,6 +50,7 @@ const Board = () => {
       dispatch(dropDraggedTile(x, y));
     }
 
+    dragInitialY = 0;
     dispatch(setDraggedTile(null));
   };
 
@@ -61,7 +63,9 @@ const Board = () => {
   const onHandlerStateChange = (event: LongPressGestureHandlerGestureEvent) => {
     const { x, y, state } = event.nativeEvent;
 
-    if (state === State.ACTIVE) {
+    if (state === State.BEGAN) {
+      dragInitialY = y;
+    } else if (state === State.ACTIVE) {
       onDragStart(event);
     } else if (state === State.END || state === State.CANCELLED) {
       onDragEnd(x, y, state);
@@ -70,7 +74,6 @@ const Board = () => {
 
   return (
     <LongPressGestureHandler
-      minDurationMs={100}
       maxDist={Number.MAX_SAFE_INTEGER}
       onGestureEvent={onGestureEvent}
       onHandlerStateChange={onHandlerStateChange}
