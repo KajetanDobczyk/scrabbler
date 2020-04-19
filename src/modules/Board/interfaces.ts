@@ -45,3 +45,11 @@ export type ITilesListElement = {
 export type ITilesList = Record<Letter, ITilesListElement>;
 
 export type SetTilesListMeasurementsPayload = Record<Letter, ITileMeasurements>;
+
+export interface IPlayedWord {
+  x: number;
+  y: number;
+  word: string;
+  direction: 'horizontal' | 'vertical';
+  points: number;
+}

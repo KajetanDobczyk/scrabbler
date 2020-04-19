@@ -28,8 +28,3 @@ export const selectDraggedTile = createSelector(
   selectBoardState,
   (boardState) => boardState.draggedTile,
 );
-
-export const selectMovesHistory = createSelector(
-  selectBoardState,
-  (boardState) => boardState.movesHistory,
-);

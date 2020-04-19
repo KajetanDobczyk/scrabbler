@@ -5,7 +5,10 @@ import isEmpty from 'lodash/isEmpty';
 
 import { AppThunk } from 'src/redux/store';
 import { Letter } from 'src/modules/Dictionary/interfaces';
-import { addCurrentPlayerMove } from 'src/modules/Players/store/slice';
+import {
+  addCurrentPlayerMove,
+  selectIsFirstMove,
+} from 'src/modules/Players/store/slice';
 
 import { boardPadding } from '../containers/Board/styles';
 import { rowFieldsAmount } from '../data';
@@ -22,7 +25,6 @@ import {
   selectBoardLayout,
   selectBoardFields,
   selectNewMove,
-  selectMovesHistory,
   selectTilesList,
   selectDraggedTile,
 } from './selectors';
@@ -167,13 +169,13 @@ export const dropDraggedTile = (x: number, y: number): AppThunk => async (
 export const tryNewMove = (): AppThunk => async (dispatch, getState) => {
   const newMove = selectNewMove(getState());
   const boardFields = selectBoardFields(getState());
-  const movesHistory = selectMovesHistory(getState());
+  const isFirstMove = selectIsFirstMove(getState());
 
   let errorMessage = undefined;
 
-  if (!movesHistory.length && newMove.length === 1) {
+  if (isFirstMove && newMove.length === 1) {
     errorMessage = 'Pierwszy ruch musi tworzyć wyraz!';
-  } else if (!movesHistory.length && !isMoveThroughCenter(newMove)) {
+  } else if (isFirstMove && !isMoveThroughCenter(newMove)) {
     errorMessage = 'Pierwszy ruch musi przechodzić przez środek!';
   } else if (isAnyLetterLoose(newMove, boardFields)) {
     errorMessage = 'Nie wszystkie litery przylegają do innych!';
@@ -182,16 +184,18 @@ export const tryNewMove = (): AppThunk => async (dispatch, getState) => {
   }
 
   if (errorMessage) {
-    Alert.alert(
+    return Alert.alert(
       'Niedozwolony ruch',
       errorMessage,
       [{ text: 'Ok', onPress: () => noop, style: 'cancel' }],
       { cancelable: true },
     );
-  } else {
-    batch(() => {
-      dispatch(addCurrentPlayerMove(newMove));
-      dispatch(resetNewMove());
-    });
   }
+
+  //TODO: Logic for checking all words
+
+  batch(() => {
+    dispatch(addCurrentPlayerMove({ tiles: newMove, words: [] }));
+    dispatch(resetNewMove());
+  });
 };

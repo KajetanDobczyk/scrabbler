@@ -13,3 +13,7 @@ export const selectPlayers = createSelector(
   selectPlayersState,
   (playersState) => playersState.players,
 );
+
+export const selectIsFirstMove = createSelector(selectPlayers, (players) =>
+  Object.values(players).every((player) => !player?.moves.length),
+);

@@ -2,6 +2,7 @@ import { Letter } from 'src/modules/Dictionary/interfaces';
 
 import { IBoardFields, FieldBonus, ITilesList } from '../interfaces';
 import { IBoardState } from './interfaces';
+import { mockedBoardLetters } from './mocks';
 
 export const fieldsBonuses: FieldBonus[][] = [
   ['tw', 0, 0, 'dl', 0, 0, 0, 'tw', 0, 0, 0, 'dl', 0, 0, 'tw'],
@@ -22,12 +23,13 @@ export const fieldsBonuses: FieldBonus[][] = [
 ];
 
 export const getInitialBoardFields: () => IBoardFields = () =>
-  fieldsBonuses.map((row) =>
-    row.map((bonus) => ({
+  fieldsBonuses.map((row, y) =>
+    row.map((bonus, x) => ({
       x: 0,
       y: 0,
       bonus,
-      letter: '',
+      // letter: '',
+      letter: mockedBoardLetters[y][x],
       isHighlighted: false,
     })),
   );
@@ -88,10 +90,10 @@ const getInitialTilesList: () => ITilesList = () =>
   );
 
 export const initialState: IBoardState = {
+  // boardFields: getInitialBoardFields(),
   boardFields: getInitialBoardFields(),
   tilesList: getInitialTilesList(),
   layout: initialLayout,
   newMove: [],
   draggedTile: null,
-  movesHistory: [],
 };
