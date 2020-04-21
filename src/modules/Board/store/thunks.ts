@@ -33,6 +33,7 @@ import {
   isAnyLetterLoose,
   isMoveThroughCenter,
 } from './helpers';
+import { IPlayedWord } from '../interfaces';
 
 export const updateBoardLayout = (): AppThunk => async (dispatch) => {
   const screenWidth = Dimensions.get('window').width;
@@ -192,10 +193,84 @@ export const tryNewMove = (): AppThunk => async (dispatch, getState) => {
   //   );
   // }
 
-  //TODO: Logic for checking all words
+  let wordPartsTiles = newMove.map((tile) => ({
+    ...tile,
+    usedH: false,
+    usedV: false,
+  }));
+  let words: IPlayedWord[] = [];
+
+  const getFieldLetter = (x: number, y: number) =>
+    (boardFields[y][x] && boardFields[y][x].letter) || '';
+
+  wordPartsTiles.forEach(({ x, y, letter, usedH, usedV }) => {
+    if (
+      (!usedH && getFieldLetter(x - 1, y) !== '') ||
+      getFieldLetter(x + 1, y) !== ''
+    ) {
+      //Letter to the left or right present, form a new word
+      let leftX = x;
+      let rightX = x;
+      let word: string = letter;
+
+      while (getFieldLetter(leftX - 1, y) !== '') {
+        leftX--;
+        word = `${boardFields[y][leftX].letter}${word}`;
+      }
+      while (getFieldLetter(rightX + 1, y) !== '') {
+        rightX++;
+        word = `${word}${boardFields[y][rightX].letter}`;
+      }
+
+      words.push({
+        x: leftX,
+        y,
+        word,
+        direction: 'horizontal',
+        points: 0,
+      });
+      // Set all new tiles with same y as used in this word
+      wordPartsTiles = wordPartsTiles.map((tile) => ({
+        ...tile,
+        usedH: tile.y === y,
+      }));
+    }
+
+    if (
+      (!usedV && getFieldLetter(x, y - 1) !== '') ||
+      getFieldLetter(x, y + 1) !== ''
+    ) {
+      //Letter above or below present, form a new word
+      let upY = y;
+      let downY = y;
+      let word: string = letter;
+
+      while (getFieldLetter(x, upY - 1) !== '') {
+        upY--;
+        word = `${boardFields[upY][x].letter}${word}`;
+      }
+      while (getFieldLetter(x, downY + 1) !== '') {
+        downY++;
+        word = `${word}${boardFields[downY][x].letter}`;
+      }
+
+      words.push({
+        x,
+        y: upY,
+        word,
+        direction: 'vertical',
+        points: 0,
+      });
+      // Set all new tiles with same x as used in this word
+      wordPartsTiles = wordPartsTiles.map((tile) => ({
+        ...tile,
+        usedV: tile.x === x,
+      }));
+    }
+  });
 
   batch(() => {
-    dispatch(addCurrentPlayerMove({ tiles: newMove, words: [] }));
+    dispatch(addCurrentPlayerMove({ tiles: newMove, words }));
     dispatch(resetNewMove());
   });
 };

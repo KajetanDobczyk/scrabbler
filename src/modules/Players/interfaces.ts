@@ -2,12 +2,10 @@ import { IBoardTile, IPlayedWord } from 'src/modules/Board/interfaces';
 
 export type PlayerId = 0 | 1 | 2 | 3;
 
-export type IPlayedMove =
-  | {
-      tiles: IBoardTile[];
-      words: IPlayedWord[];
-    }
-  | 'skipped';
+export type IPlayedMove = {
+  tiles: IBoardTile[];
+  words: IPlayedWord[];
+};
 
 export interface IPlayer {
   name: string;

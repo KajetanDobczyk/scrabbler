@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import { styles } from './styles';
@@ -20,7 +20,11 @@ const TurnsHistory: React.FC<Props> = ({ players }) => (
           i,
           Object.values(players).length,
         )}
-      ></View>
+      >
+        {player?.moves.map((move, i) => (
+          <Text key={i}>{move.words.map((word) => word.word).join(', ')}</Text>
+        ))}
+      </View>
     ))}
   </View>
 );
