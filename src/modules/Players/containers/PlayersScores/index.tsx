@@ -1,22 +1,23 @@
 import React from 'react';
-import { View } from 'react-native';
 import { useSelector } from 'react-redux';
+import { ScrollView } from 'react-native-gesture-handler';
+import { View } from 'react-native';
 
-import { styles } from './styles';
-import TurnsHistory from './components/TurnsHistory';
-import PlayersScoresHeader from './components/PlayersScoresHeader';
-import PlayersScoresFooter from './components/PlayersScoresFooter';
 import { selectPlayers } from '../../store/slice';
+import PlayerColumn from './components/PlayerColumn';
+import { styles } from './styles';
 
 const PlayersScores = () => {
   const players = useSelector(selectPlayers);
 
   return (
-    <View style={styles.container}>
-      <PlayersScoresHeader players={players} />
-      <TurnsHistory players={players} />
-      <PlayersScoresFooter players={players} />
-    </View>
+    <ScrollView>
+      <View style={styles.container}>
+        {Object.values(players).map((player, i) =>
+          player ? <PlayerColumn key={i} player={player} /> : null,
+        )}
+      </View>
+    </ScrollView>
   );
 };
 

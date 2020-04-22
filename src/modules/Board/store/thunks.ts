@@ -227,7 +227,7 @@ export const tryNewMove = (): AppThunk => async (dispatch, getState) => {
         y,
         word,
         direction: 'horizontal',
-        points: 0,
+        points: 2,
       });
       // Set all new tiles with same y as used in this word
       wordPartsTiles = wordPartsTiles.map((tile) => ({
@@ -259,7 +259,7 @@ export const tryNewMove = (): AppThunk => async (dispatch, getState) => {
         y: upY,
         word,
         direction: 'vertical',
-        points: 0,
+        points: 3,
       });
       // Set all new tiles with same x as used in this word
       wordPartsTiles = wordPartsTiles.map((tile) => ({
