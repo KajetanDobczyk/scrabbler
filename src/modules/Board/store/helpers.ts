@@ -21,10 +21,10 @@ export const isAnyLetterLoose = (
   newMove
     .map(
       ({ x, y }) =>
-        (boardFields[y][x - 1] && boardFields[y][x - 1].letter !== '') ||
-        (boardFields[y][x + 1] && boardFields[y][x + 1].letter !== '') ||
-        (boardFields[y - 1] && boardFields[y - 1][x].letter !== '') ||
-        (boardFields[y + 1] && boardFields[y + 1][x].letter !== ''),
+        boardFields[y][x - 1]?.letter !== '' ||
+        boardFields[y][x + 1]?.letter !== '' ||
+        (boardFields[y - 1] && boardFields[y - 1][x]?.letter !== '') ||
+        (boardFields[y + 1] && boardFields[y + 1][x]?.letter !== ''),
     )
     .includes(false);
 
@@ -32,7 +32,7 @@ export const getFieldLetter = (
   boardFields: IBoardFields,
   x: number,
   y: number,
-) => (boardFields[y][x] && boardFields[y][x].letter) || '';
+) => (boardFields[y] && boardFields[y][x]?.letter) || '';
 
 export const countWordPoints = (
   boardFields: IBoardFields,
