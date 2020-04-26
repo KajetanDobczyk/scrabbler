@@ -1,11 +1,8 @@
-import { StyleSheet, Dimensions } from 'react-native';
-
-import { color } from 'src/theme';
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     flexGrow: 1,
-    backgroundColor: color.white,
   },
 });

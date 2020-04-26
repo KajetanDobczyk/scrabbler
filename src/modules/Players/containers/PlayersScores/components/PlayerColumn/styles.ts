@@ -1,22 +1,29 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 import { color, font } from 'src/theme';
 
-export const styles = StyleSheet.create({
+export const styles = EStyleSheet.create({
   container: {
     flexGrow: 1,
-    borderRightColor: color.black,
+    borderRightColor: color.green,
     borderRightWidth: 1,
+  },
+  'container:last-child': {
+    borderRightWidth: 0,
   },
   header: {
     backgroundColor: color.lightGreen,
+    borderBottomWidth: 1,
+    borderBottomColor: color.green,
   },
   name: {
     textAlign: 'center',
     fontSize: font.size.sm,
     color: color.white,
-    borderBottomWidth: 1,
-    borderBottomColor: color.green,
+  },
+  moves: {
+    backgroundColor: color.white,
+    flexGrow: 1,
   },
   move: {
     position: 'relative',

@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { ScrollView } from 'react-native-gesture-handler';
-import { View } from 'react-native';
 
 import { selectPlayers } from '../../store/slice';
 import PlayerColumn from './components/PlayerColumn';
@@ -11,12 +10,17 @@ const PlayersScores = () => {
   const players = useSelector(selectPlayers);
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        {Object.values(players).map((player, i) =>
-          player ? <PlayerColumn key={i} player={player} /> : null,
-        )}
-      </View>
+    <ScrollView contentContainerStyle={styles.container}>
+      {Object.values(players).map((player, i) =>
+        player ? (
+          <PlayerColumn
+            key={i}
+            player={player}
+            index={i}
+            playersAmount={Object.keys(players).length}
+          />
+        ) : null,
+      )}
     </ScrollView>
   );
 };
