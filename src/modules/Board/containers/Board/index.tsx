@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { View, Animated } from 'react-native';
 import {
-  LongPressGestureHandler,
-  LongPressGestureHandlerGestureEvent,
   State,
+  PanGestureHandler,
+  PanGestureHandlerGestureEvent,
+  NativeViewGestureHandler,
 } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -31,7 +32,7 @@ const Board = () => {
 
   const translate = new Animated.ValueXY({ x: 0, y: 0 });
 
-  const onDragStart = (event: LongPressGestureHandlerGestureEvent) => {
+  const onDragStart = (event: PanGestureHandlerGestureEvent) => {
     const { x, y } = event.nativeEvent;
 
     x0 = x;
@@ -54,13 +55,13 @@ const Board = () => {
     dispatch(setDraggedTile(null));
   };
 
-  const onGestureEvent = (event: LongPressGestureHandlerGestureEvent) => {
+  const onGestureEvent = (event: PanGestureHandlerGestureEvent) => {
     const { x, y } = event.nativeEvent;
 
     translate.setValue({ x: x - x0, y: y - y0 });
   };
 
-  const onHandlerStateChange = (event: LongPressGestureHandlerGestureEvent) => {
+  const onHandlerStateChange = (event: PanGestureHandlerGestureEvent) => {
     const { x, y, state } = event.nativeEvent;
 
     if (state === State.BEGAN) {
@@ -73,8 +74,7 @@ const Board = () => {
   };
 
   return (
-    <LongPressGestureHandler
-      maxDist={Number.MAX_SAFE_INTEGER}
+    <PanGestureHandler
       onGestureEvent={onGestureEvent}
       onHandlerStateChange={onHandlerStateChange}
     >
@@ -87,7 +87,7 @@ const Board = () => {
           translate={translate}
         />
       </View>
-    </LongPressGestureHandler>
+    </PanGestureHandler>
   );
 };
 
