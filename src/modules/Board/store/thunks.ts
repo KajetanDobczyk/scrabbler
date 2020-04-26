@@ -193,20 +193,18 @@ export const tryNewMove = (): AppThunk => async (dispatch, getState) => {
   //   );
   // }
 
-  let wordPartsTiles = newMove.map((tile) => ({
-    ...tile,
-    usedH: false,
-    usedV: false,
-  }));
-  let words: IPlayedWord[] = [];
+  let newMoveWords: IPlayedWord[] = [];
+  let alreadyUsedH = false;
+  let alreadyUsedV = false;
 
   const getFieldLetter = (x: number, y: number) =>
     (boardFields[y][x] && boardFields[y][x].letter) || '';
 
-  wordPartsTiles.forEach(({ x, y, letter, usedH, usedV }) => {
+  //Check for new horizontal words
+  newMove.forEach(({ x, y, letter }) => {
     if (
-      (!usedH && getFieldLetter(x - 1, y) !== '') ||
-      getFieldLetter(x + 1, y) !== ''
+      !alreadyUsedH &&
+      (getFieldLetter(x - 1, y) !== '' || getFieldLetter(x + 1, y) !== '')
     ) {
       //Letter to the left or right present, form a new word
       let leftX = x;
@@ -222,23 +220,24 @@ export const tryNewMove = (): AppThunk => async (dispatch, getState) => {
         word = `${word}${boardFields[y][rightX].letter}`;
       }
 
-      words.push({
+      newMoveWords.push({
         x: leftX,
         y,
         word,
         direction: 'horizontal',
         points: 2,
       });
-      // Set all new tiles with same y as used in this word
-      wordPartsTiles = wordPartsTiles.map((tile) => ({
-        ...tile,
-        usedH: tile.y === y,
-      }));
-    }
 
+      // Check if new move is horizontal, if so, don't check for new horizontal words
+      alreadyUsedH = newMove.every((tile) => tile.y === newMove[0].y);
+    }
+  });
+
+  //Check for new vertical words
+  newMove.forEach(({ x, y, letter }) => {
     if (
-      (!usedV && getFieldLetter(x, y - 1) !== '') ||
-      getFieldLetter(x, y + 1) !== ''
+      !alreadyUsedV &&
+      (getFieldLetter(x, y - 1) !== '' || getFieldLetter(x, y + 1) !== '')
     ) {
       //Letter above or below present, form a new word
       let upY = y;
@@ -254,23 +253,21 @@ export const tryNewMove = (): AppThunk => async (dispatch, getState) => {
         word = `${word}${boardFields[downY][x].letter}`;
       }
 
-      words.push({
+      newMoveWords.push({
         x,
         y: upY,
         word,
         direction: 'vertical',
         points: 3,
       });
-      // Set all new tiles with same x as used in this word
-      wordPartsTiles = wordPartsTiles.map((tile) => ({
-        ...tile,
-        usedV: tile.x === x,
-      }));
+
+      // Check if new move is vertical, if so, don't check for new vertical words
+      alreadyUsedV = newMove.every((tile) => tile.x === newMove[0].x);
     }
   });
 
   batch(() => {
-    dispatch(addCurrentPlayerMove({ tiles: newMove, words }));
+    dispatch(addCurrentPlayerMove({ tiles: newMove, words: newMoveWords }));
     dispatch(resetNewMove());
   });
 };
