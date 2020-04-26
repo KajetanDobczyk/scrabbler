@@ -4,6 +4,7 @@ import { color, font } from 'src/theme';
 
 export const styles = EStyleSheet.create({
   container: {
+    flexBasis: 0,
     flexGrow: 1,
     borderRightColor: color.green,
     borderRightWidth: 1,
@@ -32,7 +33,10 @@ export const styles = EStyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: color.green,
   },
-  word: {},
+  word: {
+    textTransform: 'uppercase',
+    fontSize: font.size.sm,
+  },
   points: {
     position: 'absolute',
     bottom: 0,

@@ -23,7 +23,7 @@ const Tile: React.FC<Props> = ({ letter, isInNewMove }) => {
     }),
   );
 
-  const backgroundColor = animatedValue.interpolate({
+  const bgColorAnimation = animatedValue.interpolate({
     inputRange: [0, 0.5, 1],
     outputRange: [color.cream, color.white, color.cream],
   });
@@ -37,7 +37,7 @@ const Tile: React.FC<Props> = ({ letter, isInNewMove }) => {
   }, [isInNewMove]);
 
   return (
-    <Animated.View style={[styles.container, { backgroundColor }]}>
+    <Animated.View style={[styles.container, { bgColorAnimation }]}>
       <Text style={styles.letter}>{letter !== '?' ? letter : ''}</Text>
       {points ? <Text style={styles.points}>{tilesPoints[letter]}</Text> : null}
     </Animated.View>
