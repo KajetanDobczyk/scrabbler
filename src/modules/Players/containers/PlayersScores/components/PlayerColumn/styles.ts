@@ -28,19 +28,33 @@ export const styles = EStyleSheet.create({
   },
   move: {
     position: 'relative',
-    height: 150,
-    padding: 10,
+    paddingTop: 5,
+    paddingHorizontal: 5,
+    paddingBottom: 20,
     borderBottomWidth: 1,
     borderBottomColor: color.green,
+  },
+  wordRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   word: {
     textTransform: 'uppercase',
     fontSize: font.size.sm,
   },
-  points: {
-    position: 'absolute',
-    bottom: 0,
-    right: 2,
+  wordPoints: {
     fontSize: font.size.sm,
+  },
+  movePoints: {
+    position: 'absolute',
+    bottom: 5,
+    right: 5,
+    fontSize: font.size.sm,
+  },
+  totalPoints: {
+    fontSize: font.size.sm,
+    fontWeight: 'bold',
+    textAlign: 'right',
+    padding: 5,
   },
 });

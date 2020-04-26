@@ -20,7 +20,8 @@ const PlayerColumn: React.FC<Props> = ({
   playersAmount,
   isCurrent,
 }) => {
-  let points = 0;
+  let movePoints = 0;
+  let totalPoints = 0;
 
   const animatedValue = useRef(new Animated.Value(0)).current;
   const animation = Animated.loop(
@@ -51,20 +52,27 @@ const PlayerColumn: React.FC<Props> = ({
         <Text style={styles.name}>{player.name}</Text>
       </Animated.View>
       <View style={styles.moves}>
-        {player.moves.map((move, i) => (
-          <View key={i} style={styles.move}>
-            {move.words.map((word, j) => {
-              points = points + word.points;
+        {player.moves.map((move, i) => {
+          movePoints = 0;
 
-              return (
-                <Text key={j} style={styles.word}>
-                  {word.word}
-                </Text>
-              );
-            })}
-            <Text style={styles.points}>{points}</Text>
-          </View>
-        ))}
+          return (
+            <View key={i} style={styles.move}>
+              {move.words.map((word, j) => {
+                movePoints += word.points;
+                totalPoints += word.points;
+
+                return (
+                  <View key={j} style={styles.wordRow}>
+                    <Text style={styles.word}>{word.word}</Text>
+                    <Text style={styles.wordPoints}>{word.points}</Text>
+                  </View>
+                );
+              })}
+              <Text style={styles.movePoints}>{movePoints}</Text>
+            </View>
+          );
+        })}
+        <Text style={styles.totalPoints}>{totalPoints}</Text>
       </View>
     </View>
   );

@@ -26,7 +26,7 @@ export interface IBoardTile {
 
 export type IBoardFields = IBoardField[][];
 
-export type WordDirection = 'horizontal' | 'vertical';
+export type WordDirection = 'h' | 'v';
 
 export interface IDraggedTile {
   x0: number;
@@ -50,6 +50,6 @@ export interface IPlayedWord {
   x: number;
   y: number;
   word: string;
-  direction: 'horizontal' | 'vertical';
+  direction: WordDirection;
   points: number;
 }

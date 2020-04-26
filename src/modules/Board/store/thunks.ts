@@ -1,7 +1,7 @@
 import { Dimensions, Alert } from 'react-native';
-import noop from 'lodash/noop';
 import { batch } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
+import noop from 'lodash/noop';
 
 import { AppThunk } from 'src/redux/store';
 import { Letter } from 'src/modules/Dictionary/interfaces';
@@ -32,6 +32,8 @@ import {
   areLettersUnalligned,
   isAnyLetterLoose,
   isMoveThroughCenter,
+  getFieldLetter,
+  countWordPoints,
 } from './helpers';
 import { IPlayedWord } from '../interfaces';
 
@@ -172,50 +174,48 @@ export const tryNewMove = (): AppThunk => async (dispatch, getState) => {
   const boardFields = selectBoardFields(getState());
   const isFirstMove = selectIsFirstMove(getState());
 
-  // let errorMessage = undefined;
+  let errorMessage = undefined;
 
-  // if (isFirstMove && newMove.length === 1) {
-  //   errorMessage = 'Pierwszy ruch musi tworzyć wyraz!';
-  // } else if (isFirstMove && !isMoveThroughCenter(newMove)) {
-  //   errorMessage = 'Pierwszy ruch musi przechodzić przez środek!';
-  // } else if (isAnyLetterLoose(newMove, boardFields)) {
-  //   errorMessage = 'Nie wszystkie litery przylegają do innych!';
-  // } else if (areLettersUnalligned(newMove)) {
-  //   errorMessage = 'Nowe litery nie są w jednej linii!';
-  // }
+  if (isFirstMove && newMove.length === 1) {
+    errorMessage = 'Pierwszy ruch musi tworzyć wyraz!';
+  } else if (isFirstMove && !isMoveThroughCenter(newMove)) {
+    errorMessage = 'Pierwszy ruch musi przechodzić przez środek!';
+  } else if (isAnyLetterLoose(newMove, boardFields)) {
+    errorMessage = 'Nie wszystkie litery przylegają do innych!';
+  } else if (areLettersUnalligned(newMove)) {
+    errorMessage = 'Nowe litery nie są w jednej linii!';
+  }
 
-  // if (errorMessage) {
-  //   return Alert.alert(
-  //     'Niedozwolony ruch',
-  //     errorMessage,
-  //     [{ text: 'Ok', onPress: () => noop, style: 'cancel' }],
-  //     { cancelable: true },
-  //   );
-  // }
+  if (errorMessage) {
+    return Alert.alert(
+      'Niedozwolony ruch',
+      errorMessage,
+      [{ text: 'Ok', onPress: () => noop, style: 'cancel' }],
+      { cancelable: true },
+    );
+  }
 
   let newMoveWords: IPlayedWord[] = [];
   let alreadyUsedH = false;
   let alreadyUsedV = false;
 
-  const getFieldLetter = (x: number, y: number) =>
-    (boardFields[y][x] && boardFields[y][x].letter) || '';
-
   //Check for new horizontal words
   newMove.forEach(({ x, y, letter }) => {
     if (
       !alreadyUsedH &&
-      (getFieldLetter(x - 1, y) !== '' || getFieldLetter(x + 1, y) !== '')
+      (getFieldLetter(boardFields, x - 1, y) !== '' ||
+        getFieldLetter(boardFields, x + 1, y) !== '')
     ) {
       //Letter to the left or right present, form a new word
       let leftX = x;
       let rightX = x;
       let word: string = letter;
 
-      while (getFieldLetter(leftX - 1, y) !== '') {
+      while (getFieldLetter(boardFields, leftX - 1, y) !== '') {
         leftX--;
         word = `${boardFields[y][leftX].letter}${word}`;
       }
-      while (getFieldLetter(rightX + 1, y) !== '') {
+      while (getFieldLetter(boardFields, rightX + 1, y) !== '') {
         rightX++;
         word = `${word}${boardFields[y][rightX].letter}`;
       }
@@ -224,8 +224,8 @@ export const tryNewMove = (): AppThunk => async (dispatch, getState) => {
         x: leftX,
         y,
         word,
-        direction: 'horizontal',
-        points: 2,
+        direction: 'h',
+        points: countWordPoints(boardFields, newMove, leftX, y, word, 'h'),
       });
 
       // Check if new move is horizontal, if so, don't check for new horizontal words
@@ -237,18 +237,19 @@ export const tryNewMove = (): AppThunk => async (dispatch, getState) => {
   newMove.forEach(({ x, y, letter }) => {
     if (
       !alreadyUsedV &&
-      (getFieldLetter(x, y - 1) !== '' || getFieldLetter(x, y + 1) !== '')
+      (getFieldLetter(boardFields, x, y - 1) !== '' ||
+        getFieldLetter(boardFields, x, y + 1) !== '')
     ) {
       //Letter above or below present, form a new word
       let upY = y;
       let downY = y;
       let word: string = letter;
 
-      while (getFieldLetter(x, upY - 1) !== '') {
+      while (getFieldLetter(boardFields, x, upY - 1) !== '') {
         upY--;
         word = `${boardFields[upY][x].letter}${word}`;
       }
-      while (getFieldLetter(x, downY + 1) !== '') {
+      while (getFieldLetter(boardFields, x, downY + 1) !== '') {
         downY++;
         word = `${word}${boardFields[downY][x].letter}`;
       }
@@ -257,8 +258,8 @@ export const tryNewMove = (): AppThunk => async (dispatch, getState) => {
         x,
         y: upY,
         word,
-        direction: 'vertical',
-        points: 3,
+        direction: 'v',
+        points: countWordPoints(boardFields, newMove, x, upY, word, 'v'),
       });
 
       // Check if new move is vertical, if so, don't check for new vertical words
