@@ -176,15 +176,15 @@ export const tryNewMove = (): AppThunk => async (dispatch, getState) => {
 
   let errorMessage = undefined;
 
-  if (isFirstMove && newMove.length === 1) {
-    errorMessage = 'Pierwszy ruch musi tworzyć wyraz!';
-  } else if (isFirstMove && !isMoveThroughCenter(newMove)) {
-    errorMessage = 'Pierwszy ruch musi przechodzić przez środek!';
-  } else if (isAnyLetterLoose(newMove, boardFields)) {
-    errorMessage = 'Nie wszystkie litery przylegają do innych!';
-  } else if (areLettersUnalligned(newMove)) {
-    errorMessage = 'Nowe litery nie są w jednej linii!';
-  }
+  // if (isFirstMove && newMove.length === 1) {
+  //   errorMessage = 'Pierwszy ruch musi tworzyć wyraz!';
+  // } else if (isFirstMove && !isMoveThroughCenter(newMove)) {
+  //   errorMessage = 'Pierwszy ruch musi przechodzić przez środek!';
+  // } else if (isAnyLetterLoose(newMove, boardFields)) {
+  //   errorMessage = 'Nie wszystkie litery przylegają do innych!';
+  // } else if (areLettersUnalligned(newMove)) {
+  //   errorMessage = 'Nowe litery nie są w jednej linii!';
+  // }
 
   if (errorMessage) {
     return Alert.alert(
@@ -266,6 +266,10 @@ export const tryNewMove = (): AppThunk => async (dispatch, getState) => {
       alreadyUsedV = newMove.every((tile) => tile.x === newMove[0].x);
     }
   });
+
+  if (newMoveWords.length === 1 && newMove.length === 7) {
+    newMoveWords[0].points += 50;
+  }
 
   batch(() => {
     dispatch(addCurrentPlayerMove({ tiles: newMove, words: newMoveWords }));

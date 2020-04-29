@@ -46,7 +46,7 @@ export const countWordPoints = (
   let y = y0;
   let wordPoints = 0;
   let wordMultiplier = 1;
-  const moveToNextLetter = direction === 'h' ? () => y++ : () => x++;
+  const moveToNextLetter = direction === 'h' ? () => x++ : () => y++;
 
   range(word.length).map((i) => {
     const tilePoints = tilesPoints[word[i] as Letter];
