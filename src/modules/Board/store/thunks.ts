@@ -28,8 +28,7 @@ import {
   selectTilesList,
   selectDraggedTile,
 } from './selectors';
-import { getFieldLetter, countWordPoints, validateNewMove } from './helpers';
-import { IPlayedWord } from '../interfaces';
+import { getNewHorizontalMoves, getNewVerticalMoves } from './helpers';
 
 export const updateBoardLayout = (): AppThunk => async (dispatch) => {
   const screenWidth = Dimensions.get('window').width;
@@ -180,77 +179,10 @@ export const tryNewMove = (): AppThunk => async (dispatch, getState) => {
     );
   }
 
-  let newMoveWords: IPlayedWord[] = [];
-  let alreadyUsedH = false;
-  let alreadyUsedV = false;
-
-  //Check for new horizontal words
-  newMove.forEach(({ x, y, letter }) => {
-    if (
-      !alreadyUsedH &&
-      (getFieldLetter(boardFields, x - 1, y) !== '' ||
-        getFieldLetter(boardFields, x + 1, y) !== '')
-    ) {
-      //Letter to the left or right present, form a new word
-      let leftX = x;
-      let rightX = x;
-      let word: string = letter;
-
-      while (getFieldLetter(boardFields, leftX - 1, y) !== '') {
-        leftX--;
-        word = `${boardFields[y][leftX].letter}${word}`;
-      }
-      while (getFieldLetter(boardFields, rightX + 1, y) !== '') {
-        rightX++;
-        word = `${word}${boardFields[y][rightX].letter}`;
-      }
-
-      newMoveWords.push({
-        x: leftX,
-        y,
-        word,
-        direction: 'h',
-        points: countWordPoints(boardFields, newMove, leftX, y, word, 'h'),
-      });
-
-      // Check if new move is horizontal, if so, don't check for new horizontal words
-      alreadyUsedH = newMove.every((tile) => tile.y === newMove[0].y);
-    }
-  });
-
-  //Check for new vertical words
-  newMove.forEach(({ x, y, letter }) => {
-    if (
-      !alreadyUsedV &&
-      (getFieldLetter(boardFields, x, y - 1) !== '' ||
-        getFieldLetter(boardFields, x, y + 1) !== '')
-    ) {
-      //Letter above or below present, form a new word
-      let upY = y;
-      let downY = y;
-      let word: string = letter;
-
-      while (getFieldLetter(boardFields, x, upY - 1) !== '') {
-        upY--;
-        word = `${boardFields[upY][x].letter}${word}`;
-      }
-      while (getFieldLetter(boardFields, x, downY + 1) !== '') {
-        downY++;
-        word = `${word}${boardFields[downY][x].letter}`;
-      }
-
-      newMoveWords.push({
-        x,
-        y: upY,
-        word,
-        direction: 'v',
-        points: countWordPoints(boardFields, newMove, x, upY, word, 'v'),
-      });
-
-      // Check if new move is vertical, if so, don't check for new vertical words
-      alreadyUsedV = newMove.every((tile) => tile.x === newMove[0].x);
-    }
-  });
+  const newMoveWords = [
+    ...getNewHorizontalMoves(boardFields, newMove),
+    ...getNewVerticalMoves(boardFields, newMove),
+  ];
 
   if (newMoveWords.length === 1 && newMove.length === 7) {
     newMoveWords[0].points += 50;
