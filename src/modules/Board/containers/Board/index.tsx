@@ -1,16 +1,18 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { View, Animated } from 'react-native';
 import {
   State,
   PanGestureHandler,
   PanGestureHandlerGestureEvent,
-  NativeViewGestureHandler,
 } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { Letter } from 'src/modules/Dictionary/interfaces';
 
 import DraggedTile from './components/DraggedTile';
 import GameBoard from './components/GameBoard';
 import TilesList from './components/TilesList';
+import BlankLetterModal from './components/BlankLetterModal';
 import NewMoveConfirmationButtons from './components/NewMoveConfirmationButtons';
 import {
   dropDraggedTile,
@@ -30,6 +32,10 @@ const Board = () => {
   const draggedTile = useSelector(selectDraggedTile);
   const layout = useSelector(selectBoardLayout);
 
+  const [isBlankLetterModalVisible, setIsBlankLetterModalVisible] = useState(
+    false,
+  );
+
   const translate = new Animated.ValueXY({ x: 0, y: 0 });
 
   const onDragStart = (event: PanGestureHandlerGestureEvent) => {
@@ -48,7 +54,11 @@ const Board = () => {
 
   const onDragEnd = (x: number, y: number, state: State) => {
     if (state === State.END && draggedTile) {
-      dispatch(dropDraggedTile(x, y));
+      if (draggedTile.letter === '?') {
+        setIsBlankLetterModalVisible(true);
+      } else {
+        dispatch(dropDraggedTile(x, y));
+      }
     }
 
     dragInitialY = 0;
@@ -82,10 +92,19 @@ const Board = () => {
         <GameBoard />
         <TilesList />
         <NewMoveConfirmationButtons />
-        <DraggedTile
-          size={draggedTile?.source === 'list' ? 40 : layout.tileSize}
-          translate={translate}
-        />
+        {draggedTile && (
+          <DraggedTile
+            draggedTile={draggedTile}
+            size={draggedTile?.source === 'list' ? 40 : layout.tileSize}
+            translate={translate}
+          />
+        )}
+        {isBlankLetterModalVisible && (
+          <BlankLetterModal
+            onSelectLetter={(letter: Letter) => console.log(letter)}
+            onClose={() => setIsBlankLetterModalVisible(false)}
+          />
+        )}
       </View>
     </PanGestureHandler>
   );

@@ -10,10 +10,11 @@ import { styles } from './styles';
 type Props = {
   letter: Letter;
   isInNewMove?: boolean;
+  hidePoints?: boolean;
 };
 
-const Tile: React.FC<Props> = ({ letter, isInNewMove }) => {
-  const points = tilesPoints[letter];
+const Tile: React.FC<Props> = ({ letter, isInNewMove, hidePoints }) => {
+  const points = !hidePoints && tilesPoints[letter];
   const animatedValue = useRef(new Animated.Value(0)).current;
   const animation = Animated.loop(
     Animated.timing(animatedValue, {

@@ -1,24 +1,18 @@
 import React, { memo } from 'react';
 import { Animated } from 'react-native';
 import Modal from 'react-native-modal';
-import { useSelector } from 'react-redux';
 
 import Tile from 'src/modules/Tiles/components/Tile';
 import { boardPadding } from 'src/modules/Board/containers/Board/styles';
-import { selectDraggedTile } from 'src/modules/Board/store/selectors';
+import { IDraggedTile } from 'src/modules/Board/interfaces';
 
 type Props = {
+  draggedTile: IDraggedTile;
   size: number;
   translate: Animated.ValueXY;
 };
 
-const DraggedTile: React.FC<Props> = ({ size, translate }) => {
-  const draggedTile = useSelector(selectDraggedTile);
-
-  if (!draggedTile) {
-    return null;
-  }
-
+const DraggedTile: React.FC<Props> = ({ draggedTile, size, translate }) => {
   const wrapperStyle = {
     position: 'absolute',
     left: draggedTile.x0 - boardPadding,
@@ -30,7 +24,7 @@ const DraggedTile: React.FC<Props> = ({ size, translate }) => {
 
   return (
     <Modal
-      isVisible={true}
+      isVisible
       animationIn="fadeIn"
       animationOut="fadeOut"
       hasBackdrop={false}

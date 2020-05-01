@@ -114,10 +114,11 @@ export const initDraggedTileFromBoard = (
   });
 };
 
-export const dropDraggedTile = (x: number, y: number): AppThunk => async (
-  dispatch,
-  getState,
-) => {
+export const dropDraggedTile = (
+  x: number,
+  y: number,
+  blankLetter?: Letter,
+): AppThunk => async (dispatch, getState) => {
   const layout = selectBoardLayout(getState());
   const boardFields = selectBoardFields(getState());
   const newMove = selectNewMove(getState());
