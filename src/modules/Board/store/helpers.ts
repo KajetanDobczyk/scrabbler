@@ -9,7 +9,6 @@ import {
   WordDirection,
   IPlayedWord,
 } from '../interfaces';
-import { IPlayedMove } from 'src/modules/Players/interfaces';
 
 export const getFieldLetter = (
   boardFields: IBoardFields,
@@ -71,13 +70,17 @@ export const countWordPoints = (
   let y = y0;
   let wordPoints = 0;
   let wordMultiplier = 1;
+
   const moveToNextLetter = direction === 'h' ? () => x++ : () => y++;
 
   range(word.length).map((i) => {
-    const tilePoints = tilesPoints[word[i] as Letter];
-    const fieldBonus =
-      newMove.find((tile) => tile.x === x && tile.y === y) &&
-      boardFields[y][x].bonus;
+    const newMoveTile = newMove.find((tile) => tile.x === x && tile.y === y);
+
+    const tilePoints =
+      newMoveTile && newMoveTile.letter === '?'
+        ? 0
+        : tilesPoints[word[i] as Letter];
+    const fieldBonus = !!newMoveTile && boardFields[y][x].bonus;
 
     switch (fieldBonus) {
       case 'dl':
@@ -110,7 +113,7 @@ export const getNewHorizontalMoves = (
 ): IPlayedWord[] => {
   let alreadyUsedH = false;
 
-  return newMove.reduce((acc, { x, y, letter }) => {
+  return newMove.reduce((acc, { x, y, letter, blankLetter }) => {
     if (
       !alreadyUsedH &&
       (getFieldLetter(boardFields, x - 1, y) !== '' ||
@@ -119,15 +122,19 @@ export const getNewHorizontalMoves = (
       //Letter to the left or right present, form a new word
       let leftX = x;
       let rightX = x;
-      let word: string = letter;
+      let word: string = blankLetter || letter;
 
       while (getFieldLetter(boardFields, leftX - 1, y) !== '') {
         leftX--;
-        word = `${boardFields[y][leftX].letter}${word}`;
+        word = `${
+          boardFields[y][leftX].blankLetter || boardFields[y][leftX].letter
+        }${word}`;
       }
       while (getFieldLetter(boardFields, rightX + 1, y) !== '') {
         rightX++;
-        word = `${word}${boardFields[y][rightX].letter}`;
+        word = `${word}${
+          boardFields[y][rightX].blankLetter || boardFields[y][rightX].letter
+        }`;
       }
 
       // Check if new move is horizontal, if so, don't check for new horizontal words
@@ -155,7 +162,7 @@ export const getNewVerticalMoves = (
 ): IPlayedWord[] => {
   let alreadyUsedV = false;
 
-  return newMove.reduce((acc, { x, y, letter }) => {
+  return newMove.reduce((acc, { x, y, letter, blankLetter }) => {
     if (
       !alreadyUsedV &&
       (getFieldLetter(boardFields, x, y - 1) !== '' ||
@@ -164,15 +171,19 @@ export const getNewVerticalMoves = (
       //Letter above or below present, form a new word
       let upY = y;
       let downY = y;
-      let word: string = letter;
+      let word: string = blankLetter || letter;
 
       while (getFieldLetter(boardFields, x, upY - 1) !== '') {
         upY--;
-        word = `${boardFields[upY][x].letter}${word}`;
+        word = `${
+          boardFields[upY][x].blankLetter || boardFields[upY][x].letter
+        }${word}`;
       }
       while (getFieldLetter(boardFields, x, downY + 1) !== '') {
         downY++;
-        word = `${word}${boardFields[downY][x].letter}`;
+        word = `${word}${
+          boardFields[downY][x].blankLetter || boardFields[downY][x].letter
+        }`;
       }
 
       // Check if new move is vertical, if so, don't check for new vertical words

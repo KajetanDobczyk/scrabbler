@@ -38,14 +38,6 @@ const Board = () => {
     isVisible: false,
   });
 
-  const resetBlankLetterModal = () => {
-    setBlankLetterModalData({
-      x: 0,
-      y: 0,
-      isVisible: false,
-    });
-  };
-
   const translate = new Animated.ValueXY({ x: 0, y: 0 });
 
   const resetDraggedLetter = () => {
@@ -53,12 +45,20 @@ const Board = () => {
     dispatch(setDraggedTile(null));
   };
 
+  const resetBlankLetterModal = () => {
+    setBlankLetterModalData({
+      x: 0,
+      y: 0,
+      isVisible: false,
+    });
+    resetDraggedLetter();
+  };
+
   const handleSelectBlankLetter = (letter: Letter) => {
     dispatch(
       dropDraggedTile(blankLetterModalData.x, blankLetterModalData.y, letter),
     );
     resetBlankLetterModal();
-    resetDraggedLetter();
   };
 
   const onDragStart = (event: PanGestureHandlerGestureEvent) => {

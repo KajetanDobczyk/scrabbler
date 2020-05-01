@@ -22,6 +22,7 @@ export interface IBoardTile {
   x: number;
   y: number;
   letter: Letter;
+  blankLetter?: Letter;
 }
 
 export type IBoardFields = IBoardField[][];

@@ -54,6 +54,7 @@ const board = createSlice({
         x,
         y,
         letter,
+        blankLetter,
       });
 
       state.boardFields[y][x].blankLetter = blankLetter;
@@ -69,6 +70,7 @@ const board = createSlice({
       }
 
       state.boardFields[y][x].letter = '';
+      state.boardFields[y][x].blankLetter = undefined;
       state.newMove = state.newMove.filter(
         (tile) => tile.x !== x || tile.y !== y,
       );
