@@ -68,13 +68,11 @@ const TilesList = () => {
       onMomentumScrollEnd={measureAllTiles}
     >
       <View style={styles.container}>
-        {availableTiles.map((letter, i) => (
+        {availableTiles.map((letter) => (
           <TilesListElement
             key={letter}
             letter={letter}
             tile={tilesList[letter]}
-            index={i}
-            listLength={availableTiles.length}
             onSetTileRef={setTileRef(letter)}
           />
         ))}

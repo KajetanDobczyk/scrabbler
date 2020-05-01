@@ -11,23 +11,21 @@ export const styles = StyleSheet.create({
     paddingTop: boardPadding,
     paddingLeft: boardPadding,
   },
-  circleButton: {
-    width: 40,
+  button: {
+    width: 20,
     height: 40,
-    borderRadius: 40,
+    marginRight: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  cancelButton: {
-    marginRight: 10,
-    backgroundColor: color.red,
-  },
-  acceptButton: {
-    backgroundColor: color.lightGreen,
+  lastButton: {
+    marginRight: 0,
   },
   buttonIcon: {
-    fontSize: 30,
     textAlign: 'center',
     color: color.white,
+  },
+  buttonIconPressed: {
+    color: color.lightGreen,
   },
 });

@@ -1,32 +1,35 @@
 import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import noop from 'lodash/noop';
 
 import { tryNewMove } from 'src/modules/Board/store/thunks';
 import { cancelNewMove } from 'src/modules/Board/store/slice';
-import {
-  selectNewMove,
-  selectBoardLayout,
-} from 'src/modules/Board/store/selectors';
+import { selectNewMove } from 'src/modules/Board/store/selectors';
 
 import { styles } from './styles';
-import { color } from 'src/theme';
+
+const menuActions: Record<string, any> = {
+  reverse: noop,
+  skip: noop,
+  cancel: cancelNewMove,
+  accept: tryNewMove,
+};
 
 const GameMenu = () => {
   const dispatch = useDispatch();
   const [isExpanded, setIsExpanded] = useState(false);
 
   const newMove = useSelector(selectNewMove);
-  const { tileSize } = useSelector(selectBoardLayout);
 
-  const accept = () => {
-    dispatch(tryNewMove());
-  };
+  const handleMenuAction = (actionLabel: string) => () => {
+    const action = menuActions[actionLabel];
 
-  const cancel = () => {
-    dispatch(cancelNewMove());
+    if (action) {
+      dispatch(action());
+    }
   };
 
   const toggleIsExpanded = () => {
@@ -40,22 +43,61 @@ const GameMenu = () => {
       {isConfirmationMode ? (
         <>
           <TouchableOpacity
-            style={[styles.circleButton, styles.cancelButton]}
-            onPress={cancel}
+            style={styles.button}
+            onPress={handleMenuAction('cancel')}
           >
-            <Ionicons name="ios-close" style={styles.buttonIcon} />
+            <Ionicons name="ios-close" size={30} style={styles.buttonIcon} />
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.circleButton, styles.acceptButton]}
-            onPress={accept}
+            style={[styles.button, styles.lastButton]}
+            onPress={handleMenuAction('accept')}
           >
-            <Ionicons name="ios-checkmark" style={styles.buttonIcon} />
+            <Ionicons
+              name="ios-checkmark"
+              size={30}
+              style={styles.buttonIcon}
+            />
           </TouchableOpacity>
         </>
       ) : (
         <>
-          <TouchableOpacity onPress={toggleIsExpanded}>
-            <Ionicons name="ios-more" size={20} color={color.white} />
+          {isExpanded && (
+            <>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={handleMenuAction('reverse')}
+              >
+                <Ionicons
+                  name="ios-backspace"
+                  size={20}
+                  style={styles.buttonIcon}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={handleMenuAction('skip')}
+              >
+                <Ionicons
+                  name="ios-skip-forward"
+                  size={20}
+                  style={styles.buttonIcon}
+                />
+              </TouchableOpacity>
+            </>
+          )}
+          <TouchableOpacity
+            onPress={toggleIsExpanded}
+            style={[styles.button, styles.lastButton]}
+          >
+            <Ionicons
+              name="ios-more"
+              size={20}
+              style={
+                isExpanded
+                  ? [styles.buttonIcon, styles.buttonIconPressed]
+                  : styles.buttonIcon
+              }
+            />
           </TouchableOpacity>
         </>
       )}

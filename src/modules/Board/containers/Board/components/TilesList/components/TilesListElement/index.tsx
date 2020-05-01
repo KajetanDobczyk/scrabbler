@@ -11,23 +11,12 @@ import { ITilesListElement } from 'src/modules/Board/interfaces';
 type Props = {
   letter: Letter;
   tile: ITilesListElement;
-  index: number;
-  listLength: number;
   onSetTileRef: (ref: View | null) => void;
 };
 
-const TilesListElement: React.FC<Props> = ({
-  letter,
-  tile,
-  index,
-  listLength,
-  onSetTileRef,
-}) =>
+const TilesListElement: React.FC<Props> = ({ letter, tile, onSetTileRef }) =>
   tile.amountLeft ? (
-    <View
-      style={EStyleSheet.child(styles, 'tileWrapper', index, listLength)}
-      ref={onSetTileRef}
-    >
+    <View style={styles.tileWrapper} ref={onSetTileRef}>
       <Tile letter={letter} />
       <Text style={styles.amount}>{tile.amountLeft}</Text>
     </View>

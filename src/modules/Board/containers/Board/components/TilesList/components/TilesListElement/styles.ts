@@ -1,17 +1,14 @@
-import EStyleSheet from 'react-native-extended-stylesheet';
+import { StyleSheet } from 'react-native';
 
 import { color, font } from 'src/theme';
 
-export const styles = EStyleSheet.create({
+export const styles = StyleSheet.create({
   tileWrapper: {
     position: 'relative',
     aspectRatio: 1,
     width: 50,
     paddingTop: 10,
     paddingRight: 10,
-  },
-  'tileWrapper:last-child': {
-    paddingRight: 0,
   },
   amount: {
     position: 'absolute',
