@@ -86,9 +86,6 @@ const board = createSlice({
 
       state.newMove = [];
     },
-    toggleMenu(state) {
-      state.isMenuOpen = !state.isMenuOpen;
-    },
   },
 });
 
@@ -100,7 +97,6 @@ export const {
   removeNewMoveTile,
   resetNewMove,
   cancelNewMove,
-  toggleMenu,
 } = board.actions;
 
 export default board.reducer;

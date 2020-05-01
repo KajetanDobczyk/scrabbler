@@ -23,6 +23,4 @@ const board = createSlice({
 
 export const { changeCurrentPlayerId, addCurrentPlayerMove } = board.actions;
 
-export * from './selectors';
-
 export default board.reducer;

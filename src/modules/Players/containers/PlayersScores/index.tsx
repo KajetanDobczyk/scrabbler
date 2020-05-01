@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { ScrollView } from 'react-native-gesture-handler';
 
-import { selectPlayers, selectCurrentPlayerId } from '../../store/slice';
+import { selectPlayers, selectCurrentPlayerId } from '../../store/selectors';
 import PlayerColumn from './components/PlayerColumn';
 import { styles } from './styles';
 

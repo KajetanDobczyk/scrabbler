@@ -9,17 +9,13 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingTop: boardPadding,
-    paddingLeft: boardPadding,
   },
   button: {
     width: 20,
     height: 40,
-    marginRight: 20,
+    marginLeft: 20,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  lastButton: {
-    marginRight: 0,
   },
   buttonIcon: {
     textAlign: 'center',

@@ -5,10 +5,11 @@ import noop from 'lodash/noop';
 
 import { AppThunk } from 'src/redux/store';
 import { Letter } from 'src/modules/Dictionary/interfaces';
+import { addCurrentPlayerMove } from 'src/modules/Players/store/slice';
 import {
-  addCurrentPlayerMove,
   selectIsFirstMove,
-} from 'src/modules/Players/store/slice';
+  selectCurrentPlayerName,
+} from 'src/modules/Players/store/selectors';
 
 import { boardPadding } from '../containers/Board/styles';
 import { rowFieldsAmount } from '../data';
@@ -171,6 +172,20 @@ export const tryNewMove = (): AppThunk => (dispatch, getState) => {
   });
 };
 
-export const skipTurn = (): AppThunk => (dispatch) => {
-  dispatch(addCurrentPlayerMove({ tiles: [], words: [] }));
+export const skipTurn = (): AppThunk => (dispatch, getState) => {
+  const currentPlayerName = selectCurrentPlayerName(getState());
+
+  return Alert.alert(
+    `${currentPlayerName} – pominąć ruch?`,
+    undefined,
+    [
+      { text: 'Anuluj', onPress: () => noop, style: 'cancel' },
+      {
+        text: 'Pomiń',
+        onPress: () => dispatch(addCurrentPlayerMove({ tiles: [], words: [] })),
+        style: 'default',
+      },
+    ],
+    { cancelable: true },
+  );
 };

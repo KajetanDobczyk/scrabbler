@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { tryNewMove, skipTurn } from 'src/modules/Board/store/thunks';
-import { cancelNewMove, toggleMenu } from 'src/modules/Board/store/slice';
-import {
-  selectNewMove,
-  selectIsMenuOpen,
-} from 'src/modules/Board/store/selectors';
+import { cancelNewMove } from 'src/modules/Board/store/slice';
+import { selectNewMove } from 'src/modules/Board/store/selectors';
 
 import { styles } from './styles';
 
@@ -22,7 +19,6 @@ const menuActions: Record<string, any> = {
 const GameMenu = () => {
   const dispatch = useDispatch();
 
-  const isMenuOpen = useSelector(selectIsMenuOpen);
   const newMove = useSelector(selectNewMove);
 
   const handleMenuAction = (actionLabel: string) => () => {
@@ -31,10 +27,6 @@ const GameMenu = () => {
     if (action) {
       dispatch(action());
     }
-  };
-
-  const toggleIsExpanded = () => {
-    dispatch(toggleMenu());
   };
 
   const isConfirmationMode = newMove.length;
@@ -50,7 +42,7 @@ const GameMenu = () => {
             <Ionicons name="ios-close" size={30} style={styles.buttonIcon} />
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.button, styles.lastButton]}
+            style={styles.button}
             onPress={handleMenuAction('accept')}
           >
             <Ionicons
@@ -62,32 +54,14 @@ const GameMenu = () => {
         </>
       ) : (
         <>
-          {isMenuOpen && (
-            <>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={handleMenuAction('skip')}
-              >
-                <Ionicons
-                  name="ios-skip-forward"
-                  size={20}
-                  style={styles.buttonIcon}
-                />
-              </TouchableOpacity>
-            </>
-          )}
           <TouchableOpacity
-            onPress={toggleIsExpanded}
-            style={[styles.button, styles.lastButton]}
+            style={styles.button}
+            onPress={handleMenuAction('skip')}
           >
             <Ionicons
-              name="ios-more"
+              name="ios-skip-forward"
               size={20}
-              style={
-                isMenuOpen
-                  ? [styles.buttonIcon, styles.buttonIconPressed]
-                  : styles.buttonIcon
-              }
+              style={styles.buttonIcon}
             />
           </TouchableOpacity>
         </>
