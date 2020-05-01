@@ -28,13 +28,7 @@ import {
   selectTilesList,
   selectDraggedTile,
 } from './selectors';
-import {
-  areLettersUnalligned,
-  isAnyLetterLoose,
-  isMoveThroughCenter,
-  getFieldLetter,
-  countWordPoints,
-} from './helpers';
+import { getFieldLetter, countWordPoints, validateNewMove } from './helpers';
 import { IPlayedWord } from '../interfaces';
 
 export const updateBoardLayout = (): AppThunk => async (dispatch) => {
@@ -174,17 +168,8 @@ export const tryNewMove = (): AppThunk => async (dispatch, getState) => {
   const boardFields = selectBoardFields(getState());
   const isFirstMove = selectIsFirstMove(getState());
 
-  let errorMessage = undefined;
-
-  // if (isFirstMove && newMove.length === 1) {
-  //   errorMessage = 'Pierwszy ruch musi tworzyć wyraz!';
-  // } else if (isFirstMove && !isMoveThroughCenter(newMove)) {
-  //   errorMessage = 'Pierwszy ruch musi przechodzić przez środek!';
-  // } else if (isAnyLetterLoose(newMove, boardFields)) {
-  //   errorMessage = 'Nie wszystkie litery przylegają do innych!';
-  // } else if (areLettersUnalligned(newMove)) {
-  //   errorMessage = 'Nowe litery nie są w jednej linii!';
-  // }
+  // const errorMessage = validateNewMove(boardFields, newMove, isFirstMove);
+  const errorMessage = undefined;
 
   if (errorMessage) {
     return Alert.alert(

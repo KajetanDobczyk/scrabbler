@@ -5,6 +5,12 @@ import { Letter } from 'src/modules/Dictionary/interfaces';
 
 import { IBoardTile, IBoardFields, WordDirection } from '../interfaces';
 
+export const getFieldLetter = (
+  boardFields: IBoardFields,
+  x: number,
+  y: number,
+) => (boardFields[y] && boardFields[y][x]?.letter) || '';
+
 export const isMoveThroughCenter = (newMove: IBoardTile[]) =>
   newMove.find((tile) => tile.x === 7 && tile.y === 7);
 
@@ -28,11 +34,24 @@ export const isAnyLetterLoose = (
     )
     .includes(false);
 
-export const getFieldLetter = (
+export const validateNewMove = (
   boardFields: IBoardFields,
-  x: number,
-  y: number,
-) => (boardFields[y] && boardFields[y][x]?.letter) || '';
+  newMove: IBoardTile[],
+  isFirstMove: boolean,
+) => {
+  if (isFirstMove && newMove.length === 1) {
+    return 'Pierwszy ruch musi tworzyć wyraz!';
+  }
+  if (isFirstMove && !isMoveThroughCenter(newMove)) {
+    return 'Pierwszy ruch musi przechodzić przez środek!';
+  }
+  if (isAnyLetterLoose(newMove, boardFields)) {
+    return 'Nie wszystkie litery przylegają do innych!';
+  }
+  if (areLettersUnalligned(newMove)) {
+    return 'Nowe litery nie są w jednej linii!';
+  }
+};
 
 export const countWordPoints = (
   boardFields: IBoardFields,
