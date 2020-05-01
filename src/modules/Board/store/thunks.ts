@@ -17,8 +17,6 @@ import {
   addNewMoveTile,
   removeNewMoveTile,
   resetNewMove,
-  resetBoardFieldsHighlights,
-  highlightBoardField,
   setDraggedTile,
 } from './slice';
 import {
@@ -28,7 +26,11 @@ import {
   selectTilesList,
   selectDraggedTile,
 } from './selectors';
-import { getNewHorizontalMoves, getNewVerticalMoves } from './helpers';
+import {
+  getNewHorizontalMoves,
+  getNewVerticalMoves,
+  validateNewMove,
+} from './helpers';
 
 export const updateBoardLayout = (): AppThunk => async (dispatch) => {
   const screenWidth = Dimensions.get('window').width;
@@ -44,28 +46,6 @@ export const updateBoardLayout = (): AppThunk => async (dispatch) => {
       tileSize,
     }),
   );
-};
-
-export const updateBoardFieldsHighlights = (
-  x: number,
-  y: number,
-): AppThunk => async (dispatch, getState) => {
-  const layout = selectBoardLayout(getState());
-  const boardFields = selectBoardFields(getState());
-
-  const tileX = Math.floor((x - layout.x) / layout.tileSize);
-  const tileY = Math.floor((y - layout.y) / layout.tileSize);
-
-  if (
-    tileX <= rowFieldsAmount - 1 &&
-    tileY <= rowFieldsAmount - 1 &&
-    !boardFields[tileY][tileX].isHighlighted
-  ) {
-    batch(() => {
-      dispatch(resetBoardFieldsHighlights());
-      dispatch(highlightBoardField({ x: tileX, y: tileY }));
-    });
-  }
 };
 
 export const initDraggedTileFromList = (touchX: number): AppThunk => async (
@@ -143,14 +123,11 @@ export const dropDraggedTile = (x: number, y: number): AppThunk => async (
   const newMove = selectNewMove(getState());
   const draggedTile = selectDraggedTile(getState());
 
-  if (!draggedTile) {
-    return;
-  }
-
   const tileX = Math.floor((x - layout.x) / layout.tileSize);
   const tileY = Math.floor((y - layout.y) / layout.tileSize);
 
   if (
+    !draggedTile ||
     newMove.length === 7 ||
     tileX > rowFieldsAmount - 1 ||
     tileY > rowFieldsAmount - 1 ||
@@ -168,16 +145,15 @@ export const tryNewMove = (): AppThunk => async (dispatch, getState) => {
   const isFirstMove = selectIsFirstMove(getState());
 
   // const errorMessage = validateNewMove(boardFields, newMove, isFirstMove);
-  const errorMessage = undefined;
 
-  if (errorMessage) {
-    return Alert.alert(
-      'Niedozwolony ruch',
-      errorMessage,
-      [{ text: 'Ok', onPress: () => noop, style: 'cancel' }],
-      { cancelable: true },
-    );
-  }
+  // if (errorMessage) {
+  //   return Alert.alert(
+  //     'Niedozwolony ruch',
+  //     errorMessage,
+  //     [{ text: 'Ok', onPress: () => noop, style: 'cancel' }],
+  //     { cancelable: true },
+  //   );
+  // }
 
   const newMoveWords = [
     ...getNewHorizontalMoves(boardFields, newMove),

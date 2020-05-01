@@ -30,7 +30,6 @@ export const getInitialBoardFields: () => IBoardFields = () =>
       bonus,
       // letter: '',
       letter: mockedBoardLetters[y][x],
-      isHighlighted: false,
     })),
   );
 
