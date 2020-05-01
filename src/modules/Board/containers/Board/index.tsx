@@ -32,11 +32,34 @@ const Board = () => {
   const draggedTile = useSelector(selectDraggedTile);
   const layout = useSelector(selectBoardLayout);
 
-  const [isBlankLetterModalVisible, setIsBlankLetterModalVisible] = useState(
-    false,
-  );
+  const [blankLetterModalData, setBlankLetterModalData] = useState({
+    x: 0,
+    y: 0,
+    isVisible: false,
+  });
+
+  const resetBlankLetterModal = () => {
+    setBlankLetterModalData({
+      x: 0,
+      y: 0,
+      isVisible: false,
+    });
+  };
 
   const translate = new Animated.ValueXY({ x: 0, y: 0 });
+
+  const resetDraggedLetter = () => {
+    dragInitialY = 0;
+    dispatch(setDraggedTile(null));
+  };
+
+  const handleSelectBlankLetter = (letter: Letter) => {
+    dispatch(
+      dropDraggedTile(blankLetterModalData.x, blankLetterModalData.y, letter),
+    );
+    resetBlankLetterModal();
+    resetDraggedLetter();
+  };
 
   const onDragStart = (event: PanGestureHandlerGestureEvent) => {
     const { x, y } = event.nativeEvent;
@@ -55,14 +78,12 @@ const Board = () => {
   const onDragEnd = (x: number, y: number, state: State) => {
     if (state === State.END && draggedTile) {
       if (draggedTile.letter === '?') {
-        setIsBlankLetterModalVisible(true);
+        setBlankLetterModalData({ x, y, isVisible: true });
       } else {
         dispatch(dropDraggedTile(x, y));
+        resetDraggedLetter();
       }
     }
-
-    dragInitialY = 0;
-    dispatch(setDraggedTile(null));
   };
 
   const onGestureEvent = (event: PanGestureHandlerGestureEvent) => {
@@ -99,10 +120,10 @@ const Board = () => {
             translate={translate}
           />
         )}
-        {isBlankLetterModalVisible && (
+        {blankLetterModalData.isVisible && (
           <BlankLetterModal
-            onSelectLetter={(letter: Letter) => console.log(letter)}
-            onClose={() => setIsBlankLetterModalVisible(false)}
+            onSelectLetter={handleSelectBlankLetter}
+            onClose={resetBlankLetterModal}
           />
         )}
       </View>

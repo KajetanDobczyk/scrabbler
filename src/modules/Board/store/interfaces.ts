@@ -1,3 +1,5 @@
+import { Letter } from 'src/modules/Dictionary/interfaces';
+
 import {
   IBoardFields,
   IBoardLayout,
@@ -17,4 +19,8 @@ export type IBoardState = {
 export interface ICoordinates {
   x: number;
   y: number;
+}
+
+export interface IAddNewMoveTilePayload extends ICoordinates {
+  blankLetter?: Letter;
 }

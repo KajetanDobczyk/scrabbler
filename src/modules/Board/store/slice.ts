@@ -4,7 +4,7 @@ import isEmpty from 'lodash/isEmpty';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 
 import { initialState } from './data';
-import { ICoordinates } from './interfaces';
+import { ICoordinates, IAddNewMoveTilePayload } from './interfaces';
 import { boardPadding } from '../containers/Board/styles';
 import {
   IBoardLayout,
@@ -46,8 +46,8 @@ const board = createSlice({
     setDraggedTile(state, action: PayloadAction<IDraggedTile | null>) {
       state.draggedTile = action.payload;
     },
-    addNewMoveTile(state, action: PayloadAction<ICoordinates>) {
-      const { x, y } = action.payload;
+    addNewMoveTile(state, action: PayloadAction<IAddNewMoveTilePayload>) {
+      const { x, y, blankLetter } = action.payload;
       const { letter } = state.draggedTile!;
 
       state.newMove.push({
@@ -55,6 +55,8 @@ const board = createSlice({
         y,
         letter,
       });
+
+      state.boardFields[y][x].blankLetter = blankLetter;
       state.boardFields[y][x].letter = letter;
       state.tilesList[letter].amountLeft--;
     },

@@ -21,7 +21,11 @@ const BoardField: React.FC<Props> = ({ field, isInNewMove }) => {
     <View style={styles.container}>
       {field.letter !== '' && (
         <View style={styles.tileWrapper}>
-          <Tile letter={field.letter} isInNewMove={isInNewMove} />
+          <Tile
+            letter={field.letter}
+            blankLetter={field.blankLetter}
+            isInNewMove={isInNewMove}
+          />
         </View>
       )}
     </View>

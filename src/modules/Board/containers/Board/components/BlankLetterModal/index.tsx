@@ -19,7 +19,6 @@ const BlankLetterModal: React.FC<Props> = ({ onClose, onSelectLetter }) => {
 
   const handleTilePress = (letter: Letter) => () => {
     onSelectLetter(letter);
-    onClose();
   };
 
   return (

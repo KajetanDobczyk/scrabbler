@@ -9,11 +9,17 @@ import { styles } from './styles';
 
 type Props = {
   letter: Letter;
+  blankLetter?: Letter;
   isInNewMove?: boolean;
   hidePoints?: boolean;
 };
 
-const Tile: React.FC<Props> = ({ letter, isInNewMove, hidePoints }) => {
+const Tile: React.FC<Props> = ({
+  letter,
+  blankLetter,
+  isInNewMove,
+  hidePoints,
+}) => {
   const points = !hidePoints && tilesPoints[letter];
   const animatedValue = useRef(new Animated.Value(0)).current;
   const animation = Animated.loop(
@@ -39,7 +45,9 @@ const Tile: React.FC<Props> = ({ letter, isInNewMove, hidePoints }) => {
 
   return (
     <Animated.View style={[styles.container, { bgColorAnimation }]}>
-      <Text style={styles.letter}>{letter !== '?' ? letter : ''}</Text>
+      <Text style={blankLetter ? styles.blankLetter : styles.letter}>
+        {letter !== '?' ? letter : blankLetter || ''}
+      </Text>
       {points ? <Text style={styles.points}>{tilesPoints[letter]}</Text> : null}
     </Animated.View>
   );

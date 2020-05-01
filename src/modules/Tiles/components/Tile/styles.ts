@@ -11,6 +11,10 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  blankLetter: {
+    textTransform: 'uppercase',
+    opacity: 0.3,
+  },
   letter: {
     textTransform: 'uppercase',
   },

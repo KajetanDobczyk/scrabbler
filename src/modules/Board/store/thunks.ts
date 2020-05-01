@@ -137,7 +137,7 @@ export const dropDraggedTile = (
     return;
   }
 
-  dispatch(addNewMoveTile({ x: tileX, y: tileY }));
+  dispatch(addNewMoveTile({ x: tileX, y: tileY, blankLetter }));
 };
 
 export const tryNewMove = (): AppThunk => async (dispatch, getState) => {
