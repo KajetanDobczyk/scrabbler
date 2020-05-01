@@ -7,10 +7,11 @@ import { boardPadding } from '../../styles';
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
-    marginTop: boardPadding,
+    alignItems: 'center',
+    paddingTop: boardPadding,
+    paddingLeft: boardPadding,
   },
-  button: {
+  circleButton: {
     width: 40,
     height: 40,
     borderRadius: 40,

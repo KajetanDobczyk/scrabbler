@@ -13,7 +13,7 @@ import DraggedTile from './components/DraggedTile';
 import GameBoard from './components/GameBoard';
 import TilesList from './components/TilesList';
 import BlankLetterModal from './components/BlankLetterModal';
-import NewMoveConfirmationButtons from './components/NewMoveConfirmationButtons';
+import GameMenu from './components/GameMenu';
 import {
   dropDraggedTile,
   initDraggedTileFromList,
@@ -111,8 +111,10 @@ const Board = () => {
     >
       <View style={styles.container}>
         <GameBoard />
-        <TilesList />
-        <NewMoveConfirmationButtons />
+        <View style={styles.boardTools}>
+          <TilesList />
+          <GameMenu />
+        </View>
         {draggedTile && (
           <DraggedTile
             draggedTile={draggedTile}

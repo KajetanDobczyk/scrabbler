@@ -7,4 +7,7 @@ export const styles = EStyleSheet.create({
     paddingHorizontal: boardPadding,
     paddingBottom: boardPadding,
   },
+  boardTools: {
+    flexDirection: 'row',
+  },
 });
