@@ -3,17 +3,15 @@ import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import noop from 'lodash/noop';
 
-import { tryNewMove } from 'src/modules/Board/store/thunks';
+import { tryNewMove, skipTurn } from 'src/modules/Board/store/thunks';
 import { cancelNewMove } from 'src/modules/Board/store/slice';
 import { selectNewMove } from 'src/modules/Board/store/selectors';
 
 import { styles } from './styles';
 
 const menuActions: Record<string, any> = {
-  reverse: noop,
-  skip: noop,
+  skip: skipTurn,
   cancel: cancelNewMove,
   accept: tryNewMove,
 };
@@ -63,16 +61,6 @@ const GameMenu = () => {
         <>
           {isExpanded && (
             <>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={handleMenuAction('reverse')}
-              >
-                <Ionicons
-                  name="ios-backspace"
-                  size={20}
-                  style={styles.buttonIcon}
-                />
-              </TouchableOpacity>
               <TouchableOpacity
                 style={styles.button}
                 onPress={handleMenuAction('skip')}

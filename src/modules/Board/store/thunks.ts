@@ -32,7 +32,7 @@ import {
   validateNewMove,
 } from './helpers';
 
-export const updateBoardLayout = (): AppThunk => async (dispatch) => {
+export const updateBoardLayout = (): AppThunk => (dispatch) => {
   const screenWidth = Dimensions.get('window').width;
   const boardSize = screenWidth - 2 * boardPadding;
 
@@ -48,7 +48,7 @@ export const updateBoardLayout = (): AppThunk => async (dispatch) => {
   );
 };
 
-export const initDraggedTileFromList = (touchX: number): AppThunk => async (
+export const initDraggedTileFromList = (touchX: number): AppThunk => (
   dispatch,
   getState,
 ) => {
@@ -84,7 +84,7 @@ export const initDraggedTileFromList = (touchX: number): AppThunk => async (
 export const initDraggedTileFromBoard = (
   touchX: number,
   touchY: number,
-): AppThunk => async (dispatch, getState) => {
+): AppThunk => (dispatch, getState) => {
   const layout = selectBoardLayout(getState());
   const newMove = selectNewMove(getState());
 
@@ -118,7 +118,7 @@ export const dropDraggedTile = (
   x: number,
   y: number,
   blankLetter?: Letter,
-): AppThunk => async (dispatch, getState) => {
+): AppThunk => (dispatch, getState) => {
   const layout = selectBoardLayout(getState());
   const boardFields = selectBoardFields(getState());
   const newMove = selectNewMove(getState());
@@ -140,7 +140,7 @@ export const dropDraggedTile = (
   dispatch(addNewMoveTile({ x: tileX, y: tileY, blankLetter }));
 };
 
-export const tryNewMove = (): AppThunk => async (dispatch, getState) => {
+export const tryNewMove = (): AppThunk => (dispatch, getState) => {
   const newMove = selectNewMove(getState());
   const boardFields = selectBoardFields(getState());
   const isFirstMove = selectIsFirstMove(getState());
@@ -169,4 +169,8 @@ export const tryNewMove = (): AppThunk => async (dispatch, getState) => {
     dispatch(addCurrentPlayerMove({ tiles: newMove, words: newMoveWords }));
     dispatch(resetNewMove());
   });
+};
+
+export const skipTurn = (): AppThunk => (dispatch) => {
+  dispatch(addCurrentPlayerMove({ tiles: [], words: [] }));
 };

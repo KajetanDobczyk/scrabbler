@@ -111,7 +111,7 @@ const Board = () => {
     >
       <View style={styles.container}>
         <GameBoard />
-        <View style={styles.boardTools}>
+        <View style={styles.menuWrapper}>
           <TilesList />
           <GameMenu />
         </View>

@@ -68,7 +68,7 @@ const PlayerColumn: React.FC<Props> = ({
                   </View>
                 );
               })}
-              <Text style={styles.movePoints}>{movePoints}</Text>
+              <Text style={styles.movePoints}>{movePoints || '—'}</Text>
             </View>
           );
         })}
