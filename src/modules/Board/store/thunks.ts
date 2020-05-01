@@ -1,15 +1,9 @@
-import { Dimensions, Alert } from 'react-native';
+import { Dimensions } from 'react-native';
 import { batch } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
-import noop from 'lodash/noop';
 
 import { AppThunk } from 'src/redux/store';
 import { Letter } from 'src/modules/Dictionary/interfaces';
-import { addCurrentPlayerMove } from 'src/modules/Players/store/slice';
-import {
-  selectIsFirstMove,
-  selectCurrentPlayerName,
-} from 'src/modules/Players/store/selectors';
 
 import { boardPadding } from '../containers/Board/styles';
 import { rowFieldsAmount } from '../data';
@@ -17,7 +11,6 @@ import {
   initBoardLayout,
   addNewMoveTile,
   removeNewMoveTile,
-  resetNewMove,
   setDraggedTile,
 } from './slice';
 import {
@@ -27,11 +20,6 @@ import {
   selectTilesList,
   selectDraggedTile,
 } from './selectors';
-import {
-  getNewHorizontalMoves,
-  getNewVerticalMoves,
-  validateNewMove,
-} from './helpers';
 
 export const updateBoardLayout = (): AppThunk => (dispatch) => {
   const screenWidth = Dimensions.get('window').width;
@@ -139,53 +127,4 @@ export const dropDraggedTile = (
   }
 
   dispatch(addNewMoveTile({ x: tileX, y: tileY, blankLetter }));
-};
-
-export const tryNewMove = (): AppThunk => (dispatch, getState) => {
-  const newMove = selectNewMove(getState());
-  const boardFields = selectBoardFields(getState());
-  const isFirstMove = selectIsFirstMove(getState());
-
-  // const errorMessage = validateNewMove(boardFields, newMove, isFirstMove);
-
-  // if (errorMessage) {
-  //   return Alert.alert(
-  //     'Niedozwolony ruch',
-  //     errorMessage,
-  //     [{ text: 'Ok', onPress: () => noop, style: 'cancel' }],
-  //     { cancelable: true },
-  //   );
-  // }
-
-  const newMoveWords = [
-    ...getNewHorizontalMoves(boardFields, newMove),
-    ...getNewVerticalMoves(boardFields, newMove),
-  ];
-
-  if (newMoveWords.length === 1 && newMove.length === 7) {
-    newMoveWords[0].points += 50;
-  }
-
-  batch(() => {
-    dispatch(addCurrentPlayerMove({ tiles: newMove, words: newMoveWords }));
-    dispatch(resetNewMove());
-  });
-};
-
-export const skipTurn = (): AppThunk => (dispatch, getState) => {
-  const currentPlayerName = selectCurrentPlayerName(getState());
-
-  return Alert.alert(
-    `${currentPlayerName} – pominąć ruch?`,
-    undefined,
-    [
-      { text: 'Anuluj', onPress: () => noop, style: 'cancel' },
-      {
-        text: 'Pomiń',
-        onPress: () => dispatch(addCurrentPlayerMove({ tiles: [], words: [] })),
-        style: 'default',
-      },
-    ],
-    { cancelable: true },
-  );
 };

@@ -4,13 +4,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import { tryNewMove, skipTurn } from 'src/modules/Board/store/thunks';
+import {
+  tryNewMove,
+  skipTurn,
+  removeLastMove,
+} from 'src/modules/Players/store/thunks';
 import { cancelNewMove } from 'src/modules/Board/store/slice';
 import { selectNewMove } from 'src/modules/Board/store/selectors';
 
 import { styles } from './styles';
 
 const menuActions: Record<string, any> = {
+  reverse: removeLastMove,
   skip: skipTurn,
   cancel: cancelNewMove,
   accept: tryNewMove,
@@ -54,6 +59,16 @@ const GameMenu = () => {
         </>
       ) : (
         <>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={handleMenuAction('reverse')}
+          >
+            <Ionicons
+              name="ios-backspace"
+              size={20}
+              style={styles.buttonIcon}
+            />
+          </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
             onPress={handleMenuAction('skip')}
