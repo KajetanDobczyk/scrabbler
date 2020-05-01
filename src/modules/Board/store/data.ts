@@ -95,4 +95,5 @@ export const initialState: IBoardState = {
   layout: initialLayout,
   newMove: [],
   draggedTile: null,
+  isMenuOpen: false,
 };

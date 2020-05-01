@@ -28,3 +28,8 @@ export const selectDraggedTile = createSelector(
   selectBoardState,
   (boardState) => boardState.draggedTile,
 );
+
+export const selectIsMenuOpen = createSelector(
+  selectBoardState,
+  (boardState) => boardState.isMenuOpen,
+);

@@ -14,6 +14,7 @@ export type IBoardState = {
   layout: IBoardLayout;
   newMove: IBoardTile[];
   draggedTile: IDraggedTile | null;
+  isMenuOpen: boolean;
 };
 
 export interface ICoordinates {

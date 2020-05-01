@@ -5,8 +5,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { tryNewMove, skipTurn } from 'src/modules/Board/store/thunks';
-import { cancelNewMove } from 'src/modules/Board/store/slice';
-import { selectNewMove } from 'src/modules/Board/store/selectors';
+import { cancelNewMove, toggleMenu } from 'src/modules/Board/store/slice';
+import {
+  selectNewMove,
+  selectIsMenuOpen,
+} from 'src/modules/Board/store/selectors';
 
 import { styles } from './styles';
 
@@ -18,8 +21,8 @@ const menuActions: Record<string, any> = {
 
 const GameMenu = () => {
   const dispatch = useDispatch();
-  const [isExpanded, setIsExpanded] = useState(false);
 
+  const isMenuOpen = useSelector(selectIsMenuOpen);
   const newMove = useSelector(selectNewMove);
 
   const handleMenuAction = (actionLabel: string) => () => {
@@ -31,7 +34,7 @@ const GameMenu = () => {
   };
 
   const toggleIsExpanded = () => {
-    setIsExpanded(!isExpanded);
+    dispatch(toggleMenu());
   };
 
   const isConfirmationMode = newMove.length;
@@ -59,7 +62,7 @@ const GameMenu = () => {
         </>
       ) : (
         <>
-          {isExpanded && (
+          {isMenuOpen && (
             <>
               <TouchableOpacity
                 style={styles.button}
@@ -81,7 +84,7 @@ const GameMenu = () => {
               name="ios-more"
               size={20}
               style={
-                isExpanded
+                isMenuOpen
                   ? [styles.buttonIcon, styles.buttonIconPressed]
                   : styles.buttonIcon
               }
