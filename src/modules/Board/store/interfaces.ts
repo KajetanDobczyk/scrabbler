@@ -1,4 +1,5 @@
 import { Letter } from 'src/modules/Dictionary/interfaces';
+import { PlayerId } from 'src/modules/Players/interfaces';
 
 import {
   IBoardFields,

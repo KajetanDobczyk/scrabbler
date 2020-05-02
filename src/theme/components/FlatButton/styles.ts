@@ -10,6 +10,10 @@ export const styles = StyleSheet.create({
     padding: 10,
     width: 150,
   },
+  disabled: {
+    opacity: 0.5,
+    color: color.green,
+  },
   label: {
     color: color.white,
   },

@@ -27,8 +27,8 @@ export const selectPreviousPlayerId = createSelector(
   selectCurrentPlayerId,
   selectPlayers,
   (currentPlayerId, players) =>
-    (currentPlayerId > 0
-      ? currentPlayerId - 1
+    (parseInt(currentPlayerId) > 0
+      ? (parseInt(currentPlayerId) - 1).toString()
       : last(Object.keys(players))) as PlayerId,
 );
 

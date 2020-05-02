@@ -13,7 +13,11 @@ import {
   getNewVerticalMoves,
   validateNewMove,
 } from 'src/modules/Board/store/helpers';
-import { resetNewMove, removeBoardTiles } from 'src/modules/Board/store/slice';
+import {
+  resetNewMove,
+  removeBoardTiles,
+  startGame,
+} from 'src/modules/Board/store/slice';
 
 import {
   selectIsFirstMove,
@@ -25,7 +29,19 @@ import {
   addCurrentPlayerMove,
   removePlayerLastMove,
   changeCurrentPlayerId,
+  setupPlayers,
 } from './slice';
+import { IPlayersNames } from '../interfaces';
+
+export const startNewGame = (playersNames: IPlayersNames): AppThunk => (
+  dispatch,
+  getState,
+) => {
+  batch(() => {
+    dispatch(setupPlayers(playersNames));
+    dispatch(startGame());
+  });
+};
 
 export const tryNewMove = (): AppThunk => (dispatch, getState) => {
   const newMove = selectNewMove(getState());
