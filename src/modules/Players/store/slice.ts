@@ -19,9 +19,21 @@ const board = createSlice({
         ? state.currentPlayerId + 1
         : 0) as PlayerId;
     },
+    removePlayerLastMove(state, action: PayloadAction<PlayerId>) {
+      const playerId = action.payload;
+      const player = state.players[playerId];
+
+      if (player) {
+        state.players[playerId]!.moves = player.moves.slice(0, -1);
+      }
+    },
   },
 });
 
-export const { changeCurrentPlayerId, addCurrentPlayerMove } = board.actions;
+export const {
+  changeCurrentPlayerId,
+  addCurrentPlayerMove,
+  removePlayerLastMove,
+} = board.actions;
 
 export default board.reducer;

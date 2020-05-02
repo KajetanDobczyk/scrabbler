@@ -1,4 +1,5 @@
 import noop from 'lodash/noop';
+import last from 'lodash/last';
 import { batch } from 'react-redux';
 import { Alert } from 'react-native';
 
@@ -12,14 +13,19 @@ import {
   getNewVerticalMoves,
   validateNewMove,
 } from 'src/modules/Board/store/helpers';
-import { resetNewMove } from 'src/modules/Board/store/slice';
+import { resetNewMove, removeBoardTiles } from 'src/modules/Board/store/slice';
 
 import {
   selectIsFirstMove,
   selectCurrentPlayerName,
   selectPreviousPlayerId,
+  selectPlayers,
 } from './selectors';
-import { addCurrentPlayerMove } from './slice';
+import {
+  addCurrentPlayerMove,
+  removePlayerLastMove,
+  changeCurrentPlayerId,
+} from './slice';
 
 export const tryNewMove = (): AppThunk => (dispatch, getState) => {
   const newMove = selectNewMove(getState());
@@ -56,7 +62,7 @@ export const skipTurn = (): AppThunk => (dispatch, getState) => {
   const currentPlayerName = selectCurrentPlayerName(getState());
 
   return Alert.alert(
-    `${currentPlayerName} – pominąć ruch?`,
+    `Pominąć ruch gracza ${currentPlayerName}?`,
     undefined,
     [
       { text: 'Anuluj', onPress: () => noop, style: 'cancel' },
@@ -72,6 +78,31 @@ export const skipTurn = (): AppThunk => (dispatch, getState) => {
 
 export const removeLastMove = (): AppThunk => (dispatch, getState) => {
   const previousPlayerId = selectPreviousPlayerId(getState());
+  const players = selectPlayers(getState());
 
-  console.log(previousPlayerId);
+  const previousPlayer = players[previousPlayerId];
+  const previousPlayerLastMove = last(previousPlayer?.moves);
+  const previousPlayerName = previousPlayer?.name;
+
+  return (
+    previousPlayerLastMove &&
+    Alert.alert(
+      `Cofnąć ruch gracza ${previousPlayerName}?`,
+      undefined,
+      [
+        { text: 'Anuluj', onPress: () => noop, style: 'cancel' },
+        {
+          text: 'Cofnij',
+          onPress: () =>
+            batch(() => {
+              dispatch(removePlayerLastMove(previousPlayerId));
+              dispatch(removeBoardTiles(previousPlayerLastMove.tiles));
+              dispatch(changeCurrentPlayerId(previousPlayerId));
+            }),
+          style: 'default',
+        },
+      ],
+      { cancelable: true },
+    )
+  );
 };

@@ -10,6 +10,7 @@ import {
   IBoardLayout,
   IDraggedTile,
   SetTilesListMeasurementsPayload,
+  IBoardTile,
 } from '../interfaces';
 
 const board = createSlice({
@@ -79,12 +80,18 @@ const board = createSlice({
       state.newMove = [];
     },
     cancelNewMove(state) {
-      state.newMove.forEach((move) => {
-        state.boardFields[move.y][move.x].letter = '';
-        state.tilesList[move.letter].amountLeft++;
+      state.newMove.forEach(({ x, y, letter }) => {
+        state.boardFields[y][x].letter = '';
+        state.tilesList[letter].amountLeft++;
       });
 
       state.newMove = [];
+    },
+    removeBoardTiles(state, action: PayloadAction<IBoardTile[]>) {
+      action.payload.forEach(({ x, y, letter }) => {
+        state.boardFields[y][x].letter = '';
+        state.tilesList[letter].amountLeft++;
+      });
     },
   },
 });
@@ -97,6 +104,7 @@ export const {
   removeNewMoveTile,
   resetNewMove,
   cancelNewMove,
+  removeBoardTiles,
 } = board.actions;
 
 export default board.reducer;

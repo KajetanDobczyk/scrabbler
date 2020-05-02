@@ -11,6 +11,7 @@ import {
 } from 'src/modules/Players/store/thunks';
 import { cancelNewMove } from 'src/modules/Board/store/slice';
 import { selectNewMove } from 'src/modules/Board/store/selectors';
+import { selectIsFirstMove } from 'src/modules/Players/store/selectors';
 
 import { styles } from './styles';
 
@@ -25,6 +26,7 @@ const GameMenu = () => {
   const dispatch = useDispatch();
 
   const newMove = useSelector(selectNewMove);
+  const isFirstMove = useSelector(selectIsFirstMove);
 
   const handleMenuAction = (actionLabel: string) => () => {
     const action = menuActions[actionLabel];
@@ -59,16 +61,18 @@ const GameMenu = () => {
         </>
       ) : (
         <>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={handleMenuAction('reverse')}
-          >
-            <Ionicons
-              name="ios-backspace"
-              size={20}
-              style={styles.buttonIcon}
-            />
-          </TouchableOpacity>
+          {!isFirstMove && (
+            <TouchableOpacity
+              style={styles.button}
+              onPress={handleMenuAction('reverse')}
+            >
+              <Ionicons
+                name="ios-backspace"
+                size={20}
+                style={styles.buttonIcon}
+              />
+            </TouchableOpacity>
+          )}
           <TouchableOpacity
             style={styles.button}
             onPress={handleMenuAction('skip')}

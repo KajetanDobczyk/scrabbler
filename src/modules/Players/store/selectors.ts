@@ -1,6 +1,9 @@
 import { createSelector } from '@reduxjs/toolkit';
+import last from 'lodash/last';
 
 import { RootState } from 'src/redux/rootReducer';
+
+import { PlayerId } from '../interfaces';
 
 export const selectPlayersState = (state: RootState) => state.players;
 
@@ -24,7 +27,9 @@ export const selectPreviousPlayerId = createSelector(
   selectCurrentPlayerId,
   selectPlayers,
   (currentPlayerId, players) =>
-    currentPlayerId > 0 ? currentPlayerId - 1 : Object.keys(players).pop(),
+    (currentPlayerId > 0
+      ? currentPlayerId - 1
+      : last(Object.keys(players))) as PlayerId,
 );
 
 export const selectIsFirstMove = createSelector(selectPlayers, (players) =>
