@@ -17,6 +17,9 @@ const board = createSlice({
   name: 'board',
   initialState,
   reducers: {
+    startGame(state) {
+      state.gameStatus = 'inProgress';
+    },
     initBoardLayout(state, action: PayloadAction<IBoardLayout>) {
       state.layout = action.payload;
 
@@ -97,6 +100,7 @@ const board = createSlice({
 });
 
 export const {
+  startGame,
   initBoardLayout,
   setTilesListMeasurements,
   setDraggedTile,

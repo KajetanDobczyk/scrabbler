@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 
 import { RootTabParamList, Screen } from 'src/layout/interfaces';
 import Logo from 'src/layout/components/Logo';
+import FlatButton from 'src/theme/components/FlatButton';
 
 import { styles } from './styles';
 
@@ -16,18 +17,14 @@ type Props = {
 const Home: React.FC<Props> = ({ navigation }) => (
   <View style={styles.container}>
     <Logo />
-    <TouchableOpacity
-      style={styles.button}
+    <FlatButton
+      label={Screen.PointsTracking}
       onPress={() => navigation.navigate(Screen.PointsTracking)}
-    >
-      <Text style={styles.buttonLabel}>{Screen.PointsTracking}</Text>
-    </TouchableOpacity>
-    <TouchableOpacity
-      style={styles.button}
+    />
+    <FlatButton
+      label={Screen.Dictionary}
       onPress={() => navigation.navigate(Screen.Dictionary)}
-    >
-      <Text style={styles.buttonLabel}>{Screen.Dictionary}</Text>
-    </TouchableOpacity>
+    />
   </View>
 );
 

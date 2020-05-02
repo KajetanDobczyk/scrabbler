@@ -28,8 +28,8 @@ export const getInitialBoardFields: () => IBoardFields = () =>
       x: 0,
       y: 0,
       bonus,
-      // letter: '',
-      letter: mockedBoardLetters[y][x],
+      letter: '',
+      // letter: mockedBoardLetters[y][x],
     })),
   );
 
@@ -89,7 +89,7 @@ const getInitialTilesList: () => ITilesList = () =>
   );
 
 export const initialState: IBoardState = {
-  // boardFields: getInitialBoardFields(),
+  gameStatus: 'idle',
   boardFields: getInitialBoardFields(),
   tilesList: getInitialTilesList(),
   layout: initialLayout,

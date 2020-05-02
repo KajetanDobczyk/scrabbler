@@ -7,8 +7,11 @@ import { RootTabParamList, Screen } from 'src/layout/interfaces';
 import Board from 'src/modules/Board/containers/Board';
 import PlayersScores from 'src/modules/Players/containers/PlayersScores';
 import Header from 'src/layout/components/Header';
+import { selectGameStatus } from 'src/modules/Board/store/selectors';
+import NewGame from 'src/modules/Board/containers/NewGame';
 
 import { styles } from './styles';
+import { useSelector } from 'react-redux';
 
 type Props = {
   navigation: StackNavigationProp<RootTabParamList, Screen.PointsTracking>;
@@ -16,12 +19,20 @@ type Props = {
 };
 
 const PointsTracking: React.FC<Props> = () => {
+  const gameStatus = useSelector(selectGameStatus);
+
   return (
     <>
-      <Header title={Screen.PointsTracking} />
       <View style={styles.container}>
-        <Board />
-        <PlayersScores />
+        {gameStatus === 'idle' ? (
+          <NewGame />
+        ) : (
+          <>
+            <Header title={Screen.PointsTracking} />
+            <Board />
+            <PlayersScores />
+          </>
+        )}
       </View>
     </>
   );

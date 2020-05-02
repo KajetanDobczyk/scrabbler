@@ -9,8 +9,8 @@ import { View } from 'react-native';
 
 import { color } from 'src/theme';
 
-import { styles } from './styles';
 import Logo from '../Logo';
+import { styles } from './styles';
 
 const DrawerContent: React.FC<DrawerContentComponentProps<
   DrawerContentOptions

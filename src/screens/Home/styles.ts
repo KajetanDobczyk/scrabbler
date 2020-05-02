@@ -9,14 +9,4 @@ export const styles = StyleSheet.create({
     backgroundColor: color.green,
     flex: 1,
   },
-  button: {
-    backgroundColor: color.lightGreen,
-    marginTop: 10,
-    borderRadius: 4,
-    padding: 10,
-    width: 150,
-  },
-  buttonLabel: {
-    color: color.white,
-  },
 });

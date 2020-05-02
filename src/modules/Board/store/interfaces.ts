@@ -6,9 +6,11 @@ import {
   ITilesList,
   IBoardTile,
   IDraggedTile,
+  GameStatus,
 } from '../interfaces';
 
 export type IBoardState = {
+  gameStatus: GameStatus;
   boardFields: IBoardFields;
   tilesList: ITilesList;
   layout: IBoardLayout;

@@ -1,5 +1,6 @@
-import { PlayerId } from 'src/modules/Players/interfaces';
 import { Letter } from 'src/modules/Dictionary/interfaces';
+
+export type GameStatus = 'idle' | 'inProgress' | 'finished';
 
 export type FieldBonus = 'dl' | 'tl' | 'dw' | 'tw' | 0;
 
