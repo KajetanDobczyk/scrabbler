@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput, Text } from 'react-native';
+import { View, TextInput, Text, Keyboard } from 'react-native';
 
 import { PlayerId } from 'src/modules/Players/interfaces';
 
@@ -28,6 +28,7 @@ const PlayerName: React.FC<Props> = ({ id, name, onChange, autoFocus }) => {
         style={styles.input}
         value={name}
         onChangeText={onChange(id)}
+        onBlur={() => Keyboard.dismiss()}
         autoFocus={autoFocus}
         autoCapitalize="sentences"
       />

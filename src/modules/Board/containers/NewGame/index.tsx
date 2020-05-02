@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import FlatButton from 'src/theme/components/FlatButton';
@@ -29,7 +29,10 @@ const NewGame = () => {
     Object.values(playersNames).filter((name) => name !== '').length >= 2;
 
   return (
-    <View style={styles.container}>
+    <ScrollView
+      contentContainerStyle={styles.container}
+      keyboardShouldPersistTaps="handled"
+    >
       <Text style={styles.header}>Podaj imiona graczy</Text>
       {(Object.keys(playersNames) as PlayerId[]).map((playerId, i) => (
         <PlayerName
@@ -45,7 +48,7 @@ const NewGame = () => {
         onPress={() => dispatch(startNewGame(playersNames))}
         disabled={!areAtLeastTwoPlayersPresent}
       />
-    </View>
+    </ScrollView>
   );
 };
 
