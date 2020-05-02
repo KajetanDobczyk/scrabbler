@@ -17,11 +17,6 @@ export const initialState: IPlayersState = {
       points: 0,
       moves: [],
     },
-    3: {
-      name: 'Gracz 4',
-      points: 0,
-      moves: [],
-    },
   },
   currentPlayerId: 0,
 };

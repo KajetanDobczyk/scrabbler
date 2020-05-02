@@ -20,6 +20,13 @@ export const selectCurrentPlayerName = createSelector(
   (currentPlayerId, players) => players[currentPlayerId]?.name,
 );
 
+export const selectPreviousPlayerId = createSelector(
+  selectCurrentPlayerId,
+  selectPlayers,
+  (currentPlayerId, players) =>
+    currentPlayerId > 0 ? currentPlayerId - 1 : Object.keys(players).pop(),
+);
+
 export const selectIsFirstMove = createSelector(selectPlayers, (players) =>
   Object.values(players).every((player) => !player?.moves.length),
 );

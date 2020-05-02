@@ -13,4 +13,4 @@ export interface IPlayer {
   moves: IPlayedMove[];
 }
 
-export type IPlayers = Record<PlayerId, IPlayer | null>;
+export type IPlayers = Partial<Record<PlayerId, IPlayer>>;

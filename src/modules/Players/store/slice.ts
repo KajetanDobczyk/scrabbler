@@ -14,7 +14,8 @@ const board = createSlice({
     addCurrentPlayerMove(state, action: PayloadAction<IPlayedMove>) {
       state.players[state.currentPlayerId]?.moves.push(action.payload);
 
-      state.currentPlayerId = (state.currentPlayerId + 1 <= 3
+      state.currentPlayerId = (state.currentPlayerId <
+      Object.keys(state.players).length - 1
         ? state.currentPlayerId + 1
         : 0) as PlayerId;
     },

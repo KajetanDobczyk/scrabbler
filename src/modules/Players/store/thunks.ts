@@ -17,7 +17,7 @@ import { resetNewMove } from 'src/modules/Board/store/slice';
 import {
   selectIsFirstMove,
   selectCurrentPlayerName,
-  selectCurrentPlayerId,
+  selectPreviousPlayerId,
 } from './selectors';
 import { addCurrentPlayerMove } from './slice';
 
@@ -70,4 +70,8 @@ export const skipTurn = (): AppThunk => (dispatch, getState) => {
   );
 };
 
-export const removeLastMove = (): AppThunk => (dispatch, getState) => {};
+export const removeLastMove = (): AppThunk => (dispatch, getState) => {
+  const previousPlayerId = selectPreviousPlayerId(getState());
+
+  console.log(previousPlayerId);
+};
