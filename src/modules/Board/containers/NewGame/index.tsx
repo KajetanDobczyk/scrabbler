@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import FlatButton from 'src/theme/components/FlatButton';
@@ -30,12 +30,14 @@ const NewGame = () => {
 
   return (
     <View style={styles.container}>
-      {(Object.keys(playersNames) as PlayerId[]).map((playerId) => (
+      <Text style={styles.header}>Podaj imiona graczy</Text>
+      {(Object.keys(playersNames) as PlayerId[]).map((playerId, i) => (
         <PlayerName
           key={playerId}
           id={playerId}
           name={playersNames[playerId]!}
           onChange={handleOnNameChange}
+          autoFocus={i === 0}
         />
       ))}
       <FlatButton

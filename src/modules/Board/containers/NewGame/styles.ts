@@ -8,4 +8,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  header: {
+    color: color.white,
+    marginBottom: 20,
+  },
 });
