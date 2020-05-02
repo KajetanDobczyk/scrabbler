@@ -14,6 +14,8 @@ const NewGame = () => {
   const [playersNames, setPlayersNames] = useState<IPlayersNames>({
     0: '',
     1: '',
+    2: '',
+    3: '',
   });
 
   const handleOnNameChange = (id: PlayerId) => (name: string) => {
@@ -23,9 +25,8 @@ const NewGame = () => {
     });
   };
 
-  const isAnyNameEmpty = !!Object.values(playersNames).find(
-    (name) => name === '',
-  );
+  const areAtLeastTwoPlayersPresent =
+    Object.values(playersNames).filter((name) => name !== '').length >= 2;
 
   return (
     <View style={styles.container}>
@@ -40,7 +41,7 @@ const NewGame = () => {
       <FlatButton
         label="Rozpocznij grę"
         onPress={() => dispatch(startNewGame(playersNames))}
-        disabled={isAnyNameEmpty}
+        disabled={!areAtLeastTwoPlayersPresent}
       />
     </View>
   );

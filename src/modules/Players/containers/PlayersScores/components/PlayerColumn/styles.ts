@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
   },
   name: {
     textAlign: 'center',
-    fontSize: font.size.sm,
+    fontSize: font.size.xs,
     color: color.white,
   },
   moves: {
@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
     flexGrow: 1,
   },
   totalPoints: {
-    fontSize: font.size.sm,
+    fontSize: font.size.xs,
     fontWeight: 'bold',
     textAlign: 'right',
     padding: 5,

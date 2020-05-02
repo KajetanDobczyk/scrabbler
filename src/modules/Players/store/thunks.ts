@@ -35,7 +35,6 @@ import { IPlayersNames } from '../interfaces';
 
 export const startNewGame = (playersNames: IPlayersNames): AppThunk => (
   dispatch,
-  getState,
 ) => {
   batch(() => {
     dispatch(setupPlayers(playersNames));

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { color } from 'src/theme';
+import { color, font } from 'src/theme';
 
 export const styles = StyleSheet.create({
   container: {
@@ -11,10 +11,12 @@ export const styles = StyleSheet.create({
     width: 150,
   },
   disabled: {
-    opacity: 0.5,
-    color: color.green,
+    opacity: 0.3,
   },
   label: {
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    fontSize: font.size.sm,
     color: color.white,
   },
 });

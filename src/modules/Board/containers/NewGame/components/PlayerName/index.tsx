@@ -13,7 +13,13 @@ type Props = {
 
 const PlayerName: React.FC<Props> = ({ id, name, onChange }) => (
   <View style={styles.container}>
-    <Text style={styles.index}>{parseInt(id) + 1}</Text>
+    <Text
+      style={
+        name === '' ? styles.index : [styles.index, styles.indexHighlighted]
+      }
+    >
+      {parseInt(id) + 1}
+    </Text>
     <TextInput style={styles.input} value={name} onChangeText={onChange(id)} />
   </View>
 );

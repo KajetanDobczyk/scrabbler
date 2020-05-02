@@ -19,8 +19,8 @@ type Font = {
 
 export const font: Font = {
   size: {
-    xs: 7,
-    sm: 10,
+    xs: 10,
+    sm: 13,
     base: 16,
     xl: 25,
   },

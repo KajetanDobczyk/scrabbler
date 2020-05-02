@@ -20,6 +20,6 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     backgroundColor: color.lightGreen,
     color: color.white,
-    fontSize: font.size.sm,
+    fontSize: font.size.xs,
   },
 });

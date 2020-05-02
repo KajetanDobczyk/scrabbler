@@ -17,15 +17,15 @@ export const styles = StyleSheet.create({
   },
   word: {
     textTransform: 'uppercase',
-    fontSize: font.size.sm,
+    fontSize: font.size.xs,
   },
   wordPoints: {
-    fontSize: font.size.sm,
+    fontSize: font.size.xs,
   },
   movePoints: {
     position: 'absolute',
     bottom: 5,
     right: 5,
-    fontSize: font.size.sm,
+    fontSize: font.size.xs,
   },
 });

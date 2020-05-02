@@ -13,13 +13,15 @@ const board = createSlice({
   initialState,
   reducers: {
     setupPlayers(state, action: PayloadAction<IPlayersNames>) {
-      const playersNames = action.payload;
+      const playersNames = Object.values(action.payload).filter(
+        (name) => name !== '',
+      );
 
-      state.players = (Object.keys(playersNames) as PlayerId[]).reduce(
-        (acc, playerId) => ({
+      state.players = playersNames.reduce(
+        (acc, name, i) => ({
           ...acc,
-          [playerId]: {
-            name: playersNames[playerId],
+          [i]: {
+            name,
             moves: [],
             points: 0,
           },

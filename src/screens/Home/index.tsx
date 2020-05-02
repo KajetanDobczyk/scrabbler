@@ -18,7 +18,7 @@ const Home: React.FC<Props> = ({ navigation }) => (
   <View style={styles.container}>
     <Logo />
     <FlatButton
-      label={Screen.PointsTracking}
+      label="Nowa gra"
       onPress={() => navigation.navigate(Screen.PointsTracking)}
     />
     <FlatButton
