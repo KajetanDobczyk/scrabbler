@@ -10,20 +10,16 @@ type Props = {
 };
 
 const PlayedMove: React.FC<Props> = ({ move }) => {
-  let movePoints = 0;
+  const movePoints = move.words.reduce((acc, word) => acc + word.points, 0);
 
   return (
     <View style={styles.container}>
-      {move.words.map((word, j) => {
-        movePoints += word.points;
-
-        return (
-          <View key={j} style={styles.wordRow}>
-            <Text style={styles.word}>{word.word}</Text>
-            <Text style={styles.wordPoints}>{word.points}</Text>
-          </View>
-        );
-      })}
+      {move.words.map((word, j) => (
+        <View key={j} style={styles.wordRow}>
+          <Text style={styles.word}>{word.word}</Text>
+          <Text style={styles.wordPoints}>{word.points}</Text>
+        </View>
+      ))}
       <Text style={styles.movePoints}>{movePoints || '—'}</Text>
     </View>
   );
