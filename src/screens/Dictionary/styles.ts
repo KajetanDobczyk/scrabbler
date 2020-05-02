@@ -4,9 +4,9 @@ import { color } from 'src/theme';
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: color.green,
-  },
-  logoWrapper: {
-    marginLeft: 15,
+    flex: 1,
+    backgroundColor: color.white,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

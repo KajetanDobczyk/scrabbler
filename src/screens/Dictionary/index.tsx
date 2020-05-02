@@ -1,21 +1,22 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 
-import { color } from 'src/theme';
-import { RootTabParamList } from 'src/layout/interfaces';
+import { RootTabParamList, Screen } from 'src/layout/interfaces';
 import TwoLettersWordsList from 'src/modules/Dictionary/containers/TwoLettersWordsList';
 import Header from 'src/layout/components/Header';
 
+import { styles } from './styles';
+
 type Props = {
-  navigation: StackNavigationProp<RootTabParamList, 'Dictionary'>;
-  route: RouteProp<RootTabParamList, 'Dictionary'>;
+  navigation: StackNavigationProp<RootTabParamList, Screen.Dictionary>;
+  route: RouteProp<RootTabParamList, Screen.Dictionary>;
 };
 
-const Dictionary: React.FC<Props> = ({ route }) => (
+const Dictionary: React.FC<Props> = () => (
   <>
-    <Header title={route.name} />
+    <Header title={Screen.Dictionary} />
     <View style={styles.container}>
       <TwoLettersWordsList />
     </View>
@@ -23,12 +24,3 @@ const Dictionary: React.FC<Props> = ({ route }) => (
 );
 
 export default Dictionary;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: color.white,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

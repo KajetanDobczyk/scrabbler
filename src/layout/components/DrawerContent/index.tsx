@@ -1,25 +1,23 @@
 import React from 'react';
-import { Image, View, Text } from 'react-native';
 import {
   DrawerContentScrollView,
   DrawerItemList,
   DrawerContentOptions,
   DrawerContentComponentProps,
 } from '@react-navigation/drawer';
+import { View } from 'react-native';
+
+import { color } from 'src/theme';
 
 import { styles } from './styles';
-import { color } from 'src/theme';
+import Logo from '../Logo';
 
 const DrawerContent: React.FC<DrawerContentComponentProps<
   DrawerContentOptions
 >> = (props) => (
   <DrawerContentScrollView {...props} style={styles.container}>
-    <View style={styles.header}>
-      <Image
-        style={[styles.image, { transform: [{ rotate: '7deg' }] }]}
-        source={require('assets/tile.png')}
-      />
-      <Text style={styles.title}>Scrabbler</Text>
+    <View style={styles.logoWrapper}>
+      <Logo />
     </View>
     <DrawerItemList
       {...props}

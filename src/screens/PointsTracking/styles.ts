@@ -5,8 +5,6 @@ import { color } from 'src/theme';
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: color.green,
-  },
-  logoWrapper: {
-    marginLeft: 15,
+    flex: 1,
   },
 });
