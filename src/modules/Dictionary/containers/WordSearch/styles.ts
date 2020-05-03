@@ -7,7 +7,9 @@ export const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: color.white,
-    alignItems: 'center',
-    justifyContent: 'center',
+  },
+  input: {
+    borderBottomWidth: 1,
+    borderBottomColor: color.black,
   },
 });

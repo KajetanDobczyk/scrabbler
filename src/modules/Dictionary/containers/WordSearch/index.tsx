@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, TextInput } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import Header from 'src/layout/components/Header';
@@ -23,7 +23,9 @@ const WordSearch: React.FC<Props> = ({ navigation }) => (
         onPress={() => navigation.navigate(DictionaryScreen.TwoLettersWords)}
       />
     </Header>
-    <View style={styles.container}></View>
+    <View style={styles.container}>
+      <TextInput style={styles.input} />
+    </View>
   </>
 );
 

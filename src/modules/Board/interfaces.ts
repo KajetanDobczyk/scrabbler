@@ -1,6 +1,7 @@
 import { Letter } from 'src/modules/Dictionary/interfaces';
+import { FetchStatus } from 'src/interfaces';
 
-export type GameStatus = 'idle' | 'inProgress' | 'finished';
+export type GameStatus = FetchStatus;
 
 export type FieldBonus = 'dl' | 'tl' | 'dw' | 'tw' | 0;
 
