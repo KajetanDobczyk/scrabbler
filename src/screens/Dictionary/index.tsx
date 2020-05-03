@@ -1,13 +1,16 @@
 import React from 'react';
-import { View } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import {
+  StackNavigationProp,
+  createStackNavigator,
+} from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 
 import { RootTabParamList, Screen } from 'src/layout/interfaces';
-import TwoLettersWordsList from 'src/modules/Dictionary/containers/TwoLettersWordsList';
-import Header from 'src/layout/components/Header';
+import WordSearch from 'src/modules/Dictionary/containers/WordSearch/';
+import TwoLettersWords from 'src/modules/Dictionary/containers/TwoLettersWords';
+import { DictionaryScreen } from 'src/modules/Dictionary/interfaces';
 
-import { styles } from './styles';
+const DictionaryStack = createStackNavigator();
 
 type Props = {
   navigation: StackNavigationProp<RootTabParamList, Screen.Dictionary>;
@@ -15,12 +18,21 @@ type Props = {
 };
 
 const Dictionary: React.FC<Props> = () => (
-  <>
-    <Header title={Screen.Dictionary} />
-    <View style={styles.container}>
-      <TwoLettersWordsList />
-    </View>
-  </>
+  <DictionaryStack.Navigator
+    initialRouteName={DictionaryScreen.Home}
+    screenOptions={{
+      headerShown: false,
+    }}
+  >
+    <DictionaryStack.Screen
+      name={DictionaryScreen.Home}
+      component={WordSearch}
+    />
+    <DictionaryStack.Screen
+      name={DictionaryScreen.TwoLettersWords}
+      component={TwoLettersWords}
+    />
+  </DictionaryStack.Navigator>
 );
 
 export default Dictionary;

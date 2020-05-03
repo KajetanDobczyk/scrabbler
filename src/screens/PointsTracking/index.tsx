@@ -5,7 +5,6 @@ import { RouteProp } from '@react-navigation/native';
 
 import { RootTabParamList, Screen } from 'src/layout/interfaces';
 import Board from 'src/modules/Board/containers/Board';
-import PlayersScores from 'src/modules/Players/containers/PlayersScores';
 import Header from 'src/layout/components/Header';
 import { selectGameStatus } from 'src/modules/Board/store/selectors';
 import NewGame from 'src/modules/Board/containers/NewGame';
@@ -22,19 +21,9 @@ const PointsTracking: React.FC<Props> = () => {
   const gameStatus = useSelector(selectGameStatus);
 
   return (
-    <>
-      <View style={styles.container}>
-        {gameStatus === 'idle' ? (
-          <NewGame />
-        ) : (
-          <>
-            <Header title={Screen.PointsTracking} />
-            <Board />
-            <PlayersScores />
-          </>
-        )}
-      </View>
-    </>
+    <View style={styles.container}>
+      {gameStatus === 'idle' ? <NewGame /> : <Board />}
+    </View>
   );
 };
 

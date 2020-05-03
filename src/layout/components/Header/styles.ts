@@ -13,13 +13,19 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  image: {
-    width: 35,
-    height: 35,
+  backIcon: {
+    color: color.white,
   },
-  text: {
+  title: {
     color: color.white,
     fontWeight: 'bold',
     fontSize: font.size.base,
+  },
+  rightMenu: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  menuButton: {
+    marginLeft: 20,
   },
 });

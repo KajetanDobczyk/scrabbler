@@ -8,6 +8,9 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Letter } from 'src/modules/Dictionary/interfaces';
+import Header from 'src/layout/components/Header';
+import { Screen } from 'src/layout/interfaces';
+import PlayersScores from 'src/modules/Players/containers/PlayersScores';
 
 import DraggedTile from './components/DraggedTile';
 import GameBoard from './components/GameBoard';
@@ -105,31 +108,35 @@ const Board = () => {
   };
 
   return (
-    <PanGestureHandler
-      onGestureEvent={onGestureEvent}
-      onHandlerStateChange={onHandlerStateChange}
-    >
-      <View style={styles.container}>
-        <GameBoard />
-        <View style={styles.menuWrapper}>
-          <TilesList />
-          <GameMenu />
+    <>
+      <Header title={Screen.PointsTracking} />
+      <PanGestureHandler
+        onGestureEvent={onGestureEvent}
+        onHandlerStateChange={onHandlerStateChange}
+      >
+        <View style={styles.container}>
+          <GameBoard />
+          <View style={styles.menuWrapper}>
+            <TilesList />
+            <GameMenu />
+          </View>
+          {draggedTile && (
+            <DraggedTile
+              draggedTile={draggedTile}
+              size={draggedTile?.source === 'list' ? 40 : layout.tileSize}
+              translate={translate}
+            />
+          )}
+          {blankLetterModalData.isVisible && (
+            <BlankLetterModal
+              onSelectLetter={handleSelectBlankLetter}
+              onClose={resetBlankLetterModal}
+            />
+          )}
         </View>
-        {draggedTile && (
-          <DraggedTile
-            draggedTile={draggedTile}
-            size={draggedTile?.source === 'list' ? 40 : layout.tileSize}
-            translate={translate}
-          />
-        )}
-        {blankLetterModalData.isVisible && (
-          <BlankLetterModal
-            onSelectLetter={handleSelectBlankLetter}
-            onClose={resetBlankLetterModal}
-          />
-        )}
-      </View>
-    </PanGestureHandler>
+      </PanGestureHandler>
+      <PlayersScores />
+    </>
   );
 };
 
