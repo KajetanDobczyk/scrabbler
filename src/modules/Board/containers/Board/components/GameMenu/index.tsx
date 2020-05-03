@@ -1,8 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { Ionicons } from '@expo/vector-icons';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import {
   tryNewMove,
@@ -14,6 +12,7 @@ import { selectNewMove } from 'src/modules/Board/store/selectors';
 import { selectIsFirstMove } from 'src/modules/Players/store/selectors';
 
 import { styles } from './styles';
+import IconButton from 'src/theme/components/IconButton';
 
 const menuActions: Record<string, any> = {
   reverse: removeLastMove,
@@ -42,47 +41,35 @@ const GameMenu = () => {
     <View style={styles.container}>
       {isConfirmationMode ? (
         <>
-          <TouchableOpacity
-            style={styles.button}
+          <IconButton
+            icon="ios-close"
+            size={30}
             onPress={handleMenuAction('cancel')}
-          >
-            <Ionicons name="ios-close" size={30} style={styles.buttonIcon} />
-          </TouchableOpacity>
-          <TouchableOpacity
             style={styles.button}
+          />
+          <IconButton
+            icon="ios-checkmark"
+            size={30}
             onPress={handleMenuAction('accept')}
-          >
-            <Ionicons
-              name="ios-checkmark"
-              size={30}
-              style={styles.buttonIcon}
-            />
-          </TouchableOpacity>
+            style={styles.button}
+          />
         </>
       ) : (
         <>
           {!isFirstMove && (
-            <TouchableOpacity
-              style={styles.button}
-              onPress={handleMenuAction('reverse')}
-            >
-              <Ionicons
-                name="ios-backspace"
-                size={20}
-                style={styles.buttonIcon}
-              />
-            </TouchableOpacity>
-          )}
-          <TouchableOpacity
-            style={styles.button}
-            onPress={handleMenuAction('skip')}
-          >
-            <Ionicons
-              name="ios-skip-forward"
+            <IconButton
+              icon="ios-backspace"
               size={20}
-              style={styles.buttonIcon}
+              onPress={handleMenuAction('reverse')}
+              style={styles.button}
             />
-          </TouchableOpacity>
+          )}
+          <IconButton
+            icon="ios-skip-forward"
+            size={20}
+            onPress={handleMenuAction('skip')}
+            style={styles.button}
+          />
         </>
       )}
     </View>
