@@ -43,4 +43,5 @@ export type DictionaryTabParamList = Record<DictionaryScreen, any>;
 export interface IWordSearch {
   word: string;
   isAllowed: boolean;
+  description?: string;
 }

@@ -4,14 +4,16 @@ import { useSelector } from 'react-redux';
 
 import {
   selectIsWordAllowed,
-  selectWordSearchWord,
+  selectSearchedWord,
+  selectWordDescription,
 } from 'src/modules/Dictionary/store/selectors';
 
 import { styles } from './styles';
 
 const SearchResult = () => {
   const isWordAllowed = useSelector(selectIsWordAllowed);
-  const word = useSelector(selectWordSearchWord);
+  const word = useSelector(selectSearchedWord);
+  const description = useSelector(selectWordDescription);
 
   return (
     <View style={styles.container}>
@@ -24,6 +26,7 @@ const SearchResult = () => {
       >
         {isWordAllowed ? 'Dopuszczalne w grach' : 'Nie występuje w słowniku'}
       </Text>
+      {description && <Text style={styles.description}>{description}</Text>}
     </View>
   );
 };

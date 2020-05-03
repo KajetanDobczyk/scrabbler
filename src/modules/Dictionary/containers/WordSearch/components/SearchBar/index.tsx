@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput } from 'react-native';
+import { View, TextInput, Keyboard } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { selectWordSearchQuery } from 'src/modules/Dictionary/store/selectors';
@@ -20,6 +20,7 @@ const SearchBar = () => {
 
   const handleSearch = () => {
     dispatch(fetchWordData());
+    Keyboard.dismiss();
   };
 
   return (

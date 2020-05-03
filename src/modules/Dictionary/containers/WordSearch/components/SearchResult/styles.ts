@@ -8,13 +8,16 @@ export const styles = StyleSheet.create({
   },
   word: {
     fontSize: font.size.xl,
-    marginBottom: 10,
+    marginBottom: 5,
   },
-  isAllowedText: {},
+  isAllowedText: {
+    marginBottom: 20,
+  },
   allowed: {
     color: color.green,
   },
   unallowed: {
     color: color.red,
   },
+  description: {},
 });

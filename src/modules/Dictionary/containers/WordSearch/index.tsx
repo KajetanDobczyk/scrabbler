@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 
 import Header from 'src/layout/components/Header';
 import TextButton from 'src/theme/components/TextButton';
+import { color } from 'src/theme';
 
 import { styles } from './styles';
 import { DictionaryTabParamList, DictionaryScreen } from '../../interfaces';
@@ -40,7 +41,9 @@ const WordSearch: React.FC<Props> = ({ navigation }) => {
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.container}>
           <SearchBar />
-          {fetchStatus === 'inProgress' && <ActivityIndicator />}
+          {fetchStatus === 'inProgress' && (
+            <ActivityIndicator color={color.green} />
+          )}
           {fetchStatus === 'succeeded' && <SearchResult />}
         </View>
       </TouchableWithoutFeedback>

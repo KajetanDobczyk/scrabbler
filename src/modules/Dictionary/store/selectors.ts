@@ -19,7 +19,7 @@ export const selectWordSearch = createSelector(
   (dictionaryState) => dictionaryState.wordSearch.data,
 );
 
-export const selectWordSearchWord = createSelector(
+export const selectSearchedWord = createSelector(
   selectWordSearch,
   (wordSearch) => wordSearch?.word,
 );
@@ -27,4 +27,9 @@ export const selectWordSearchWord = createSelector(
 export const selectIsWordAllowed = createSelector(
   selectWordSearch,
   (wordSearch) => !!wordSearch?.isAllowed,
+);
+
+export const selectWordDescription = createSelector(
+  selectWordSearch,
+  (wordSearch) => wordSearch?.description,
 );
