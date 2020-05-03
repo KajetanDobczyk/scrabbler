@@ -11,6 +11,10 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     color: color.white,
   },
+  darkIcon: {
+    textAlign: 'center',
+    color: color.black,
+  },
   disabled: {
     opacity: 0.3,
   },

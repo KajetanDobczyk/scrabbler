@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { useNavigation, DrawerActions } from '@react-navigation/native';
 
 import IconButton from 'src/theme/components/IconButton';
@@ -25,23 +25,25 @@ const Header: React.FC<Props> = ({
   };
 
   return (
-    <View style={styles.container}>
-      {onGoBack && (
-        <IconButton icon="ios-arrow-back" size={20} onPress={onGoBack} />
-      )}
-      <Text style={styles.title}>{title}</Text>
-      <View style={styles.rightMenu}>
-        {children}
-        {!hideMenuButton && (
-          <IconButton
-            icon="ios-menu"
-            size={30}
-            onPress={openDrawerNavigation}
-            style={styles.menuButton}
-          />
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.container}>
+        {onGoBack && (
+          <IconButton icon="ios-arrow-back" size={20} onPress={onGoBack} />
         )}
+        <Text style={styles.title}>{title}</Text>
+        <View style={styles.rightMenu}>
+          {children}
+          {!hideMenuButton && (
+            <IconButton
+              icon="ios-menu"
+              size={30}
+              onPress={openDrawerNavigation}
+              style={styles.menuButton}
+            />
+          )}
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 

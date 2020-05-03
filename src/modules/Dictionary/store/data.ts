@@ -1,7 +1,7 @@
 import { IDictionaryState } from './interfaces';
 
 export const initialState: IDictionaryState = {
-  search: {
+  wordSearch: {
     query: '',
     status: 'idle',
     data: null,

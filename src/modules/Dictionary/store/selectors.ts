@@ -4,12 +4,27 @@ import { RootState } from 'src/redux/rootReducer';
 
 export const selectDictionaryState = (state: RootState) => state.dictionary;
 
-export const selectSearch = createSelector(
+export const selectWordSearchFetchStatus = createSelector(
   selectDictionaryState,
-  (dictionaryState) => dictionaryState.search,
+  (dictionaryState) => dictionaryState.wordSearch.status,
 );
 
-export const selectSearchQuery = createSelector(
-  selectSearch,
-  (search) => search.query,
+export const selectWordSearchQuery = createSelector(
+  selectDictionaryState,
+  (dictionaryState) => dictionaryState.wordSearch.query,
+);
+
+export const selectWordSearch = createSelector(
+  selectDictionaryState,
+  (dictionaryState) => dictionaryState.wordSearch.data,
+);
+
+export const selectWordSearchWord = createSelector(
+  selectWordSearch,
+  (wordSearch) => wordSearch?.word,
+);
+
+export const selectIsWordAllowed = createSelector(
+  selectWordSearch,
+  (wordSearch) => !!wordSearch?.isAllowed,
 );

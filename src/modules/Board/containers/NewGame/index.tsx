@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TouchableWithoutFeedback,
-  Keyboard,
-  ScrollView,
-} from 'react-native';
+import { View, Text, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import FlatButton from 'src/theme/components/FlatButton';

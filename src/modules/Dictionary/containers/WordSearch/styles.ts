@@ -8,8 +8,4 @@ export const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: color.white,
   },
-  input: {
-    borderBottomWidth: 1,
-    borderBottomColor: color.black,
-  },
 });

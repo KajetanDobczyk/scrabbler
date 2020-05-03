@@ -1,9 +1,11 @@
 import { FetchStatus } from 'src/interfaces';
 
-export type IDictionaryState = {
-  search: {
+import { IWordSearch } from '../interfaces';
+
+export interface IDictionaryState {
+  wordSearch: {
     query: string;
     status: FetchStatus;
-    data: any | null;
+    data: IWordSearch | null;
   };
-};
+}

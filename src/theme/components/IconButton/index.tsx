@@ -10,6 +10,7 @@ type Props = {
   onPress: () => void;
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
+  dark?: boolean;
 };
 
 const IconButton: React.FC<Props> = ({
@@ -18,13 +19,18 @@ const IconButton: React.FC<Props> = ({
   onPress,
   disabled,
   style,
+  dark,
 }) => (
   <TouchableOpacity
     style={style ? [styles.container, style] : styles.container}
     onPress={onPress}
     disabled={disabled}
   >
-    <Ionicons name={icon} size={size} style={styles.icon} />
+    <Ionicons
+      name={icon}
+      size={size}
+      style={dark ? [styles.icon, styles.darkIcon] : styles.icon}
+    />
   </TouchableOpacity>
 );
 
