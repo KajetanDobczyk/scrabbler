@@ -63,8 +63,14 @@ export const tryNewMove = (): AppThunk => (dispatch, getState) => {
     ...getNewVerticalMoves(boardFields, newMove),
   ];
 
-  if (newMoveWords.length === 1 && newMove.length === 7) {
-    newMoveWords[0].points += 50;
+  if (newMove.length === 7) {
+    newMoveWords.push({
+      x: -1,
+      y: -1,
+      word: 'bonus +50',
+      direction: 'h',
+      points: 50,
+    });
   }
 
   batch(() => {
