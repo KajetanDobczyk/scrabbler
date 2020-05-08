@@ -56,7 +56,7 @@ export const tilesPoints: Record<Letter, number> = {
   ['ł']: 3,
   ['m']: 2,
   ['n']: 1,
-  ['ń']: 5,
+  ['ń']: 7,
   ['o']: 1,
   ['ó']: 5,
   ['p']: 2,
