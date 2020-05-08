@@ -56,3 +56,10 @@ export interface IPlayedWord {
   direction: WordDirection;
   points: number;
 }
+
+export enum PointsTrackingScreen {
+  NewGame = 'Nowa Gra',
+  Board = 'Plansza',
+}
+
+export type PointsTrackingTabParamList = Record<PointsTrackingScreen, any>;

@@ -9,7 +9,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
 
 import Header from 'src/layout/components/Header';
-import TextButton from 'src/theme/components/TextButton';
 import { color } from 'src/theme';
 
 import { styles } from './styles';
@@ -25,19 +24,12 @@ type Props = {
   >;
 };
 
-const WordSearch: React.FC<Props> = ({ navigation }) => {
+const WordSearch: React.FC<Props> = () => {
   const fetchStatus = useSelector(selectWordSearchFetchStatus);
-
-  const openTwoLettersWords = () => {
-    Keyboard.dismiss();
-    navigation.navigate(DictionaryScreen.TwoLettersWords);
-  };
 
   return (
     <>
-      <Header title={DictionaryScreen.Home}>
-        <TextButton label="Dwuliterówki" onPress={openTwoLettersWords} />
-      </Header>
+      <Header title={DictionaryScreen.Home} />
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.container}>
           <SearchBar />

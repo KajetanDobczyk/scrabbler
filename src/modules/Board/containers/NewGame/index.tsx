@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { useDispatch } from 'react-redux';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import FlatButton from 'src/theme/components/FlatButton';
 import { PlayerId, IPlayersNames } from 'src/modules/Players/interfaces';
@@ -8,8 +9,19 @@ import { startNewGame } from 'src/modules/Players/store/thunks';
 
 import PlayerName from './components/PlayerName';
 import { styles } from './styles';
+import {
+  PointsTrackingScreen,
+  PointsTrackingTabParamList,
+} from '../../interfaces';
 
-const NewGame = () => {
+type Props = {
+  navigation: StackNavigationProp<
+    PointsTrackingTabParamList,
+    PointsTrackingScreen.NewGame
+  >;
+};
+
+const NewGame: React.FC<Props> = ({ navigation }) => {
   const dispatch = useDispatch();
   const [playersNames, setPlayersNames] = useState<IPlayersNames>({
     0: '',
@@ -23,6 +35,11 @@ const NewGame = () => {
       ...playersNames,
       [id]: name,
     });
+  };
+
+  const startGame = () => {
+    dispatch(startNewGame(playersNames));
+    navigation.navigate(PointsTrackingScreen.Board);
   };
 
   const areAtLeastTwoPlayersPresent =
@@ -45,7 +62,7 @@ const NewGame = () => {
         </View>
         <FlatButton
           label="Rozpocznij grę"
-          onPress={() => dispatch(startNewGame(playersNames))}
+          onPress={startGame}
           disabled={!areAtLeastTwoPlayersPresent}
         />
       </View>

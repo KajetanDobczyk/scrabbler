@@ -21,6 +21,7 @@ const Header: React.FC<Props> = ({
   const navigation = useNavigation();
 
   const openDrawerNavigation = () => {
+    Keyboard.dismiss();
     navigation.dispatch(DrawerActions.openDrawer());
   };
 
@@ -36,7 +37,7 @@ const Header: React.FC<Props> = ({
           {!hideMenuButton && (
             <IconButton
               icon="ios-menu"
-              size={30}
+              size={20}
               onPress={openDrawerNavigation}
               style={styles.menuButton}
             />
