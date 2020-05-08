@@ -13,13 +13,14 @@ export const styles = StyleSheet.create({
     borderRightWidth: 0,
   },
   header: {
-    backgroundColor: color.lightGreen,
-    borderBottomWidth: 1,
-    borderBottomColor: color.green,
+    backgroundColor: color.green,
   },
   name: {
     textAlign: 'center',
     fontSize: font.size.xs,
+    color: color.lightGreen,
+  },
+  currentName: {
     color: color.white,
   },
   moves: {
