@@ -1,4 +1,4 @@
-import parse5, { DefaultTreeParentNode } from 'parse5';
+import parse5 from 'parse5';
 
 import { DefaultTreeElement, DefaultTreeTextNode } from 'parse5';
 
@@ -32,7 +32,8 @@ export const parseWordPage = (wordPage: string) => {
       author: (node.childNodes[0] as any).childNodes[0].value,
       date: (node.childNodes[2] as any).childNodes[1].value,
       content: (node.childNodes[3] as any).childNodes[0].value,
-    }));
+    }))
+    .reverse();
 
   return {
     isAllowed,
