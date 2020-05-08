@@ -16,7 +16,6 @@ import DraggedTile from './components/DraggedTile';
 import GameBoard from './components/GameBoard';
 import TilesList from './components/TilesList';
 import BlankLetterModal from './components/BlankLetterModal';
-import GameMenu from './components/GameMenu';
 import {
   dropDraggedTile,
   initDraggedTileFromList,
@@ -118,7 +117,6 @@ const Board = () => {
           <GameBoard />
           <View style={styles.menuWrapper}>
             <TilesList />
-            <GameMenu />
           </View>
           {draggedTile && (
             <DraggedTile

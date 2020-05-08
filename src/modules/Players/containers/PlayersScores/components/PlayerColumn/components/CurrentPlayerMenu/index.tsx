@@ -3,25 +3,25 @@ import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
-  tryNewMove,
   skipTurn,
   removeLastMove,
+  tryNewMove,
 } from 'src/modules/Players/store/thunks';
+import { selectIsFirstMove } from 'src/modules/Players/store/selectors';
+import IconButton from 'src/theme/components/IconButton';
 import { cancelNewMove } from 'src/modules/Board/store/slice';
 import { selectNewMove } from 'src/modules/Board/store/selectors';
-import { selectIsFirstMove } from 'src/modules/Players/store/selectors';
 
 import { styles } from './styles';
-import IconButton from 'src/theme/components/IconButton';
 
 const menuActions: Record<string, any> = {
-  reverse: removeLastMove,
-  skip: skipTurn,
   cancel: cancelNewMove,
   accept: tryNewMove,
+  reverse: removeLastMove,
+  skip: skipTurn,
 };
 
-const GameMenu = () => {
+const CurrentPlayerMenu = () => {
   const dispatch = useDispatch();
 
   const newMove = useSelector(selectNewMove);
@@ -59,14 +59,14 @@ const GameMenu = () => {
           {!isFirstMove && (
             <IconButton
               icon="ios-backspace"
-              size={20}
+              size={15}
               onPress={handleMenuAction('reverse')}
               style={styles.button}
             />
           )}
           <IconButton
             icon="ios-skip-forward"
-            size={20}
+            size={15}
             onPress={handleMenuAction('skip')}
             style={styles.button}
           />
@@ -76,4 +76,4 @@ const GameMenu = () => {
   );
 };
 
-export default GameMenu;
+export default CurrentPlayerMenu;

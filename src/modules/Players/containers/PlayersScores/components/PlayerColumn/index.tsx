@@ -7,6 +7,7 @@ import { IPlayer } from 'src/modules/Players/interfaces';
 
 import PlayedMove from './components/PlayedMove';
 import { styles } from './styles';
+import CurrentPlayerMenu from './components/CurrentPlayerMenu';
 
 type Props = {
   player: IPlayer;
@@ -33,6 +34,7 @@ const PlayerColumn: React.FC<Props> = ({
       ))}
       <Text style={styles.totalPoints}>{sumMovesPoints(player.moves)}</Text>
     </View>
+    {isCurrent && <CurrentPlayerMenu />}
   </View>
 );
 

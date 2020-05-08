@@ -4,6 +4,7 @@ import { color, font } from 'src/theme';
 
 export const styles = StyleSheet.create({
   container: {
+    position: 'relative',
     flexBasis: 0,
     flexGrow: 1,
     borderRightColor: color.green,
