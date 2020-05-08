@@ -5,14 +5,28 @@ import { color } from 'src/theme';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: color.white,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
-  wordsRow: {
+  scrollContainer: {
+    padding: 20,
+  },
+  letterRow: {
     flexDirection: 'row',
-    marginBottom: 5,
+    marginBottom: 10,
   },
-  word: { marginRight: 5 },
+  letter: {
+    width: 25,
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
+    color: color.green,
+  },
+  letterWords: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  word: {
+    textTransform: 'uppercase',
+    marginRight: 10,
+    marginBottom: 2,
+  },
 });
