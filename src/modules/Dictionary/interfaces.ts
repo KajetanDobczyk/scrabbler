@@ -40,8 +40,15 @@ export enum DictionaryScreen {
 
 export type DictionaryTabParamList = Record<DictionaryScreen, any>;
 
+export interface IComment {
+  author: string;
+  date: string;
+  content: string;
+}
+
 export interface IWordSearch {
   word: string;
   isAllowed: boolean;
   description?: string;
+  comments: IComment[];
 }

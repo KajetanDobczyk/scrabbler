@@ -19,5 +19,12 @@ export const styles = StyleSheet.create({
   unallowed: {
     color: color.red,
   },
-  description: {},
+  description: {
+    marginBottom: 20,
+  },
+  comments: {
+    paddingTop: 20,
+    borderTopColor: color.black,
+    borderTopWidth: 1,
+  },
 });

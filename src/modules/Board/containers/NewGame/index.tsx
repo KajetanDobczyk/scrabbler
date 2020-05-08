@@ -56,7 +56,6 @@ const NewGame: React.FC<Props> = ({ navigation }) => {
               id={playerId}
               name={playersNames[playerId]!}
               onChange={handleOnNameChange}
-              autoFocus={i === 0}
             />
           ))}
         </View>

@@ -29,6 +29,7 @@ const BottomTabNavigation = () => (
         inactiveBackgroundColor: color.green,
         activeTintColor: color.white,
         inactiveTintColor: color.lightGreen,
+        style: { borderTopColor: color.lightGreen },
       }}
     >
       <Tab.Screen name={Screen.PointsTracking} component={PointsTracking} />

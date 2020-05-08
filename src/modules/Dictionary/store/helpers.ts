@@ -23,8 +23,20 @@ export const parseWordPage = (wordPage: string) => {
       )
     : undefined;
 
+  const comments = body.childNodes
+    .find((node: DefaultTreeElement) =>
+      node.attrs?.find((attr) => attr.name === 'class' && attr.value === 'z'),
+    )
+    .childNodes.filter((node: DefaultTreeElement) => node.tagName === 'div')
+    .map((node: DefaultTreeElement) => ({
+      author: (node.childNodes[0] as any).childNodes[0].value,
+      date: (node.childNodes[2] as any).childNodes[1].value,
+      content: (node.childNodes[3] as any).childNodes[0].value,
+    }));
+
   return {
     isAllowed,
     description,
+    comments,
   };
 };

@@ -33,3 +33,8 @@ export const selectWordDescription = createSelector(
   selectWordSearch,
   (wordSearch) => wordSearch?.description,
 );
+
+export const selectWordComments = createSelector(
+  selectWordSearch,
+  (wordSearch) => wordSearch?.comments,
+);
