@@ -1,5 +1,4 @@
 export enum Screen {
-  Home = 'Ekran powitalny',
   PointsTracking = 'Licznik Punktów',
   Dictionary = 'Słownik',
 }
