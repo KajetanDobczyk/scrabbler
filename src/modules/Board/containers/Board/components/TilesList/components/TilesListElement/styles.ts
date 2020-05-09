@@ -10,6 +10,9 @@ export const styles = StyleSheet.create({
     paddingTop: 8,
     paddingRight: 8,
   },
+  noAmountLeft: {
+    opacity: 0.5,
+  },
   amount: {
     position: 'absolute',
     width: 10,

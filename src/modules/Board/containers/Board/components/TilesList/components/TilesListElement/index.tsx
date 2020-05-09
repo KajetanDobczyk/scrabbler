@@ -12,15 +12,19 @@ type Props = {
   onPress: (letter: Letter) => void;
 };
 
-const TilesListElement: React.FC<Props> = ({ letter, amountLeft, onPress }) =>
-  amountLeft ? (
-    <TouchableOpacity
-      style={styles.tileWrapper}
-      onPress={() => onPress(letter)}
-    >
-      <Tile letter={letter} />
-      <Text style={styles.amount}>{amountLeft}</Text>
-    </TouchableOpacity>
-  ) : null;
+const TilesListElement: React.FC<Props> = ({ letter, amountLeft, onPress }) => (
+  <TouchableOpacity
+    style={
+      amountLeft
+        ? styles.tileWrapper
+        : [styles.tileWrapper, styles.noAmountLeft]
+    }
+    onPress={() => onPress(letter)}
+    disabled={!amountLeft}
+  >
+    <Tile letter={letter} />
+    {!!amountLeft && <Text style={styles.amount}>{amountLeft}</Text>}
+  </TouchableOpacity>
+);
 
 export default TilesListElement;
