@@ -15,6 +15,7 @@ type Props = {
 
 const TilesList: React.FC<Props> = ({ onBlankPressed }) => {
   const dispatch = useDispatch();
+
   const tilesList = useSelector(selectTilesList);
 
   const selectTile = (letter: Letter) => {
