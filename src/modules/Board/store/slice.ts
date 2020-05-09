@@ -2,8 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { initialState } from './data';
 import { ICoordinates, IAddNewMoveTilePayload } from './interfaces';
-import { boardPadding } from '../containers/Board/styles';
-import { IBoardLayout, IBoardTile, WordDirection } from '../interfaces';
+import { IBoardTile, WordDirection } from '../interfaces';
 
 const board = createSlice({
   name: 'board',
@@ -12,29 +11,13 @@ const board = createSlice({
     startGame(state) {
       state.gameStatus = 'inProgress';
     },
-    initBoardLayout(state, action: PayloadAction<IBoardLayout>) {
-      state.layout = action.payload;
-
-      const { tileSize } = action.payload;
-
-      state.boardFields = state.boardFields.map((row, y) =>
-        row.map((field, x) => ({
-          ...field,
-          x: boardPadding + x * tileSize,
-          y: boardPadding + y * tileSize,
-        })),
-      );
-    },
     setNewMoveTarget(state, action: PayloadAction<ICoordinates>) {
       const { x, y } = action.payload;
-      const oldTarget = state.newMove.target;
-
-      if (oldTarget) {
-        state.boardFields[oldTarget.y][oldTarget.x].isHighlighted = false;
-      }
 
       state.newMove.target = { x, y };
-      state.boardFields[y][x].isHighlighted = true;
+    },
+    resetNewMoveTarget(state) {
+      state.newMove.target = undefined;
     },
     setNewMoveDirection(state, action: PayloadAction<WordDirection>) {
       state.newMove.direction = action.payload;
@@ -49,28 +32,15 @@ const board = createSlice({
         blankLetter,
       });
 
+      const oldLetter = state.boardFields[y][x].letter;
+
+      if (oldLetter !== '') {
+        state.tilesList[oldLetter].amountLeft++;
+      }
+
       state.boardFields[y][x].letter = letter;
       state.boardFields[y][x].blankLetter = blankLetter;
       state.tilesList[letter].amountLeft--;
-    },
-    removeNewMoveTile(state, action: PayloadAction<ICoordinates>) {
-      const { x, y } = action.payload;
-      const { letter } = state.boardFields[y][x];
-
-      if (letter !== '') {
-        state.tilesList[letter].amountLeft++;
-      }
-
-      state.boardFields[y][x].letter = '';
-      state.boardFields[y][x].blankLetter = undefined;
-      state.newMove.tiles = state.newMove.tiles.filter(
-        (tile) => tile.x !== x || tile.y !== y,
-      );
-    },
-    resetNewMove(state) {
-      state.newMove = {
-        tiles: [],
-      };
     },
     cancelNewMove(state) {
       state.newMove.tiles.forEach(({ x, y, letter }) => {
@@ -79,6 +49,13 @@ const board = createSlice({
       });
 
       state.newMove = {
+        direction: 'h',
+        tiles: [],
+      };
+    },
+    resetNewMove(state) {
+      state.newMove = {
+        direction: 'h',
         tiles: [],
       };
     },
@@ -93,13 +70,12 @@ const board = createSlice({
 
 export const {
   startGame,
-  initBoardLayout,
   setNewMoveTarget,
+  resetNewMoveTarget,
   setNewMoveDirection,
   addNewMoveTile,
-  removeNewMoveTile,
-  resetNewMove,
   cancelNewMove,
+  resetNewMove,
   removeBoardTiles,
 } = board.actions;
 

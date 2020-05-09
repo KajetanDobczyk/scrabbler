@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { selectTilesList } from 'src/modules/Board/store/selectors';
 import { Letter } from 'src/modules/Dictionary/interfaces';
-import { boardTilePressed } from 'src/modules/Board/store/thunks';
+import { listBoardTilePressed } from 'src/modules/Board/store/thunks';
 
 import { styles } from './styles';
 import TilesListElement from './components/TilesListElement';
@@ -21,7 +21,7 @@ const TilesList: React.FC<Props> = ({ onBlankPressed }) => {
     if (letter === '?') {
       onBlankPressed();
     } else {
-      dispatch(boardTilePressed(letter));
+      dispatch(listBoardTilePressed(letter));
     }
   };
 

@@ -2,7 +2,6 @@ import { Letter } from 'src/modules/Dictionary/interfaces';
 
 import {
   IBoardFields,
-  IBoardLayout,
   ITilesList,
   INewMove,
   GameStatus,
@@ -13,7 +12,6 @@ export type IBoardState = {
   gameStatus: GameStatus;
   boardFields: IBoardFields;
   tilesList: ITilesList;
-  layout: IBoardLayout;
   newMove: INewMove;
 };
 

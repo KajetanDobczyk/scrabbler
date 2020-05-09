@@ -29,7 +29,6 @@ export const getInitialBoardFields: () => IBoardFields = () =>
       y: 0,
       bonus,
       letter: '',
-      isHighlighted: false,
     })),
   );
 
@@ -91,8 +90,8 @@ export const initialState: IBoardState = {
   gameStatus: 'idle',
   boardFields: getInitialBoardFields(),
   tilesList: getInitialTilesList(),
-  layout: initialLayout,
   newMove: {
+    direction: 'h',
     tiles: [],
   },
 };

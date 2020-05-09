@@ -20,14 +20,6 @@ export interface IBoardField {
   letter: Letter | '';
   blankLetter?: Letter;
   bonus: FieldBonus;
-  isHighlighted?: boolean;
-}
-
-export interface IBoardLayout {
-  x: number;
-  y: number;
-  size: number;
-  tileSize: number;
 }
 
 export interface IBoardTile {
@@ -39,7 +31,7 @@ export interface IBoardTile {
 
 export interface INewMove {
   target?: ICoordinates;
-  direction?: WordDirection;
+  direction: WordDirection;
   tiles: IBoardTile[];
 }
 

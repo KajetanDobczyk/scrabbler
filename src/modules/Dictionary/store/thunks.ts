@@ -21,7 +21,6 @@ export const fetchWordData = (): AppThunk => async (dispatch, getState) => {
       fetchWordDataSucceeded({ word: query, ...parseWordPage(wordPage) }),
     );
   } catch (error) {
-    console.log(error);
     dispatch(fetchWordDataFailed());
   }
 };

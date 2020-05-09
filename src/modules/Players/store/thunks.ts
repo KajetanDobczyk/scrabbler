@@ -9,11 +9,6 @@ import {
   selectBoardFields,
 } from 'src/modules/Board/store/selectors';
 import {
-  getNewHorizontalMoves,
-  getNewVerticalMoves,
-  validateNewMove,
-} from 'src/modules/Board/store/helpers';
-import {
   resetNewMove,
   removeBoardTiles,
   startGame,
@@ -32,6 +27,11 @@ import {
   setupPlayers,
 } from './slice';
 import { IPlayersNames } from '../interfaces';
+import {
+  getNewHorizontalMoves,
+  getNewVerticalMoves,
+  validateNewMove,
+} from './helpers';
 
 export const startNewGame = (playersNames: IPlayersNames): AppThunk => (
   dispatch,
@@ -43,27 +43,27 @@ export const startNewGame = (playersNames: IPlayersNames): AppThunk => (
 };
 
 export const tryNewMove = (): AppThunk => (dispatch, getState) => {
-  const newMove = selectNewMove(getState());
+  const { tiles } = selectNewMove(getState());
   const boardFields = selectBoardFields(getState());
   const isFirstMove = selectIsFirstMove(getState());
 
-  // const errorMessage = validateNewMove(boardFields, newMove, isFirstMove);
+  const errorMessage = validateNewMove(boardFields, tiles, isFirstMove);
 
-  // if (errorMessage) {
-  //   return Alert.alert(
-  //     'Niedozwolony ruch',
-  //     errorMessage,
-  //     [{ text: 'Ok', onPress: () => noop, style: 'cancel' }],
-  //     { cancelable: true },
-  //   );
-  // }
+  if (errorMessage) {
+    return Alert.alert(
+      'Niedozwolony ruch',
+      errorMessage,
+      [{ text: 'Ok', onPress: () => noop, style: 'cancel' }],
+      { cancelable: true },
+    );
+  }
 
   const newMoveWords = [
-    ...getNewHorizontalMoves(boardFields, newMove),
-    ...getNewVerticalMoves(boardFields, newMove),
+    ...getNewHorizontalMoves(boardFields, tiles),
+    ...getNewVerticalMoves(boardFields, tiles),
   ];
 
-  if (newMove.length === 7) {
+  if (tiles.length === 7) {
     newMoveWords.push({
       x: -1,
       y: -1,
@@ -74,7 +74,7 @@ export const tryNewMove = (): AppThunk => (dispatch, getState) => {
   }
 
   batch(() => {
-    dispatch(addCurrentPlayerMove({ tiles: newMove, words: newMoveWords }));
+    dispatch(addCurrentPlayerMove({ tiles, words: newMoveWords }));
     dispatch(resetNewMove());
   });
 };

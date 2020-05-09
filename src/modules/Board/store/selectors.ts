@@ -19,17 +19,7 @@ export const selectTilesList = createSelector(
   (boardState) => boardState.tilesList,
 );
 
-export const selectBoardLayout = createSelector(
-  selectBoardState,
-  (boardState) => boardState.layout,
-);
-
 export const selectNewMove = createSelector(
   selectBoardState,
   (boardState) => boardState.newMove,
-);
-
-export const selectDraggedTile = createSelector(
-  selectBoardState,
-  (boardState) => boardState.draggedTile,
 );

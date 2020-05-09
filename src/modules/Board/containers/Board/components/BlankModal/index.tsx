@@ -8,7 +8,7 @@ import { selectTilesList } from 'src/modules/Board/store/selectors';
 import Tile from 'src/modules/Tiles/components/Tile';
 
 import { styles } from './styles';
-import { boardTilePressed } from 'src/modules/Board/store/thunks';
+import { listBoardTilePressed } from 'src/modules/Board/store/thunks';
 
 type Props = {
   onClose: () => void;
@@ -19,7 +19,7 @@ const BlankModal: React.FC<Props> = ({ onClose }) => {
   const tilesList = useSelector(selectTilesList);
 
   const handleTilePress = (letter: Letter) => () => {
-    dispatch(boardTilePressed('?', letter));
+    dispatch(listBoardTilePressed('?', letter));
     onClose();
   };
 

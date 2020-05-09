@@ -1,14 +1,13 @@
 import { StyleSheet } from 'react-native';
 
 import { color, font } from 'src/theme';
-import { boardPadding } from 'src/modules/Board/containers/Board/styles';
 
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: color.green,
-    paddingTop: boardPadding * 2,
-    paddingHorizontal: boardPadding,
-    paddingBottom: boardPadding,
+    paddingTop: 40,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

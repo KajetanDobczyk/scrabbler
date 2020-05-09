@@ -38,7 +38,7 @@ const BoardField: React.FC<Props> = ({
     outputRange: [0, isTarget ? 0.5 : 0.2, 0],
   });
 
-  if (field.isHighlighted) {
+  if (isTarget) {
     animation.start();
   } else {
     animation.stop();
@@ -50,7 +50,7 @@ const BoardField: React.FC<Props> = ({
 
   return (
     <TouchableOpacity style={styles.container} onPress={() => onPress(x, y)}>
-      {field.isHighlighted && (
+      {isTarget && (
         <Animated.View
           style={[
             styles.highlightOverlay,

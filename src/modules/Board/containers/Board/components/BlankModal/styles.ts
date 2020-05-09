@@ -2,17 +2,15 @@ import { StyleSheet } from 'react-native';
 
 import { color } from 'src/theme';
 
-import { boardPadding } from '../../styles';
-
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: color.green,
-    padding: boardPadding,
+    padding: 20,
     borderRadius: 4,
   },
   header: {
     color: color.white,
-    marginBottom: boardPadding,
+    marginBottom: 20,
   },
   tilesList: {
     flexDirection: 'row',
