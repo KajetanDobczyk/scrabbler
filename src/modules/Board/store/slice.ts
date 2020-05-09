@@ -19,8 +19,8 @@ const board = createSlice({
     resetNewMoveTarget(state) {
       state.newMove.target = undefined;
     },
-    setNewMoveDirection(state, action: PayloadAction<WordDirection>) {
-      state.newMove.direction = action.payload;
+    changeNewMoveDirection(state) {
+      state.newMove.direction = state.newMove.direction === 'h' ? 'v' : 'h';
     },
     addNewMoveTile(state, action: PayloadAction<IAddNewMoveTilePayload>) {
       const { x, y, letter, blankLetter } = action.payload;
@@ -72,7 +72,7 @@ export const {
   startGame,
   setNewMoveTarget,
   resetNewMoveTarget,
-  setNewMoveDirection,
+  changeNewMoveDirection,
   addNewMoveTile,
   cancelNewMove,
   resetNewMove,

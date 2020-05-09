@@ -5,11 +5,11 @@ import {
   addNewMoveTile,
   setNewMoveTarget,
   resetNewMoveTarget,
-  setNewMoveDirection,
+  changeNewMoveDirection,
   cancelNewMove,
 } from './slice';
 import { selectBoardFields, selectNewMove } from './selectors';
-import { findNextFreeBoardField } from './helpers';
+import { findNextFreeBoardField, isInLineWithNewMove } from './helpers';
 
 export const boardFieldPressed = (x: number, y: number): AppThunk => (
   dispatch,
@@ -18,6 +18,7 @@ export const boardFieldPressed = (x: number, y: number): AppThunk => (
   const boardFields = selectBoardFields(getState());
   const newMove = selectNewMove(getState());
 
+  // Letter present, and not from new move
   if (
     boardFields[y][x].letter !== '' &&
     !newMove.tiles.find((tile) => tile.x === x && tile.y === y)
@@ -25,10 +26,17 @@ export const boardFieldPressed = (x: number, y: number): AppThunk => (
     return dispatch(cancelNewMove());
   }
 
-  dispatch(setNewMoveTarget({ x, y }));
+  if (!newMove.tiles.length || isInLineWithNewMove(newMove, x, y)) {
+    return dispatch(setNewMoveTarget({ x, y }));
+  }
 
-  //TODO: Remove current newMove if not according to current direction
-  //TODO: Change direction if pressed next to current target
+  if (newMove.tiles.length === 1) {
+    dispatch(setNewMoveTarget({ x, y }));
+    dispatch(changeNewMoveDirection());
+  } else {
+    dispatch(cancelNewMove());
+    dispatch(setNewMoveTarget({ x, y }));
+  }
 };
 
 export const listBoardTilePressed = (

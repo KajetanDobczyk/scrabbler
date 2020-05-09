@@ -1,6 +1,6 @@
 import { Letter } from 'src/modules/Dictionary/interfaces';
 
-import { IBoardFields, WordDirection } from '../interfaces';
+import { IBoardFields, WordDirection, INewMove } from '../interfaces';
 import { ICoordinates } from './interfaces';
 
 export const getFieldLetter = (
@@ -8,6 +8,12 @@ export const getFieldLetter = (
   x: number,
   y: number,
 ) => boardFields[y] && boardFields[y][x]?.letter;
+
+export const isInLineWithNewMove = (
+  { direction, tiles }: INewMove,
+  x: number,
+  y: number,
+) => (direction === 'h' ? tiles[0].y === y : tiles[0].x === x);
 
 export const findNextFreeBoardField = (
   boardFields: IBoardFields,
