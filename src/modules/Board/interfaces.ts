@@ -1,6 +1,15 @@
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import { FetchStatus } from 'src/interfaces';
 
+import { ICoordinates } from './store/interfaces';
+
+export enum PointsTrackingScreen {
+  NewGame = 'Nowa Gra',
+  Board = 'Plansza',
+}
+
+export type PointsTrackingTabParamList = Record<PointsTrackingScreen, any>;
+
 export type GameStatus = FetchStatus;
 
 export type FieldBonus = 'dl' | 'tl' | 'dw' | 'tw' | 0;
@@ -11,6 +20,7 @@ export interface IBoardField {
   letter: Letter | '';
   blankLetter?: Letter;
   bonus: FieldBonus;
+  isHighlighted?: boolean;
 }
 
 export interface IBoardLayout {
@@ -27,27 +37,20 @@ export interface IBoardTile {
   blankLetter?: Letter;
 }
 
+export interface INewMove {
+  target?: ICoordinates;
+  tiles: IBoardTile[];
+}
+
 export type IBoardFields = IBoardField[][];
 
 export type WordDirection = 'h' | 'v';
 
-export interface IDraggedTile {
-  x0: number;
-  y0: number;
-  letter: Letter;
-  source: 'list' | 'board';
+export interface ITilesListElement {
+  amountLeft: number;
 }
 
-export type ITileMeasurements = { x: number; y: number; size: number };
-
-export type ITilesListElement = {
-  amountLeft: number;
-  measurements: ITileMeasurements | undefined;
-};
-
 export type ITilesList = Record<Letter, ITilesListElement>;
-
-export type SetTilesListMeasurementsPayload = Record<Letter, ITileMeasurements>;
 
 export interface IPlayedWord {
   x: number;
@@ -56,10 +59,3 @@ export interface IPlayedWord {
   direction: WordDirection;
   points: number;
 }
-
-export enum PointsTrackingScreen {
-  NewGame = 'Nowa Gra',
-  Board = 'Plansza',
-}
-
-export type PointsTrackingTabParamList = Record<PointsTrackingScreen, any>;

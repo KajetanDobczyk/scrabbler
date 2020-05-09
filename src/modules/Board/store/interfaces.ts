@@ -5,8 +5,7 @@ import {
   IBoardFields,
   IBoardLayout,
   ITilesList,
-  IBoardTile,
-  IDraggedTile,
+  INewMove,
   GameStatus,
 } from '../interfaces';
 
@@ -15,8 +14,7 @@ export type IBoardState = {
   boardFields: IBoardFields;
   tilesList: ITilesList;
   layout: IBoardLayout;
-  newMove: IBoardTile[];
-  draggedTile: IDraggedTile | null;
+  newMove: INewMove;
 };
 
 export interface ICoordinates {
@@ -25,5 +23,6 @@ export interface ICoordinates {
 }
 
 export interface IAddNewMoveTilePayload extends ICoordinates {
+  letter: Letter;
   blankLetter?: Letter;
 }

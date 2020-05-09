@@ -1,8 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { updateBoardLayout } from 'src/modules/Board/store/thunks';
+import {
+  updateBoardLayout,
+  boardFieldPressed,
+} from 'src/modules/Board/store/thunks';
 import {
   selectBoardFields,
   selectNewMove,
@@ -21,6 +24,10 @@ const Board = () => {
     dispatch(updateBoardLayout());
   }, []);
 
+  const handleOnBoardFieldPress = (x: number, y: number) => {
+    dispatch(boardFieldPressed(x, y));
+  };
+
   return (
     <View style={styles.container}>
       {boardFields.map((row, y) => (
@@ -28,9 +35,12 @@ const Board = () => {
           {row.map((field, x) => (
             <BoardField
               key={x}
+              x={x}
+              y={y}
               field={field}
+              onPress={handleOnBoardFieldPress}
               isInNewMove={
-                !!newMove.find((tile) => tile.x === x && tile.y === y)
+                !!newMove.tiles.find((tile) => tile.x === x && tile.y === y)
               }
             />
           ))}

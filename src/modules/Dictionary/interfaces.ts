@@ -1,3 +1,10 @@
+export enum DictionaryScreen {
+  Home = 'Słownik',
+  TwoLettersWords = 'Dwuliterówki',
+}
+
+export type DictionaryTabParamList = Record<DictionaryScreen, any>;
+
 export type Letter =
   | '?'
   | 'a'
@@ -32,13 +39,6 @@ export type Letter =
   | 'z'
   | 'ż'
   | 'ź';
-
-export enum DictionaryScreen {
-  Home = 'Słownik',
-  TwoLettersWords = 'Dwuliterówki',
-}
-
-export type DictionaryTabParamList = Record<DictionaryScreen, any>;
 
 export interface IComment {
   author: string;

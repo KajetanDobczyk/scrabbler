@@ -23,13 +23,13 @@ export const fieldsBonuses: FieldBonus[][] = [
 ];
 
 export const getInitialBoardFields: () => IBoardFields = () =>
-  fieldsBonuses.map((row, y) =>
-    row.map((bonus, x) => ({
+  fieldsBonuses.map((row) =>
+    row.map((bonus) => ({
       x: 0,
       y: 0,
       bonus,
       letter: '',
-      // letter: mockedBoardLetters[y][x],
+      isHighlighted: false,
     })),
   );
 
@@ -82,7 +82,6 @@ const getInitialTilesList: () => ITilesList = () =>
       ...acc,
       [letter]: {
         amountLeft: initialTilesAmount[letter],
-        measurements: undefined,
       },
     }),
     {} as ITilesList,
@@ -93,6 +92,7 @@ export const initialState: IBoardState = {
   boardFields: getInitialBoardFields(),
   tilesList: getInitialTilesList(),
   layout: initialLayout,
-  newMove: [],
-  draggedTile: null,
+  newMove: {
+    tiles: [],
+  },
 };

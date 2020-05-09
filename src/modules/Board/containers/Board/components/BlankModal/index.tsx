@@ -1,24 +1,25 @@
 import React, { memo } from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import { selectTilesList } from 'src/modules/Board/store/selectors';
 import Tile from 'src/modules/Tiles/components/Tile';
 
 import { styles } from './styles';
+import { boardTilePressed } from 'src/modules/Board/store/thunks';
 
 type Props = {
-  onSelectLetter: (letter: Letter) => void;
   onClose: () => void;
 };
 
-const BlankLetterModal: React.FC<Props> = ({ onClose, onSelectLetter }) => {
+const BlankModal: React.FC<Props> = ({ onClose }) => {
+  const dispatch = useDispatch();
   const tilesList = useSelector(selectTilesList);
 
   const handleTilePress = (letter: Letter) => () => {
-    onSelectLetter(letter);
+    dispatch(boardTilePressed('?', letter));
   };
 
   return (
@@ -43,4 +44,4 @@ const BlankLetterModal: React.FC<Props> = ({ onClose, onSelectLetter }) => {
   );
 };
 
-export default memo(BlankLetterModal);
+export default memo(BlankModal);

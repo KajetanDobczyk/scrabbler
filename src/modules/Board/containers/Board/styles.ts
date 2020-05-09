@@ -10,7 +10,4 @@ export const styles = EStyleSheet.create({
     paddingHorizontal: boardPadding,
     paddingBottom: boardPadding,
   },
-  menuWrapper: {
-    flexDirection: 'row',
-  },
 });

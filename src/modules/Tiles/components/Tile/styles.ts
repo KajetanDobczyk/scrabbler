@@ -20,8 +20,8 @@ export const styles = StyleSheet.create({
   },
   points: {
     position: 'absolute',
-    bottom: 1,
-    right: 1,
-    fontSize: font.size.xs,
+    bottom: 0,
+    right: 2,
+    fontSize: font.size.xxs,
   },
 });

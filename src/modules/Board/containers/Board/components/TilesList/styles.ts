@@ -3,6 +3,8 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingTop: 10,
+    flexWrap: 'wrap',
+    justifyContent: 'flex-start',
+    paddingTop: 13,
   },
 });
