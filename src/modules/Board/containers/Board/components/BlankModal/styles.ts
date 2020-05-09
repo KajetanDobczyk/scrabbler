@@ -17,11 +17,11 @@ export const styles = StyleSheet.create({
   tilesList: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-evenly',
+    justifyContent: 'flex-start',
   },
   tileWrapper: {
-    width: 30,
-    marginRight: 5,
-    marginBottom: 5,
+    width: 25,
+    marginRight: 8,
+    marginBottom: 8,
   },
 });

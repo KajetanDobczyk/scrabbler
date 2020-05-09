@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { initialState } from './data';
 import { ICoordinates, IAddNewMoveTilePayload } from './interfaces';
 import { boardPadding } from '../containers/Board/styles';
-import { IBoardLayout, IBoardTile } from '../interfaces';
+import { IBoardLayout, IBoardTile, WordDirection } from '../interfaces';
 
 const board = createSlice({
   name: 'board',
@@ -25,11 +25,19 @@ const board = createSlice({
         })),
       );
     },
-    setNewMoveTileTarget(state, action: PayloadAction<ICoordinates>) {
+    setNewMoveTarget(state, action: PayloadAction<ICoordinates>) {
       const { x, y } = action.payload;
+      const oldTarget = state.newMove.target;
+
+      if (oldTarget) {
+        state.boardFields[oldTarget.y][oldTarget.x].isHighlighted = false;
+      }
 
       state.newMove.target = { x, y };
       state.boardFields[y][x].isHighlighted = true;
+    },
+    setNewMoveDirection(state, action: PayloadAction<WordDirection>) {
+      state.newMove.direction = action.payload;
     },
     addNewMoveTile(state, action: PayloadAction<IAddNewMoveTilePayload>) {
       const { x, y, letter, blankLetter } = action.payload;
@@ -61,7 +69,6 @@ const board = createSlice({
     },
     resetNewMove(state) {
       state.newMove = {
-        target: undefined,
         tiles: [],
       };
     },
@@ -72,7 +79,6 @@ const board = createSlice({
       });
 
       state.newMove = {
-        target: undefined,
         tiles: [],
       };
     },
@@ -88,7 +94,8 @@ const board = createSlice({
 export const {
   startGame,
   initBoardLayout,
-  setNewMoveTileTarget,
+  setNewMoveTarget,
+  setNewMoveDirection,
   addNewMoveTile,
   removeNewMoveTile,
   resetNewMove,

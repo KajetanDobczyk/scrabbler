@@ -39,6 +39,7 @@ export interface IBoardTile {
 
 export interface INewMove {
   target?: ICoordinates;
+  direction?: WordDirection;
   tiles: IBoardTile[];
 }
 

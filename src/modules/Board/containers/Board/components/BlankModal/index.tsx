@@ -20,6 +20,7 @@ const BlankModal: React.FC<Props> = ({ onClose }) => {
 
   const handleTilePress = (letter: Letter) => () => {
     dispatch(boardTilePressed('?', letter));
+    onClose();
   };
 
   return (

@@ -39,6 +39,7 @@ const Board = () => {
               y={y}
               field={field}
               onPress={handleOnBoardFieldPress}
+              isTarget={newMove.target?.x === x && newMove.target?.y === y}
               isInNewMove={
                 !!newMove.tiles.find((tile) => tile.x === x && tile.y === y)
               }

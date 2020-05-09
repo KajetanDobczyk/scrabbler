@@ -8,15 +8,27 @@ export const styles = StyleSheet.create({
     position: 'relative',
     backgroundColor: color.cream,
     borderRadius: 2,
+  },
+  highlightOverlay: {
+    backgroundColor: color.white,
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    zIndex: 0,
+  },
+  content: {
+    position: 'absolute',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  blankLetter: {
-    textTransform: 'uppercase',
-    opacity: 0.3,
+    width: '100%',
+    height: '100%',
+    zIndex: 1,
   },
   letter: {
     textTransform: 'uppercase',
+  },
+  blankLetter: {
+    opacity: 0.3,
   },
   points: {
     position: 'absolute',

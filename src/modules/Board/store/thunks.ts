@@ -11,7 +11,8 @@ import {
   initBoardLayout,
   addNewMoveTile,
   removeNewMoveTile,
-  setNewMoveTileTarget,
+  setNewMoveTarget,
+  setNewMoveDirection,
 } from './slice';
 import {
   selectBoardLayout,
@@ -44,7 +45,7 @@ export const boardFieldPressed = (x: number, y: number): AppThunk => (
   const boardFields = selectBoardFields(getState());
 
   if (boardFields[y][x].letter === '') {
-    dispatch(setNewMoveTileTarget({ x, y }));
+    dispatch(setNewMoveTarget({ x, y }));
   }
 };
 

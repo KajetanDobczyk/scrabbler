@@ -35,7 +35,7 @@ const CurrentPlayerMenu = () => {
     }
   };
 
-  const isConfirmationMode = newMove.length;
+  const isConfirmationMode = newMove.tiles.length;
 
   return (
     <View style={styles.container}>

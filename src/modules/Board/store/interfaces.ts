@@ -1,5 +1,4 @@
 import { Letter } from 'src/modules/Dictionary/interfaces';
-import { PlayerId } from 'src/modules/Players/interfaces';
 
 import {
   IBoardFields,
@@ -7,6 +6,7 @@ import {
   ITilesList,
   INewMove,
   GameStatus,
+  WordDirection,
 } from '../interfaces';
 
 export type IBoardState = {
@@ -25,4 +25,8 @@ export interface ICoordinates {
 export interface IAddNewMoveTilePayload extends ICoordinates {
   letter: Letter;
   blankLetter?: Letter;
+}
+
+export interface ISetNewMoveTileTargetPayload extends ICoordinates {
+  direction?: WordDirection;
 }
