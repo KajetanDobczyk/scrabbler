@@ -4,14 +4,16 @@ import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
 
 import { styles } from './styles';
 
-const iconSets: Record<string, ComponentType<any>> = {
+type IconSet = 'FontAwesome5' | 'Ionicons';
+
+const iconSets: Record<IconSet, ComponentType<any>> = {
   FontAwesome5: FontAwesome5,
   Ionicons: Ionicons,
 };
 
 type Props = {
   icon: string;
-  iconSet?: string;
+  iconSet?: IconSet;
   size: number;
   onPress: () => void;
   disabled?: boolean;

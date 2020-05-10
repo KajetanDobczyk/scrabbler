@@ -14,7 +14,7 @@ type Props = {
   onClose: () => void;
 };
 
-const BlankModal: React.FC<Props> = ({ onClose }) => {
+const EndGameModal: React.FC<Props> = ({ onClose }) => {
   const dispatch = useDispatch();
   const tilesList = useSelector(selectTilesList);
 
@@ -26,11 +26,12 @@ const BlankModal: React.FC<Props> = ({ onClose }) => {
   return (
     <Modal isVisible onBackdropPress={onClose} onSwipeCancel={onClose}>
       <View style={styles.container}>
-        <Text style={styles.header}>Wybierz literę</Text>
+        <Text style={styles.header}>Zakończ grę</Text>
         <View style={styles.tilesList}>
           {(Object.keys(tilesList) as Letter[]).map(
             (letter) =>
-              !!(letter !== '?' && tilesList[letter].amountLeft) && (
+              letter !== '?' &&
+              tilesList[letter].amountLeft && (
                 <TouchableOpacity
                   key={letter}
                   style={styles.tileWrapper}
@@ -46,4 +47,4 @@ const BlankModal: React.FC<Props> = ({ onClose }) => {
   );
 };
 
-export default BlankModal;
+export default EndGameModal;

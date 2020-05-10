@@ -58,7 +58,7 @@ const CurrentPlayerMenu = () => {
         <>
           {!isFirstMove && (
             <IconButton
-              icon="ios-backspace"
+              icon="ios-skip-backward"
               size={15}
               onPress={handleMenuAction('reverse')}
               style={styles.button}

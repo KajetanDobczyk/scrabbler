@@ -45,7 +45,7 @@ export const sumMovesPoints = (moves: IPlayedMove[]) =>
       points +
       move.words.reduce(
         (acc, word) => acc + countPlayedWordPoints(word, move.tiles),
-        0,
+        move.tiles.length === 7 ? 50 : 0,
       ),
     0,
   );
