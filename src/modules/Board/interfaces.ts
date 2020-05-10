@@ -44,11 +44,3 @@ export interface ITilesListElement {
 }
 
 export type ITilesList = Record<Letter, ITilesListElement>;
-
-export interface IPlayedWord {
-  x: number;
-  y: number;
-  word: string;
-  direction: WordDirection;
-  points: number;
-}

@@ -5,7 +5,7 @@ import { IBoardField } from 'src/modules/Board/interfaces';
 import Tile from 'src/modules/Tiles/components/Tile';
 import { boardFieldsColors } from 'src/modules/Board/data';
 
-import { styles as stylesFun } from './styles';
+import { stylesFun } from './styles';
 
 type Props = {
   x: number;

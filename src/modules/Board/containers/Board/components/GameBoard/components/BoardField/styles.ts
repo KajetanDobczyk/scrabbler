@@ -6,7 +6,7 @@ type StylesProps = {
   backgroundColor: string;
 };
 
-export const styles = ({ backgroundColor }: StylesProps) =>
+export const stylesFun = ({ backgroundColor }: StylesProps) =>
   StyleSheet.create({
     container: {
       position: 'relative',

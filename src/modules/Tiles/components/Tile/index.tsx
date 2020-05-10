@@ -4,7 +4,7 @@ import { Text, Animated, Easing, View } from 'react-native';
 import { tilesPoints } from 'src/modules/Tiles/data';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 
-import { styles } from './styles';
+import { stylesFun } from './styles';
 
 type Props = {
   letter: Letter;
@@ -42,6 +42,10 @@ const Tile: React.FC<Props> = ({
     }
   }, [isHighlighted]);
 
+  const styles = stylesFun({
+    opacity: blankLetter ? 0.3 : 1,
+  });
+
   return (
     <Animated.View style={styles.container}>
       <Animated.View
@@ -53,11 +57,7 @@ const Tile: React.FC<Props> = ({
         ]}
       />
       <View style={styles.content}>
-        <Text
-          style={
-            blankLetter ? [styles.letter, styles.blankLetter] : styles.letter
-          }
-        >
+        <Text style={styles.letter}>
           {letter !== '?' ? letter : blankLetter || ''}
         </Text>
         {points ? (

@@ -63,16 +63,6 @@ export const tryNewMove = (): AppThunk => (dispatch, getState) => {
     ...getNewVerticalMoves(boardFields, tiles),
   ];
 
-  if (tiles.length === 7) {
-    newMoveWords.push({
-      x: -1,
-      y: -1,
-      word: 'bonus +50',
-      direction: 'h',
-      points: 50,
-    });
-  }
-
   batch(() => {
     dispatch(addCurrentPlayerMove({ tiles, words: newMoveWords }));
     dispatch(resetNewMove());

@@ -29,7 +29,6 @@ export const styles = StyleSheet.create({
     flexGrow: 1,
   },
   totalPoints: {
-    fontSize: font.size.xs,
     fontWeight: 'bold',
     textAlign: 'right',
     padding: 5,
