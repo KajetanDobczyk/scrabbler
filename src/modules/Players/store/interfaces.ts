@@ -1,4 +1,4 @@
-import { IPlayers, PlayerId } from '../interfaces';
+import { IPlayers, PlayerId, IPlayedMove } from '../interfaces';
 
 export type IPlayersState = {
   players: IPlayers;
@@ -6,3 +6,8 @@ export type IPlayersState = {
 };
 
 export type IStartGamePayload = Partial<Record<PlayerId, string>>;
+
+export interface IAddPlayerMove {
+  playerId: PlayerId;
+  move: IPlayedMove;
+}

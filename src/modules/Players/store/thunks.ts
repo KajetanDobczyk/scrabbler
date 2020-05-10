@@ -17,13 +17,15 @@ import {
 import {
   selectIsFirstMove,
   selectCurrentPlayerName,
-  selectPreviousPlayerId,
   selectPlayers,
+  selectPreviousPlayerId,
+  selectCurrentPlayerId,
+  selectNextPlayerId,
 } from './selectors';
 import {
-  addCurrentPlayerMove,
+  addPlayerMove,
   removePlayerLastMove,
-  changeCurrentPlayerId,
+  setCurrentPlayerId,
   setupPlayers,
 } from './slice';
 import { IPlayersNames } from '../interfaces';
@@ -43,6 +45,8 @@ export const startNewGame = (playersNames: IPlayersNames): AppThunk => (
 };
 
 export const tryNewMove = (): AppThunk => (dispatch, getState) => {
+  const currentPlayerId = selectCurrentPlayerId(getState());
+  const nextPlayerId = selectNextPlayerId(getState());
   const { tiles } = selectNewMove(getState());
   const boardFields = selectBoardFields(getState());
   const isFirstMove = selectIsFirstMove(getState());
@@ -64,13 +68,24 @@ export const tryNewMove = (): AppThunk => (dispatch, getState) => {
   ];
 
   batch(() => {
-    dispatch(addCurrentPlayerMove({ tiles, words: newMoveWords }));
+    dispatch(
+      addPlayerMove({
+        playerId: currentPlayerId,
+        move: {
+          tiles,
+          words: newMoveWords,
+        },
+      }),
+    );
+    dispatch(setCurrentPlayerId(nextPlayerId));
     dispatch(resetNewMove());
   });
 };
 
 export const skipTurn = (): AppThunk => (dispatch, getState) => {
   const currentPlayerName = selectCurrentPlayerName(getState());
+  const currentPlayerId = selectCurrentPlayerId(getState());
+  const nextPlayerId = selectNextPlayerId(getState());
 
   return Alert.alert(
     `Pominąć ruch gracza ${currentPlayerName}?`,
@@ -78,8 +93,40 @@ export const skipTurn = (): AppThunk => (dispatch, getState) => {
     [
       { text: 'Anuluj', onPress: () => noop, style: 'cancel' },
       {
+        text: 'Strata kolejki',
+        onPress: () =>
+          batch(() => {
+            dispatch(
+              addPlayerMove({
+                playerId: currentPlayerId,
+                move: {
+                  type: 'loss',
+                  tiles: [],
+                  words: [],
+                },
+              }),
+            );
+            dispatch(setCurrentPlayerId(nextPlayerId));
+          }),
+        style: 'default',
+      },
+      {
         text: 'Pomiń',
-        onPress: () => dispatch(addCurrentPlayerMove({ tiles: [], words: [] })),
+        onPress: () => {
+          batch(() => {
+            dispatch(
+              addPlayerMove({
+                playerId: currentPlayerId,
+                move: {
+                  type: 'skipped',
+                  tiles: [],
+                  words: [],
+                },
+              }),
+            );
+            dispatch(setCurrentPlayerId(nextPlayerId));
+          });
+        },
         style: 'default',
       },
     ],
@@ -103,12 +150,31 @@ export const removeLastMove = (): AppThunk => (dispatch, getState) => {
       [
         { text: 'Anuluj', onPress: () => noop, style: 'cancel' },
         {
+          text: 'Strata kolejki',
+          onPress: () =>
+            batch(() => {
+              dispatch(removeBoardTiles(previousPlayerLastMove.tiles));
+              dispatch(removePlayerLastMove(previousPlayerId));
+              dispatch(
+                addPlayerMove({
+                  playerId: previousPlayerId,
+                  move: {
+                    type: 'loss',
+                    tiles: [],
+                    words: [],
+                  },
+                }),
+              );
+            }),
+          style: 'default',
+        },
+        {
           text: 'Cofnij',
           onPress: () =>
             batch(() => {
-              dispatch(removePlayerLastMove(previousPlayerId));
               dispatch(removeBoardTiles(previousPlayerLastMove.tiles));
-              dispatch(changeCurrentPlayerId(previousPlayerId));
+              dispatch(removePlayerLastMove(previousPlayerId));
+              dispatch(setCurrentPlayerId(previousPlayerId));
             }),
           style: 'default',
         },

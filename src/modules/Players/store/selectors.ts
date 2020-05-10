@@ -32,6 +32,15 @@ export const selectPreviousPlayerId = createSelector(
       : last(Object.keys(players))) as PlayerId,
 );
 
+export const selectNextPlayerId = createSelector(
+  selectCurrentPlayerId,
+  selectPlayers,
+  (currentPlayerId, players) =>
+    (parseInt(currentPlayerId) < Object.keys(players).length - 1
+      ? (parseInt(currentPlayerId) + 1).toString()
+      : 0) as PlayerId,
+);
+
 export const selectIsFirstMove = createSelector(selectPlayers, (players) =>
   Object.values(players).every((player) => !player?.moves.length),
 );

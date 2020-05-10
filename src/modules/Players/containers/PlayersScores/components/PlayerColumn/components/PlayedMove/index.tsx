@@ -46,12 +46,18 @@ const PlayedMove: React.FC<Props> = ({ move }) => {
       {isSeven && (
         <View style={styles.wordRow}>
           <View style={styles.letters}>
-            <Text style={styles.bonusInfo}>Bonus</Text>
+            <Text style={[styles.letter, styles.bonus]}>Bonus</Text>
           </View>
-          <Text style={styles.bonusPoints}>50</Text>
+          <Text style={[styles.points, styles.bonus]}>50</Text>
         </View>
       )}
-      <Text style={styles.movePoints}>{movePoints || '—'}</Text>
+      {move.type === 'skipped' && (
+        <Text style={[styles.movePoints, styles.skipped]}>—</Text>
+      )}
+      {move.type === 'loss' && (
+        <Text style={[styles.movePoints, styles.loss]}>X</Text>
+      )}
+      {!move.type && <Text style={styles.movePoints}>{movePoints}</Text>}
     </View>
   );
 };

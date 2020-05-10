@@ -28,17 +28,17 @@ export const stylesFun = ({ opacity }: StylesProps) =>
       fontSize: font.size.xs,
       opacity,
     },
-    bonusInfo: {
-      textTransform: 'uppercase',
-      fontSize: font.size.xs,
-      fontWeight: 'bold',
-    },
     points: {
       fontSize: font.size.xs,
     },
-    bonusPoints: {
-      fontSize: font.size.xs,
+    bonus: {
       fontWeight: 'bold',
+    },
+    skipped: {
+      color: color.gray.medium,
+    },
+    loss: {
+      color: color.red,
     },
     movePoints: {
       position: 'absolute',

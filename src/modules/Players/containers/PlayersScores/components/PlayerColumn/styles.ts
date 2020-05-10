@@ -32,5 +32,6 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'right',
     padding: 5,
+    color: color.green,
   },
 });

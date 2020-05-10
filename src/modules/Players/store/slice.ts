@@ -1,12 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import {
-  PlayerId,
-  IPlayedMove,
-  IPlayersNames,
-} from 'src/modules/Players/interfaces';
+import { PlayerId, IPlayersNames } from 'src/modules/Players/interfaces';
 
 import { initialState } from './data';
+import { IAddPlayerMove } from './interfaces';
 
 const board = createSlice({
   name: 'board',
@@ -29,16 +26,13 @@ const board = createSlice({
         {},
       );
     },
-    changeCurrentPlayerId(state, action: PayloadAction<PlayerId>) {
-      state.currentPlayerId = action.payload;
-    },
-    addCurrentPlayerMove(state, action: PayloadAction<IPlayedMove>) {
-      state.players[state.currentPlayerId]?.moves.push(action.payload);
+    addPlayerMove(state, action: PayloadAction<IAddPlayerMove>) {
+      const { playerId, move } = action.payload;
 
-      state.currentPlayerId = (parseInt(state.currentPlayerId) <
-      Object.keys(state.players).length - 1
-        ? (parseInt(state.currentPlayerId) + 1).toString()
-        : 0) as PlayerId;
+      state.players[playerId]?.moves.push(move);
+    },
+    setCurrentPlayerId(state, action: PayloadAction<PlayerId>) {
+      state.currentPlayerId = action.payload;
     },
     removePlayerLastMove(state, action: PayloadAction<PlayerId>) {
       const playerId = action.payload;
@@ -53,8 +47,8 @@ const board = createSlice({
 
 export const {
   setupPlayers,
-  changeCurrentPlayerId,
-  addCurrentPlayerMove,
+  addPlayerMove,
+  setCurrentPlayerId,
   removePlayerLastMove,
 } = board.actions;
 
