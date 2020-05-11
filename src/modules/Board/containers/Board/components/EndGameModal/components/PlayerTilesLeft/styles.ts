@@ -4,6 +4,7 @@ import { color } from 'src/theme';
 
 export const styles = StyleSheet.create({
   container: {
+    position: 'relative',
     marginTop: 10,
     padding: 10,
     borderWidth: 1,
@@ -18,7 +19,33 @@ export const styles = StyleSheet.create({
     color: color.white,
     marginBottom: 10,
   },
+  tilesLeft: {
+    flexDirection: 'row',
+  },
+  tilePlaceholder: {
+    width: 20,
+    aspectRatio: 1,
+    backgroundColor: color.white,
+    opacity: 0.1,
+    marginLeft: 5,
+  },
+  tileLeftWrapper: {
+    width: 20,
+    marginLeft: 5,
+  },
+  minusPointsWrapper: {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 30,
+    height: 30,
+    borderRadius: 20,
+    bottom: -5,
+    right: -5,
+    backgroundColor: color.lightGreen,
+  },
   minusPoints: {
+    textAlign: 'center',
     color: color.white,
   },
 });

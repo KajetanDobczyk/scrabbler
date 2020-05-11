@@ -7,10 +7,11 @@ import SegmentedControlTab from 'react-native-segmented-control-tab';
 import { selectPlayers } from 'src/modules/Players/store/selectors';
 import { PlayerId } from 'src/modules/Players/interfaces';
 import { selectTilesList } from 'src/modules/Board/store/selectors';
+import TextButton from 'src/theme/components/TextButton';
+import { Letter } from 'src/modules/Dictionary/interfaces';
 
 import { styles } from './styles';
 import PlayerTilesLeft from './components/PlayerTilesLeft';
-import TextButton from 'src/theme/components/TextButton';
 
 type Props = {
   onClose: () => void;
@@ -25,18 +26,32 @@ const EndGameModal: React.FC<Props> = ({ onClose }) => {
 
   const [tilesLeft, setTilesLeft] = useState(useSelector(selectTilesList));
   const [endingPlayerId, setEndingPlayerId] = useState<PlayerId>(playersIds[0]);
-  const [playersTiles, setPlayersTiles] = useState(
+  const [playersTiles, setPlayersTiles] = useState<Record<PlayerId, Letter[]>>(
     Object.keys(players).reduce(
       (acc, playerId) => ({
         ...acc,
         [playerId]: [],
       }),
-      {},
+      {} as Record<PlayerId, Letter[]>,
     ),
   );
 
   const handleSelectEndingPlayer = (playerId: any) => {
     setEndingPlayerId(playerId.toString());
+  };
+
+  const handleOnListTilePressed = (playerId: PlayerId, letter: Letter) => {
+    setPlayersTiles({
+      ...playersTiles,
+      [playerId]: [...playersTiles[playerId], letter],
+    });
+  };
+
+  const handleOnPlayerTilePressed = (playerId: PlayerId, index: number) => {
+    setPlayersTiles({
+      ...playersTiles,
+      [playerId]: playersTiles[playerId].filter((_letter, i) => i !== index),
+    });
   };
 
   const finishGame = () => {
@@ -62,8 +77,12 @@ const EndGameModal: React.FC<Props> = ({ onClose }) => {
           .map((playerId) => (
             <PlayerTilesLeft
               key={playerId}
+              playerId={playerId}
               player={players[playerId]!}
+              playerTiles={playersTiles[playerId]}
               tilesLeft={tilesLeft}
+              onListTilePressed={handleOnListTilePressed}
+              onPlayerTilePressed={handleOnPlayerTilePressed}
             />
           ))}
         <View style={styles.buttonsWrapper}>
