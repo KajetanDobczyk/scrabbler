@@ -5,19 +5,24 @@ import { useSelector, useDispatch } from 'react-redux';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 
 import { selectPlayers } from 'src/modules/Players/store/selectors';
-import { PlayerId } from 'src/modules/Players/interfaces';
+import { PlayerId, IFinalPlayersTiles } from 'src/modules/Players/interfaces';
 import { selectTilesList } from 'src/modules/Board/store/selectors';
-import TextButton from 'src/theme/components/TextButton';
 import { Letter } from 'src/modules/Dictionary/interfaces';
+import {
+  updateFinalPlayersTiles,
+  setEndingPlayerId as setEndingPlayerIdAction,
+} from 'src/modules/Players/store/slice';
 
 import { styles } from './styles';
 import PlayerTilesLeft from './components/PlayerTilesLeft';
+import FlatButton from 'src/theme/components/FlatButton';
 
 type Props = {
+  onFinish: () => void;
   onClose: () => void;
 };
 
-const EndGameModal: React.FC<Props> = ({ onClose }) => {
+const EndGameModal: React.FC<Props> = ({ onFinish, onClose }) => {
   const dispatch = useDispatch();
 
   const players = useSelector(selectPlayers);
@@ -29,24 +34,24 @@ const EndGameModal: React.FC<Props> = ({ onClose }) => {
       ...acc,
       [playerId]: [],
     }),
-    {} as Record<PlayerId, Letter[]>,
+    {} as IFinalPlayersTiles,
   );
 
   const [tilesLeft, setTilesLeft] = useState(useSelector(selectTilesList));
   const [endingPlayerId, setEndingPlayerId] = useState<PlayerId>(playersIds[0]);
-  const [playersTiles, setPlayersTiles] = useState<Record<PlayerId, Letter[]>>(
-    initialPlayersTiles,
-  );
+  const [finalPlayersTiles, setFinalPlayersTiles] = useState<
+    IFinalPlayersTiles
+  >(initialPlayersTiles);
 
   const handleSelectEndingPlayer = (playerId: any) => {
     setEndingPlayerId(playerId.toString());
-    setPlayersTiles(initialPlayersTiles);
+    setFinalPlayersTiles(initialPlayersTiles);
   };
 
   const handleOnListTilePressed = (playerId: PlayerId, letter: Letter) => {
-    setPlayersTiles({
-      ...playersTiles,
-      [playerId]: [...playersTiles[playerId], letter],
+    setFinalPlayersTiles({
+      ...finalPlayersTiles,
+      [playerId]: [...finalPlayersTiles[playerId], letter],
     });
     setTilesLeft({
       ...tilesLeft,
@@ -61,9 +66,11 @@ const EndGameModal: React.FC<Props> = ({ onClose }) => {
     letter: Letter,
     index: number,
   ) => {
-    setPlayersTiles({
-      ...playersTiles,
-      [playerId]: playersTiles[playerId].filter((_letter, i) => i !== index),
+    setFinalPlayersTiles({
+      ...finalPlayersTiles,
+      [playerId]: finalPlayersTiles[playerId].filter(
+        (_letter, i) => i !== index,
+      ),
     });
     setTilesLeft({
       ...tilesLeft,
@@ -73,8 +80,11 @@ const EndGameModal: React.FC<Props> = ({ onClose }) => {
     });
   };
 
-  const finishGame = () => {
-    console.log('finish');
+  const finish = () => {
+    dispatch(setEndingPlayerIdAction(endingPlayerId));
+    dispatch(updateFinalPlayersTiles(finalPlayersTiles));
+    onFinish();
+    onClose();
   };
 
   return (
@@ -98,15 +108,15 @@ const EndGameModal: React.FC<Props> = ({ onClose }) => {
               key={playerId}
               playerId={playerId}
               player={players[playerId]!}
-              playerTiles={playersTiles[playerId]}
+              finalPlayerTiles={finalPlayersTiles[playerId]}
               tilesLeft={tilesLeft}
               onListTilePressed={handleOnListTilePressed}
               onPlayerTilePressed={handleOnPlayerTilePressed}
             />
           ))}
         <View style={styles.buttonsWrapper}>
-          <TextButton label="Anuluj" onPress={onClose} />
-          <TextButton label="Zakończ" onPress={finishGame} />
+          <FlatButton label="Anuluj" onPress={onClose} />
+          <FlatButton label="Zakończ" onPress={finish} />
         </View>
       </ScrollView>
     </Modal>

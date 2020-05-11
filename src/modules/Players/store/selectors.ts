@@ -4,12 +4,18 @@ import last from 'lodash/last';
 import { RootState } from 'src/redux/rootReducer';
 
 import { PlayerId } from '../interfaces';
+import { tilesPoints } from 'src/modules/Tiles/data';
 
 export const selectPlayersState = (state: RootState) => state.players;
 
 export const selectCurrentPlayerId = createSelector(
   selectPlayersState,
   (playersState) => playersState.currentPlayerId,
+);
+
+export const selectEndingPlayerId = createSelector(
+  selectPlayersState,
+  (playersState) => playersState.endingPlayerId,
 );
 
 export const selectPlayers = createSelector(
@@ -43,4 +49,17 @@ export const selectNextPlayerId = createSelector(
 
 export const selectIsFirstMove = createSelector(selectPlayers, (players) =>
   Object.values(players).every((player) => !player?.moves.length),
+);
+
+export const selectTotalFinalTilesPoints = createSelector(
+  selectPlayers,
+  (players) =>
+    Object.values(players).reduce(
+      (points, player) =>
+        (points += player!.finalTiles.reduce(
+          (acc, letter) => acc + tilesPoints[letter],
+          0,
+        )),
+      0,
+    ),
 );

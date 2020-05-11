@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import Header from 'src/layout/components/Header';
 import { Screen } from 'src/layout/interfaces';
 import PlayersScores from 'src/modules/Players/containers/PlayersScores';
 import IconButton from 'src/theme/components/IconButton';
+import { Letter } from 'src/modules/Dictionary/interfaces';
 
 import { selectNewMove, selectTilesList } from '../../store/selectors';
 import GameBoard from './components/GameBoard';
@@ -14,9 +16,19 @@ import BlankModal from './components/BlankModal';
 import EndGameModal from './components/EndGameModal';
 import { styles } from './styles';
 import { listBoardTilePressed } from '../../store/thunks';
-import { Letter } from 'src/modules/Dictionary/interfaces';
+import {
+  PointsTrackingTabParamList,
+  PointsTrackingScreen,
+} from '../../interfaces';
 
-const Board = () => {
+type Props = {
+  navigation: StackNavigationProp<
+    PointsTrackingTabParamList,
+    PointsTrackingScreen.NewGame
+  >;
+};
+
+const Board: React.FC<Props> = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const newMove = useSelector(selectNewMove);
@@ -61,7 +73,14 @@ const Board = () => {
         )}
       </View>
       {isBlankModalVisible && <BlankModal onClose={toggleBlankModal} />}
-      {isEndGameModalVisible && <EndGameModal onClose={toggleEndGameModal} />}
+      {isEndGameModalVisible && (
+        <EndGameModal
+          onFinish={() =>
+            navigation.navigate(PointsTrackingScreen.FinishedGame)
+          }
+          onClose={toggleEndGameModal}
+        />
+      )}
       <PlayersScores />
     </>
   );

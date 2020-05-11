@@ -1,5 +1,7 @@
 import { IBoardTile, IBoardField } from 'src/modules/Board/interfaces';
 
+import { Letter } from '../Dictionary/interfaces';
+
 export type PlayerId = '0' | '1' | '2' | '3';
 
 export type PlayedMoveType = 'skipped' | 'loss';
@@ -12,10 +14,12 @@ export type IPlayedMove = {
 
 export interface IPlayer {
   name: string;
-  points: number;
   moves: IPlayedMove[];
+  finalTiles: Letter[];
 }
 
 export type IPlayersNames = Partial<Record<PlayerId, string>>;
 
 export type IPlayers = Partial<Record<PlayerId, IPlayer>>;
+
+export type IFinalPlayersTiles = Record<PlayerId, Letter[]>;

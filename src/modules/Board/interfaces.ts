@@ -6,6 +6,7 @@ import { ICoordinates } from './store/interfaces';
 export enum PointsTrackingScreen {
   NewGame = 'Nowa Gra',
   Board = 'Plansza',
+  FinishedGame = 'Gra Zakończona',
 }
 
 export type PointsTrackingTabParamList = Record<PointsTrackingScreen, any>;

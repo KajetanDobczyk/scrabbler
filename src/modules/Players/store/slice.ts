@@ -1,6 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { PlayerId, IPlayersNames } from 'src/modules/Players/interfaces';
+import {
+  PlayerId,
+  IPlayersNames,
+  IFinalPlayersTiles,
+} from 'src/modules/Players/interfaces';
 
 import { initialState } from './data';
 import { IAddPlayerMove } from './interfaces';
@@ -20,7 +24,7 @@ const board = createSlice({
           [i]: {
             name,
             moves: [],
-            points: 0,
+            finalTiles: [],
           },
         }),
         {},
@@ -34,6 +38,9 @@ const board = createSlice({
     setCurrentPlayerId(state, action: PayloadAction<PlayerId>) {
       state.currentPlayerId = action.payload;
     },
+    setEndingPlayerId(state, action: PayloadAction<PlayerId>) {
+      state.endingPlayerId = action.payload;
+    },
     removePlayerLastMove(state, action: PayloadAction<PlayerId>) {
       const playerId = action.payload;
       const player = state.players[playerId];
@@ -42,6 +49,13 @@ const board = createSlice({
         state.players[playerId]!.moves = player.moves.slice(0, -1);
       }
     },
+    updateFinalPlayersTiles(state, action: PayloadAction<IFinalPlayersTiles>) {
+      const finalPlayersTiles = action.payload;
+
+      (Object.keys(finalPlayersTiles) as PlayerId[]).map((playerId) => {
+        state.players[playerId]!.finalTiles = finalPlayersTiles[playerId];
+      });
+    },
   },
 });
 
@@ -49,7 +63,9 @@ export const {
   setupPlayers,
   addPlayerMove,
   setCurrentPlayerId,
+  setEndingPlayerId,
   removePlayerLastMove,
+  updateFinalPlayersTiles,
 } = board.actions;
 
 export default board.reducer;

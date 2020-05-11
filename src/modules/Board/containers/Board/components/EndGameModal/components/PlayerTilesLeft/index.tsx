@@ -15,7 +15,7 @@ type Props = {
   playerId: PlayerId;
   player: IPlayer;
   tilesLeft: ITilesList;
-  playerTiles: Letter[];
+  finalPlayerTiles: Letter[];
   onListTilePressed: (playerId: PlayerId, letter: Letter) => void;
   onPlayerTilePressed: (
     playerId: PlayerId,
@@ -28,7 +28,7 @@ const PlayerTilesLeft: React.FC<Props> = ({
   playerId,
   player,
   tilesLeft,
-  playerTiles,
+  finalPlayerTiles,
   onListTilePressed,
   onPlayerTilePressed,
 }) => {
@@ -44,8 +44,8 @@ const PlayerTilesLeft: React.FC<Props> = ({
     onPlayerTilePressed(playerId, letter, index);
   };
 
-  const placeholdersAmount = 7 - playerTiles.length;
-  const minusPoints = playerTiles.reduce(
+  const placeholdersAmount = 7 - finalPlayerTiles.length;
+  const minusPoints = finalPlayerTiles.reduce(
     (acc, tile) => acc - tilesPoints[tile],
     0,
   );
@@ -58,8 +58,9 @@ const PlayerTilesLeft: React.FC<Props> = ({
           {range(placeholdersAmount).map((i) => (
             <View key={i} style={styles.tilePlaceholder}></View>
           ))}
-          {playerTiles.map((letter, i) => (
+          {finalPlayerTiles.map((letter, i) => (
             <TouchableOpacity
+              key={i}
               style={styles.tileLeftWrapper}
               onPress={handleOnPlayerTilePressed(letter, i)}
             >

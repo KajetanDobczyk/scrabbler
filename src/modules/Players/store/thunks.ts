@@ -13,6 +13,7 @@ import {
   removeBoardTiles,
   startGame,
 } from 'src/modules/Board/store/slice';
+import { Letter } from 'src/modules/Dictionary/interfaces';
 
 import {
   selectIsFirstMove,
@@ -28,7 +29,7 @@ import {
   setCurrentPlayerId,
   setupPlayers,
 } from './slice';
-import { IPlayersNames } from '../interfaces';
+import { IPlayersNames, PlayerId } from '../interfaces';
 import {
   getNewHorizontalMoves,
   getNewVerticalMoves,
