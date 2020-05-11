@@ -1,11 +1,11 @@
-import { tilesPoints } from 'src/modules/Tiles/data';
-import { Letter } from 'src/modules/Dictionary/interfaces';
 import {
   IBoardTile,
   IBoardFields,
   IBoardField,
 } from 'src/modules/Board/interfaces';
 import { getFieldLetter } from 'src/modules/Board/store/helpers';
+import { Letter } from 'src/modules/Dictionary/interfaces';
+import { alphabet } from 'src/modules/Tiles/data';
 
 export const isMoveThroughCenter = (newMoveTiles: IBoardTile[]) =>
   newMoveTiles.find((tile) => tile.x === 7 && tile.y === 7);
@@ -49,19 +49,23 @@ export const getNewHorizontalMoves = (
   return newMoveTiles.reduce((acc, { x, y }) => {
     if (
       !alreadyUsedH &&
-      (getFieldLetter(boardFields, x - 1, y) !== '' ||
-        getFieldLetter(boardFields, x + 1, y) !== '')
+      (alphabet.includes(getFieldLetter(boardFields, x - 1, y) as Letter) ||
+        alphabet.includes(getFieldLetter(boardFields, x + 1, y) as Letter))
     ) {
       //Letter to the left or right present, form a new word
       let leftX = x;
       let rightX = x;
       let wordBoardFields = [boardFields[y][x]];
 
-      while (getFieldLetter(boardFields, leftX - 1, y) !== '') {
+      while (
+        alphabet.includes(getFieldLetter(boardFields, leftX - 1, y) as Letter)
+      ) {
         leftX--;
         wordBoardFields.unshift(boardFields[y][leftX]);
       }
-      while (getFieldLetter(boardFields, rightX + 1, y) !== '') {
+      while (
+        alphabet.includes(getFieldLetter(boardFields, rightX + 1, y) as Letter)
+      ) {
         rightX++;
         wordBoardFields.push(boardFields[y][rightX]);
       }
@@ -85,19 +89,23 @@ export const getNewVerticalMoves = (
   return newMoveTiles.reduce((acc, { x, y }) => {
     if (
       !alreadyUsedV &&
-      (getFieldLetter(boardFields, x, y - 1) !== '' ||
-        getFieldLetter(boardFields, x, y + 1) !== '')
+      (alphabet.includes(getFieldLetter(boardFields, x, y - 1) as Letter) ||
+        alphabet.includes(getFieldLetter(boardFields, x, y - 1) as Letter))
     ) {
       //Letter above or below present, form a new word
       let upY = y;
       let downY = y;
       let wordBoardFields = [boardFields[y][x]];
 
-      while (getFieldLetter(boardFields, x, upY - 1) !== '') {
+      while (
+        alphabet.includes(getFieldLetter(boardFields, x, upY - 1) as Letter)
+      ) {
         upY--;
         wordBoardFields.unshift(boardFields[upY][x]);
       }
-      while (getFieldLetter(boardFields, x, downY + 1) !== '') {
+      while (
+        alphabet.includes(getFieldLetter(boardFields, x, downY + 1) as Letter)
+      ) {
         downY++;
         wordBoardFields.push(boardFields[downY][x]);
       }
