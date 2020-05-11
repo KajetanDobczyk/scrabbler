@@ -1,21 +1,26 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Header from 'src/layout/components/Header';
 import { Screen } from 'src/layout/interfaces';
 import PlayersScores from 'src/modules/Players/containers/PlayersScores';
 import IconButton from 'src/theme/components/IconButton';
 
-import { selectNewMove } from '../../store/selectors';
+import { selectNewMove, selectTilesList } from '../../store/selectors';
 import GameBoard from './components/GameBoard';
-import TilesList from './components/TilesList';
+import TilesList from '../../../Tiles/components/TilesList';
 import BlankModal from './components/BlankModal';
 import EndGameModal from './components/EndGameModal';
 import { styles } from './styles';
+import { listBoardTilePressed } from '../../store/thunks';
+import { Letter } from 'src/modules/Dictionary/interfaces';
 
 const Board = () => {
+  const dispatch = useDispatch();
+
   const newMove = useSelector(selectNewMove);
+  const tilesList = useSelector(selectTilesList);
 
   const [isBlankModalVisible, setIsBlankModalVisible] = useState(false);
   const [isEndGameModalVisible, setIsEndGameModalVisible] = useState(false);
@@ -26,6 +31,10 @@ const Board = () => {
 
   const toggleEndGameModal = () => {
     setIsEndGameModalVisible(!isEndGameModalVisible);
+  };
+
+  const handleOnTilePressed = (letter: Letter) => {
+    dispatch(listBoardTilePressed(letter));
   };
 
   return (
@@ -41,7 +50,15 @@ const Board = () => {
       </Header>
       <View style={styles.container}>
         <GameBoard />
-        {newMove.target && <TilesList onBlankPressed={toggleBlankModal} />}
+        {newMove.target && (
+          <View style={styles.tilesListWrapper}>
+            <TilesList
+              tilesList={tilesList}
+              onTilePressed={handleOnTilePressed}
+              onBlankPressed={toggleBlankModal}
+            />
+          </View>
+        )}
       </View>
       {isBlankModalVisible && <BlankModal onClose={toggleBlankModal} />}
       {isEndGameModalVisible && <EndGameModal onClose={toggleEndGameModal} />}

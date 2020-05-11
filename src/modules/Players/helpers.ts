@@ -11,7 +11,7 @@ export const countPlayedWordPoints = (
   let wordMultiplier = 1;
 
   let wordPoints = wordBoardFields.reduce((acc, field) => {
-    const isNotUsed = newMove.find(
+    const isNotUsed = !newMove.find(
       (tile) => tile.x === field.x && tile.y === field.y,
     );
 

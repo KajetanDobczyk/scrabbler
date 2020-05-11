@@ -1,14 +1,15 @@
-import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View } from 'react-native';
 import Modal from 'react-native-modal';
 import { useSelector, useDispatch } from 'react-redux';
+import SegmentedControlTab from 'react-native-segmented-control-tab';
 
-import { Letter } from 'src/modules/Dictionary/interfaces';
+import { selectPlayers } from 'src/modules/Players/store/selectors';
+import { PlayerId } from 'src/modules/Players/interfaces';
 import { selectTilesList } from 'src/modules/Board/store/selectors';
-import Tile from 'src/modules/Tiles/components/Tile';
 
 import { styles } from './styles';
-import { listBoardTilePressed } from 'src/modules/Board/store/thunks';
+import PlayerTilesLeft from './components/PlayerTilesLeft';
 
 type Props = {
   onClose: () => void;
@@ -16,32 +17,50 @@ type Props = {
 
 const EndGameModal: React.FC<Props> = ({ onClose }) => {
   const dispatch = useDispatch();
-  const tilesList = useSelector(selectTilesList);
 
-  const handleTilePress = (letter: Letter) => () => {
-    dispatch(listBoardTilePressed('?', letter));
-    onClose();
+  const players = useSelector(selectPlayers);
+
+  const playersIds = Object.keys(players) as PlayerId[];
+
+  const [tilesLeft, setTilesLeft] = useState(useSelector(selectTilesList));
+  const [endingPlayerId, setEndingPlayerId] = useState<PlayerId>(playersIds[0]);
+  const [playersTiles, setPlayersTiles] = useState(
+    Object.keys(players).reduce(
+      (acc, playerId) => ({
+        ...acc,
+        [playerId]: [],
+      }),
+      {},
+    ),
+  );
+
+  const handleSelectEndingPlayer = (playerId: any) => {
+    setEndingPlayerId(playerId.toString());
   };
 
   return (
     <Modal isVisible onBackdropPress={onClose} onSwipeCancel={onClose}>
       <View style={styles.container}>
-        <Text style={styles.header}>Zakończ grę</Text>
-        <View style={styles.tilesList}>
-          {(Object.keys(tilesList) as Letter[]).map(
-            (letter) =>
-              letter !== '?' &&
-              tilesList[letter].amountLeft && (
-                <TouchableOpacity
-                  key={letter}
-                  style={styles.tileWrapper}
-                  onPress={handleTilePress(letter)}
-                >
-                  <Tile letter={letter} hidePoints />
-                </TouchableOpacity>
-              ),
-          )}
-        </View>
+        <Text style={styles.header}>Kto zakończył grę?</Text>
+        <SegmentedControlTab
+          values={playersIds.map((playerId) => players[playerId]?.name)}
+          selectedIndex={parseInt(endingPlayerId)}
+          onTabPress={handleSelectEndingPlayer}
+          tabsContainerStyle={styles.controlTabWrapper}
+          tabStyle={styles.controlTab}
+          tabTextStyle={styles.controlTabText}
+          activeTabStyle={styles.activeControlTab}
+        />
+        <Text style={styles.header}>Zaznacz płytki pozostałych graczy</Text>
+        {playersIds
+          .filter((playerId) => playerId !== endingPlayerId)
+          .map((playerId) => (
+            <PlayerTilesLeft
+              key={playerId}
+              player={players[playerId]!}
+              tilesLeft={tilesLeft}
+            />
+          ))}
       </View>
     </Modal>
   );

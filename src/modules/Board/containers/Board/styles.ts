@@ -8,4 +8,7 @@ export const styles = EStyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 20,
   },
+  tilesListWrapper: {
+    marginTop: 13,
+  },
 });

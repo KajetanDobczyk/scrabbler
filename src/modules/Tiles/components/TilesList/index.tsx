@@ -1,28 +1,30 @@
 import React from 'react';
 import { View } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
 
-import { selectTilesList } from 'src/modules/Board/store/selectors';
 import { Letter } from 'src/modules/Dictionary/interfaces';
-import { listBoardTilePressed } from 'src/modules/Board/store/thunks';
 
 import { styles } from './styles';
 import TilesListElement from './components/TilesListElement';
+import { ITilesList } from '../../interfaces';
 
 type Props = {
+  tilesList: ITilesList;
+  onTilePressed: (letter: Letter) => void;
   onBlankPressed: () => void;
+  hideNotLeft?: boolean;
 };
 
-const TilesList: React.FC<Props> = ({ onBlankPressed }) => {
-  const dispatch = useDispatch();
-
-  const tilesList = useSelector(selectTilesList);
-
+const TilesList: React.FC<Props> = ({
+  tilesList,
+  onTilePressed,
+  onBlankPressed,
+  hideNotLeft,
+}) => {
   const selectTile = (letter: Letter) => {
     if (letter === '?') {
       onBlankPressed();
     } else {
-      dispatch(listBoardTilePressed(letter));
+      onTilePressed(letter);
     }
   };
 
@@ -36,6 +38,7 @@ const TilesList: React.FC<Props> = ({ onBlankPressed }) => {
           letter={letter}
           amountLeft={tilesList[letter].amountLeft}
           onPress={selectTile}
+          hideNotLeft={hideNotLeft}
         />
       ))}
     </View>

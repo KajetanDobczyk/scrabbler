@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ColorPropType } from 'react-native';
 
 import { color } from 'src/theme';
 
@@ -10,16 +10,19 @@ export const styles = StyleSheet.create({
   },
   header: {
     color: color.white,
+  },
+  controlTabWrapper: {
+    marginTop: 10,
     marginBottom: 20,
   },
-  tilesList: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'flex-start',
+  controlTab: {
+    backgroundColor: color.green,
+    borderColor: color.lightGreen,
   },
-  tileWrapper: {
-    width: 25,
-    marginRight: 8,
-    marginBottom: 8,
+  controlTabText: {
+    color: color.lightGreen,
+  },
+  activeControlTab: {
+    backgroundColor: color.lightGreen,
   },
 });

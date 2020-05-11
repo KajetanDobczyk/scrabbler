@@ -38,9 +38,3 @@ export interface INewMove {
 export type IBoardFields = IBoardField[][];
 
 export type WordDirection = 'h' | 'v';
-
-export interface ITilesListElement {
-  amountLeft: number;
-}
-
-export type ITilesList = Record<Letter, ITilesListElement>;

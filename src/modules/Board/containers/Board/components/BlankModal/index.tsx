@@ -6,9 +6,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import { selectTilesList } from 'src/modules/Board/store/selectors';
 import Tile from 'src/modules/Tiles/components/Tile';
+import { listBoardTilePressed } from 'src/modules/Board/store/thunks';
 
 import { styles } from './styles';
-import { listBoardTilePressed } from 'src/modules/Board/store/thunks';
 
 type Props = {
   onClose: () => void;
@@ -28,17 +28,16 @@ const BlankModal: React.FC<Props> = ({ onClose }) => {
       <View style={styles.container}>
         <Text style={styles.header}>Wybierz literę</Text>
         <View style={styles.tilesList}>
-          {(Object.keys(tilesList) as Letter[]).map(
-            (letter) =>
-              !!(letter !== '?' && tilesList[letter].amountLeft) && (
-                <TouchableOpacity
-                  key={letter}
-                  style={styles.tileWrapper}
-                  onPress={handleTilePress(letter)}
-                >
-                  <Tile letter={letter} hidePoints />
-                </TouchableOpacity>
-              ),
+          {(Object.keys(tilesList) as Letter[]).map((letter) =>
+            !!(letter !== '?' && tilesList[letter].amountLeft) ? (
+              <TouchableOpacity
+                key={letter}
+                style={styles.tileWrapper}
+                onPress={handleTilePress(letter)}
+              >
+                <Tile letter={letter} hidePoints />
+              </TouchableOpacity>
+            ) : null,
           )}
         </View>
       </View>
