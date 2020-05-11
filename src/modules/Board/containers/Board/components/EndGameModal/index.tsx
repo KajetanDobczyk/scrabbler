@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, ScrollView, View } from 'react-native';
 import Modal from 'react-native-modal';
 import { useSelector, useDispatch } from 'react-redux';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
@@ -10,6 +10,7 @@ import { selectTilesList } from 'src/modules/Board/store/selectors';
 
 import { styles } from './styles';
 import PlayerTilesLeft from './components/PlayerTilesLeft';
+import TextButton from 'src/theme/components/TextButton';
 
 type Props = {
   onClose: () => void;
@@ -38,9 +39,13 @@ const EndGameModal: React.FC<Props> = ({ onClose }) => {
     setEndingPlayerId(playerId.toString());
   };
 
+  const finishGame = () => {
+    console.log('finish');
+  };
+
   return (
     <Modal isVisible onBackdropPress={onClose} onSwipeCancel={onClose}>
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.header}>Kto zakończył grę?</Text>
         <SegmentedControlTab
           values={playersIds.map((playerId) => players[playerId]?.name)}
@@ -61,7 +66,11 @@ const EndGameModal: React.FC<Props> = ({ onClose }) => {
               tilesLeft={tilesLeft}
             />
           ))}
-      </View>
+        <View style={styles.buttonsWrapper}>
+          <TextButton label="Anuluj" onPress={onClose} />
+          <TextButton label="Zakończ" onPress={finishGame} />
+        </View>
+      </ScrollView>
     </Modal>
   );
 };

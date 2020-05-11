@@ -25,4 +25,9 @@ export const styles = StyleSheet.create({
   activeControlTab: {
     backgroundColor: color.lightGreen,
   },
+  buttonsWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20,
+  },
 });
