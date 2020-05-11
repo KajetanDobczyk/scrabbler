@@ -24,20 +24,23 @@ const EndGameModal: React.FC<Props> = ({ onClose }) => {
 
   const playersIds = Object.keys(players) as PlayerId[];
 
+  const initialPlayersTiles = playersIds.reduce(
+    (acc, playerId) => ({
+      ...acc,
+      [playerId]: [],
+    }),
+    {} as Record<PlayerId, Letter[]>,
+  );
+
   const [tilesLeft, setTilesLeft] = useState(useSelector(selectTilesList));
   const [endingPlayerId, setEndingPlayerId] = useState<PlayerId>(playersIds[0]);
   const [playersTiles, setPlayersTiles] = useState<Record<PlayerId, Letter[]>>(
-    Object.keys(players).reduce(
-      (acc, playerId) => ({
-        ...acc,
-        [playerId]: [],
-      }),
-      {} as Record<PlayerId, Letter[]>,
-    ),
+    initialPlayersTiles,
   );
 
   const handleSelectEndingPlayer = (playerId: any) => {
     setEndingPlayerId(playerId.toString());
+    setPlayersTiles(initialPlayersTiles);
   };
 
   const handleOnListTilePressed = (playerId: PlayerId, letter: Letter) => {
@@ -45,12 +48,28 @@ const EndGameModal: React.FC<Props> = ({ onClose }) => {
       ...playersTiles,
       [playerId]: [...playersTiles[playerId], letter],
     });
+    setTilesLeft({
+      ...tilesLeft,
+      [letter]: {
+        amountLeft: tilesLeft[letter].amountLeft - 1,
+      },
+    });
   };
 
-  const handleOnPlayerTilePressed = (playerId: PlayerId, index: number) => {
+  const handleOnPlayerTilePressed = (
+    playerId: PlayerId,
+    letter: Letter,
+    index: number,
+  ) => {
     setPlayersTiles({
       ...playersTiles,
       [playerId]: playersTiles[playerId].filter((_letter, i) => i !== index),
+    });
+    setTilesLeft({
+      ...tilesLeft,
+      [letter]: {
+        amountLeft: tilesLeft[letter].amountLeft + 1,
+      },
     });
   };
 

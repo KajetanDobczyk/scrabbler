@@ -11,14 +11,12 @@ type Props = {
   tilesList: ITilesList;
   onTilePressed: (letter: Letter) => void;
   onBlankPressed: () => void;
-  hideNotLeft?: boolean;
 };
 
 const TilesList: React.FC<Props> = ({
   tilesList,
   onTilePressed,
   onBlankPressed,
-  hideNotLeft,
 }) => {
   const selectTile = (letter: Letter) => {
     if (letter === '?') {
@@ -38,7 +36,6 @@ const TilesList: React.FC<Props> = ({
           letter={letter}
           amountLeft={tilesList[letter].amountLeft}
           onPress={selectTile}
-          hideNotLeft={hideNotLeft}
         />
       ))}
     </View>

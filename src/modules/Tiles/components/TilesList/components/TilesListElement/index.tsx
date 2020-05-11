@@ -12,18 +12,12 @@ type Props = {
   letter: Letter;
   amountLeft: number;
   onPress: (letter: Letter) => void;
-  hideNotLeft?: boolean;
 };
 
-const TilesListElement: React.FC<Props> = ({
-  letter,
-  amountLeft,
-  onPress,
-  hideNotLeft,
-}) => {
+const TilesListElement: React.FC<Props> = ({ letter, amountLeft, onPress }) => {
   const isTilesAmountDisplayed = useSelector(selectIsTilesAmountDisplayed);
 
-  return hideNotLeft && !amountLeft ? null : (
+  return (
     <TouchableOpacity
       style={
         amountLeft

@@ -17,7 +17,11 @@ type Props = {
   tilesLeft: ITilesList;
   playerTiles: Letter[];
   onListTilePressed: (playerId: PlayerId, letter: Letter) => void;
-  onPlayerTilePressed: (playerId: PlayerId, index: number) => void;
+  onPlayerTilePressed: (
+    playerId: PlayerId,
+    letter: Letter,
+    index: number,
+  ) => void;
 };
 
 const PlayerTilesLeft: React.FC<Props> = ({
@@ -36,13 +40,13 @@ const PlayerTilesLeft: React.FC<Props> = ({
     onListTilePressed(playerId, '?');
   };
 
-  const handleOnPlayerTilePressed = (index: number) => () => {
-    onPlayerTilePressed(playerId, index);
+  const handleOnPlayerTilePressed = (letter: Letter, index: number) => () => {
+    onPlayerTilePressed(playerId, letter, index);
   };
 
   const placeholdersAmount = 7 - playerTiles.length;
   const minusPoints = playerTiles.reduce(
-    (acc, tile) => acc + tilesPoints[tile],
+    (acc, tile) => acc - tilesPoints[tile],
     0,
   );
 
@@ -57,7 +61,7 @@ const PlayerTilesLeft: React.FC<Props> = ({
           {playerTiles.map((letter, i) => (
             <TouchableOpacity
               style={styles.tileLeftWrapper}
-              onPress={handleOnPlayerTilePressed(i)}
+              onPress={handleOnPlayerTilePressed(letter, i)}
             >
               <Tile letter={letter} />
             </TouchableOpacity>
@@ -68,10 +72,9 @@ const PlayerTilesLeft: React.FC<Props> = ({
         tilesList={tilesLeft}
         onTilePressed={handleOnTilePressed}
         onBlankPressed={handleOnBlankPressed}
-        hideNotLeft
       />
       <View style={styles.minusPointsWrapper}>
-        <Text style={styles.minusPoints}>-{minusPoints}</Text>
+        <Text style={styles.minusPoints}>{minusPoints}</Text>
       </View>
     </View>
   );
