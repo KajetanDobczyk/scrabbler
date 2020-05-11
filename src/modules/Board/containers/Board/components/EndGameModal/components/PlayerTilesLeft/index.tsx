@@ -7,6 +7,7 @@ import { Letter } from 'src/modules/Dictionary/interfaces';
 import { ITilesList } from 'src/modules/Tiles/interfaces';
 import TilesList from 'src/modules/Tiles/components/TilesList';
 import Tile from 'src/modules/Tiles/components/Tile';
+import { tilesPoints } from 'src/modules/Tiles/data';
 
 import { styles } from './styles';
 
@@ -40,6 +41,10 @@ const PlayerTilesLeft: React.FC<Props> = ({
   };
 
   const placeholdersAmount = 7 - playerTiles.length;
+  const minusPoints = playerTiles.reduce(
+    (acc, tile) => acc + tilesPoints[tile],
+    0,
+  );
 
   return (
     <View style={styles.container}>
@@ -66,7 +71,7 @@ const PlayerTilesLeft: React.FC<Props> = ({
         hideNotLeft
       />
       <View style={styles.minusPointsWrapper}>
-        <Text style={styles.minusPoints}>-10</Text>
+        <Text style={styles.minusPoints}>-{minusPoints}</Text>
       </View>
     </View>
   );
