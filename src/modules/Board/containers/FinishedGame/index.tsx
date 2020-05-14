@@ -20,7 +20,7 @@ type Props = {
 
 const FinishedGame: React.FC<Props> = ({ navigation }) => (
   <View style={styles.container}>
-    <Text style={styles.header}>Gra zakończona!</Text>
+    <Text style={styles.header}>Koniec gry!</Text>
     <PlayersEndGameDetails />
     <FlatButton
       label="Nowa gra"

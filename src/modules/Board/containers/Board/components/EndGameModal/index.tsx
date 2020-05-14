@@ -4,7 +4,10 @@ import Modal from 'react-native-modal';
 import { useSelector, useDispatch } from 'react-redux';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 
-import { selectPlayers } from 'src/modules/Players/store/selectors';
+import {
+  selectPlayers,
+  selectPreviousPlayerId,
+} from 'src/modules/Players/store/selectors';
 import { PlayerId, IFinalPlayersTiles } from 'src/modules/Players/interfaces';
 import { selectTilesList } from 'src/modules/Board/store/selectors';
 import { Letter } from 'src/modules/Dictionary/interfaces';
@@ -25,6 +28,7 @@ type Props = {
 const EndGameModal: React.FC<Props> = ({ onFinish, onClose }) => {
   const dispatch = useDispatch();
 
+  const previousPlayerId = useSelector(selectPreviousPlayerId);
   const players = useSelector(selectPlayers);
 
   const playersIds = Object.keys(players) as PlayerId[];
@@ -38,7 +42,7 @@ const EndGameModal: React.FC<Props> = ({ onFinish, onClose }) => {
   );
 
   const [tilesLeft, setTilesLeft] = useState(useSelector(selectTilesList));
-  const [endingPlayerId, setEndingPlayerId] = useState<PlayerId>(playersIds[0]);
+  const [endingPlayerId, setEndingPlayerId] = useState(previousPlayerId);
   const [finalPlayersTiles, setFinalPlayersTiles] = useState<
     IFinalPlayersTiles
   >(initialPlayersTiles);
