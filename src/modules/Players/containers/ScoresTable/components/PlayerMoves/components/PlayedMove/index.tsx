@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, LayoutChangeEvent } from 'react-native';
 
 import { IPlayedMove } from 'src/modules/Players/interfaces';
 import { countPlayedWordPoints } from 'src/modules/Players/helpers';
@@ -7,18 +7,32 @@ import { countPlayedWordPoints } from 'src/modules/Players/helpers';
 import { stylesFun } from './styles';
 
 type Props = {
+  index: number;
   move: IPlayedMove;
+  height?: number;
+  onLayout: (index: number, height: number) => void;
 };
 
-const PlayedMove: React.FC<Props> = ({ move }) => {
+const PlayedMove: React.FC<Props> = ({ index, move, height, onLayout }) => {
   const isSeven = move.tiles.length === 7;
 
   let movePoints = isSeven ? 50 : 0;
 
   const styles = stylesFun({});
 
+  const handleOnLayout = () => {
+    const localHeight = 26 + move.words.length * 14;
+
+    if (!height || height < localHeight) {
+      onLayout(index, localHeight);
+    }
+  };
+
   return (
-    <View style={styles.container}>
+    <View
+      style={height ? [styles.container, { height }] : styles.container}
+      onLayout={handleOnLayout}
+    >
       {move.words.map((word, i) => {
         const wordPoints = countPlayedWordPoints(word, move.tiles);
         movePoints += wordPoints;

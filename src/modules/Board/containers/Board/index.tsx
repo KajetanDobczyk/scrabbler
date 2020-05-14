@@ -5,7 +5,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import Header from 'src/layout/components/Header';
 import { Screen } from 'src/layout/interfaces';
-import PlayersScores from 'src/modules/Players/containers/PlayersScores';
+import ScoresTable from 'src/modules/Players/containers/ScoresTable';
 import IconButton from 'src/theme/components/IconButton';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 
@@ -81,7 +81,7 @@ const Board: React.FC<Props> = ({ navigation }) => {
           onClose={toggleEndGameModal}
         />
       )}
-      <PlayersScores />
+      <ScoresTable />
     </>
   );
 };

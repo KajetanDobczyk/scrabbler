@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { color, font } from 'src/theme';
+import { color } from 'src/theme';
 
 export const styles = StyleSheet.create({
   container: {
@@ -12,17 +12,6 @@ export const styles = StyleSheet.create({
   },
   'container:last-child': {
     borderRightWidth: 0,
-  },
-  header: {
-    backgroundColor: color.green,
-  },
-  name: {
-    textAlign: 'center',
-    fontSize: font.size.xs,
-    color: color.lightGreen,
-  },
-  currentName: {
-    color: color.white,
   },
   moves: {
     backgroundColor: color.white,
