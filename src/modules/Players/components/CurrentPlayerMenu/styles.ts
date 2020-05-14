@@ -4,18 +4,14 @@ import { color } from 'src/theme';
 
 export const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    bottom: 5,
-    right: 5,
     flexDirection: 'row',
     alignItems: 'center',
   },
   button: {
-    width: 30,
-    height: 30,
-    borderRadius: 30,
+    width: 20,
+    height: 20,
     backgroundColor: color.lightGreen,
-    marginLeft: 10,
+    marginRight: 5,
     justifyContent: 'center',
     alignItems: 'center',
   },

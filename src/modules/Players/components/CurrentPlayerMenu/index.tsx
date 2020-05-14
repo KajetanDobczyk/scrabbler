@@ -43,13 +43,13 @@ const CurrentPlayerMenu = () => {
         <>
           <IconButton
             icon="ios-close"
-            size={30}
+            size={25}
             onPress={handleMenuAction('cancel')}
             style={styles.button}
           />
           <IconButton
             icon="ios-checkmark"
-            size={30}
+            size={25}
             onPress={handleMenuAction('accept')}
             style={styles.button}
           />

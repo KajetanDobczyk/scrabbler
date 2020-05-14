@@ -13,7 +13,6 @@ import {
   removeBoardTiles,
   startGame,
 } from 'src/modules/Board/store/slice';
-import { Letter } from 'src/modules/Dictionary/interfaces';
 
 import {
   selectIsFirstMove,
@@ -29,7 +28,7 @@ import {
   setCurrentPlayerId,
   setupPlayers,
 } from './slice';
-import { IPlayersNames, PlayerId } from '../interfaces';
+import { IPlayersNames } from '../interfaces';
 import {
   getNewHorizontalMoves,
   getNewVerticalMoves,
@@ -40,7 +39,7 @@ export const startNewGame = (playersNames: IPlayersNames): AppThunk => (
   dispatch,
 ) => {
   batch(() => {
-    // dispatch(setupPlayers(playersNames));
+    dispatch(setupPlayers(playersNames));
     dispatch(startGame());
   });
 };

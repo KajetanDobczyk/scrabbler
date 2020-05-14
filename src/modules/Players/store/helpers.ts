@@ -90,7 +90,7 @@ export const getNewVerticalMoves = (
     if (
       !alreadyUsedV &&
       (alphabet.includes(getFieldLetter(boardFields, x, y - 1) as Letter) ||
-        alphabet.includes(getFieldLetter(boardFields, x, y - 1) as Letter))
+        alphabet.includes(getFieldLetter(boardFields, x, y + 1) as Letter))
     ) {
       //Letter above or below present, form a new word
       let upY = y;

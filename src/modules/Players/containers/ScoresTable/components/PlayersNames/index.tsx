@@ -10,7 +10,7 @@ import {
 
 import { styles } from './styles';
 
-const TableHeader = () => {
+const PlayersNames = () => {
   const currentPlayerId = useSelector(selectCurrentPlayerId);
   const players = useSelector(selectPlayers);
 
@@ -32,4 +32,4 @@ const TableHeader = () => {
   );
 };
 
-export default TableHeader;
+export default PlayersNames;

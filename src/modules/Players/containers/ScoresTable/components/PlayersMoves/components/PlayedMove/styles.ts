@@ -45,5 +45,6 @@ export const stylesFun = ({ opacity }: StylesProps) =>
       bottom: 5,
       right: 5,
       fontSize: font.size.xs,
+      fontWeight: 'bold',
     },
   });
