@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
     position: 'relative',
     flexBasis: 0,
     flexGrow: 1,
+    backgroundColor: color.white,
     borderRightColor: color.green,
     borderRightWidth: 1,
   },
@@ -16,6 +17,7 @@ export const styles = StyleSheet.create({
   moves: {
     backgroundColor: color.white,
     flexGrow: 1,
+    paddingBottom: 40,
   },
   totalPoints: {
     fontWeight: 'bold',

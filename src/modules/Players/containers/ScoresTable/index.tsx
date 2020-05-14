@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { ScrollView, View } from 'react-native';
+import { ScrollView } from 'react-native';
 
 import { selectPlayers, selectCurrentPlayerId } from '../../store/selectors';
 import PlayerMoves from './components/PlayerMoves';
@@ -10,6 +10,8 @@ import { styles } from './styles';
 const ScoresTable = () => {
   const currentPlayerId = useSelector(selectCurrentPlayerId);
   const players = useSelector(selectPlayers);
+
+  const scrollView = useRef<any>(null);
 
   const [movesHeights, setMovesHeights] = useState<Record<string, number>>({});
 
@@ -21,9 +23,15 @@ const ScoresTable = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <>
       <TableHeader />
-      <ScrollView contentContainerStyle={styles.playersMoves}>
+      <ScrollView
+        ref={scrollView}
+        contentContainerStyle={styles.container}
+        onContentSizeChange={() => {
+          scrollView.current.scrollToEnd({ animated: true });
+        }}
+      >
         {Object.values(players).map((player, i) =>
           player ? (
             <PlayerMoves
@@ -38,7 +46,7 @@ const ScoresTable = () => {
           ) : null,
         )}
       </ScrollView>
-    </View>
+    </>
   );
 };
 
