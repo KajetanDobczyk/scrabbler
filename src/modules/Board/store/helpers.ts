@@ -21,7 +21,7 @@ export const findNextFreeBoardField = (
   direction: WordDirection,
 ) => {
   let { x, y } = target;
-  let nextLetter: Letter | '' | undefined = '';
+  let nextLetter: Letter | null | undefined = null;
 
   do {
     if (direction === 'h') {
@@ -31,7 +31,7 @@ export const findNextFreeBoardField = (
     }
 
     nextLetter = getFieldLetter(boardFields, x, y);
-  } while (nextLetter !== undefined && nextLetter !== '');
+  } while (nextLetter);
 
-  return nextLetter === '' ? { x, y } : undefined;
+  return nextLetter === null ? { x, y } : undefined;
 };

@@ -58,7 +58,7 @@ const BoardField: React.FC<Props> = ({
           ]}
         />
       )}
-      {field.letter !== '' && (
+      {field.letter ? (
         <View style={styles.tileWrapper}>
           <Tile
             letter={field.letter}
@@ -66,7 +66,7 @@ const BoardField: React.FC<Props> = ({
             isHighlighted={isInNewMove}
           />
         </View>
-      )}
+      ) : null}
     </TouchableOpacity>
   );
 };

@@ -18,7 +18,7 @@ export type FieldBonus = 'dl' | 'tl' | 'dw' | 'tw' | 0;
 export interface IBoardField {
   x: number;
   y: number;
-  letter: Letter | '';
+  letter: Letter | null;
   blankLetter?: Letter;
   bonus: FieldBonus;
 }

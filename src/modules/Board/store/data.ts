@@ -28,7 +28,7 @@ export const getInitialBoardFields: () => IBoardFields = () =>
       x: 0,
       y: 0,
       bonus,
-      letter: '',
+      letter: null,
     })),
   );
 

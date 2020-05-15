@@ -21,7 +21,7 @@ export const boardFieldPressed = (x: number, y: number): AppThunk => (
   if (
     (newMove.target?.x === x && newMove.target?.y === y) ||
     // Letter present, and not from new move
-    (boardFields[y][x].letter !== '' &&
+    (boardFields[y][x].letter &&
       !newMove.tiles.find((tile) => tile.x === x && tile.y === y))
   ) {
     return dispatch(cancelNewMove());

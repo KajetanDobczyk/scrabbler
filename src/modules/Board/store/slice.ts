@@ -39,7 +39,7 @@ const board = createSlice({
 
       const oldLetter = state.boardFields[y][x].letter;
 
-      if (oldLetter !== '') {
+      if (oldLetter) {
         state.tilesList[oldLetter].amountLeft++;
       }
 
@@ -49,7 +49,7 @@ const board = createSlice({
     },
     cancelNewMove(state) {
       state.newMove.tiles.forEach(({ x, y, letter }) => {
-        state.boardFields[y][x].letter = '';
+        state.boardFields[y][x].letter = null;
         state.tilesList[letter].amountLeft++;
       });
 
@@ -66,7 +66,7 @@ const board = createSlice({
     },
     removeBoardTiles(state, action: PayloadAction<IBoardTile[]>) {
       action.payload.forEach(({ x, y, letter }) => {
-        state.boardFields[y][x].letter = '';
+        state.boardFields[y][x].letter = null;
         state.tilesList[letter].amountLeft++;
       });
     },

@@ -17,12 +17,12 @@ export const isAnyLetterLoose = (
   newMoveTiles
     .map(
       ({ x, y }) =>
-        boardFields[y][x - 1]?.letter !== '' ||
-        boardFields[y][x + 1]?.letter !== '' ||
-        (boardFields[y - 1] && boardFields[y - 1][x]?.letter !== '') ||
-        (boardFields[y + 1] && boardFields[y + 1][x]?.letter !== ''),
+        boardFields[y][x - 1]?.letter ||
+        boardFields[y][x + 1]?.letter ||
+        (boardFields[y - 1] && boardFields[y - 1][x]?.letter) ||
+        (boardFields[y + 1] && boardFields[y + 1][x]?.letter),
     )
-    .includes(false);
+    .includes(null);
 
 export const isNewMoveLoose = (
   newMoveTiles: IBoardTile[],
@@ -31,15 +31,15 @@ export const isNewMoveLoose = (
   !newMoveTiles.find(
     ({ x, y }) =>
       (!newMoveTiles.find((tile) => tile.x === x - 1 && tile.y === y) &&
-        boardFields[y][x - 1]?.letter !== '') ||
+        boardFields[y][x - 1]?.letter) ||
       (!newMoveTiles.find((tile) => tile.x === x + 1 && tile.y === y) &&
-        boardFields[y][x + 1]?.letter !== '') ||
+        boardFields[y][x + 1]?.letter) ||
       (!newMoveTiles.find((tile) => tile.x === x && tile.y === y - 1) &&
         boardFields[y - 1] &&
-        boardFields[y - 1][x]?.letter !== '') ||
+        boardFields[y - 1][x]?.letter) ||
       (!newMoveTiles.find((tile) => tile.x === x && tile.y === y + 1) &&
         boardFields[y + 1] &&
-        boardFields[y + 1][x]?.letter !== ''),
+        boardFields[y + 1][x]?.letter),
   );
 
 export const validateNewMove = (
