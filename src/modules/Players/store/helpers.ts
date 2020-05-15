@@ -24,6 +24,24 @@ export const isAnyLetterLoose = (
     )
     .includes(false);
 
+export const isNewMoveLoose = (
+  newMoveTiles: IBoardTile[],
+  boardFields: IBoardFields,
+) =>
+  !newMoveTiles.find(
+    ({ x, y }) =>
+      (!newMoveTiles.find((tile) => tile.x === x - 1 && tile.y === y) &&
+        boardFields[y][x - 1]?.letter !== '') ||
+      (!newMoveTiles.find((tile) => tile.x === x + 1 && tile.y === y) &&
+        boardFields[y][x + 1]?.letter !== '') ||
+      (!newMoveTiles.find((tile) => tile.x === x && tile.y === y - 1) &&
+        boardFields[y - 1] &&
+        boardFields[y - 1][x]?.letter !== '') ||
+      (!newMoveTiles.find((tile) => tile.x === x && tile.y === y + 1) &&
+        boardFields[y + 1] &&
+        boardFields[y + 1][x]?.letter !== ''),
+  );
+
 export const validateNewMove = (
   boardFields: IBoardFields,
   newMoveTiles: IBoardTile[],
@@ -37,6 +55,9 @@ export const validateNewMove = (
   }
   if (isAnyLetterLoose(newMoveTiles, boardFields)) {
     return 'Nie wszystkie litery przylegają do innych!';
+  }
+  if (!isFirstMove && isNewMoveLoose(newMoveTiles, boardFields)) {
+    return 'Nowy wyraz nie przylega do obecnych!';
   }
 };
 
