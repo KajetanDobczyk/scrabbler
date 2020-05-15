@@ -12,7 +12,8 @@ import { sumMovesPoints } from 'src/modules/Players/helpers';
 import CurrentPlayerMenu from 'src/modules/Players/components/CurrentPlayerMenu';
 
 import { styles } from './styles';
-const TableHeader = () => {
+
+const PlayersTotalScores = () => {
   const currentPlayerId = useSelector(selectCurrentPlayerId);
   const players = useSelector(selectPlayers);
 
@@ -22,6 +23,7 @@ const TableHeader = () => {
     <View style={styles.container}>
       {(Object.keys(players) as PlayerId[]).map((playerId, i) => (
         <View
+          key={i}
           style={EStyleSheet.child(styles, 'pointsWrapper', i, playersAmount)}
         >
           <View>
@@ -38,4 +40,4 @@ const TableHeader = () => {
   );
 };
 
-export default TableHeader;
+export default PlayersTotalScores;

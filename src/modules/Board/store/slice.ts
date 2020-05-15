@@ -13,8 +13,13 @@ const board = createSlice({
     },
     setNewMoveTarget(state, action: PayloadAction<ICoordinates>) {
       const { x, y } = action.payload;
+      const oldTarget = state.newMove.target;
 
       state.newMove.target = { x, y };
+
+      if (oldTarget?.x === x) {
+        state.newMove.direction = 'v';
+      }
     },
     resetNewMoveTarget(state) {
       state.newMove.target = undefined;

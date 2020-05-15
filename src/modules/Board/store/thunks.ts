@@ -52,11 +52,20 @@ export const listBoardTilePressed = (
 
   dispatch(addNewMoveTile({ ...newMove.target, letter, blankLetter }));
 
-  const nextFreeBoardField = findNextFreeBoardField(
+  let nextFreeBoardField = findNextFreeBoardField(
     boardFields,
     newMove.target,
     newMove.direction,
   );
+
+  // There is no new word yet, try changing direction
+  if (!newMove.tiles.length && !nextFreeBoardField) {
+    nextFreeBoardField = findNextFreeBoardField(
+      boardFields,
+      newMove.target,
+      newMove.direction === 'h' ? 'v' : 'h',
+    );
+  }
 
   dispatch(
     nextFreeBoardField
