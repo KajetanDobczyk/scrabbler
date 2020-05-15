@@ -1,8 +1,8 @@
 import React from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import range from 'lodash/range';
-import { IPlayer, PlayerId } from 'src/modules/Players/interfaces';
 
+import { IPlayer, PlayerId } from 'src/modules/Players/interfaces';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import { ITilesList } from 'src/modules/Tiles/interfaces';
 import TilesList from 'src/modules/Tiles/components/TilesList';
