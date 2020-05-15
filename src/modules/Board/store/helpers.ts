@@ -15,6 +15,9 @@ export const isInLineWithNewMove = (
   y: number,
 ) => (direction === 'h' ? tiles[0].y === y : tiles[0].x === x);
 
+export const isInNewMove = ({ tiles }: INewMove, x: number, y: number) =>
+  tiles.find((tile) => tile.x === x && tile.y === y);
+
 export const findNextFreeBoardField = (
   boardFields: IBoardFields,
   target: ICoordinates,

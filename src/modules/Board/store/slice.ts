@@ -30,17 +30,31 @@ const board = createSlice({
     addNewMoveTile(state, action: PayloadAction<IAddNewMoveTilePayload>) {
       const { x, y, letter, blankLetter } = action.payload;
 
-      state.newMove.tiles.push({
-        x,
-        y,
-        letter,
-        blankLetter,
-      });
+      const previousBoardFieldTile = state.newMove.tiles.find(
+        (tile) => tile.x === x && tile.y === y,
+      );
 
-      const oldLetter = state.boardFields[y][x].letter;
+      if (previousBoardFieldTile) {
+        // Tile already exists on this spot, swap it
+        state.newMove.tiles = state.newMove.tiles.map((tile) =>
+          tile.x === x && tile.y === y
+            ? {
+                x,
+                y,
+                letter,
+                blankLetter,
+              }
+            : tile,
+        );
 
-      if (oldLetter) {
-        state.tilesList[oldLetter].amountLeft++;
+        state.tilesList[previousBoardFieldTile.letter].amountLeft++;
+      } else {
+        state.newMove.tiles.push({
+          x,
+          y,
+          letter,
+          blankLetter,
+        });
       }
 
       state.boardFields[y][x].letter = letter;

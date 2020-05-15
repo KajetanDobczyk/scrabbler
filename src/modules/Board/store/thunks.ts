@@ -9,7 +9,11 @@ import {
   cancelNewMove,
 } from './slice';
 import { selectBoardFields, selectNewMove } from './selectors';
-import { findNextFreeBoardField, isInLineWithNewMove } from './helpers';
+import {
+  findNextFreeBoardField,
+  isInLineWithNewMove,
+  isInNewMove,
+} from './helpers';
 
 export const boardFieldPressed = (x: number, y: number): AppThunk => (
   dispatch,
@@ -24,11 +28,23 @@ export const boardFieldPressed = (x: number, y: number): AppThunk => (
     (boardFields[y][x].letter &&
       !newMove.tiles.find((tile) => tile.x === x && tile.y === y))
   ) {
-    return dispatch(cancelNewMove());
+    dispatch(cancelNewMove());
+    return;
   }
 
-  if (!newMove.tiles.length || isInLineWithNewMove(newMove, x, y)) {
-    return dispatch(setNewMoveTarget({ x, y }));
+  if (!newMove.tiles.length) {
+    dispatch(setNewMoveTarget({ x, y }));
+    return;
+  }
+
+  if (newMove.tiles.length === 7 && !isInNewMove(newMove, x, y)) {
+    dispatch(resetNewMoveTarget());
+    return;
+  }
+
+  if (isInLineWithNewMove(newMove, x, y)) {
+    dispatch(setNewMoveTarget({ x, y }));
+    return;
   }
 
   if (newMove.tiles.length === 1) {
@@ -48,6 +64,7 @@ export const listBoardTilePressed = (
   const newMove = selectNewMove(getState());
 
   if (!newMove.target || !newMove.direction) {
+    dispatch(resetNewMoveTarget());
     return;
   }
 
@@ -69,7 +86,7 @@ export const listBoardTilePressed = (
   }
 
   dispatch(
-    nextFreeBoardField
+    newMove.tiles.length < 6 && nextFreeBoardField
       ? setNewMoveTarget(nextFreeBoardField)
       : resetNewMoveTarget(),
   );

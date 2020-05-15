@@ -1,8 +1,8 @@
 import { Letter } from 'src/modules/Dictionary/interfaces';
+import { ITilesList } from 'src/modules/Tiles/interfaces';
 
-import { IBoardFields, FieldBonus, ITilesList } from '../interfaces';
+import { IBoardFields, FieldBonus } from '../interfaces';
 import { IBoardState } from './interfaces';
-import { mockedBoardLetters } from './mocks';
 
 export const fieldsBonuses: FieldBonus[][] = [
   ['tw', 0, 0, 'dl', 0, 0, 0, 'tw', 0, 0, 0, 'dl', 0, 0, 'tw'],
