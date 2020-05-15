@@ -18,10 +18,11 @@ export const boardFieldPressed = (x: number, y: number): AppThunk => (
   const boardFields = selectBoardFields(getState());
   const newMove = selectNewMove(getState());
 
-  // Letter present, and not from new move
   if (
-    boardFields[y][x].letter !== '' &&
-    !newMove.tiles.find((tile) => tile.x === x && tile.y === y)
+    (newMove.target?.x === x && newMove.target?.y === y) ||
+    // Letter present, and not from new move
+    (boardFields[y][x].letter !== '' &&
+      !newMove.tiles.find((tile) => tile.x === x && tile.y === y))
   ) {
     return dispatch(cancelNewMove());
   }

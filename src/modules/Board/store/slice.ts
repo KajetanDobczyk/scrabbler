@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { initialState } from './data';
 import { ICoordinates, IAddNewMoveTilePayload } from './interfaces';
-import { IBoardTile, WordDirection } from '../interfaces';
+import { IBoardTile } from '../interfaces';
 
 const board = createSlice({
   name: 'board',
