@@ -1,21 +1,18 @@
 import React, { useState, useRef } from 'react';
 import { View, LayoutChangeEvent, Dimensions } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import Header from 'src/layout/components/Header';
 import { Screen } from 'src/layout/interfaces';
 import ScoresTable from 'src/modules/Players/containers/ScoresTable';
 import IconButton from 'src/theme/components/IconButton';
-import { Letter } from 'src/modules/Dictionary/interfaces';
 
-import { selectNewMove, selectTilesList } from '../../store/selectors';
+import { selectNewMove } from '../../store/selectors';
 import GameBoard from './components/GameBoard';
-import TilesList from '../../../Tiles/components/TilesList';
-import BlankModal from './components/BlankModal';
 import EndGameModal from './components/EndGameModal';
+import NewMoveMenu from './components/NewMoveMenu';
 import { styles } from './styles';
-import { listBoardTilePressed } from '../../store/thunks';
 import {
   PointsTrackingTabParamList,
   PointsTrackingScreen,
@@ -29,13 +26,10 @@ type Props = {
 };
 
 const Board: React.FC<Props> = ({ navigation }) => {
-  const dispatch = useDispatch();
-
   const boardWrapper = useRef<any>(null);
-  const newMove = useSelector(selectNewMove);
-  const tilesList = useSelector(selectTilesList);
 
-  const [isBlankModalVisible, setIsBlankModalVisible] = useState(false);
+  const newMove = useSelector(selectNewMove);
+
   const [isEndGameModalVisible, setIsEndGameModalVisible] = useState(false);
   const [scoresTableYRange, setScoresTableYRange] = useState({
     y: 0,
@@ -43,16 +37,8 @@ const Board: React.FC<Props> = ({ navigation }) => {
     max: 0,
   });
 
-  const toggleBlankModal = () => {
-    setIsBlankModalVisible(!isBlankModalVisible);
-  };
-
   const toggleEndGameModal = () => {
     setIsEndGameModalVisible(!isEndGameModalVisible);
-  };
-
-  const handleOnTilePressed = (letter: Letter) => {
-    dispatch(listBoardTilePressed(letter));
   };
 
   const handleOnLayout = (event: LayoutChangeEvent) => {
@@ -84,19 +70,10 @@ const Board: React.FC<Props> = ({ navigation }) => {
       >
         <GameBoard />
       </View>
-      {newMove.target && (
-        <View style={styles.tilesListWrapper}>
-          <TilesList
-            tilesList={tilesList}
-            onTilePressed={handleOnTilePressed}
-            onBlankPressed={toggleBlankModal}
-          />
-        </View>
-      )}
+      {newMove.target && <NewMoveMenu />}
       {!newMove.target && scoresTableYRange.min ? (
         <ScoresTable yRange={scoresTableYRange} />
       ) : null}
-      {isBlankModalVisible && <BlankModal onClose={toggleBlankModal} />}
       {isEndGameModalVisible && (
         <EndGameModal
           onFinish={() =>
