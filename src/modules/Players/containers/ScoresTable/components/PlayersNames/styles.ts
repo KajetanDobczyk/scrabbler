@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: font.size.xs,
     color: color.lightGreen,
-    paddingBottom: 5,
+    paddingVertical: 5,
   },
   currentName: {
     color: color.white,

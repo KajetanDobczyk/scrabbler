@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { View } from 'react-native';
+import React, { useState, useRef, useEffect } from 'react';
+import { View, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
+import BottomSheet from 'reanimated-bottom-sheet';
 
 import Header from 'src/layout/components/Header';
 import { Screen } from 'src/layout/interfaces';
@@ -31,6 +32,7 @@ type Props = {
 const Board: React.FC<Props> = ({ navigation }) => {
   const dispatch = useDispatch();
 
+  const boardWrapper = useRef<any>(null);
   const newMove = useSelector(selectNewMove);
   const tilesList = useSelector(selectTilesList);
 
@@ -60,7 +62,7 @@ const Board: React.FC<Props> = ({ navigation }) => {
           style={styles.button}
         />
       </Header>
-      <View style={styles.container}>
+      <View style={styles.container} ref={boardWrapper}>
         <GameBoard />
         {newMove.target && (
           <View style={styles.tilesListWrapper}>
@@ -72,6 +74,7 @@ const Board: React.FC<Props> = ({ navigation }) => {
           </View>
         )}
       </View>
+      <ScoresTable />
       {isBlankModalVisible && <BlankModal onClose={toggleBlankModal} />}
       {isEndGameModalVisible && (
         <EndGameModal
@@ -81,7 +84,6 @@ const Board: React.FC<Props> = ({ navigation }) => {
           onClose={toggleEndGameModal}
         />
       )}
-      <ScoresTable />
     </>
   );
 };
