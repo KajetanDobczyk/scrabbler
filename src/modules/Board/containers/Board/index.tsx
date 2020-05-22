@@ -60,7 +60,7 @@ const Board: React.FC<Props> = ({ navigation }) => {
     const { y, height } = event.nativeEvent.layout;
 
     setScoresTableYRange({
-      y: y + height,
+      y,
       min: screenHeight - 80 - y - height,
       max: screenHeight - 80 - y - 10,
     });

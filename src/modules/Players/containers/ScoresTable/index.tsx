@@ -39,7 +39,7 @@ const ScoresTable: React.FC<Props> = ({ yRange }) => {
       initialSnap={1}
       renderContent={() => (
         <View
-          style={{ height: Dimensions.get('screen').height - yRange.y + 80 }}
+          style={{ height: Dimensions.get('screen').height - yRange.y - 90 }}
         >
           <PlayersNames />
           <ScrollView
