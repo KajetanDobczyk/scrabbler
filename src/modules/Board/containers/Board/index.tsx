@@ -83,17 +83,17 @@ const Board: React.FC<Props> = ({ navigation }) => {
         onLayout={handleOnLayout}
       >
         <GameBoard />
-        {newMove.target && (
-          <View style={styles.tilesListWrapper}>
-            <TilesList
-              tilesList={tilesList}
-              onTilePressed={handleOnTilePressed}
-              onBlankPressed={toggleBlankModal}
-            />
-          </View>
-        )}
       </View>
-      {scoresTableYRange.min ? (
+      {newMove.target && (
+        <View style={styles.tilesListWrapper}>
+          <TilesList
+            tilesList={tilesList}
+            onTilePressed={handleOnTilePressed}
+            onBlankPressed={toggleBlankModal}
+          />
+        </View>
+      )}
+      {!newMove.target && scoresTableYRange.min ? (
         <ScoresTable yRange={scoresTableYRange} />
       ) : null}
       {isBlankModalVisible && <BlankModal onClose={toggleBlankModal} />}

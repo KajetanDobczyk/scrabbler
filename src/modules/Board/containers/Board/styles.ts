@@ -7,6 +7,8 @@ export const styles = EStyleSheet.create({
     backgroundColor: color.green,
   },
   tilesListWrapper: {
-    marginTop: 13,
+    flexGrow: 1,
+    backgroundColor: color.green,
+    paddingHorizontal: 20,
   },
 });

@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { ScrollView, View, Dimensions } from 'react-native';
+import { ScrollView, Dimensions } from 'react-native';
 import BottomSheetBehavior from 'reanimated-bottom-sheet';
+import Animated from 'react-native-reanimated';
 
 import { selectPlayers } from '../../store/selectors';
 import PlayersNames from './components/PlayersNames';
@@ -32,14 +33,23 @@ const ScoresTable: React.FC<Props> = ({ yRange }) => {
     });
   };
 
+  const heightNode = new Animated.Value(1);
+  const heightDifference = yRange.max - yRange.min;
+
   return (
     <BottomSheetBehavior
       ref={bottomSheet}
       snapPoints={[yRange.max, yRange.min]}
       initialSnap={1}
+      callbackNode={heightNode}
       renderContent={() => (
-        <View
-          style={{ height: Dimensions.get('screen').height - yRange.y - 90 }}
+        <Animated.View
+          style={{
+            height: Animated.sub(
+              Dimensions.get('screen').height - yRange.y - 90,
+              Animated.multiply(heightNode, heightDifference),
+            ),
+          }}
         >
           <PlayersNames />
           <ScrollView
@@ -63,7 +73,7 @@ const ScoresTable: React.FC<Props> = ({ yRange }) => {
             )}
           </ScrollView>
           <PlayersTotalScores />
-        </View>
+        </Animated.View>
       )}
       enabledBottomClamp={true}
     />
