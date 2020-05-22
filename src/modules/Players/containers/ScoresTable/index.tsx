@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { ScrollView, View, LayoutChangeEvent } from 'react-native';
+import { ScrollView, View, Dimensions } from 'react-native';
 import BottomSheetBehavior from 'reanimated-bottom-sheet';
 
 import { selectPlayers } from '../../store/selectors';
@@ -8,16 +8,23 @@ import PlayersNames from './components/PlayersNames';
 import PlayersMoves from './components/PlayersMoves';
 import PlayersTotalScores from './components/PlayersTotalScores';
 import { styles } from './styles';
-import { color } from 'src/theme';
 
-const ScoresTable = () => {
+type Props = {
+  yRange: {
+    min: number;
+    max: number;
+  };
+};
+
+const ScoresTable: React.FC<Props> = ({ yRange }) => {
   const players = useSelector(selectPlayers);
 
   const scrollView = useRef<any>(null);
+  const bottomSheet = useRef<any>(null);
 
   const [movesHeights, setMovesHeights] = useState<Record<string, number>>({});
   const [dimensions, setDimensions] = useState({
-    y: 0,
+    y: 1,
     height: 0,
   });
 
@@ -28,51 +35,43 @@ const ScoresTable = () => {
     });
   };
 
-  const handleOnLayout = (event: LayoutChangeEvent) => {
-    setDimensions({
-      y: event.nativeEvent.layout.y,
-      height: event.nativeEvent.layout.height,
-    });
-  };
-
-  console.log(dimensions);
+  // useEffect(() => {
+  //   bottomSheet.current.snapTo(1);
+  // }, []);
 
   return (
-    <View
-      style={[styles.container, { minHeight: dimensions.height }]}
-      onLayout={handleOnLayout}
-    >
-      <PlayersTotalScores />
-    </View>
-    // <BottomSheetBehavior
-    //   snapPoints={[-15, 307]}
-    //   renderContent={() => (
-    //     <View style={{ minHeight: 200 }}>
-    //       <PlayersNames />
-    //       <ScrollView
-    //         ref={scrollView}
-    //         contentContainerStyle={styles.container}
-    //         onContentSizeChange={() => {
-    //           scrollView.current.scrollToEnd({ animated: true });
-    //         }}
-    //       >
-    //         {Object.values(players).map((player, i) =>
-    //           player ? (
-    //             <PlayersMoves
-    //               key={i}
-    //               player={player}
-    //               index={i}
-    //               playersAmount={Object.keys(players).length}
-    //               movesHeights={movesHeights}
-    //               onAdjustMoveHeight={adjustMovesHeights}
-    //             />
-    //           ) : null,
-    //         )}
-    //       </ScrollView>
-    //     </View>
-    //   )}
-    //   enabledBottomClamp={true}
-    // />
+    <BottomSheetBehavior
+      ref={bottomSheet}
+      snapPoints={[yRange.max, yRange.min]}
+      initialSnap={1}
+      renderContent={() => (
+        <View style={{ minHeight: dimensions.height }}>
+          <PlayersNames />
+          <ScrollView
+            ref={scrollView}
+            contentContainerStyle={styles.scrollViewContent}
+            onContentSizeChange={() => {
+              scrollView.current.scrollToEnd({ animated: true });
+            }}
+          >
+            {Object.values(players).map((player, i) =>
+              player ? (
+                <PlayersMoves
+                  key={i}
+                  player={player}
+                  index={i}
+                  playersAmount={Object.keys(players).length}
+                  movesHeights={movesHeights}
+                  onAdjustMoveHeight={adjustMovesHeights}
+                />
+              ) : null,
+            )}
+          </ScrollView>
+          <PlayersTotalScores />
+        </View>
+      )}
+      enabledBottomClamp={true}
+    />
   );
 };
 

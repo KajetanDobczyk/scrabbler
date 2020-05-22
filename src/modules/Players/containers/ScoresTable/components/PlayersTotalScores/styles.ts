@@ -4,8 +4,6 @@ import { color } from 'src/theme';
 
 export const styles = EStyleSheet.create({
   container: {
-    position: 'absolute',
-    bottom: 0,
     width: '100%',
     height: 30,
     flexDirection: 'row',

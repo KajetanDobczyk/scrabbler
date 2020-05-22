@@ -7,6 +7,13 @@ export const styles = StyleSheet.create({
     flexGrow: 1,
     flexDirection: 'row',
     borderWidth: 1,
+    borderColor: color.lightBlue,
+  },
+  scrollViewContent: {
+    position: 'relative',
+    flexGrow: 1,
+    flexDirection: 'row',
+    borderWidth: 1,
     borderColor: color.red,
   },
 });

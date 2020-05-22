@@ -1,8 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { View, Dimensions } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, LayoutChangeEvent, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
-import BottomSheet from 'reanimated-bottom-sheet';
 
 import Header from 'src/layout/components/Header';
 import { Screen } from 'src/layout/interfaces';
@@ -38,6 +37,10 @@ const Board: React.FC<Props> = ({ navigation }) => {
 
   const [isBlankModalVisible, setIsBlankModalVisible] = useState(false);
   const [isEndGameModalVisible, setIsEndGameModalVisible] = useState(false);
+  const [scoresTableYRange, setScoresTableYRange] = useState({
+    min: 0,
+    max: 0,
+  });
 
   const toggleBlankModal = () => {
     setIsBlankModalVisible(!isBlankModalVisible);
@@ -51,6 +54,16 @@ const Board: React.FC<Props> = ({ navigation }) => {
     dispatch(listBoardTilePressed(letter));
   };
 
+  const handleOnLayout = (event: LayoutChangeEvent) => {
+    const screenHeight = Dimensions.get('screen').height;
+    const { y, height } = event.nativeEvent.layout;
+
+    setScoresTableYRange({
+      min: screenHeight - 80 - y - height,
+      max: screenHeight - 80 - y - 10,
+    });
+  };
+
   return (
     <>
       <Header title={Screen.PointsTracking}>
@@ -62,7 +75,11 @@ const Board: React.FC<Props> = ({ navigation }) => {
           style={styles.button}
         />
       </Header>
-      <View style={styles.container} ref={boardWrapper}>
+      <View
+        style={styles.container}
+        ref={boardWrapper}
+        onLayout={handleOnLayout}
+      >
         <GameBoard />
         {newMove.target && (
           <View style={styles.tilesListWrapper}>
@@ -74,7 +91,9 @@ const Board: React.FC<Props> = ({ navigation }) => {
           </View>
         )}
       </View>
-      <ScoresTable />
+      {scoresTableYRange.min ? (
+        <ScoresTable yRange={scoresTableYRange} />
+      ) : null}
       {isBlankModalVisible && <BlankModal onClose={toggleBlankModal} />}
       {isEndGameModalVisible && (
         <EndGameModal
