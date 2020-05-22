@@ -11,6 +11,7 @@ import { styles } from './styles';
 
 type Props = {
   yRange: {
+    y: number;
     min: number;
     max: number;
   };
@@ -23,10 +24,6 @@ const ScoresTable: React.FC<Props> = ({ yRange }) => {
   const bottomSheet = useRef<any>(null);
 
   const [movesHeights, setMovesHeights] = useState<Record<string, number>>({});
-  const [dimensions, setDimensions] = useState({
-    y: 1,
-    height: 0,
-  });
 
   const adjustMovesHeights = (index: number, height: number) => {
     setMovesHeights({
@@ -35,17 +32,15 @@ const ScoresTable: React.FC<Props> = ({ yRange }) => {
     });
   };
 
-  // useEffect(() => {
-  //   bottomSheet.current.snapTo(1);
-  // }, []);
-
   return (
     <BottomSheetBehavior
       ref={bottomSheet}
       snapPoints={[yRange.max, yRange.min]}
       initialSnap={1}
       renderContent={() => (
-        <View style={{ minHeight: dimensions.height }}>
+        <View
+          style={{ height: Dimensions.get('screen').height - yRange.y + 80 }}
+        >
           <PlayersNames />
           <ScrollView
             ref={scrollView}

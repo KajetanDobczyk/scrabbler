@@ -38,6 +38,7 @@ const Board: React.FC<Props> = ({ navigation }) => {
   const [isBlankModalVisible, setIsBlankModalVisible] = useState(false);
   const [isEndGameModalVisible, setIsEndGameModalVisible] = useState(false);
   const [scoresTableYRange, setScoresTableYRange] = useState({
+    y: 0,
     min: 0,
     max: 0,
   });
@@ -59,6 +60,7 @@ const Board: React.FC<Props> = ({ navigation }) => {
     const { y, height } = event.nativeEvent.layout;
 
     setScoresTableYRange({
+      y: y + height,
       min: screenHeight - 80 - y - height,
       max: screenHeight - 80 - y - 10,
     });
