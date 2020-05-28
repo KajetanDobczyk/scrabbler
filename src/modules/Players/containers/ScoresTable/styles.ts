@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     flexGrow: 1,
     flexDirection: 'row',
   },
-  scrollViewContent: {
+  listContent: {
     position: 'relative',
     flexGrow: 1,
     flexDirection: 'row',

@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     zIndex: 0,
     backgroundColor: color.green,
     paddingHorizontal: 20,
-    paddingBottom: 25,
+    paddingBottom: 20,
   },
   row: {
     flexGrow: 1,

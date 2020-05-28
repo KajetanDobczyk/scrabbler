@@ -6,4 +6,8 @@ export const styles = EStyleSheet.create({
   container: {
     backgroundColor: color.green,
   },
+  bottomContent: {
+    flexGrow: 1,
+    backgroundColor: color.green,
+  },
 });

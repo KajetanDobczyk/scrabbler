@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { View, LayoutChangeEvent, Dimensions } from 'react-native';
 import { useSelector } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -7,6 +7,7 @@ import Header from 'src/layout/components/Header';
 import { Screen } from 'src/layout/interfaces';
 import ScoresTable from 'src/modules/Players/containers/ScoresTable';
 import IconButton from 'src/theme/components/IconButton';
+import CurrentPlayerMenu from 'src/modules/Players/components/CurrentPlayerMenu';
 
 import { selectNewMove } from '../../store/selectors';
 import GameBoard from './components/GameBoard';
@@ -26,8 +27,6 @@ type Props = {
 };
 
 const Board: React.FC<Props> = ({ navigation }) => {
-  const boardWrapper = useRef<any>(null);
-
   const newMove = useSelector(selectNewMove);
 
   const [isEndGameModalVisible, setIsEndGameModalVisible] = useState(false);
@@ -47,14 +46,15 @@ const Board: React.FC<Props> = ({ navigation }) => {
 
     setScoresTableYRange({
       y,
-      min: screenHeight - 80 - y - height,
-      max: screenHeight - 80 - y - 10,
+      min: screenHeight - 105 - y - height,
+      max: screenHeight - 95 - y,
     });
   };
 
   return (
     <>
       <Header title={Screen.PointsTracking}>
+        <CurrentPlayerMenu />
         <IconButton
           icon="stop"
           iconSet="FontAwesome5"
@@ -63,25 +63,28 @@ const Board: React.FC<Props> = ({ navigation }) => {
           style={styles.button}
         />
       </Header>
-      <View
-        style={styles.container}
-        ref={boardWrapper}
-        onLayout={handleOnLayout}
-      >
+      <View style={styles.container} onLayout={handleOnLayout}>
         <GameBoard />
       </View>
-      {newMove.target && <NewMoveMenu />}
-      {!newMove.target && scoresTableYRange.min ? (
-        <ScoresTable yRange={scoresTableYRange} />
-      ) : null}
-      {isEndGameModalVisible && (
-        <EndGameModal
-          onFinish={() =>
-            navigation.navigate(PointsTrackingScreen.FinishedGame)
-          }
-          onClose={toggleEndGameModal}
-        />
-      )}
+      <View style={styles.bottomContent}>
+        {newMove.target && <NewMoveMenu />}
+        {scoresTableYRange.min ? (
+          <ScoresTable
+            y={scoresTableYRange.y}
+            maxY={scoresTableYRange.max}
+            minY={scoresTableYRange.min}
+            onBottom={!!newMove.target}
+          />
+        ) : null}
+        {isEndGameModalVisible && (
+          <EndGameModal
+            onFinish={() =>
+              navigation.navigate(PointsTrackingScreen.FinishedGame)
+            }
+            onClose={toggleEndGameModal}
+          />
+        )}
+      </View>
     </>
   );
 };
