@@ -1,6 +1,6 @@
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-import { color } from 'src/theme';
+import { color, font } from 'src/theme';
 
 export const styles = EStyleSheet.create({
   container: {
@@ -13,5 +13,12 @@ export const styles = EStyleSheet.create({
   },
   'container:last-child': {
     borderRightWidth: 0,
+  },
+  totalPoints: {
+    textAlign: 'right',
+    padding: 5,
+    color: color.green,
+    fontSize: font.size.sm,
+    fontWeight: 'bold',
   },
 });

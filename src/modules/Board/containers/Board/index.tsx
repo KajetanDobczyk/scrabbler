@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, LayoutChangeEvent, Dimensions } from 'react-native';
 import { useSelector } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -8,6 +8,7 @@ import { Screen } from 'src/layout/interfaces';
 import ScoresTable from 'src/modules/Players/containers/ScoresTable';
 import IconButton from 'src/theme/components/IconButton';
 import CurrentPlayerMenu from 'src/modules/Players/components/CurrentPlayerMenu';
+import { StatusBarHeight } from 'src/config';
 
 import { selectNewMove } from '../../store/selectors';
 import GameBoard from './components/GameBoard';
@@ -41,13 +42,13 @@ const Board: React.FC<Props> = ({ navigation }) => {
   };
 
   const handleOnLayout = (event: LayoutChangeEvent) => {
-    const screenHeight = Dimensions.get('screen').height;
+    const screenHeight = Dimensions.get('window').height;
     const { y, height } = event.nativeEvent.layout;
 
     setScoresTableYRange({
       y,
-      min: screenHeight - 105 - y - height,
-      max: screenHeight - 95 - y,
+      min: screenHeight - StatusBarHeight - y - height,
+      max: screenHeight - StatusBarHeight - 20,
     });
   };
 

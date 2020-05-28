@@ -1,14 +1,12 @@
-import React, { useState, useRef, useEffect, memo } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { ScrollView, Dimensions, View } from 'react-native';
+import { ScrollView, Dimensions } from 'react-native';
 import BottomSheetBehavior from 'reanimated-bottom-sheet';
-import Animated from 'react-native-reanimated';
 
 import { selectPlayers } from '../../store/selectors';
 import PlayersNames from './components/PlayersNames';
-import PlayersMoves from './components/PlayersMoves';
+import PlayerMoves from './components/PlayerMoves';
 import { styles } from './styles';
-import { color } from 'src/theme';
 
 type Props = {
   y: number;
@@ -41,52 +39,28 @@ const ScoresTable: React.FC<Props> = ({ y, minY, maxY, onBottom }) => {
   return (
     <BottomSheetBehavior
       ref={bottomSheet}
-      snapPoints={[maxY, minY, 35]}
+      snapPoints={[maxY, minY, 33]}
       initialSnap={1}
+      enabledInnerScrolling={false}
       renderHeader={() => (
         <PlayersNames playersAmount={Object.keys(players).length} />
       )}
       renderContent={() => (
-        // <Animated.View
-        //   style={{
-        //     height: Animated.sub(
-        //       Dimensions.get('screen').height - y - 90,
-        //       Animated.multiply(heightNode, heightDifference),
-        //     ),
-        //   }}
-        // >
-        //   <ScrollView
-        //     ref={scrollView}
-        //     contentContainerStyle={styles.listContent}
-        //     onContentSizeChange={() => {
-        //       scrollView.current?.scrollToEnd({ animated: true });
-        //     }}
-        //   >
-        //     {Object.values(players).map((player, i) =>
-        //       player ? (
-        //         <PlayersMoves
-        //           key={i}
-        //           player={player}
-        //           index={i}
-        //           playersAmount={Object.keys(players).length}
-        //           movesHeights={movesHeights}
-        //           onAdjustMoveHeight={adjustMovesHeights}
-        //         />
-        //       ) : null,
-        //     )}
-        //   </ScrollView>
-        // </Animated.View>
-        <View
-          style={[
+        <ScrollView
+          ref={scrollView}
+          contentContainerStyle={[
             {
-              minHeight: Dimensions.get('screen').height,
+              minHeight: Dimensions.get('window').height,
             },
             styles.listContent,
           ]}
+          onContentSizeChange={() => {
+            scrollView.current?.scrollToEnd({ animated: true });
+          }}
         >
           {Object.values(players).map((player, i) =>
             player ? (
-              <PlayersMoves
+              <PlayerMoves
                 key={i}
                 player={player}
                 index={i}
@@ -96,7 +70,7 @@ const ScoresTable: React.FC<Props> = ({ y, minY, maxY, onBottom }) => {
               />
             ) : null,
           )}
-        </View>
+        </ScrollView>
       )}
       enabledBottomClamp={true}
     />

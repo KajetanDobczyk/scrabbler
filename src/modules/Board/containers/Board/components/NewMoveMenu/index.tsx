@@ -5,10 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { tryNewMove } from 'src/modules/Players/store/thunks';
 import IconButton from 'src/theme/components/IconButton';
 import { cancelNewMove } from 'src/modules/Board/store/slice';
-import {
-  selectNewMove,
-  selectTilesList,
-} from 'src/modules/Board/store/selectors';
+import { selectTilesList } from 'src/modules/Board/store/selectors';
 import TilesList from 'src/modules/Tiles/components/TilesList';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import { listBoardTilePressed } from 'src/modules/Board/store/thunks';
@@ -27,7 +24,6 @@ const NewMoveMenu = () => {
   const [isBlankModalVisible, setIsBlankModalVisible] = useState(false);
 
   const tilesList = useSelector(selectTilesList);
-  const newMove = useSelector(selectNewMove);
 
   const handleMenuAction = (actionLabel: string) => () => {
     const action = menuActions[actionLabel];
@@ -56,13 +52,13 @@ const NewMoveMenu = () => {
         <View style={styles.buttonsWrapper}>
           <IconButton
             icon="ios-close"
-            size={25}
+            size={40}
             onPress={handleMenuAction('cancel')}
             style={styles.button}
           />
           <IconButton
             icon="ios-checkmark"
-            size={25}
+            size={40}
             onPress={handleMenuAction('accept')}
             style={styles.button}
           />

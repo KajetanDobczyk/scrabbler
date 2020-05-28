@@ -5,21 +5,17 @@ import { color } from 'src/theme';
 export const styles = EStyleSheet.create({
   container: {
     flexGrow: 1,
+    justifyContent: 'space-between',
     backgroundColor: color.green,
     paddingHorizontal: 20,
   },
   buttonsWrapper: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    marginTop: 5,
+    paddingBottom: 55,
   },
   button: {
-    width: 25,
-    height: 25,
-    backgroundColor: color.lightGreen,
-    borderRadius: 2,
-    marginRight: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: 40,
+    height: 40,
   },
 });
