@@ -5,13 +5,15 @@ import {
   IPlayersNames,
   IFinalPlayersTiles,
 } from 'src/modules/Players/interfaces';
+import { gameMiddleState, gameEndingState } from 'src/redux/mocks';
 
 import { initialState } from './data';
 import { IAddPlayerMove } from './interfaces';
 
-const board = createSlice({
-  name: 'board',
-  initialState,
+const players = createSlice({
+  name: 'players',
+  // initialState,
+  initialState: gameEndingState.players,
   reducers: {
     setupPlayers(state, action: PayloadAction<IPlayersNames>) {
       const playersNames = Object.values(action.payload).filter(
@@ -66,6 +68,6 @@ export const {
   setEndingPlayerId,
   removePlayerLastMove,
   updateFinalPlayersTiles,
-} = board.actions;
+} = players.actions;
 
-export default board.reducer;
+export default players.reducer;

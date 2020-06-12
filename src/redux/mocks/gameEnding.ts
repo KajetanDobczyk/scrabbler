@@ -1,4 +1,6 @@
-export const endingGameState = {
+import { State } from '../rootReducer';
+
+export const gameEndingState: State = {
   board: {
     gameStatus: 'inProgress',
     boardFields: [
@@ -5249,7 +5251,7 @@ export const endingGameState = {
         finalTiles: [],
       },
     },
-    currentPlayerId: 0,
+    currentPlayerId: '0',
   },
   dictionary: {
     wordSearch: {

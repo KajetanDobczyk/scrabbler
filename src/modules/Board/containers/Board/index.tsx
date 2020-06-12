@@ -68,7 +68,7 @@ const Board: React.FC<Props> = ({ navigation }) => {
         <GameBoard />
       </View>
       <View style={styles.bottomContent}>
-        {newMove.target && <NewMoveMenu />}
+        {(newMove.tiles.length || newMove.target) && <NewMoveMenu />}
         {scoresTableYRange.min ? (
           <ScoresTable
             y={scoresTableYRange.y}

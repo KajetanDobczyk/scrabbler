@@ -1,12 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { gameMiddleState, gameEndingState } from 'src/redux/mocks';
+
 import { initialState } from './data';
 import { ICoordinates, IAddNewMoveTilePayload } from './interfaces';
 import { IBoardTile } from '../interfaces';
 
 const board = createSlice({
   name: 'board',
-  initialState,
+  // initialState,
+  initialState: gameEndingState.board,
   reducers: {
     startGame(state) {
       state.gameStatus = 'inProgress';
