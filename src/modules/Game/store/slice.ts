@@ -4,7 +4,7 @@ import { gameMiddleState, gameEndingState } from 'src/redux/mocks';
 
 import { initialState } from './data';
 import { ICoordinates, IAddNewMoveTilePayload } from './interfaces';
-import { IBoardTile } from '../interfaces';
+import { IBoardTile, GameView } from '../interfaces';
 
 const board = createSlice({
   name: 'board',
@@ -13,6 +13,10 @@ const board = createSlice({
   reducers: {
     startGame(state) {
       state.status = 'inProgress';
+      state.view = 'points';
+    },
+    setGameView(state, action: PayloadAction<GameView>) {
+      state.view = action.payload;
     },
     setNewMoveTarget(state, action: PayloadAction<ICoordinates>) {
       const { x, y } = action.payload;
@@ -92,6 +96,7 @@ const board = createSlice({
 
 export const {
   startGame,
+  setGameView,
   setNewMoveTarget,
   resetNewMoveTarget,
   changeNewMoveDirection,

@@ -12,6 +12,7 @@ import {
   resetNewMove,
   removeBoardTiles,
   startGame,
+  setGameView,
 } from 'src/modules/Game/store/slice';
 
 import {
@@ -79,6 +80,7 @@ export const tryNewMove = (): AppThunk => (dispatch, getState) => {
     );
     dispatch(setCurrentPlayerId(nextPlayerId));
     dispatch(resetNewMove());
+    dispatch(setGameView('points'));
   });
 };
 

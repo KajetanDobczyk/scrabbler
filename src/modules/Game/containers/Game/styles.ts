@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     flexGrow: 1,
     backgroundColor: color.green,
   },
-  screen: {
+  horizontalScreen: {
     flex: 1,
     width: screenWidth,
   },

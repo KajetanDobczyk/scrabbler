@@ -9,6 +9,11 @@ export const selectGameStatus = createSelector(
   (gameState) => gameState.status,
 );
 
+export const selectGameView = createSelector(
+  selectGameState,
+  (gameState) => gameState.view,
+);
+
 export const selectBoardFields = createSelector(
   selectGameState,
   (gameState) => gameState.boardFields,

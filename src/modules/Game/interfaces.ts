@@ -13,6 +13,8 @@ export type GameTabParamList = Record<GameScreen, any>;
 
 export type GameStatus = FetchStatus;
 
+export type GameView = 'points' | 'board';
+
 export type FieldBonus = 'dl' | 'tl' | 'dw' | 'tw' | 0;
 
 export interface IBoardField {

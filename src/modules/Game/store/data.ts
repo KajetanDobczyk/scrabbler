@@ -88,6 +88,7 @@ const getInitialTilesList: () => ITilesList = () =>
 
 export const initialState: IGameState = {
   status: 'idle',
+  view: 'points',
   boardFields: getInitialBoardFields(),
   tilesList: getInitialTilesList(),
   newMove: {

@@ -9,11 +9,7 @@ import PlayersTotalScores from './components/PlayersTotalScores';
 import { styles } from './styles';
 import CurrentPlayerMenu from '../../components/CurrentPlayerMenu';
 
-type Props = {
-  onScrollToBoard: () => void;
-};
-
-const ScoresTable: React.FC<Props> = ({ onScrollToBoard }) => {
+const ScoresTable = () => {
   const players = useSelector(selectPlayers);
 
   const scrollView = useRef<ScrollView>(null);
@@ -53,7 +49,7 @@ const ScoresTable: React.FC<Props> = ({ onScrollToBoard }) => {
         )}
       </ScrollView>
       <PlayersTotalScores />
-      <CurrentPlayerMenu onScrollToBoard={onScrollToBoard} />
+      <CurrentPlayerMenu />
     </>
   );
 };

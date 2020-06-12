@@ -5,11 +5,13 @@ import {
   IBoardFields,
   INewMove,
   GameStatus,
+  GameView,
   WordDirection,
 } from '../interfaces';
 
 export type IGameState = {
   status: GameStatus;
+  view: GameView;
   boardFields: IBoardFields;
   tilesList: ITilesList;
   newMove: INewMove;
