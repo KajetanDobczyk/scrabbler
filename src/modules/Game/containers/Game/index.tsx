@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { View, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -20,9 +20,15 @@ type Props = {
 };
 
 const Game: React.FC<Props> = ({ navigation }) => {
+  const scrollView = useRef<ScrollView>(null);
+
   const newMove = useSelector(selectNewMove);
 
   const [isEndGameModalVisible, setIsEndGameModalVisible] = useState(false);
+
+  const scrollToBoard = () => {
+    scrollView.current?.scrollToEnd();
+  };
 
   const toggleEndGameModal = () => {
     setIsEndGameModalVisible(!isEndGameModalVisible);
@@ -39,12 +45,13 @@ const Game: React.FC<Props> = ({ navigation }) => {
         />
       </Header>
       <ScrollView
+        ref={scrollView}
         horizontal={true}
         contentContainerStyle={styles.scrollViewContent}
         pagingEnabled={true}
       >
         <View style={styles.screen}>
-          <ScoresTable />
+          <ScoresTable onScrollToBoard={scrollToBoard} />
         </View>
         <View style={styles.screen}>
           <Board />

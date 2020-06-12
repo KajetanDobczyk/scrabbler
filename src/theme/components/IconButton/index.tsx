@@ -1,14 +1,15 @@
 import React, { ComponentType } from 'react';
 import { TouchableOpacity, StyleProp, ViewStyle } from 'react-native';
-import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
+import { Ionicons, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 
 import { styles } from './styles';
 
-type IconSet = 'FontAwesome5' | 'Ionicons';
+type IconSet = 'FontAwesome5' | 'Ionicons' | 'MaterialIcons';
 
 const iconSets: Record<IconSet, ComponentType<any>> = {
   FontAwesome5: FontAwesome5,
   Ionicons: Ionicons,
+  MaterialIcons: MaterialIcons,
 };
 
 type Props = {

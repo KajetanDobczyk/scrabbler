@@ -1,8 +1,8 @@
-import EStyleSheet from 'react-native-extended-stylesheet';
+import { StyleSheet } from 'react-native';
 
 import { color } from 'src/theme';
 
-export const styles = EStyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     backgroundColor: color.lightGreen,
@@ -11,18 +11,16 @@ export const styles = EStyleSheet.create({
     flexBasis: 0,
     flexGrow: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     alignItems: 'center',
     padding: 5,
-    backgroundColor: color.lightGreen,
-    borderRightColor: color.green,
-    borderRightWidth: 1,
-  },
-  'pointsWrapper:last-child': {
-    borderRightWidth: 0,
+    backgroundColor: color.green,
   },
   points: {
     fontWeight: 'bold',
+    color: color.lightGreen,
+  },
+  currentPlayerPoints: {
     color: color.white,
   },
 });

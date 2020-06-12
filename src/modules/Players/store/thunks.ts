@@ -39,7 +39,7 @@ export const startNewGame = (playersNames: IPlayersNames): AppThunk => (
   dispatch,
 ) => {
   batch(() => {
-    dispatch(setupPlayers(playersNames));
+    // dispatch(setupPlayers(playersNames));
     dispatch(startGame());
   });
 };

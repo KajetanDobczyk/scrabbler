@@ -7,13 +7,18 @@ import { selectIsFirstMove } from 'src/modules/Players/store/selectors';
 import IconButton from 'src/theme/components/IconButton';
 
 import { styles } from './styles';
+import FlatButton from 'src/theme/components/FlatButton';
+
+type Props = {
+  onScrollToBoard: () => void;
+};
 
 const menuActions: Record<string, any> = {
   reverse: removeLastMove,
   skip: skipTurn,
 };
 
-const CurrentPlayerMenu = () => {
+const CurrentPlayerMenu: React.FC<Props> = ({ onScrollToBoard }) => {
   const dispatch = useDispatch();
 
   const isFirstMove = useSelector(selectIsFirstMove);
@@ -29,19 +34,16 @@ const CurrentPlayerMenu = () => {
   return (
     <View style={styles.container}>
       {!isFirstMove && (
-        <IconButton
-          icon="ios-skip-backward"
-          size={15}
-          onPress={handleMenuAction('reverse')}
-          style={styles.button}
-        />
+        <View style={styles.buttonWrapper}>
+          <FlatButton label="Cofnij" onPress={handleMenuAction('reverse')} />
+        </View>
       )}
-      <IconButton
-        icon="ios-skip-forward"
-        size={15}
-        onPress={handleMenuAction('skip')}
-        style={styles.button}
-      />
+      <View style={styles.buttonWrapper}>
+        <FlatButton label="Wymiana / pas" onPress={handleMenuAction('skip')} />
+      </View>
+      <View style={styles.buttonWrapper}>
+        <FlatButton label="Ułóż słowo" onPress={onScrollToBoard} />
+      </View>
     </View>
   );
 };

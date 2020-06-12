@@ -4,11 +4,10 @@ import { color, font } from 'src/theme';
 
 export const styles = StyleSheet.create({
   container: {
+    flexGrow: 1,
     backgroundColor: color.lightGreen,
-    marginTop: 10,
     borderRadius: 4,
     padding: 10,
-    width: 150,
   },
   disabled: {
     opacity: 0.3,
