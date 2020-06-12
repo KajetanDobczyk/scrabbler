@@ -1,17 +1,18 @@
 import React, { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { ScrollView, Dimensions, View } from 'react-native';
+import { ScrollView } from 'react-native';
 
-import { selectPlayers } from '../../store/selectors';
+import { selectPlayers, selectCurrentPlayerId } from '../../store/selectors';
 import PlayersNames from './components/PlayersNames';
-import PlayerMoves from './components/PlayerMoves';
+import PlayersMoves from './components/PlayersMoves';
+import PlayersTotalScores from './components/PlayersTotalScores';
 import { styles } from './styles';
-import { color } from 'src/theme';
 
 const ScoresTable = () => {
+  const currentPlayerId = useSelector(selectCurrentPlayerId);
   const players = useSelector(selectPlayers);
 
-  const scrollView = useRef<ScrollView>(null);
+  const scrollView = useRef<any>(null);
 
   const [movesHeights, setMovesHeights] = useState<Record<string, number>>({});
 
@@ -23,23 +24,18 @@ const ScoresTable = () => {
   };
 
   return (
-    <View>
-      <PlayersNames playersAmount={Object.keys(players).length} />
+    <>
+      <PlayersNames />
       <ScrollView
         ref={scrollView}
-        contentContainerStyle={[
-          {
-            minHeight: Dimensions.get('window').height,
-          },
-          styles.listContent,
-        ]}
+        contentContainerStyle={styles.container}
         onContentSizeChange={() => {
-          scrollView.current?.scrollToEnd({ animated: true });
+          scrollView.current.scrollToEnd({ animated: true });
         }}
       >
         {Object.values(players).map((player, i) =>
           player ? (
-            <PlayerMoves
+            <PlayersMoves
               key={i}
               player={player}
               index={i}
@@ -50,7 +46,8 @@ const ScoresTable = () => {
           ) : null,
         )}
       </ScrollView>
-    </View>
+      <PlayersTotalScores />
+    </>
   );
 };
 

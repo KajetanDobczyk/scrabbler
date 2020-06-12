@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { View, LayoutChangeEvent, Dimensions } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import Header from 'src/layout/components/Header';
 import { Screen } from 'src/layout/interfaces';
-import ScoresTable from 'src/modules/Players/containers/ScoresTable';
 import IconButton from 'src/theme/components/IconButton';
-import CurrentPlayerMenu from 'src/modules/Players/components/CurrentPlayerMenu';
-import { StatusBarHeight } from 'src/config';
+import ScoresTable from 'src/modules/Players/containers/ScoresTable';
 
 import { selectNewMove } from '../../store/selectors';
 import GameBoard from './components/GameBoard';
@@ -19,8 +17,6 @@ import {
   PointsTrackingTabParamList,
   PointsTrackingScreen,
 } from '../../interfaces';
-import { ScrollView } from 'react-native-gesture-handler';
-import { color } from 'src/theme';
 
 type Props = {
   navigation: StackNavigationProp<
@@ -41,7 +37,6 @@ const Board: React.FC<Props> = ({ navigation }) => {
   return (
     <>
       <Header title={Screen.PointsTracking}>
-        <CurrentPlayerMenu />
         <IconButton
           icon="stop"
           iconSet="FontAwesome5"

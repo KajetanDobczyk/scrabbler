@@ -1,9 +1,8 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 import { IPlayer } from 'src/modules/Players/interfaces';
-import { sumMovesPoints } from 'src/modules/Players/helpers';
 
 import PlayedMove from './components/PlayedMove';
 import { styles } from './styles';
@@ -16,7 +15,7 @@ type Props = {
   onAdjustMoveHeight: (index: number, height: number) => void;
 };
 
-const PlayerMoves: React.FC<Props> = ({
+const PlayersMoves: React.FC<Props> = ({
   player,
   index,
   playersAmount,
@@ -33,8 +32,7 @@ const PlayerMoves: React.FC<Props> = ({
         onLayout={onAdjustMoveHeight}
       />
     ))}
-    <Text style={styles.totalPoints}>{sumMovesPoints(player.moves)}</Text>
   </View>
 );
 
-export default PlayerMoves;
+export default PlayersMoves;
