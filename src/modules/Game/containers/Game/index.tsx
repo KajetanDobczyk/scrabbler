@@ -19,6 +19,7 @@ import { selectNewMove, selectGameView } from '../../store/selectors';
 import Board from './components/Board';
 import EndGameModal from './components/EndGameModal';
 import NewMoveMenu from './components/NewMoveMenu';
+import TilesAvailability from './components/TilesAvailability';
 import { styles } from './styles';
 import { setGameView } from '../../store/slice';
 
@@ -77,7 +78,8 @@ const Game: React.FC<Props> = ({ navigation }) => {
         </View>
         <View style={styles.horizontalScreen}>
           <Board />
-          {newMove.tiles.length || (newMove.target && <NewMoveMenu />)}
+          {newMove.tiles.length ||
+            (newMove.target ? <NewMoveMenu /> : <TilesAvailability />)}
         </View>
       </ScrollView>
       {isEndGameModalVisible && (
