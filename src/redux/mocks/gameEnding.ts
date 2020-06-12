@@ -1,8 +1,8 @@
 import { State } from '../rootReducer';
 
 export const gameEndingState: State = {
-  board: {
-    gameStatus: 'inProgress',
+  game: {
+    status: 'inProgress',
     boardFields: [
       [
         {

@@ -2,11 +2,11 @@ import React from 'react';
 import { View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { boardFieldPressed } from 'src/modules/Board/store/thunks';
+import { boardFieldPressed } from 'src/modules/Game/store/thunks';
 import {
   selectBoardFields,
   selectNewMove,
-} from 'src/modules/Board/store/selectors';
+} from 'src/modules/Game/store/selectors';
 
 import BoardField from './components/BoardField';
 import { styles } from './styles';

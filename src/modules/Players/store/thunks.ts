@@ -7,12 +7,12 @@ import { AppThunk } from 'src/redux/store';
 import {
   selectNewMove,
   selectBoardFields,
-} from 'src/modules/Board/store/selectors';
+} from 'src/modules/Game/store/selectors';
 import {
   resetNewMove,
   removeBoardTiles,
   startGame,
-} from 'src/modules/Board/store/slice';
+} from 'src/modules/Game/store/slice';
 
 import {
   selectIsFirstMove,

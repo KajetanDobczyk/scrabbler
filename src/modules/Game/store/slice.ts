@@ -9,10 +9,10 @@ import { IBoardTile } from '../interfaces';
 const board = createSlice({
   name: 'board',
   // initialState,
-  initialState: gameEndingState.board,
+  initialState: gameEndingState.game,
   reducers: {
     startGame(state) {
-      state.gameStatus = 'inProgress';
+      state.status = 'inProgress';
     },
     setNewMoveTarget(state, action: PayloadAction<ICoordinates>) {
       const { x, y } = action.payload;

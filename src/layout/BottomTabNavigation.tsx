@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons, Entypo, FontAwesome5 } from '@expo/vector-icons';
 
 import Dictionary from 'src/screens/Dictionary';
-import PointsTracking from 'src/screens/PointsTracking';
+import Game from 'src/screens/Game';
 import Settings from 'src/screens/Settings';
 import { color } from 'src/theme';
 
@@ -15,10 +15,10 @@ const Tab = createBottomTabNavigator();
 const BottomTabNavigation = () => (
   <NavigationContainer>
     <Tab.Navigator
-      initialRouteName={Screen.PointsTracking}
+      initialRouteName={Screen.Game}
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color }) => {
-          if (route.name === Screen.PointsTracking) {
+          if (route.name === Screen.Game) {
             return <FontAwesome5 name="chess-board" size={15} color={color} />;
           } else if (route.name === Screen.Dictionary) {
             return <Entypo name="book" size={20} color={color} />;
@@ -35,7 +35,7 @@ const BottomTabNavigation = () => (
         style: { borderTopColor: color.lightGreen },
       }}
     >
-      <Tab.Screen name={Screen.PointsTracking} component={PointsTracking} />
+      <Tab.Screen name={Screen.Game} component={Game} />
       <Tab.Screen name={Screen.Dictionary} component={Dictionary} />
       <Tab.Screen name={Screen.Settings} component={Settings} />
     </Tab.Navigator>

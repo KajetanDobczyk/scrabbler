@@ -4,9 +4,9 @@ import Modal from 'react-native-modal';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { Letter } from 'src/modules/Dictionary/interfaces';
-import { selectTilesList } from 'src/modules/Board/store/selectors';
+import { selectTilesList } from 'src/modules/Game/store/selectors';
 import Tile from 'src/modules/Tiles/components/Tile';
-import { listBoardTilePressed } from 'src/modules/Board/store/thunks';
+import { listBoardTilePressed } from 'src/modules/Game/store/thunks';
 
 import { styles } from './styles';
 

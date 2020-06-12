@@ -1,4 +1,4 @@
-import { IBoardTile, IBoardField } from 'src/modules/Board/interfaces';
+import { IBoardTile, IBoardField } from 'src/modules/Game/interfaces';
 
 import { Letter } from '../Dictionary/interfaces';
 

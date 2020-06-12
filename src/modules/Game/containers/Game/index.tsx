@@ -8,24 +8,18 @@ import { Screen } from 'src/layout/interfaces';
 import IconButton from 'src/theme/components/IconButton';
 import ScoresTable from 'src/modules/Players/containers/ScoresTable';
 
+import { GameTabParamList, GameScreen } from '../../interfaces';
 import { selectNewMove } from '../../store/selectors';
-import GameBoard from './components/GameBoard';
+import Board from './components/Board';
 import EndGameModal from './components/EndGameModal';
 import NewMoveMenu from './components/NewMoveMenu';
 import { styles } from './styles';
-import {
-  PointsTrackingTabParamList,
-  PointsTrackingScreen,
-} from '../../interfaces';
 
 type Props = {
-  navigation: StackNavigationProp<
-    PointsTrackingTabParamList,
-    PointsTrackingScreen.NewGame
-  >;
+  navigation: StackNavigationProp<GameTabParamList, GameScreen.NewGame>;
 };
 
-const Board: React.FC<Props> = ({ navigation }) => {
+const Game: React.FC<Props> = ({ navigation }) => {
   const newMove = useSelector(selectNewMove);
 
   const [isEndGameModalVisible, setIsEndGameModalVisible] = useState(false);
@@ -36,7 +30,7 @@ const Board: React.FC<Props> = ({ navigation }) => {
 
   return (
     <>
-      <Header title={Screen.PointsTracking}>
+      <Header title={Screen.Game}>
         <IconButton
           icon="stop"
           iconSet="FontAwesome5"
@@ -53,15 +47,13 @@ const Board: React.FC<Props> = ({ navigation }) => {
           <ScoresTable />
         </View>
         <View style={styles.screen}>
-          <GameBoard />
+          <Board />
           {(newMove.tiles.length || newMove.target) && <NewMoveMenu />}
         </View>
       </ScrollView>
       {isEndGameModalVisible && (
         <EndGameModal
-          onFinish={() =>
-            navigation.navigate(PointsTrackingScreen.FinishedGame)
-          }
+          onFinish={() => navigation.navigate(GameScreen.FinishedGame)}
           onClose={toggleEndGameModal}
         />
       )}
@@ -69,4 +61,4 @@ const Board: React.FC<Props> = ({ navigation }) => {
   );
 };
 
-export default Board;
+export default Game;

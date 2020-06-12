@@ -7,18 +7,12 @@ import FlatButton from 'src/theme/components/FlatButton';
 import { PlayerId, IPlayersNames } from 'src/modules/Players/interfaces';
 import { startNewGame } from 'src/modules/Players/store/thunks';
 
+import { GameScreen, GameTabParamList } from '../../interfaces';
 import PlayerName from './components/PlayerName';
 import { styles } from './styles';
-import {
-  PointsTrackingScreen,
-  PointsTrackingTabParamList,
-} from '../../interfaces';
 
 type Props = {
-  navigation: StackNavigationProp<
-    PointsTrackingTabParamList,
-    PointsTrackingScreen.NewGame
-  >;
+  navigation: StackNavigationProp<GameTabParamList, GameScreen.NewGame>;
 };
 
 const NewGame: React.FC<Props> = ({ navigation }) => {
@@ -39,7 +33,7 @@ const NewGame: React.FC<Props> = ({ navigation }) => {
 
   const startGame = () => {
     dispatch(startNewGame(playersNames));
-    navigation.navigate(PointsTrackingScreen.Board);
+    navigation.navigate(GameScreen.Game);
   };
 
   const areAtLeastTwoPlayersPresent =

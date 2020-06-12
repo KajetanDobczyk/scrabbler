@@ -2,8 +2,8 @@ import {
   IBoardTile,
   IBoardFields,
   IBoardField,
-} from 'src/modules/Board/interfaces';
-import { getFieldLetter } from 'src/modules/Board/store/helpers';
+} from 'src/modules/Game/interfaces';
+import { getFieldLetter } from 'src/modules/Game/store/helpers';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import { alphabet } from 'src/modules/Tiles/data';
 

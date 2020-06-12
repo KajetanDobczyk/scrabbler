@@ -8,8 +8,8 @@ import {
   WordDirection,
 } from '../interfaces';
 
-export type IBoardState = {
-  gameStatus: GameStatus;
+export type IGameState = {
+  status: GameStatus;
   boardFields: IBoardFields;
   tilesList: ITilesList;
   newMove: INewMove;

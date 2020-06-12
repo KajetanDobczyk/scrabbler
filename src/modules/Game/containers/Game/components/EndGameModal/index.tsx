@@ -9,7 +9,7 @@ import {
   selectPreviousPlayerId,
 } from 'src/modules/Players/store/selectors';
 import { PlayerId, IFinalPlayersTiles } from 'src/modules/Players/interfaces';
-import { selectTilesList } from 'src/modules/Board/store/selectors';
+import { selectTilesList } from 'src/modules/Game/store/selectors';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import {
   updateFinalPlayersTiles,

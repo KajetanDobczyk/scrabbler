@@ -1,5 +1,5 @@
 export enum Screen {
-  PointsTracking = 'Licznik Punktów',
+  Game = 'Licznik Punktów',
   Dictionary = 'Słownik',
   Settings = 'Ustawienia',
 }

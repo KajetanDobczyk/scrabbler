@@ -6,16 +6,10 @@ import FlatButton from 'src/theme/components/FlatButton';
 import PlayersEndGameDetails from 'src/modules/Players/components/FinishedGameDetails';
 
 import { styles } from './styles';
-import {
-  PointsTrackingScreen,
-  PointsTrackingTabParamList,
-} from '../../interfaces';
+import { GameScreen, GameTabParamList } from '../../interfaces';
 
 type Props = {
-  navigation: StackNavigationProp<
-    PointsTrackingTabParamList,
-    PointsTrackingScreen.FinishedGame
-  >;
+  navigation: StackNavigationProp<GameTabParamList, GameScreen.FinishedGame>;
 };
 
 const FinishedGame: React.FC<Props> = ({ navigation }) => (
@@ -24,7 +18,7 @@ const FinishedGame: React.FC<Props> = ({ navigation }) => (
     <PlayersEndGameDetails />
     <FlatButton
       label="Nowa gra"
-      onPress={() => navigation.navigate(PointsTrackingScreen.NewGame)}
+      onPress={() => navigation.navigate(GameScreen.NewGame)}
     />
   </View>
 );

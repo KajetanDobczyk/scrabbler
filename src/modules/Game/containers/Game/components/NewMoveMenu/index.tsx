@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { tryNewMove } from 'src/modules/Players/store/thunks';
 import IconButton from 'src/theme/components/IconButton';
-import { cancelNewMove } from 'src/modules/Board/store/slice';
-import { selectTilesList } from 'src/modules/Board/store/selectors';
+import { cancelNewMove } from 'src/modules/Game/store/slice';
+import { selectTilesList } from 'src/modules/Game/store/selectors';
 import TilesList from 'src/modules/Tiles/components/TilesList';
 import { Letter } from 'src/modules/Dictionary/interfaces';
-import { listBoardTilePressed } from 'src/modules/Board/store/thunks';
+import { listBoardTilePressed } from 'src/modules/Game/store/thunks';
 
 import BlankModal from './components/BlankModal';
 import { styles } from './styles';

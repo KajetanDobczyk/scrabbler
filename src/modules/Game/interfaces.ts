@@ -3,13 +3,13 @@ import { FetchStatus } from 'src/interfaces';
 
 import { ICoordinates } from './store/interfaces';
 
-export enum PointsTrackingScreen {
+export enum GameScreen {
   NewGame = 'Nowa Gra',
-  Board = 'Plansza',
+  Game = 'Gra',
   FinishedGame = 'Koniec Gry',
 }
 
-export type PointsTrackingTabParamList = Record<PointsTrackingScreen, any>;
+export type GameTabParamList = Record<GameScreen, any>;
 
 export type GameStatus = FetchStatus;
 

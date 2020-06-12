@@ -6,8 +6,8 @@ import { RootTabParamList, Screen } from 'src/layout/interfaces';
 import SettingsScreen from 'src/modules/Settings/containers/Settings';
 
 type Props = {
-  navigation: StackNavigationProp<RootTabParamList, Screen.PointsTracking>;
-  route: RouteProp<RootTabParamList, Screen.PointsTracking>;
+  navigation: StackNavigationProp<RootTabParamList, Screen.Game>;
+  route: RouteProp<RootTabParamList, Screen.Game>;
 };
 
 const Settings: React.FC<Props> = () => <SettingsScreen />;

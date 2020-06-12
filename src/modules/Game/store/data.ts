@@ -2,7 +2,7 @@ import { Letter } from 'src/modules/Dictionary/interfaces';
 import { ITilesList } from 'src/modules/Tiles/interfaces';
 
 import { IBoardFields, FieldBonus } from '../interfaces';
-import { IBoardState } from './interfaces';
+import { IGameState } from './interfaces';
 
 export const fieldsBonuses: FieldBonus[][] = [
   ['tw', 0, 0, 'dl', 0, 0, 0, 'tw', 0, 0, 0, 'dl', 0, 0, 'tw'],
@@ -86,8 +86,8 @@ const getInitialTilesList: () => ITilesList = () =>
     {} as ITilesList,
   );
 
-export const initialState: IBoardState = {
-  gameStatus: 'idle',
+export const initialState: IGameState = {
+  status: 'idle',
   boardFields: getInitialBoardFields(),
   tilesList: getInitialTilesList(),
   newMove: {
