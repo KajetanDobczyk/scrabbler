@@ -19,6 +19,8 @@ import {
   PointsTrackingTabParamList,
   PointsTrackingScreen,
 } from '../../interfaces';
+import { ScrollView } from 'react-native-gesture-handler';
+import { color } from 'src/theme';
 
 type Props = {
   navigation: StackNavigationProp<
@@ -31,25 +33,9 @@ const Board: React.FC<Props> = ({ navigation }) => {
   const newMove = useSelector(selectNewMove);
 
   const [isEndGameModalVisible, setIsEndGameModalVisible] = useState(false);
-  const [scoresTableYRange, setScoresTableYRange] = useState({
-    y: 0,
-    min: 0,
-    max: 0,
-  });
 
   const toggleEndGameModal = () => {
     setIsEndGameModalVisible(!isEndGameModalVisible);
-  };
-
-  const handleOnLayout = (event: LayoutChangeEvent) => {
-    const screenHeight = Dimensions.get('window').height;
-    const { y, height } = event.nativeEvent.layout;
-
-    setScoresTableYRange({
-      y,
-      min: screenHeight - StatusBarHeight - y - height,
-      max: screenHeight - StatusBarHeight - 20,
-    });
   };
 
   return (
@@ -61,31 +47,29 @@ const Board: React.FC<Props> = ({ navigation }) => {
           iconSet="FontAwesome5"
           size={13}
           onPress={toggleEndGameModal}
-          style={styles.button}
         />
       </Header>
-      <View style={styles.container} onLayout={handleOnLayout}>
-        <GameBoard />
-      </View>
-      <View style={styles.bottomContent}>
-        {(newMove.tiles.length || newMove.target) && <NewMoveMenu />}
-        {scoresTableYRange.min ? (
-          <ScoresTable
-            y={scoresTableYRange.y}
-            maxY={scoresTableYRange.max}
-            minY={scoresTableYRange.min}
-            onBottom={!!newMove.target}
-          />
-        ) : null}
-        {isEndGameModalVisible && (
-          <EndGameModal
-            onFinish={() =>
-              navigation.navigate(PointsTrackingScreen.FinishedGame)
-            }
-            onClose={toggleEndGameModal}
-          />
-        )}
-      </View>
+      <ScrollView
+        horizontal={true}
+        contentContainerStyle={styles.scrollViewContent}
+        pagingEnabled={true}
+      >
+        <View style={styles.screen}>
+          <ScoresTable />
+        </View>
+        <View style={styles.screen}>
+          <GameBoard />
+          {(newMove.tiles.length || newMove.target) && <NewMoveMenu />}
+        </View>
+      </ScrollView>
+      {isEndGameModalVisible && (
+        <EndGameModal
+          onFinish={() =>
+            navigation.navigate(PointsTrackingScreen.FinishedGame)
+          }
+          onClose={toggleEndGameModal}
+        />
+      )}
     </>
   );
 };

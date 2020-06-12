@@ -1,13 +1,19 @@
-import EStyleSheet from 'react-native-extended-stylesheet';
+import { Dimensions, StyleSheet } from 'react-native';
 
 import { color } from 'src/theme';
 
-export const styles = EStyleSheet.create({
+const screenWidth = Dimensions.get('window').width;
+
+export const styles = StyleSheet.create({
   container: {
     backgroundColor: color.green,
   },
-  bottomContent: {
+  scrollViewContent: {
     flexGrow: 1,
     backgroundColor: color.green,
+  },
+  screen: {
+    flex: 1,
+    width: screenWidth,
   },
 });
