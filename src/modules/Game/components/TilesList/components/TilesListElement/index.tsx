@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import Tile from 'src/modules/Tiles/components/Tile';
+import Tile from 'src/modules/Game/components/Tile';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import { selectIsTilesAmountDisplayed } from 'src/modules/Settings/store/selectors';
 

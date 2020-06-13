@@ -7,15 +7,16 @@ export const styles = EStyleSheet.create({
     flexGrow: 1,
     justifyContent: 'space-between',
     backgroundColor: color.green,
-    paddingHorizontal: 20,
+    padding: 2.5,
   },
   buttonsWrapper: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    paddingBottom: 55,
+    paddingTop: 5,
+    paddingHorizontal: 2.5,
+    paddingBottom: 2.5,
   },
-  button: {
-    width: 40,
-    height: 40,
+  leftButtonWrapper: {
+    marginRight: 5,
   },
 });

@@ -1,5 +1,4 @@
 import { Letter } from 'src/modules/Dictionary/interfaces';
-import { ITilesList } from 'src/modules/Tiles/interfaces';
 
 import {
   IBoardFields,
@@ -7,6 +6,7 @@ import {
   GameStatus,
   GameView,
   WordDirection,
+  ITilesList,
 } from '../interfaces';
 
 export type IGameState = {

@@ -6,9 +6,7 @@ export const styles = StyleSheet.create({
   tileWrapper: {
     position: 'relative',
     aspectRatio: 1,
-    width: 30,
-    paddingTop: 8,
-    paddingRight: 8,
+    width: '10%',
   },
   noAmountLeft: {
     opacity: 0.5,

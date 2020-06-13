@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { View, Animated, TouchableOpacity, Easing } from 'react-native';
 
 import { IBoardField } from 'src/modules/Game/interfaces';
-import Tile from 'src/modules/Tiles/components/Tile';
+import Tile from 'src/modules/Game/components/Tile';
 import { boardFieldsColors } from 'src/modules/Game/data';
 
 import { stylesFun } from './styles';

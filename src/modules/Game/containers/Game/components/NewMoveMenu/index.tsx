@@ -3,13 +3,13 @@ import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { tryNewMove } from 'src/modules/Players/store/thunks';
-import IconButton from 'src/theme/components/IconButton';
 import { cancelNewMove } from 'src/modules/Game/store/slice';
 import { selectTilesList } from 'src/modules/Game/store/selectors';
-import TilesList from 'src/modules/Tiles/components/TilesList';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import { listBoardTilePressed } from 'src/modules/Game/store/thunks';
+import FlatButton from 'src/theme/components/FlatButton';
 
+import TilesList from './components/TilesList';
 import BlankModal from './components/BlankModal';
 import { styles } from './styles';
 
@@ -50,18 +50,10 @@ const NewMoveMenu = () => {
           onBlankPressed={toggleBlankModal}
         />
         <View style={styles.buttonsWrapper}>
-          <IconButton
-            icon="ios-close"
-            size={40}
-            onPress={handleMenuAction('cancel')}
-            style={styles.button}
-          />
-          <IconButton
-            icon="ios-checkmark"
-            size={40}
-            onPress={handleMenuAction('accept')}
-            style={styles.button}
-          />
+          <View style={styles.leftButtonWrapper}>
+            <FlatButton label="Anuluj" onPress={handleMenuAction('cancel')} />
+          </View>
+          <FlatButton label="OK" onPress={handleMenuAction('aceept')} />
         </View>
       </View>
       {isBlankModalVisible && <BlankModal onClose={toggleBlankModal} />}

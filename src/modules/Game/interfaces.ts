@@ -15,6 +15,12 @@ export type GameStatus = FetchStatus;
 
 export type GameView = 'points' | 'board';
 
+export interface ITilesListElement {
+  amountLeft: number;
+}
+
+export type ITilesList = Record<Letter, ITilesListElement>;
+
 export type FieldBonus = 'dl' | 'tl' | 'dw' | 'tw' | 0;
 
 export interface IBoardField {

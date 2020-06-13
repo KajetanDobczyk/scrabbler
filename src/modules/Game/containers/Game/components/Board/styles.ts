@@ -9,8 +9,8 @@ export const styles = StyleSheet.create({
     aspectRatio: 1,
     zIndex: 0,
     backgroundColor: color.green,
-    paddingHorizontal: 20,
-    paddingBottom: 20,
+    paddingHorizontal: 5,
+    paddingBottom: 5,
   },
   row: {
     flexGrow: 1,

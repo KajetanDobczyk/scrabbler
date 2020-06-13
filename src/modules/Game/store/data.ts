@@ -1,7 +1,6 @@
 import { Letter } from 'src/modules/Dictionary/interfaces';
-import { ITilesList } from 'src/modules/Tiles/interfaces';
 
-import { IBoardFields, FieldBonus } from '../interfaces';
+import { IBoardFields, FieldBonus, ITilesList } from '../interfaces';
 import { IGameState } from './interfaces';
 
 export const fieldsBonuses: FieldBonus[][] = [

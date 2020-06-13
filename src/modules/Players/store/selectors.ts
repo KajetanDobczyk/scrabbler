@@ -2,9 +2,9 @@ import { createSelector } from '@reduxjs/toolkit';
 import last from 'lodash/last';
 
 import { RootState } from 'src/redux/rootReducer';
+import { tilesPoints } from 'src/modules/Dictionary/data';
 
 import { PlayerId } from '../interfaces';
-import { tilesPoints } from 'src/modules/Tiles/data';
 
 export const selectPlayersState = (state: RootState) => state.players;
 

@@ -5,7 +5,7 @@ import {
 } from 'src/modules/Game/interfaces';
 import { getFieldLetter } from 'src/modules/Game/store/helpers';
 import { Letter } from 'src/modules/Dictionary/interfaces';
-import { alphabet } from 'src/modules/Tiles/data';
+import { alphabet } from 'src/modules/Dictionary/data';
 
 export const isMoveThroughCenter = (newMoveTiles: IBoardTile[]) =>
   newMoveTiles.find((tile) => tile.x === 7 && tile.y === 7);

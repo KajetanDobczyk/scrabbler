@@ -2,7 +2,7 @@ import { IBoardField, IBoardTile } from 'src/modules/Game/interfaces';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 
 import { IPlayedMove } from './interfaces';
-import { tilesPoints } from '../Tiles/data';
+import { tilesPoints } from '../Dictionary/data';
 
 export const countPlayedWordPoints = (
   wordBoardFields: IBoardField[],

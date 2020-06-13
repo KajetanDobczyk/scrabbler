@@ -4,10 +4,10 @@ import range from 'lodash/range';
 
 import { IPlayer, PlayerId } from 'src/modules/Players/interfaces';
 import { Letter } from 'src/modules/Dictionary/interfaces';
-import { ITilesList } from 'src/modules/Tiles/interfaces';
-import TilesList from 'src/modules/Tiles/components/TilesList';
-import Tile from 'src/modules/Tiles/components/Tile';
-import { tilesPoints } from 'src/modules/Tiles/data';
+import TilesList from 'src/modules/Game/components/TilesList';
+import Tile from 'src/modules/Game/components/Tile';
+import { ITilesList } from 'src/modules/Game/interfaces';
+import { tilesPoints } from 'src/modules/Dictionary/data';
 
 import { styles } from './styles';
 

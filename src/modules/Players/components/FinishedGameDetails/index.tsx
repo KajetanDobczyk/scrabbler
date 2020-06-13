@@ -7,7 +7,7 @@ import {
   selectTotalFinalTilesPoints,
 } from 'src/modules/Players/store/selectors';
 import { PlayerId, IPlayer } from 'src/modules/Players/interfaces';
-import { tilesPoints } from 'src/modules/Tiles/data';
+import { tilesPoints } from 'src/modules/Dictionary/data';
 
 import PlayerEndGameDetails from './PlayerFinishedGameDetails';
 import { sumMovesPoints } from '../../helpers';

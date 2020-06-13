@@ -2,10 +2,8 @@ import React from 'react';
 import { View, Text } from 'react-native';
 
 import { IPlayer } from 'src/modules/Players/interfaces';
-import { sumMovesPoints } from 'src/modules/Players/helpers';
 
 import { styles } from './styles';
-import { tilesPoints } from 'src/modules/Tiles/data';
 
 type Props = {
   player: IPlayer;
