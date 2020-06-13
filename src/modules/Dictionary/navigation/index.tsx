@@ -1,13 +1,18 @@
 import React from 'react';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+} from '@react-navigation/drawer';
 
 import { RootTabParamList, Screen } from 'src/layout/interfaces';
 import WordSearch from 'src/modules/Dictionary/containers/WordSearch/';
 import TwoLettersWords from 'src/modules/Dictionary/containers/TwoLettersWords';
 import { DictionaryScreen } from 'src/modules/Dictionary/interfaces';
-import DrawerContent from 'src/layout/components/DrawerContent';
+
+import DrawerContent from './components/DrawerContent';
+import { styles } from './styles';
 
 const Drawer = createDrawerNavigator();
 
@@ -16,10 +21,14 @@ type Props = {
   route: RouteProp<RootTabParamList, Screen.Dictionary>;
 };
 
-const Dictionary: React.FC<Props> = () => (
+const DictionaryTabContent: React.FC<Props> = () => (
   <Drawer.Navigator
     initialRouteName={DictionaryScreen.Home}
-    drawerContent={(props) => <DrawerContent {...props} />}
+    drawerContent={(props) => (
+      <DrawerContentScrollView style={styles.container}>
+        <DrawerContent {...props} />
+      </DrawerContentScrollView>
+    )}
   >
     <Drawer.Screen name={DictionaryScreen.Home} component={WordSearch} />
     <Drawer.Screen
@@ -29,4 +38,4 @@ const Dictionary: React.FC<Props> = () => (
   </Drawer.Navigator>
 );
 
-export default Dictionary;
+export default DictionaryTabContent;

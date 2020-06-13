@@ -3,43 +3,50 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons, Entypo, FontAwesome5 } from '@expo/vector-icons';
 
-import Dictionary from 'src/screens/Dictionary';
-import Game from 'src/screens/Game';
-import Settings from 'src/screens/Settings';
+import GameTabContent from 'src/modules/Game/navigation';
+import DictionaryTabContent from 'src/modules/Dictionary/navigation';
+import SettingsTabContent from 'src/modules/Settings/navigation';
 import { color } from 'src/theme';
 
 import { Screen } from './interfaces';
 
 const Tab = createBottomTabNavigator();
 
-const BottomTabNavigation = () => (
-  <NavigationContainer>
-    <Tab.Navigator
-      initialRouteName={Screen.Game}
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ color }) => {
-          if (route.name === Screen.Game) {
-            return <FontAwesome5 name="chess-board" size={15} color={color} />;
-          } else if (route.name === Screen.Dictionary) {
-            return <Entypo name="book" size={20} color={color} />;
-          } else if (route.name === Screen.Settings) {
-            return <Ionicons name="md-settings" size={20} color={color} />;
-          }
-        },
-      })}
-      tabBarOptions={{
-        activeBackgroundColor: color.green,
-        inactiveBackgroundColor: color.green,
-        activeTintColor: color.white,
-        inactiveTintColor: color.lightGreen,
-        style: { borderTopColor: color.lightGreen },
-      }}
-    >
-      <Tab.Screen name={Screen.Game} component={Game} />
-      <Tab.Screen name={Screen.Dictionary} component={Dictionary} />
-      <Tab.Screen name={Screen.Settings} component={Settings} />
-    </Tab.Navigator>
-  </NavigationContainer>
-);
+const BottomTabNavigation = () => {
+  const getTabBarIcon = (routeName: string, color: string) => {
+    switch (routeName) {
+      case Screen.Game:
+        return <FontAwesome5 name="chess-board" size={15} color={color} />;
+      case Screen.Dictionary:
+        return <Entypo name="book" size={20} color={color} />;
+      case Screen.Settings:
+        return <Ionicons name="md-settings" size={20} color={color} />;
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <NavigationContainer>
+      <Tab.Navigator
+        initialRouteName={Screen.Game}
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ color }) => getTabBarIcon(route.name, color),
+        })}
+        tabBarOptions={{
+          activeBackgroundColor: color.green,
+          inactiveBackgroundColor: color.green,
+          activeTintColor: color.white,
+          inactiveTintColor: color.lightGreen,
+          style: { borderTopColor: color.lightGreen },
+        }}
+      >
+        <Tab.Screen name={Screen.Game} component={GameTabContent} />
+        <Tab.Screen name={Screen.Dictionary} component={DictionaryTabContent} />
+        <Tab.Screen name={Screen.Settings} component={SettingsTabContent} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+};
 
 export default BottomTabNavigation;

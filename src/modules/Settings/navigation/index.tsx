@@ -10,6 +10,6 @@ type Props = {
   route: RouteProp<RootTabParamList, Screen.Game>;
 };
 
-const Settings: React.FC<Props> = () => <SettingsScreen />;
+const SettingsTabContent: React.FC<Props> = () => <SettingsScreen />;
 
-export default Settings;
+export default SettingsTabContent;

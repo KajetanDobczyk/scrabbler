@@ -12,8 +12,8 @@ import { IAddPlayerMove } from './interfaces';
 
 const players = createSlice({
   name: 'players',
-  initialState,
-  // initialState: gameEndingState.players,
+  // initialState,
+  initialState: gameEndingState.players,
   reducers: {
     setupPlayers(state, action: PayloadAction<IPlayersNames>) {
       const playersNames = Object.values(action.payload).filter(

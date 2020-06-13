@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, Switch, Text } from 'react-native';
 
-import { styles } from './styles';
 import { color } from 'src/theme';
+
+import { styles } from './styles';
 
 type Props = {
   label: string;

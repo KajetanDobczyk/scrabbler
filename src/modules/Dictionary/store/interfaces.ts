@@ -1,4 +1,4 @@
-import { FetchStatus } from 'src/interfaces';
+import { FetchStatus } from 'src/api/interfaces';
 
 import { IWordSearch } from '../interfaces';
 

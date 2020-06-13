@@ -30,7 +30,7 @@ const TilesAvailability = () => {
           </Text>
           <Text
             style={
-              getIsLetterTileUsed(tilesList, letter)
+              getAreAllLetterTilesUsed(tilesList, letter)
                 ? [styles.amount, styles.used]
                 : styles.amount
             }

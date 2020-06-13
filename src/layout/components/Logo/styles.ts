@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
+    paddingHorizontal: 15,
   },
   image: {
     marginVertical: 10,

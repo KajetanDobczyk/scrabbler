@@ -1,12 +1,12 @@
 import { Letter } from 'src/modules/Dictionary/interfaces';
-import { FetchStatus } from 'src/interfaces';
+import { FetchStatus } from 'src/api/interfaces';
 
 import { ICoordinates } from './store/interfaces';
 
 export enum GameScreen {
-  NewGame = 'Nowa Gra',
+  NewGame = 'Nowa gra',
   Game = 'Gra',
-  FinishedGame = 'Koniec Gry',
+  FinishedGame = 'Zakończ grę',
 }
 
 export type GameTabParamList = Record<GameScreen, any>;

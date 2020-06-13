@@ -1,6 +1,9 @@
 import React from 'react';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+} from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
 
 import { RootTabParamList, Screen } from 'src/layout/interfaces';
@@ -8,7 +11,9 @@ import NewGame from 'src/modules/Game/containers/NewGame';
 import GameContainer from 'src/modules/Game/containers/Game';
 import FinishedGame from 'src/modules/Game/containers/FinishedGame';
 import { GameScreen } from 'src/modules/Game/interfaces';
-import DrawerContent from 'src/layout/components/DrawerContent';
+
+import DrawerContent from './components/DrawerContent';
+import { styles } from './styles';
 
 const Drawer = createDrawerNavigator();
 
@@ -17,10 +22,14 @@ type Props = {
   route: RouteProp<RootTabParamList, Screen.Game>;
 };
 
-const Game: React.FC<Props> = () => (
+const GameTabContent: React.FC<Props> = () => (
   <Drawer.Navigator
     initialRouteName={GameScreen.NewGame}
-    drawerContent={(props) => <DrawerContent {...props} />}
+    drawerContent={(props) => (
+      <DrawerContentScrollView style={styles.container}>
+        <DrawerContent {...props} />
+      </DrawerContentScrollView>
+    )}
   >
     <Drawer.Screen name={GameScreen.NewGame} component={NewGame} />
     <Drawer.Screen name={GameScreen.Game} component={GameContainer} />
@@ -28,4 +37,4 @@ const Game: React.FC<Props> = () => (
   </Drawer.Navigator>
 );
 
-export default Game;
+export default GameTabContent;

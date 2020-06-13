@@ -6,7 +6,4 @@ export const styles = StyleSheet.create({
   container: {
     backgroundColor: color.green,
   },
-  logoWrapper: {
-    marginLeft: 15,
-  },
 });
