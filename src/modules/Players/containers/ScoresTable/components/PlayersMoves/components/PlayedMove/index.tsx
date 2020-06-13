@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, LayoutChangeEvent } from 'react-native';
+import { View, Text } from 'react-native';
 
 import { IPlayedMove } from 'src/modules/Players/interfaces';
 import { countPlayedWordPoints } from 'src/modules/Players/helpers';

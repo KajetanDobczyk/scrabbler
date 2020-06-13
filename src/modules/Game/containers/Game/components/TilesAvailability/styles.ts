@@ -22,10 +22,11 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     textTransform: 'uppercase',
   },
-  amountLeft: {
-    color: color.lightGreen,
-  },
-  totalAmount: {
+  amount: {
     color: color.white,
+    fontSize: font.size.sm,
+  },
+  used: {
+    color: color.lightGreen,
   },
 });

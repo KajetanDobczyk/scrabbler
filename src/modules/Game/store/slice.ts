@@ -8,8 +8,8 @@ import { IBoardTile, GameView } from '../interfaces';
 
 const board = createSlice({
   name: 'board',
-  // initialState,
-  initialState: gameEndingState.game,
+  initialState,
+  // initialState: gameEndingState.game,
   reducers: {
     startGame(state) {
       state.status = 'inProgress';

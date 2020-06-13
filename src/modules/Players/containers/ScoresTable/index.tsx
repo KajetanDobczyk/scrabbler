@@ -6,8 +6,8 @@ import { selectPlayers } from '../../store/selectors';
 import PlayersNames from './components/PlayersNames';
 import PlayersMoves from './components/PlayersMoves';
 import PlayersTotalScores from './components/PlayersTotalScores';
+import CurrentPlayerMenu from './components/CurrentPlayerMenu';
 import { styles } from './styles';
-import CurrentPlayerMenu from '../../components/CurrentPlayerMenu';
 
 const ScoresTable = () => {
   const players = useSelector(selectPlayers);

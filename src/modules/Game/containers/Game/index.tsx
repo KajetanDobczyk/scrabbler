@@ -78,8 +78,11 @@ const Game: React.FC<Props> = ({ navigation }) => {
         </View>
         <View style={styles.horizontalScreen}>
           <Board />
-          {newMove.tiles.length ||
-            (newMove.target ? <NewMoveMenu /> : <TilesAvailability />)}
+          {newMove.tiles.length || newMove.target ? (
+            <NewMoveMenu />
+          ) : (
+            <TilesAvailability />
+          )}
         </View>
       </ScrollView>
       {isEndGameModalVisible && (

@@ -1,32 +1,49 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import { selectTilesList } from 'src/modules/Game/store/selectors';
 import { initialTilesAmount } from 'src/modules/Game/store/data';
 import { Letter } from 'src/modules/Dictionary/interfaces';
-import { color } from 'src/theme';
 
 import { styles } from './styles';
 
 const TilesAvailability = () => {
   const tilesList = useSelector(selectTilesList);
 
-  console.log(Object.keys(tilesList));
+  const isUsed = (letter: Letter) =>
+    tilesList[letter].amountLeft !== initialTilesAmount[letter];
+  const areAllUsed = (letter: Letter) => !tilesList[letter].amountLeft;
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       {(Object.keys(tilesList) as Letter[]).map((letter) => (
         <View key={letter} style={styles.tileInfoWrapper}>
-          <Text style={styles.letter}>{letter}</Text>
-          <Text style={styles.amountLeft}>{tilesList[letter].amountLeft}</Text>
-          <Text style={styles.totalAmount}>
+          <Text
+            style={
+              areAllUsed(letter) ? [styles.letter, styles.used] : styles.letter
+            }
+          >
+            {letter}
+          </Text>
+          <Text
+            style={
+              isUsed(letter) ? [styles.amount, styles.used] : styles.amount
+            }
+          >
+            {tilesList[letter].amountLeft}
+          </Text>
+          <Text
+            style={
+              areAllUsed(letter) ? [styles.amount, styles.used] : styles.amount
+            }
+          >
             {' '}
             / {initialTilesAmount[letter]}
           </Text>
         </View>
       ))}
-    </View>
+    </ScrollView>
   );
 };
 
