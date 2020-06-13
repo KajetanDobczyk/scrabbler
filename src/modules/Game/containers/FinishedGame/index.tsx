@@ -3,10 +3,10 @@ import { View, Text } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import FlatButton from 'src/theme/components/FlatButton';
-import PlayersEndGameDetails from 'src/modules/Players/components/FinishedGameDetails';
 
-import { styles } from './styles';
+import FinishedGameDetails from './components/FinishedGameDetails';
 import { GameScreen, GameTabParamList } from '../../interfaces';
+import { styles } from './styles';
 
 type Props = {
   navigation: StackNavigationProp<GameTabParamList, GameScreen.FinishedGame>;
@@ -15,7 +15,7 @@ type Props = {
 const FinishedGame: React.FC<Props> = ({ navigation }) => (
   <View style={styles.container}>
     <Text style={styles.header}>Koniec gry!</Text>
-    <PlayersEndGameDetails />
+    <FinishedGameDetails />
     <FlatButton
       label="Nowa gra"
       onPress={() => navigation.navigate(GameScreen.NewGame)}

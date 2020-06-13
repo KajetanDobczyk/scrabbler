@@ -11,7 +11,7 @@ type Props = {
   isWinner: boolean;
 };
 
-const PlayerFinishedGameDetails: React.FC<Props> = ({
+const FinishedGamePlayerTile: React.FC<Props> = ({
   player,
   points,
   isWinner,
@@ -22,4 +22,4 @@ const PlayerFinishedGameDetails: React.FC<Props> = ({
   </View>
 );
 
-export default PlayerFinishedGameDetails;
+export default FinishedGamePlayerTile;

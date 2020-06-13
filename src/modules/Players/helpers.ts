@@ -1,7 +1,7 @@
 import { IBoardField, IBoardTile } from 'src/modules/Game/interfaces';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 
-import { IPlayedMove } from './interfaces';
+import { IPlayedMove, IPlayer, PlayerId, IPlayers } from './interfaces';
 import { tilesPoints } from '../Dictionary/data';
 
 export const countPlayedWordPoints = (
@@ -49,3 +49,42 @@ export const sumMovesPoints = (moves: IPlayedMove[]) =>
       ),
     0,
   );
+
+export const sumFinalPlayerPoints = (
+  isEndingPlayer: boolean,
+  player: IPlayer,
+  totalFinalTilesPoints: number,
+) => {
+  let points = sumMovesPoints(player.moves);
+
+  if (isEndingPlayer) {
+    points += totalFinalTilesPoints;
+  } else if (player.finalTiles) {
+    points -= player.finalTiles.reduce(
+      (acc, letter) => acc + tilesPoints[letter],
+      0,
+    );
+  }
+
+  return points;
+};
+
+export const getFinalPlayersPoints = (
+  players: IPlayers,
+  endingPlayerId: PlayerId | undefined,
+  totalFinalTilesPoints: number,
+) => {
+  const playersIds = Object.keys(players) as PlayerId[];
+
+  return playersIds.reduce(
+    (acc, playerId) => ({
+      ...acc,
+      [playerId]: sumFinalPlayerPoints(
+        endingPlayerId === playerId,
+        players[playerId]!,
+        totalFinalTilesPoints,
+      ),
+    }),
+    {} as Record<PlayerId, number>,
+  );
+};
