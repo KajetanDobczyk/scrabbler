@@ -4,18 +4,18 @@ import range from 'lodash/range';
 
 import { IPlayer, PlayerId } from 'src/modules/Players/interfaces';
 import { Letter } from 'src/modules/Dictionary/interfaces';
-import TilesList from 'src/modules/Game/components/TilesList';
 import Tile from 'src/modules/Game/components/Tile';
 import { ITilesList } from 'src/modules/Game/interfaces';
 import { tilesPoints } from 'src/modules/Dictionary/data';
 
+import TilesList from './components/TilesList';
 import { styles } from './styles';
 
 type Props = {
   playerId: PlayerId;
-  player: IPlayer;
+  playerName: string;
   tilesLeft: ITilesList;
-  finalPlayerTiles: Letter[];
+  playerTilesLeft: Letter[];
   onListTilePressed: (playerId: PlayerId, letter: Letter) => void;
   onPlayerTilePressed: (
     playerId: PlayerId,
@@ -26,9 +26,9 @@ type Props = {
 
 const PlayerTilesLeft: React.FC<Props> = ({
   playerId,
-  player,
+  playerName,
   tilesLeft,
-  finalPlayerTiles,
+  playerTilesLeft,
   onListTilePressed,
   onPlayerTilePressed,
 }) => {
@@ -44,8 +44,8 @@ const PlayerTilesLeft: React.FC<Props> = ({
     onPlayerTilePressed(playerId, letter, index);
   };
 
-  const placeholdersAmount = 7 - finalPlayerTiles.length;
-  const minusPoints = finalPlayerTiles.reduce(
+  const placeholdersAmount = 7 - playerTilesLeft.length;
+  const minusPoints = playerTilesLeft.reduce(
     (acc, tile) => acc - tilesPoints[tile],
     0,
   );
@@ -53,12 +53,12 @@ const PlayerTilesLeft: React.FC<Props> = ({
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.name}>{player.name}</Text>
+        <Text style={styles.name}>{playerName}</Text>
         <View style={styles.tilesLeft}>
           {range(placeholdersAmount).map((i) => (
             <View key={i} style={styles.tilePlaceholder}></View>
           ))}
-          {finalPlayerTiles.map((letter, i) => (
+          {playerTilesLeft.map((letter, i) => (
             <TouchableOpacity
               key={i}
               style={styles.tileLeftWrapper}

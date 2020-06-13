@@ -6,7 +6,6 @@ export const styles = StyleSheet.create({
   container: {
     position: 'relative',
     marginTop: 10,
-    padding: 10,
     borderWidth: 1,
     borderColor: color.lightGreen,
     borderRadius: 4,
@@ -14,6 +13,8 @@ export const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingTop: 10,
+    paddingHorizontal: 10,
   },
   name: {
     color: color.white,

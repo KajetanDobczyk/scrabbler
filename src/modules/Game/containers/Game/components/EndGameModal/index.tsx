@@ -15,10 +15,10 @@ import {
   updateFinalPlayersTiles,
   setEndingPlayerId as setEndingPlayerIdAction,
 } from 'src/modules/Players/store/slice';
+import FlatButton from 'src/theme/components/FlatButton';
 
 import { styles } from './styles';
 import PlayerTilesLeft from './components/PlayerTilesLeft';
-import FlatButton from 'src/theme/components/FlatButton';
 
 type Props = {
   onFinish: () => void;
@@ -52,7 +52,7 @@ const EndGameModal: React.FC<Props> = ({ onFinish, onClose }) => {
     setFinalPlayersTiles(initialPlayersTiles);
   };
 
-  const handleOnListTilePressed = (playerId: PlayerId, letter: Letter) => {
+  const addPlayerTileLeft = (playerId: PlayerId, letter: Letter) => {
     setFinalPlayersTiles({
       ...finalPlayersTiles,
       [playerId]: [...finalPlayersTiles[playerId], letter],
@@ -65,7 +65,7 @@ const EndGameModal: React.FC<Props> = ({ onFinish, onClose }) => {
     });
   };
 
-  const handleOnPlayerTilePressed = (
+  const removePlayerTileLeft = (
     playerId: PlayerId,
     letter: Letter,
     index: number,
@@ -91,6 +91,10 @@ const EndGameModal: React.FC<Props> = ({ onFinish, onClose }) => {
     onClose();
   };
 
+  const notEndingPlayersIds = playersIds.filter(
+    (playerId) => playerId !== endingPlayerId,
+  );
+
   return (
     <Modal isVisible onBackdropPress={onClose} onSwipeCancel={onClose}>
       <ScrollView contentContainerStyle={styles.container}>
@@ -105,19 +109,17 @@ const EndGameModal: React.FC<Props> = ({ onFinish, onClose }) => {
           activeTabStyle={styles.activeControlTab}
         />
         <Text style={styles.header}>Zaznacz płytki pozostałych graczy</Text>
-        {playersIds
-          .filter((playerId) => playerId !== endingPlayerId)
-          .map((playerId) => (
-            <PlayerTilesLeft
-              key={playerId}
-              playerId={playerId}
-              player={players[playerId]!}
-              finalPlayerTiles={finalPlayersTiles[playerId]}
-              tilesLeft={tilesLeft}
-              onListTilePressed={handleOnListTilePressed}
-              onPlayerTilePressed={handleOnPlayerTilePressed}
-            />
-          ))}
+        {notEndingPlayersIds.map((playerId) => (
+          <PlayerTilesLeft
+            key={playerId}
+            playerId={playerId}
+            playerName={players[playerId]!.name}
+            tilesLeft={tilesLeft}
+            playerTilesLeft={finalPlayersTiles[playerId]}
+            onListTilePressed={addPlayerTileLeft}
+            onPlayerTilePressed={removePlayerTileLeft}
+          />
+        ))}
         <View style={styles.buttonsWrapper}>
           <FlatButton label="Anuluj" onPress={onClose} />
           <FlatButton label="Zakończ" onPress={finish} />

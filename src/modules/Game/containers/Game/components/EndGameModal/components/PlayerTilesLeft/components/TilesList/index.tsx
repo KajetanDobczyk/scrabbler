@@ -2,10 +2,10 @@ import React from 'react';
 import { View } from 'react-native';
 
 import { Letter } from 'src/modules/Dictionary/interfaces';
+import { ITilesList } from 'src/modules/Game/interfaces';
 
-import { styles } from './styles';
 import TilesListElement from './components/TilesListElement';
-import { ITilesList } from '../../interfaces';
+import { styles } from './styles';
 
 type Props = {
   tilesList: ITilesList;
