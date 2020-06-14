@@ -4,7 +4,6 @@ import {
   ScrollView,
   NativeSyntheticEvent,
   NativeScrollEvent,
-  Text,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -12,16 +11,17 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import Header from 'src/layout/components/Header';
 import { Screen } from 'src/layout/interfaces';
 import IconButton from 'src/theme/components/IconButton';
-import ScoresTable from 'src/modules/Players/containers/ScoresTable';
 
 import { GameTabParamList, GameScreen } from '../../interfaces';
-import { selectNewMove, selectGameView } from '../../store/selectors';
 import Board from './components/Board';
 import EndGameModal from './components/EndGameModal';
 import NewMoveMenu from './components/NewMoveMenu';
 import TilesAvailability from './components/TilesAvailability';
 import { styles } from './styles';
-import { setGameView } from '../../store/slice';
+import { selectNewMove } from '../../store/board/selectors';
+import { selectGameView } from '../../store/config/selectors';
+import { setGameView } from '../../store/config/slice';
+import ScoresTable from './components/ScoresTable';
 
 type Props = {
   navigation: StackNavigationProp<GameTabParamList, GameScreen.NewGame>;

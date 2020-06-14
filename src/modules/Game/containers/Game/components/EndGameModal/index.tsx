@@ -4,21 +4,22 @@ import Modal from 'react-native-modal';
 import { useSelector, useDispatch } from 'react-redux';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 
-import {
-  selectPlayers,
-  selectPreviousPlayerId,
-} from 'src/modules/Players/store/selectors';
-import { PlayerId, IFinalPlayersTiles } from 'src/modules/Players/interfaces';
-import { selectTilesList } from 'src/modules/Game/store/selectors';
+import { PlayerId } from 'src/modules/Players/interfaces';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import {
-  updateFinalPlayersTiles,
   setEndingPlayerId as setEndingPlayerIdAction,
-} from 'src/modules/Players/store/slice';
+  updateFinalPlayersTiles,
+} from 'src/modules/Game/store/players/slice';
 import FlatButton from 'src/theme/components/FlatButton';
+import {
+  selectPreviousPlayerId,
+  selectPlayers,
+} from 'src/modules/Game/store/players/selectors';
+import { selectTilesList } from 'src/modules/Game/store/board/selectors';
+import { IFinalPlayersTiles } from 'src/modules/Game/interfaces';
 
-import { styles } from './styles';
 import PlayerTilesLeft from './components/PlayerTilesLeft';
+import { styles } from './styles';
 
 type Props = {
   onFinish: () => void;

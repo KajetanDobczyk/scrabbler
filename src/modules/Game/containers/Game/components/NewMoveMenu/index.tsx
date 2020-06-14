@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { tryNewMove } from 'src/modules/Players/store/thunks';
-import { cancelNewMove } from 'src/modules/Game/store/slice';
-import { selectTilesList } from 'src/modules/Game/store/selectors';
 import { Letter } from 'src/modules/Dictionary/interfaces';
-import { listBoardTilePressed } from 'src/modules/Game/store/thunks';
 import FlatButton from 'src/theme/components/FlatButton';
+import { cancelNewMove } from 'src/modules/Game/store/board/slice';
+import { tryNewMove } from 'src/modules/Game/store/players/thunks';
+import { selectTilesList } from 'src/modules/Game/store/board/selectors';
+import { listBoardTilePressed } from 'src/modules/Game/store/board/thunks';
 
 import TilesList from './components/TilesList';
 import BlankModal from './components/BlankModal';

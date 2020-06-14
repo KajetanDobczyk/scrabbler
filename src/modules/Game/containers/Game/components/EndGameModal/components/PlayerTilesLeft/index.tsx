@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import range from 'lodash/range';
 
-import { IPlayer, PlayerId } from 'src/modules/Players/interfaces';
+import { PlayerId } from 'src/modules/Players/interfaces';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import Tile from 'src/modules/Game/components/Tile';
 import { ITilesList } from 'src/modules/Game/interfaces';

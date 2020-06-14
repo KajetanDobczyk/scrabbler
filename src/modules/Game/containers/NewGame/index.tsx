@@ -5,9 +5,9 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import FlatButton from 'src/theme/components/FlatButton';
 import { PlayerId, IPlayersNames } from 'src/modules/Players/interfaces';
-import { startNewGame } from 'src/modules/Players/store/thunks';
 
 import { GameScreen, GameTabParamList } from '../../interfaces';
+import { startNewGame } from '../../store/players/thunks';
 import PlayerName from './components/PlayerName';
 import { styles } from './styles';
 

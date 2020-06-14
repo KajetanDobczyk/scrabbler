@@ -3,7 +3,7 @@ import { View, Animated, TouchableOpacity, Easing } from 'react-native';
 
 import { IBoardField } from 'src/modules/Game/interfaces';
 import Tile from 'src/modules/Game/components/Tile';
-import { boardFieldsColors } from 'src/modules/Game/data';
+import { boardFieldsColors } from 'src/modules/Game/store/board/data';
 
 import { stylesFun } from './styles';
 

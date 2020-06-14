@@ -2,13 +2,10 @@ import React from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import { selectTilesList } from 'src/modules/Game/store/selectors';
 import { initialTilesAmount } from 'src/modules/Game/store/data';
 import { Letter } from 'src/modules/Dictionary/interfaces';
-import {
-  getAreAllLetterTilesUsed,
-  getIsLetterTileUsed,
-} from 'src/modules/Dictionary/helpers';
+import { getAreAllLetterTilesUsed } from 'src/modules/Dictionary/helpers';
+import { selectTilesList } from 'src/modules/Game/store/board/selectors';
 
 import { styles } from './styles';
 

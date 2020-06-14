@@ -5,9 +5,9 @@ import {
   selectPlayers,
   selectEndingPlayerId,
   selectTotalFinalTilesPoints,
-} from 'src/modules/Players/store/selectors';
+} from 'src/modules/Game/store/players/selectors';
 import { PlayerId } from 'src/modules/Players/interfaces';
-import { getFinalPlayersPoints } from 'src/modules/Players/helpers';
+import { getFinalPlayersPoints } from 'src/modules/Game/store/players/helpers';
 
 import FinishedGamePlayerTile from './components/FinishedGamePlayerTile';
 

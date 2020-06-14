@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-import { IPlayer } from 'src/modules/Players/interfaces';
+import { IPlayer } from 'src/modules/Game/interfaces';
 
 import { styles } from './styles';
 
