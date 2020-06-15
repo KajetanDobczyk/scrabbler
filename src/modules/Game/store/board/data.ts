@@ -1,18 +1,18 @@
 import { Letter } from 'src/modules/Dictionary/interfaces';
-import { color } from 'src/theme';
+import { Theme } from 'src/theme/interfaces';
 
 import { IBoardFields, FieldBonus, ITilesList } from '../../interfaces';
 import { IBoardState } from './interfaces';
 
 export const rowFieldsAmount = 15;
 
-export const boardFieldsColors: Record<FieldBonus, string> = {
+export const getBoardFieldsColors = ({ color }: Theme) => ({
   0: color.lightGreen,
   dl: color.lightBlue,
   tl: color.blue,
   dw: color.pink,
   tw: color.red,
-};
+});
 
 export const fieldsBonuses: FieldBonus[][] = [
   ['tw', 0, 0, 'dl', 0, 0, 0, 'tw', 0, 0, 0, 'dl', 0, 0, 'tw'],

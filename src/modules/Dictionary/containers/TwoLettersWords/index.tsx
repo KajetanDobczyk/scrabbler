@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { twoLettersWords } from 'src/modules/Dictionary/data';
 import Header from 'src/layout/components/Header';
+import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import { styles } from './styles';
 import {
@@ -25,6 +26,8 @@ type Props = {
 const TwoLettersWords: React.FC<Props> = ({ navigation }) => {
   const dispatch = useDispatch();
 
+  const themedStyles = styles(useSelector(selectTheme));
+
   const searchWord = (word: string) => () => {
     dispatch(setSearchQuery(word));
     dispatch(fetchWordData());
@@ -38,15 +41,15 @@ const TwoLettersWords: React.FC<Props> = ({ navigation }) => {
         onGoBack={() => navigation.goBack()}
         hideMenuButton
       />
-      <View style={styles.container}>
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={themedStyles.container}>
+        <ScrollView contentContainerStyle={themedStyles.scrollContainer}>
           {(Object.keys(twoLettersWords) as Letter[]).map((letter) => (
-            <View key={letter} style={styles.letterRow}>
-              <Text style={styles.letter}>{letter}</Text>
-              <View style={styles.letterWords}>
+            <View key={letter} style={themedStyles.letterRow}>
+              <Text style={themedStyles.letter}>{letter}</Text>
+              <View style={themedStyles.letterWords}>
                 {twoLettersWords[letter]!.map((word) => (
                   <TouchableOpacity key={word} onPress={searchWord(word)}>
-                    <Text style={styles.word}>{word}</Text>
+                    <Text style={themedStyles.word}>{word}</Text>
                   </TouchableOpacity>
                 ))}
               </View>

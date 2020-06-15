@@ -7,6 +7,7 @@ import { Letter } from 'src/modules/Dictionary/interfaces';
 import Tile from 'src/modules/Game/components/Tile';
 import { selectTilesList } from 'src/modules/Game/store/board/selectors';
 import { listBoardTilePressed } from 'src/modules/Game/store/board/thunks';
+import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import { styles } from './styles';
 
@@ -16,7 +17,9 @@ type Props = {
 
 const BlankModal: React.FC<Props> = ({ onClose }) => {
   const dispatch = useDispatch();
+
   const tilesList = useSelector(selectTilesList);
+  const themedStyles = styles(useSelector(selectTheme));
 
   const handleTilePress = (letter: Letter) => () => {
     dispatch(listBoardTilePressed('?', letter));
@@ -25,14 +28,14 @@ const BlankModal: React.FC<Props> = ({ onClose }) => {
 
   return (
     <Modal isVisible onBackdropPress={onClose} onSwipeCancel={onClose}>
-      <View style={styles.container}>
-        <Text style={styles.header}>Wybierz literę</Text>
-        <View style={styles.tilesList}>
+      <View style={themedStyles.container}>
+        <Text style={themedStyles.header}>Wybierz literę</Text>
+        <View style={themedStyles.tilesList}>
           {(Object.keys(tilesList) as Letter[]).map((letter) =>
             !!(letter !== '?' && tilesList[letter].amountLeft) ? (
               <TouchableOpacity
                 key={letter}
-                style={styles.tileWrapper}
+                style={themedStyles.tileWrapper}
                 onPress={handleTilePress(letter)}
               >
                 <Tile letter={letter} hidePoints />

@@ -8,6 +8,7 @@ import { cancelNewMove } from 'src/modules/Game/store/board/slice';
 import { tryNewMove } from 'src/modules/Game/store/players/thunks';
 import { selectTilesList } from 'src/modules/Game/store/board/selectors';
 import { listBoardTilePressed } from 'src/modules/Game/store/board/thunks';
+import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import TilesList from './components/TilesList';
 import BlankModal from './components/BlankModal';
@@ -24,6 +25,7 @@ const NewMoveMenu = () => {
   const [isBlankModalVisible, setIsBlankModalVisible] = useState(false);
 
   const tilesList = useSelector(selectTilesList);
+  const themedStyles = styles(useSelector(selectTheme));
 
   const handleMenuAction = (actionLabel: string) => () => {
     const action = menuActions[actionLabel];
@@ -43,17 +45,17 @@ const NewMoveMenu = () => {
 
   return (
     <>
-      <View style={styles.container}>
+      <View style={themedStyles.container}>
         <TilesList
           tilesList={tilesList}
           onTilePressed={handleOnTilePressed}
           onBlankPressed={toggleBlankModal}
         />
-        <View style={styles.buttonsWrapper}>
-          <View style={styles.leftButtonWrapper}>
+        <View style={themedStyles.buttonsWrapper}>
+          <View style={themedStyles.leftButtonWrapper}>
             <FlatButton label="Anuluj" onPress={handleMenuAction('cancel')} />
           </View>
-          <FlatButton label="OK" onPress={handleMenuAction('aceept')} />
+          <FlatButton label="OK" onPress={handleMenuAction('accept')} />
         </View>
       </View>
       {isBlankModalVisible && <BlankModal onClose={toggleBlankModal} />}

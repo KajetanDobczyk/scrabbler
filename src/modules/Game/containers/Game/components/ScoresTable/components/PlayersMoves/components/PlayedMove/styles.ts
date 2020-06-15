@@ -1,12 +1,8 @@
 import { StyleSheet } from 'react-native';
 
-import { color, font } from 'src/theme';
+import { Theme } from 'src/theme/interfaces';
 
-type StylesProps = {
-  opacity?: number;
-};
-
-export const stylesFun = ({ opacity }: StylesProps) =>
+export const styles = ({ color, font }: Theme) =>
   StyleSheet.create({
     container: {
       position: 'relative',
@@ -26,7 +22,6 @@ export const stylesFun = ({ opacity }: StylesProps) =>
     letter: {
       textTransform: 'uppercase',
       fontSize: font.size.xs,
-      opacity,
     },
     points: {
       fontSize: font.size.xs,
@@ -35,7 +30,7 @@ export const stylesFun = ({ opacity }: StylesProps) =>
       fontWeight: 'bold',
     },
     skipped: {
-      color: color.gray.medium,
+      color: color.grayMedium,
     },
     loss: {
       color: color.red,

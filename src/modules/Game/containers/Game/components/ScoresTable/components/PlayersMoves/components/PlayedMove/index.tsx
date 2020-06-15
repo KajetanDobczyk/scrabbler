@@ -1,10 +1,12 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import { IPlayedMove } from 'src/modules/Game/interfaces';
 import { countPlayedWordPoints } from 'src/modules/Game/store/players/helpers';
+import { selectTheme } from 'src/modules/Settings/store/selectors';
 
-import { stylesFun } from './styles';
+import { styles } from './styles';
 
 type Props = {
   index: number;
@@ -14,11 +16,11 @@ type Props = {
 };
 
 const PlayedMove: React.FC<Props> = ({ index, move, height, onLayout }) => {
+  const themedStyles = styles(useSelector(selectTheme));
+
   const isSeven = move.tiles.length === 7;
 
   let movePoints = isSeven ? 50 : 0;
-
-  const styles = stylesFun({});
 
   // Can't use nativeEvent's height, because it's same height as in given styles
   const handleOnLayout = () => {
@@ -34,7 +36,9 @@ const PlayedMove: React.FC<Props> = ({ index, move, height, onLayout }) => {
 
   return (
     <View
-      style={height ? [styles.container, { height }] : styles.container}
+      style={
+        height ? [themedStyles.container, { height }] : themedStyles.container
+      }
       onLayout={handleOnLayout}
     >
       {move.words.map((word, i) => {
@@ -42,40 +46,41 @@ const PlayedMove: React.FC<Props> = ({ index, move, height, onLayout }) => {
         movePoints += wordPoints;
 
         return (
-          <View key={i} style={styles.wordRow}>
-            <View style={styles.letters}>
+          <View key={i} style={themedStyles.wordRow}>
+            <View style={themedStyles.letters}>
               {word.map((field, j) => (
                 <Text
                   key={j}
-                  style={
-                    stylesFun({
+                  style={[
+                    themedStyles.letter,
+                    {
                       opacity: field.blankLetter ? 0.3 : 1,
-                    }).letter
-                  }
+                    },
+                  ]}
                 >
                   {field.blankLetter || field.letter}
                 </Text>
               ))}
             </View>
-            <Text style={styles.points}>{wordPoints}</Text>
+            <Text style={themedStyles.points}>{wordPoints}</Text>
           </View>
         );
       })}
       {isSeven && (
-        <View style={styles.wordRow}>
-          <View style={styles.letters}>
-            <Text style={[styles.letter, styles.bonus]}>Bonus</Text>
+        <View style={themedStyles.wordRow}>
+          <View style={themedStyles.letters}>
+            <Text style={[themedStyles.letter, themedStyles.bonus]}>Bonus</Text>
           </View>
-          <Text style={[styles.points, styles.bonus]}>50</Text>
+          <Text style={[themedStyles.points, themedStyles.bonus]}>50</Text>
         </View>
       )}
       {move.type === 'skipped' && (
-        <Text style={[styles.movePoints, styles.skipped]}>—</Text>
+        <Text style={[themedStyles.movePoints, themedStyles.skipped]}>—</Text>
       )}
       {move.type === 'loss' && (
-        <Text style={[styles.movePoints, styles.loss]}>X</Text>
+        <Text style={[themedStyles.movePoints, themedStyles.loss]}>X</Text>
       )}
-      {!move.type && <Text style={styles.movePoints}>{movePoints}</Text>}
+      {!move.type && <Text style={themedStyles.movePoints}>{movePoints}</Text>}
     </View>
   );
 };

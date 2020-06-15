@@ -6,21 +6,23 @@ import { initialTilesAmount } from 'src/modules/Game/store/data';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import { getAreAllLetterTilesUsed } from 'src/modules/Dictionary/helpers';
 import { selectTilesList } from 'src/modules/Game/store/board/selectors';
+import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import { styles } from './styles';
 
 const TilesAvailability = () => {
   const tilesList = useSelector(selectTilesList);
+  const themedStyles = styles(useSelector(selectTheme));
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={themedStyles.container}>
       {(Object.keys(tilesList) as Letter[]).map((letter) => (
-        <View key={letter} style={styles.tileInfoWrapper}>
+        <View key={letter} style={themedStyles.tileInfoWrapper}>
           <Text
             style={
               getAreAllLetterTilesUsed(tilesList, letter)
-                ? [styles.letter, styles.used]
-                : styles.letter
+                ? [themedStyles.letter, themedStyles.used]
+                : themedStyles.letter
             }
           >
             {letter}
@@ -28,8 +30,8 @@ const TilesAvailability = () => {
           <Text
             style={
               getAreAllLetterTilesUsed(tilesList, letter)
-                ? [styles.amount, styles.used]
-                : styles.amount
+                ? [themedStyles.amount, themedStyles.used]
+                : themedStyles.amount
             }
           >
             {tilesList[letter].amountLeft}
@@ -37,8 +39,8 @@ const TilesAvailability = () => {
           <Text
             style={
               getAreAllLetterTilesUsed(tilesList, letter)
-                ? [styles.amount, styles.used]
-                : styles.amount
+                ? [themedStyles.amount, themedStyles.used]
+                : themedStyles.amount
             }
           >
             {' '}

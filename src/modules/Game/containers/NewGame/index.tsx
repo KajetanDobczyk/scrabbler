@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import FlatButton from 'src/theme/components/FlatButton';
 import { PlayerId, IPlayersNames } from 'src/modules/Players/interfaces';
+import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import { GameScreen, GameTabParamList } from '../../interfaces';
 import { startNewGame } from '../../store/players/thunks';
@@ -17,6 +18,9 @@ type Props = {
 
 const NewGame: React.FC<Props> = ({ navigation }) => {
   const dispatch = useDispatch();
+
+  const themedStyles = styles(useSelector(selectTheme));
+
   const [playersNames, setPlayersNames] = useState<IPlayersNames>({
     0: '',
     1: '',
@@ -41,8 +45,8 @@ const NewGame: React.FC<Props> = ({ navigation }) => {
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.container}>
-        <Text style={styles.header}>Podaj imiona graczy</Text>
+      <View style={themedStyles.container}>
+        <Text style={themedStyles.header}>Podaj imiona graczy</Text>
         <View>
           {(Object.keys(playersNames) as PlayerId[]).map((playerId, i) => (
             <PlayerName

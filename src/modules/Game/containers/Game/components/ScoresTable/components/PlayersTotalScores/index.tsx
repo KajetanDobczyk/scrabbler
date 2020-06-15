@@ -8,22 +8,24 @@ import {
   selectCurrentPlayerId,
 } from 'src/modules/Game/store/players/selectors';
 import { sumMovesPoints } from 'src/modules/Game/store/players/helpers';
+import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import { styles } from './styles';
 
 const PlayersTotalScores = () => {
   const players = useSelector(selectPlayers);
   const currentPlayerId = useSelector(selectCurrentPlayerId);
+  const themedStyles = styles(useSelector(selectTheme));
 
   return (
-    <View style={styles.container}>
+    <View style={themedStyles.container}>
       {(Object.keys(players) as PlayerId[]).map((playerId, i) => (
-        <View key={i} style={styles.pointsWrapper}>
+        <View key={i} style={themedStyles.pointsWrapper}>
           <Text
             style={
               currentPlayerId === playerId
-                ? [styles.points, styles.currentPlayerPoints]
-                : styles.points
+                ? [themedStyles.points, themedStyles.currentPlayerPoints]
+                : themedStyles.points
             }
           >
             {sumMovesPoints(players[playerId]!.moves)}

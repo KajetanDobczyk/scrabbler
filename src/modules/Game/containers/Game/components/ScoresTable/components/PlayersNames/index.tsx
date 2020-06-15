@@ -7,22 +7,24 @@ import {
   selectCurrentPlayerId,
   selectPlayers,
 } from 'src/modules/Game/store/players/selectors';
+import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import { styles } from './styles';
 
 const PlayersNames = () => {
   const currentPlayerId = useSelector(selectCurrentPlayerId);
   const players = useSelector(selectPlayers);
+  const themedStyles = styles(useSelector(selectTheme));
 
   return (
-    <View style={styles.container}>
+    <View style={themedStyles.container}>
       {(Object.keys(players) as PlayerId[]).map((playerId) => (
         <Text
           key={playerId}
           style={
             playerId === currentPlayerId.toString()
-              ? [styles.name, styles.currentName]
-              : styles.name
+              ? [themedStyles.name, themedStyles.currentName]
+              : themedStyles.name
           }
         >
           {players[playerId]!.name}

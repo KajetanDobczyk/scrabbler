@@ -11,6 +11,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import Header from 'src/layout/components/Header';
 import { Screen } from 'src/layout/interfaces';
 import IconButton from 'src/theme/components/IconButton';
+import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import { GameTabParamList, GameScreen } from '../../interfaces';
 import Board from './components/Board';
@@ -33,6 +34,7 @@ const Game: React.FC<Props> = ({ navigation }) => {
 
   const newMove = useSelector(selectNewMove);
   const view = useSelector(selectGameView);
+  const themedStyles = styles(useSelector(selectTheme));
 
   const [isEndGameModalVisible, setIsEndGameModalVisible] = useState(false);
 
@@ -69,14 +71,14 @@ const Game: React.FC<Props> = ({ navigation }) => {
       <ScrollView
         ref={scrollView}
         horizontal={true}
-        contentContainerStyle={styles.scrollViewContent}
+        contentContainerStyle={themedStyles.scrollViewContent}
         pagingEnabled={true}
         onMomentumScrollEnd={handleOnMomentumScrollEnd}
       >
-        <View style={styles.horizontalScreen}>
+        <View style={themedStyles.horizontalScreen}>
           <ScoresTable />
         </View>
-        <View style={styles.horizontalScreen}>
+        <View style={themedStyles.horizontalScreen}>
           <Board />
           {newMove.tiles.length || newMove.target ? (
             <NewMoveMenu />

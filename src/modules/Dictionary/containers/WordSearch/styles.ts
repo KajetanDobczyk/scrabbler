@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native';
 
-import { color } from 'src/theme';
+import { Theme } from 'src/theme/interfaces';
 
-export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: color.white,
-  },
-});
+export const styles = ({ color }: Theme) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: color.white,
+    },
+  });

@@ -6,12 +6,14 @@ import { selectWordSearchQuery } from 'src/modules/Dictionary/store/selectors';
 import { setSearchQuery } from 'src/modules/Dictionary/store/slice';
 import { fetchWordData } from 'src/modules/Dictionary/store/thunks';
 import IconButton from 'src/theme/components/IconButton';
+import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import { styles } from './styles';
 
 const SearchBar = () => {
   const dispatch = useDispatch();
 
+  const themedStyles = styles(useSelector(selectTheme));
   const query = useSelector(selectWordSearchQuery);
 
   const handleOnChangeText = (text: string) => {
@@ -24,9 +26,9 @@ const SearchBar = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={themedStyles.container}>
       <TextInput
-        style={styles.input}
+        style={themedStyles.input}
         value={query}
         onChangeText={handleOnChangeText}
       />

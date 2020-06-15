@@ -9,7 +9,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
 
 import Header from 'src/layout/components/Header';
-import { color } from 'src/theme';
+import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import { styles } from './styles';
 import { DictionaryTabParamList, DictionaryScreen } from '../../interfaces';
@@ -25,16 +25,18 @@ type Props = {
 };
 
 const WordSearch: React.FC<Props> = () => {
+  const theme = useSelector(selectTheme);
+  const themedStyles = styles(theme);
   const fetchStatus = useSelector(selectWordSearchFetchStatus);
 
   return (
     <>
       <Header title={DictionaryScreen.Home} />
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View style={styles.container}>
+        <View style={themedStyles.container}>
           <SearchBar />
           {fetchStatus === 'inProgress' && (
-            <ActivityIndicator color={color.green} />
+            <ActivityIndicator color={theme.color.green} />
           )}
           {fetchStatus === 'succeeded' && <SearchResult />}
         </View>

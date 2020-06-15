@@ -1,12 +1,14 @@
 import React from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import range from 'lodash/range';
+import { useSelector } from 'react-redux';
 
 import { PlayerId } from 'src/modules/Players/interfaces';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import Tile from 'src/modules/Game/components/Tile';
 import { ITilesList } from 'src/modules/Game/interfaces';
 import { tilesPoints } from 'src/modules/Dictionary/data';
+import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import TilesList from './components/TilesList';
 import { styles } from './styles';
@@ -32,6 +34,8 @@ const PlayerTilesLeft: React.FC<Props> = ({
   onListTilePressed,
   onPlayerTilePressed,
 }) => {
+  const themedStyles = styles(useSelector(selectTheme));
+
   const handleOnTilePressed = (letter: Letter) => {
     onListTilePressed(playerId, letter);
   };
@@ -51,17 +55,17 @@ const PlayerTilesLeft: React.FC<Props> = ({
   );
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.name}>{playerName}</Text>
-        <View style={styles.tilesLeft}>
+    <View style={themedStyles.container}>
+      <View style={themedStyles.header}>
+        <Text style={themedStyles.name}>{playerName}</Text>
+        <View style={themedStyles.tilesLeft}>
           {range(placeholdersAmount).map((i) => (
-            <View key={i} style={styles.tilePlaceholder}></View>
+            <View key={i} style={themedStyles.tilePlaceholder}></View>
           ))}
           {playerTilesLeft.map((letter, i) => (
             <TouchableOpacity
               key={i}
-              style={styles.tileLeftWrapper}
+              style={themedStyles.tileLeftWrapper}
               onPress={handleOnPlayerTilePressed(letter, i)}
             >
               <Tile letter={letter} />
@@ -74,8 +78,8 @@ const PlayerTilesLeft: React.FC<Props> = ({
         onTilePressed={handleOnTilePressed}
         onBlankPressed={handleOnBlankPressed}
       />
-      <View style={styles.minusPointsWrapper}>
-        <Text style={styles.minusPoints}>{minusPoints}</Text>
+      <View style={themedStyles.minusPointsWrapper}>
+        <Text style={themedStyles.minusPoints}>{minusPoints}</Text>
       </View>
     </View>
   );

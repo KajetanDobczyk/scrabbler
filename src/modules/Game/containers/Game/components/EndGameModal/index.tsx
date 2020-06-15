@@ -17,6 +17,7 @@ import {
 } from 'src/modules/Game/store/players/selectors';
 import { selectTilesList } from 'src/modules/Game/store/board/selectors';
 import { IFinalPlayersTiles } from 'src/modules/Game/interfaces';
+import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import PlayerTilesLeft from './components/PlayerTilesLeft';
 import { styles } from './styles';
@@ -31,6 +32,7 @@ const EndGameModal: React.FC<Props> = ({ onFinish, onClose }) => {
 
   const previousPlayerId = useSelector(selectPreviousPlayerId);
   const players = useSelector(selectPlayers);
+  const themedStyles = styles(useSelector(selectTheme));
 
   const playersIds = Object.keys(players) as PlayerId[];
 
@@ -98,18 +100,20 @@ const EndGameModal: React.FC<Props> = ({ onFinish, onClose }) => {
 
   return (
     <Modal isVisible onBackdropPress={onClose} onSwipeCancel={onClose}>
-      <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.header}>Kto zakończył grę?</Text>
+      <ScrollView contentContainerStyle={themedStyles.container}>
+        <Text style={themedStyles.header}>Kto zakończył grę?</Text>
         <SegmentedControlTab
           values={playersIds.map((playerId) => players[playerId]?.name)}
           selectedIndex={parseInt(endingPlayerId)}
           onTabPress={handleSelectEndingPlayer}
-          tabsContainerStyle={styles.controlTabWrapper}
-          tabStyle={styles.controlTab}
-          tabTextStyle={styles.controlTabText}
-          activeTabStyle={styles.activeControlTab}
+          tabsContainerStyle={themedStyles.controlTabWrapper}
+          tabStyle={themedStyles.controlTab}
+          tabTextStyle={themedStyles.controlTabText}
+          activeTabStyle={themedStyles.activeControlTab}
         />
-        <Text style={styles.header}>Zaznacz płytki pozostałych graczy</Text>
+        <Text style={themedStyles.header}>
+          Zaznacz płytki pozostałych graczy
+        </Text>
         {notEndingPlayersIds.map((playerId) => (
           <PlayerTilesLeft
             key={playerId}
@@ -121,7 +125,7 @@ const EndGameModal: React.FC<Props> = ({ onFinish, onClose }) => {
             onPlayerTilePressed={removePlayerTileLeft}
           />
         ))}
-        <View style={styles.buttonsWrapper}>
+        <View style={themedStyles.buttonsWrapper}>
           <FlatButton label="Anuluj" onPress={onClose} />
           <FlatButton label="Zakończ" onPress={finish} />
         </View>

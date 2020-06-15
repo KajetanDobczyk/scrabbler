@@ -6,7 +6,10 @@ import Header from 'src/layout/components/Header';
 import { Screen } from 'src/layout/interfaces';
 
 import { styles } from './styles';
-import { selectIsTilesAmountDisplayed } from '../../store/selectors';
+import {
+  selectIsTilesAmountDisplayed,
+  selectTheme,
+} from '../../store/selectors';
 import { toggleIsTilesAmountDisplayed } from '../../store/slice';
 import SettingRow from './components/SettingRow';
 
@@ -14,12 +17,13 @@ const Settings = () => {
   const dispatch = useDispatch();
 
   const isTilesAmountDisplayed = useSelector(selectIsTilesAmountDisplayed);
+  const themedStyles = styles(useSelector(selectTheme));
 
   return (
     <>
       <Header title={Screen.Settings} hideMenuButton />
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View style={styles.container}>
+        <View style={themedStyles.container}>
           <SettingRow
             label="Pokaż pozostałą ilość literek"
             value={isTilesAmountDisplayed}

@@ -6,13 +6,16 @@ import { Ionicons, Entypo, FontAwesome5 } from '@expo/vector-icons';
 import GameTabContent from 'src/modules/Game/navigation';
 import DictionaryTabContent from 'src/modules/Dictionary/navigation';
 import SettingsTabContent from 'src/modules/Settings/navigation';
-import { color } from 'src/theme';
+import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import { Screen } from './interfaces';
+import { useSelector } from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigation = () => {
+  const { color } = useSelector(selectTheme);
+
   const getTabBarIcon = (routeName: string, color: string) => {
     switch (routeName) {
       case Screen.Game:

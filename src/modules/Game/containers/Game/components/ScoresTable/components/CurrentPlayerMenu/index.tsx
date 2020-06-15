@@ -9,6 +9,7 @@ import {
 } from 'src/modules/Game/store/players/thunks';
 import { selectIsFirstMove } from 'src/modules/Game/store/players/selectors';
 import { setGameView } from 'src/modules/Game/store/config/slice';
+import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import { styles } from './styles';
 
@@ -21,6 +22,7 @@ const CurrentPlayerMenu = () => {
   const dispatch = useDispatch();
 
   const isFirstMove = useSelector(selectIsFirstMove);
+  const themedStyles = styles(useSelector(selectTheme));
 
   const handleMenuAction = (actionLabel: string) => () => {
     const action = menuActions[actionLabel];
@@ -35,16 +37,16 @@ const CurrentPlayerMenu = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={themedStyles.container}>
       {!isFirstMove && (
-        <View style={styles.buttonWrapper}>
+        <View style={themedStyles.buttonWrapper}>
           <FlatButton label="Cofnij" onPress={handleMenuAction('reverse')} />
         </View>
       )}
-      <View style={styles.buttonWrapper}>
+      <View style={themedStyles.buttonWrapper}>
         <FlatButton label="Wymiana / pas" onPress={handleMenuAction('skip')} />
       </View>
-      <View style={styles.buttonWrapper}>
+      <View style={themedStyles.buttonWrapper}>
         <FlatButton label="Ułóż słowo" onPress={scrollToBoard} />
       </View>
     </View>

@@ -8,6 +8,7 @@ import {
   selectWordDescription,
   selectWordComments,
 } from 'src/modules/Dictionary/store/selectors';
+import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import { styles } from './styles';
 import Comment from './components/Comment';
@@ -17,21 +18,24 @@ const SearchResult = () => {
   const word = useSelector(selectSearchedWord);
   const description = useSelector(selectWordDescription);
   const comments = useSelector(selectWordComments);
+  const themedStyles = styles(useSelector(selectTheme));
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.word}>{word}</Text>
+    <ScrollView style={themedStyles.container}>
+      <Text style={themedStyles.word}>{word}</Text>
       <Text
         style={[
-          styles.isAllowedText,
-          isWordAllowed ? styles.allowed : styles.unallowed,
+          themedStyles.isAllowedText,
+          isWordAllowed ? themedStyles.allowed : themedStyles.unallowed,
         ]}
       >
         {isWordAllowed ? 'Dopuszczalne w grach' : 'Nie występuje w słowniku'}
       </Text>
-      {description && <Text style={styles.description}>{description}</Text>}
+      {description && (
+        <Text style={themedStyles.description}>{description}</Text>
+      )}
       {comments?.length ? (
-        <View style={styles.comments}>
+        <View style={themedStyles.comments}>
           {comments.map((comment, i) => (
             <Comment key={i} comment={comment} />
           ))}

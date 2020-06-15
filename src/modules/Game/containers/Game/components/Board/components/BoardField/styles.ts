@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native';
 
-import { color } from 'src/theme';
+import { Theme } from 'src/theme/interfaces';
 
 type StylesProps = {
   backgroundColor: string;
 };
 
-export const stylesFun = ({ backgroundColor }: StylesProps) =>
+export const styles = ({ color }: Theme, { backgroundColor }: StylesProps) =>
   StyleSheet.create({
     container: {
       position: 'relative',

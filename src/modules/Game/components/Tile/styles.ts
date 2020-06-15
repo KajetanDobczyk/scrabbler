@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native';
 
-import { color, font } from 'src/theme';
+import { Theme } from 'src/theme/interfaces';
 
 type StylesProps = {
   opacity: number;
 };
 
-export const stylesFun = ({ opacity }: StylesProps) =>
+export const styles = ({ color, font }: Theme, { opacity }: StylesProps) =>
   StyleSheet.create({
     container: {
       aspectRatio: 1,

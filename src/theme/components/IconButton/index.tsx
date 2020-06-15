@@ -1,6 +1,9 @@
 import React, { ComponentType } from 'react';
 import { TouchableOpacity, StyleProp, ViewStyle } from 'react-native';
 import { Ionicons, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
+import { useSelector } from 'react-redux';
+
+import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import { styles } from './styles';
 
@@ -31,18 +34,22 @@ const IconButton: React.FC<Props> = ({
   style,
   dark,
 }) => {
+  const themedStyles = styles(useSelector(selectTheme));
+
   const IconComponent = iconSets[iconSet];
 
   return (
     <TouchableOpacity
-      style={style ? [styles.container, style] : styles.container}
+      style={style ? [themedStyles.container, style] : themedStyles.container}
       onPress={onPress}
       disabled={disabled}
     >
       <IconComponent
         name={icon}
         size={size}
-        style={dark ? [styles.icon, styles.darkIcon] : styles.icon}
+        style={
+          dark ? [themedStyles.icon, themedStyles.darkIcon] : themedStyles.icon
+        }
       />
     </TouchableOpacity>
   );

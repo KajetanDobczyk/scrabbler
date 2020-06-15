@@ -7,6 +7,7 @@ import {
   selectBoardFields,
   selectNewMove,
 } from 'src/modules/Game/store/board/selectors';
+import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import BoardField from './components/BoardField';
 import { styles } from './styles';
@@ -16,15 +17,16 @@ const Board = () => {
 
   const boardFields = useSelector(selectBoardFields);
   const newMove = useSelector(selectNewMove);
+  const themedStyles = styles(useSelector(selectTheme));
 
   const handleOnBoardFieldPress = (x: number, y: number) => {
     dispatch(boardFieldPressed(x, y));
   };
 
   return (
-    <View style={styles.container}>
+    <View style={themedStyles.container}>
       {boardFields.map((row, y) => (
-        <View key={y} style={styles.row}>
+        <View key={y} style={themedStyles.row}>
           {row.map((field, x) => (
             <BoardField
               key={x}
