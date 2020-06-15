@@ -10,7 +10,13 @@ const settings = createSlice({
   initialState,
   reducers: {
     setTheme(state, action: PayloadAction<IThemeName>) {
-      state.theme = themes[action.payload];
+      const themeName = action.payload;
+      const theme = themes[action.payload];
+
+      state.theme = {
+        name: themeName,
+        theme,
+      };
     },
     toggleIsTilesAmountDisplayed(state) {
       state.isTilesAmountDisplayed = !state.isTilesAmountDisplayed;

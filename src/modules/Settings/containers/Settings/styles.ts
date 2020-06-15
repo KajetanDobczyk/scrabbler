@@ -10,9 +10,7 @@ export const styles = ({ color }: Theme) =>
       padding: 20,
     },
     settingRow: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
+      marginBottom: 10,
     },
     label: {},
   });

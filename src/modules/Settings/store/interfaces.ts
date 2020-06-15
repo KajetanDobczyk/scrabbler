@@ -1,6 +1,9 @@
-import { Theme } from 'src/theme/interfaces';
+import { Theme, IThemeName } from 'src/theme/interfaces';
 
 export type ISettingsState = {
-  theme: Theme;
+  theme: {
+    name: IThemeName;
+    theme: Theme;
+  };
   isTilesAmountDisplayed: boolean;
 };

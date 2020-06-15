@@ -1,4 +1,18 @@
-export type Color = Record<string, string>;
+type ColorName =
+  | 'white'
+  | 'black'
+  | 'grayLight'
+  | 'grayMedium'
+  | 'text'
+  | 'tile'
+  | 'board'
+  | 'boardField'
+  | 'doubleLetter'
+  | 'trippleLetter'
+  | 'doubleWord'
+  | 'trippleWord';
+
+export type Color = Record<ColorName, string>;
 
 type FontSize = 'xxs' | 'xs' | 'sm' | 'base' | 'md' | 'xl';
 

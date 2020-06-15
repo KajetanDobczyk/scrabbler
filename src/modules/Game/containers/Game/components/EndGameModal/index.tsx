@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Text, ScrollView, View } from 'react-native';
 import Modal from 'react-native-modal';
 import { useSelector, useDispatch } from 'react-redux';
-import SegmentedControlTab from 'react-native-segmented-control-tab';
 
 import { PlayerId } from 'src/modules/Players/interfaces';
 import { Letter } from 'src/modules/Dictionary/interfaces';
@@ -18,6 +17,7 @@ import {
 import { selectTilesList } from 'src/modules/Game/store/board/selectors';
 import { IFinalPlayersTiles } from 'src/modules/Game/interfaces';
 import { selectTheme } from 'src/modules/Settings/store/selectors';
+import SegmentedControlTab from 'src/shared/components/SegmentedControlTab';
 
 import PlayerTilesLeft from './components/PlayerTilesLeft';
 import { styles } from './styles';
@@ -106,10 +106,6 @@ const EndGameModal: React.FC<Props> = ({ onFinish, onClose }) => {
           values={playersIds.map((playerId) => players[playerId]?.name)}
           selectedIndex={parseInt(endingPlayerId)}
           onTabPress={handleSelectEndingPlayer}
-          tabsContainerStyle={themedStyles.controlTabWrapper}
-          tabStyle={themedStyles.controlTab}
-          tabTextStyle={themedStyles.controlTabText}
-          activeTabStyle={themedStyles.activeControlTab}
         />
         <Text style={themedStyles.header}>
           Zaznacz płytki pozostałych graczy

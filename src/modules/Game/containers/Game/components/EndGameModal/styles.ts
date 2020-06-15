@@ -12,20 +12,6 @@ export const styles = ({ color }: Theme) =>
     header: {
       color: color.white,
     },
-    controlTabWrapper: {
-      marginTop: 10,
-      marginBottom: 20,
-    },
-    controlTab: {
-      backgroundColor: color.board,
-      borderColor: color.boardField,
-    },
-    controlTabText: {
-      color: color.boardField,
-    },
-    activeControlTab: {
-      backgroundColor: color.boardField,
-    },
     buttonsWrapper: {
       flexDirection: 'row',
       justifyContent: 'space-between',
