@@ -9,7 +9,7 @@ export const styles = ({ color }: Theme) =>
       width: '100%',
       aspectRatio: 1,
       zIndex: 0,
-      backgroundColor: color.green,
+      backgroundColor: color.board,
       paddingHorizontal: 5,
       paddingBottom: 5,
     },

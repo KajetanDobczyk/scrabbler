@@ -12,15 +12,15 @@ type Props = {
   onChange: () => void;
 };
 
-const SettingRow: React.FC<Props> = ({ label, value, onChange }) => {
+const Toggle: React.FC<Props> = ({ label, value, onChange }) => {
   const { color } = useSelector(selectTheme);
 
   return (
     <View style={styles.container}>
       <Text>{label}</Text>
       <Switch
-        trackColor={{ false: color.grayLight, true: color.lightBlue }}
-        thumbColor={value ? color.blue : color.grayMedium}
+        trackColor={{ false: color.grayLight, true: color.doubleLetter }}
+        thumbColor={value ? color.trippleLetter : color.grayMedium}
         ios_backgroundColor="#3e3e3e"
         onValueChange={onChange}
         value={value}
@@ -29,4 +29,4 @@ const SettingRow: React.FC<Props> = ({ label, value, onChange }) => {
   );
 };
 
-export default SettingRow;
+export default Toggle;

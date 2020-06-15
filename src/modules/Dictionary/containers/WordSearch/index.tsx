@@ -36,7 +36,7 @@ const WordSearch: React.FC<Props> = () => {
         <View style={themedStyles.container}>
           <SearchBar />
           {fetchStatus === 'inProgress' && (
-            <ActivityIndicator color={theme.color.green} />
+            <ActivityIndicator color={theme.color.board} />
           )}
           {fetchStatus === 'succeeded' && <SearchResult />}
         </View>

@@ -11,7 +11,7 @@ import {
   selectTheme,
 } from '../../store/selectors';
 import { toggleIsTilesAmountDisplayed } from '../../store/slice';
-import SettingRow from './components/SettingRow';
+import Toggle from './components/Toggle';
 
 const Settings = () => {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const Settings = () => {
       <Header title={Screen.Settings} hideMenuButton />
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={themedStyles.container}>
-          <SettingRow
+          <Toggle
             label="Pokaż pozostałą ilość literek"
             value={isTilesAmountDisplayed}
             onChange={() => dispatch(toggleIsTilesAmountDisplayed())}

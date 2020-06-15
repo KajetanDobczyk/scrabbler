@@ -24,6 +24,6 @@ export const styles = ({ color, font }: Theme) =>
       fontSize: font.size.xs,
     },
     used: {
-      color: color.lightGreen,
+      color: color.boardField,
     },
   });

@@ -11,7 +11,7 @@ export const styles = ({ color, font }: Theme, { opacity }: StylesProps) =>
     container: {
       aspectRatio: 1,
       position: 'relative',
-      backgroundColor: color.cream,
+      backgroundColor: color.tile,
       borderRadius: 2,
     },
     highlightOverlay: {

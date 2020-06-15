@@ -7,11 +7,11 @@ import { IBoardState } from './interfaces';
 export const rowFieldsAmount = 15;
 
 export const getBoardFieldsColors = ({ color }: Theme) => ({
-  0: color.lightGreen,
-  dl: color.lightBlue,
-  tl: color.blue,
-  dw: color.pink,
-  tw: color.red,
+  0: color.boardField,
+  dl: color.doubleLetter,
+  tl: color.trippleLetter,
+  dw: color.doubleWord,
+  tw: color.trippleWord,
 });
 
 export const fieldsBonuses: FieldBonus[][] = [

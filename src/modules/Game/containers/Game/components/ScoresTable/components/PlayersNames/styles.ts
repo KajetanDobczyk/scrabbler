@@ -6,13 +6,13 @@ export const styles = ({ color, font }: Theme) =>
   StyleSheet.create({
     container: {
       flexDirection: 'row',
-      backgroundColor: color.green,
+      backgroundColor: color.board,
     },
     name: {
       flexGrow: 1,
       textAlign: 'center',
       fontSize: font.size.xs,
-      color: color.lightGreen,
+      color: color.boardField,
       paddingBottom: 5,
     },
     currentName: {

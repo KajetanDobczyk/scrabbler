@@ -8,7 +8,7 @@ export const styles = ({ color }: Theme) =>
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: color.green,
+      backgroundColor: color.board,
     },
     header: {
       color: color.white,

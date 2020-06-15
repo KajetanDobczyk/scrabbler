@@ -13,7 +13,7 @@ export const styles = ({ color }: Theme, { backgroundColor }: StylesProps) =>
       flexGrow: 1,
       flexBasis: 0,
       backgroundColor,
-      borderColor: color.green,
+      borderColor: color.board,
       borderWidth: 1,
     },
     highlightOverlay: {

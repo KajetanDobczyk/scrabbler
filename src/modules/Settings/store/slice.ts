@@ -18,6 +18,6 @@ const settings = createSlice({
   },
 });
 
-export const { toggleIsTilesAmountDisplayed } = settings.actions;
+export const { setTheme, toggleIsTilesAmountDisplayed } = settings.actions;
 
 export default settings.reducer;

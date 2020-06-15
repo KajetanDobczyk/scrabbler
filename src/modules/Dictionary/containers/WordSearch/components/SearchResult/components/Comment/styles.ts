@@ -14,7 +14,7 @@ export const styles = ({ color, font }: Theme) =>
     },
     author: {
       fontWeight: 'bold',
-      color: color.green,
+      color: color.board,
     },
     date: {
       fontSize: font.size.sm,

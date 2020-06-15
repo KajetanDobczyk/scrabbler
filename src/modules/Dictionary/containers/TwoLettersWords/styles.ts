@@ -19,7 +19,7 @@ export const styles = ({ color }: Theme) =>
       width: 25,
       textTransform: 'uppercase',
       fontWeight: 'bold',
-      color: color.green,
+      color: color.board,
     },
     letterWords: {
       flexDirection: 'row',

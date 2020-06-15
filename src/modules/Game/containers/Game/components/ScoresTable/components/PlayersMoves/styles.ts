@@ -9,7 +9,7 @@ export const styles = ({ color }: Theme) =>
       flexBasis: 0,
       flexGrow: 1,
       backgroundColor: color.white,
-      borderRightColor: color.green,
+      borderRightColor: color.board,
       borderRightWidth: 1,
     },
     'container:last-child': {

@@ -12,7 +12,7 @@ export const styles = ({ color }: Theme) =>
       marginBottom: 20,
     },
     index: {
-      color: color.lightGreen,
+      color: color.boardField,
       marginRight: 10,
     },
     indexHighlighted: {
@@ -21,7 +21,7 @@ export const styles = ({ color }: Theme) =>
     input: {
       flex: 1,
       color: color.white,
-      borderBottomColor: color.lightGreen,
+      borderBottomColor: color.boardField,
       borderBottomWidth: 1,
     },
   });

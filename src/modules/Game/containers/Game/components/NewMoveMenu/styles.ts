@@ -7,7 +7,7 @@ export const styles = ({ color }: Theme) =>
     container: {
       flexGrow: 1,
       justifyContent: 'space-between',
-      backgroundColor: color.green,
+      backgroundColor: color.board,
       padding: 2.5,
     },
     buttonsWrapper: {

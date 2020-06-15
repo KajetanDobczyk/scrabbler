@@ -8,7 +8,7 @@ export const styles = ({ color }: Theme) =>
       position: 'relative',
       marginTop: 10,
       borderWidth: 1,
-      borderColor: color.lightGreen,
+      borderColor: color.boardField,
       borderRadius: 4,
     },
     header: {
@@ -44,7 +44,7 @@ export const styles = ({ color }: Theme) =>
       borderRadius: 20,
       bottom: -5,
       right: -5,
-      backgroundColor: color.lightGreen,
+      backgroundColor: color.boardField,
     },
     minusPoints: {
       textAlign: 'center',

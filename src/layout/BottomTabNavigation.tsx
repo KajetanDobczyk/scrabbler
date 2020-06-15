@@ -37,11 +37,11 @@ const BottomTabNavigation = () => {
           tabBarIcon: ({ color }) => getTabBarIcon(route.name, color),
         })}
         tabBarOptions={{
-          activeBackgroundColor: color.green,
-          inactiveBackgroundColor: color.green,
+          activeBackgroundColor: color.board,
+          inactiveBackgroundColor: color.board,
           activeTintColor: color.white,
-          inactiveTintColor: color.lightGreen,
-          style: { borderTopColor: color.lightGreen },
+          inactiveTintColor: color.boardField,
+          style: { borderTopColor: color.boardField },
         }}
       >
         <Tab.Screen name={Screen.Game} component={GameTabContent} />

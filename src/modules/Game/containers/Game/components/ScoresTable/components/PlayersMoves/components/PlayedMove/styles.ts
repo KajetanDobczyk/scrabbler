@@ -10,7 +10,7 @@ export const styles = ({ color, font }: Theme) =>
       paddingHorizontal: 5,
       paddingBottom: 20,
       borderBottomWidth: 1,
-      borderBottomColor: color.green,
+      borderBottomColor: color.board,
     },
     wordRow: {
       flexDirection: 'row',
@@ -33,7 +33,7 @@ export const styles = ({ color, font }: Theme) =>
       color: color.grayMedium,
     },
     loss: {
-      color: color.red,
+      color: color.trippleWord,
     },
     movePoints: {
       position: 'absolute',

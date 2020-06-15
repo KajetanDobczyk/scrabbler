@@ -7,13 +7,13 @@ const color: Color = {
   grayLight: '#dddddd',
   grayMedium: '#aaaaaa',
   text: '#101913',
-  cream: '#eeebdb',
-  lightGreen: '#333333',
-  green: '#000000',
-  lightBlue: '#41c5f1',
-  blue: '#0083e2',
-  pink: '#ffa4b4',
-  red: '#da2d37',
+  tile: '#000000',
+  board: '#642b09',
+  boardField: '#f2cf9d',
+  doubleLetter: '#ccbcac',
+  trippleLetter: '#865840',
+  doubleWord: '#642b09',
+  trippleWord: '#da2d37',
 };
 
 export default {

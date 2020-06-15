@@ -6,7 +6,7 @@ import { Theme } from 'src/theme/interfaces';
 export const styles = ({ color, font }: Theme) =>
   StyleSheet.create({
     container: {
-      backgroundColor: color.green,
+      backgroundColor: color.board,
       paddingTop: StatusBarHeight + 20,
       paddingHorizontal: 20,
       paddingBottom: 20,

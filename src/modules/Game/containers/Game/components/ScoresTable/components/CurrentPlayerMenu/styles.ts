@@ -5,7 +5,7 @@ import { Theme } from 'src/theme/interfaces';
 export const styles = ({ color }: Theme) =>
   StyleSheet.create({
     container: {
-      backgroundColor: color.green,
+      backgroundColor: color.board,
       paddingHorizontal: 2.5,
       paddingBottom: 5,
       flexDirection: 'row',

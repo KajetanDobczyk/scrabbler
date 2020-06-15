@@ -6,7 +6,7 @@ export const styles = ({ color }: Theme) =>
   StyleSheet.create({
     container: {
       flexDirection: 'row',
-      backgroundColor: color.lightGreen,
+      backgroundColor: color.boardField,
     },
     pointsWrapper: {
       flexBasis: 0,
@@ -15,11 +15,11 @@ export const styles = ({ color }: Theme) =>
       justifyContent: 'flex-end',
       alignItems: 'center',
       padding: 5,
-      backgroundColor: color.green,
+      backgroundColor: color.board,
     },
     points: {
       fontWeight: 'bold',
-      color: color.lightGreen,
+      color: color.boardField,
     },
     currentPlayerPoints: {
       color: color.white,

@@ -16,10 +16,10 @@ export const styles = ({ color, font }: Theme) =>
       marginBottom: 20,
     },
     allowed: {
-      color: color.green,
+      color: color.board,
     },
     unallowed: {
-      color: color.red,
+      color: color.trippleWord,
     },
     description: {
       marginBottom: 20,

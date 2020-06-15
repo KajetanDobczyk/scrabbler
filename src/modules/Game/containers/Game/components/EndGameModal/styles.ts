@@ -5,7 +5,7 @@ import { Theme } from 'src/theme/interfaces';
 export const styles = ({ color }: Theme) =>
   StyleSheet.create({
     container: {
-      backgroundColor: color.green,
+      backgroundColor: color.board,
       padding: 20,
       borderRadius: 4,
     },
@@ -17,14 +17,14 @@ export const styles = ({ color }: Theme) =>
       marginBottom: 20,
     },
     controlTab: {
-      backgroundColor: color.green,
-      borderColor: color.lightGreen,
+      backgroundColor: color.board,
+      borderColor: color.boardField,
     },
     controlTabText: {
-      color: color.lightGreen,
+      color: color.boardField,
     },
     activeControlTab: {
-      backgroundColor: color.lightGreen,
+      backgroundColor: color.boardField,
     },
     buttonsWrapper: {
       flexDirection: 'row',
