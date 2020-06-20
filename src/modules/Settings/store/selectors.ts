@@ -9,6 +9,11 @@ export const selectThemeName = createSelector(
   (settingsState) => settingsState.theme.name,
 );
 
+export const selectLanguage = createSelector(
+  selectSettingsState,
+  (settingsState) => settingsState.language,
+);
+
 export const selectTheme = createSelector(
   selectSettingsState,
   (settingsState) => settingsState.theme.theme,

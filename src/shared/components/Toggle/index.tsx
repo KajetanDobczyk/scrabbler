@@ -19,8 +19,8 @@ const Toggle: React.FC<Props> = ({ label, value, onChange }) => {
     <View style={styles.container}>
       <Text>{label}</Text>
       <Switch
-        trackColor={{ false: color.grayLight, true: color.doubleLetter }}
-        thumbColor={value ? color.trippleLetter : color.grayMedium}
+        trackColor={{ false: color.grayLight, true: color.boardField }}
+        thumbColor={value ? color.board : color.grayMedium}
         ios_backgroundColor="#3e3e3e"
         onValueChange={onChange}
         value={value}

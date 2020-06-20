@@ -6,7 +6,6 @@ export const styles = ({ color }: Theme) =>
   StyleSheet.create({
     controlTabWrapper: {
       marginTop: 10,
-      marginBottom: 20,
     },
     controlTab: {
       backgroundColor: color.board,
