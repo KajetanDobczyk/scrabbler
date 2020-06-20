@@ -1,5 +1,6 @@
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import { Theme } from 'src/theme/interfaces';
+import { initialTilesAmount } from 'src/modules/Dictionary/data';
 
 import { IBoardFields, FieldBonus, ITilesList } from '../../interfaces';
 import { IBoardState } from './interfaces';
@@ -47,42 +48,6 @@ export const initialLayout = {
   y: 0,
   size: 0,
   tileSize: 0,
-};
-
-export const initialTilesAmount: Record<Letter, number> = {
-  ['?']: 2,
-  ['a']: 9,
-  ['ą']: 1,
-  ['b']: 2,
-  ['c']: 3,
-  ['ć']: 1,
-  ['d']: 3,
-  ['e']: 7,
-  ['ę']: 1,
-  ['f']: 1,
-  ['g']: 2,
-  ['h']: 2,
-  ['i']: 8,
-  ['j']: 2,
-  ['k']: 3,
-  ['l']: 3,
-  ['ł']: 2,
-  ['m']: 3,
-  ['n']: 5,
-  ['ń']: 1,
-  ['o']: 6,
-  ['ó']: 1,
-  ['p']: 3,
-  ['r']: 4,
-  ['s']: 4,
-  ['ś']: 1,
-  ['t']: 3,
-  ['u']: 2,
-  ['w']: 4,
-  ['y']: 4,
-  ['z']: 5,
-  ['ż']: 1,
-  ['ź']: 1,
 };
 
 const getInitialTilesList: () => ITilesList = () =>

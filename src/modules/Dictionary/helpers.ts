@@ -1,6 +1,6 @@
 import { Letter } from './interfaces';
-import { initialTilesAmount } from '../Game/store/data';
 import { ITilesList } from '../Game/interfaces';
+import { initialTilesAmount } from './data';
 
 export const getIsLetterTileUsed = (tilesList: ITilesList, letter: Letter) =>
   tilesList[letter].amountLeft !== initialTilesAmount[letter];

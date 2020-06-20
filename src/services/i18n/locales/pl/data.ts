@@ -1,6 +1,6 @@
-import { Letter } from './interfaces';
+import { LetterPL } from './interfaces';
 
-export const alphabet: Letter[] = [
+export const alphabet: LetterPL[] = [
   '?',
   'a',
   'ą',
@@ -36,7 +36,7 @@ export const alphabet: Letter[] = [
   'ź',
 ];
 
-export const tilesPoints: Record<Letter, number> = {
+export const tilesPoints: Record<LetterPL, number> = {
   ['?']: 0,
   ['a']: 1,
   ['ą']: 5,
@@ -72,7 +72,7 @@ export const tilesPoints: Record<Letter, number> = {
   ['ź']: 9,
 };
 
-export const initialTilesAmount: Record<Letter, number> = {
+export const initialTilesAmount: Record<LetterPL, number> = {
   ['?']: 2,
   ['a']: 9,
   ['ą']: 1,
@@ -108,7 +108,7 @@ export const initialTilesAmount: Record<Letter, number> = {
   ['ź']: 1,
 };
 
-export const twoLettersWords: Partial<Record<Letter, string[]>> = {
+export const twoLettersWords: Partial<Record<LetterPL, string[]>> = {
   a: ['aa', 'ad', 'ag', 'aj', 'al', 'am', 'ar', 'as', 'at', 'au', 'aż'],
   b: ['ba', 'be', 'bi', 'bo', 'bu', 'by'],
   c: ['ce', 'ci', 'co'],
@@ -132,17 +132,17 @@ export const twoLettersWords: Partial<Record<Letter, string[]>> = {
     'ez',
   ],
   f: ['fa', 'fe', 'fi', 'fu'],
-  g: ['gę', 'go ', 'gu'],
-  h: ['ha', 'he ', 'hę', 'hi', 'hm', 'ho', 'hu'],
-  i: ['id', 'ii ', 'il', 'ił', 'im', 'in', 'iw', 'iż'],
-  j: ['ja', 'ją ', 'je'],
-  k: ['ka', 'ki ', 'ko', 'ku'],
-  l: ['la', 'li ', 'lu'],
-  m: ['ma', 'mą ', 'me', 'mi', 'mu', 'my'],
-  n: ['na', 'ni ', 'no', 'nu', 'ny'],
+  g: ['gę', 'go', 'gu'],
+  h: ['ha', 'he', 'hę', 'hi', 'hm', 'ho', 'hu'],
+  i: ['id', 'ii', 'il', 'ił', 'im', 'in', 'iw', 'iż'],
+  j: ['ja', 'ją', 'je'],
+  k: ['ka', 'ki', 'ko', 'ku'],
+  l: ['la', 'li', 'lu'],
+  m: ['ma', 'mą', 'me', 'mi', 'mu', 'my'],
+  n: ['na', 'ni', 'no', 'nu', 'ny'],
   o: [
     'od',
-    'oh ',
+    'oh',
     'oj',
     'ok',
     'om',
@@ -157,8 +157,8 @@ export const twoLettersWords: Partial<Record<Letter, string[]>> = {
     'oz',
     'oż',
   ],
-  ó: ['ód', 'ós ', 'ów'],
-  p: ['pa', 'pe ', 'pi', 'po'],
+  ó: ['ód', 'ós', 'ów'],
+  p: ['pa', 'pe', 'pi', 'po'],
   r: ['re', 'ro'],
   s: ['są', 'se', 'si', 'su'],
   t: ['ta', 'tą', 'te', 'tę', 'to', 'ts', 'tu', 'ty'],
