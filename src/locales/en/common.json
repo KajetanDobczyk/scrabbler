@@ -1,7 +1,5 @@
 {
-  "mainNavigation": {
-    "game": "Points Tracker",
-    "dictionary": "Dictionary",
-    "settings": "Settings"
+  "actions": {
+    "startGame": "Start game"
   }
 }

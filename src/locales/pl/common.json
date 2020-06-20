@@ -1,7 +1,5 @@
 {
-  "mainNavigation": {
-    "game": "Licznik Punktów",
-    "dictionary": "Słownik",
-    "settings": "Ustawienia"
+  "actions": {
+    "startGame": "Rozpocznij grę"
   }
 }

@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons, Entypo, FontAwesome5 } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import GameTabContent from 'src/modules/Game/navigation';
 import DictionaryTabContent from 'src/modules/Dictionary/navigation';
@@ -10,27 +11,26 @@ import SettingsTabContent from 'src/modules/Settings/navigation';
 import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import { Screen } from './interfaces';
-import { useSelector } from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigation = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['dictionary', 'game', 'settings']);
   const { color } = useSelector(selectTheme);
 
-  const routesNamesByScreen: Record<Screen, string> = {
-    [Screen.Game]: t('mainNavigation.game'),
-    [Screen.Dictionary]: t('mainNavigation.dictionary'),
-    [Screen.Settings]: t('mainNavigation.settings'),
+  const routesNames: Record<Screen, string> = {
+    [Screen.Game]: t('game:routeName'),
+    [Screen.Dictionary]: t('dictionary:routeName'),
+    [Screen.Settings]: t('settings:routeName'),
   };
 
   const getTabBarIcon = (routeName: string, color: string) => {
     switch (routeName) {
-      case routesNamesByScreen[Screen.Game]:
+      case routesNames[Screen.Game]:
         return <FontAwesome5 name="chess-board" size={15} color={color} />;
-      case routesNamesByScreen[Screen.Dictionary]:
+      case routesNames[Screen.Dictionary]:
         return <Entypo name="book" size={20} color={color} />;
-      case routesNamesByScreen[Screen.Settings]:
+      case routesNames[Screen.Settings]:
         return <Ionicons name="md-settings" size={20} color={color} />;
       default:
         return null;
@@ -53,15 +53,15 @@ const BottomTabNavigation = () => {
         }}
       >
         <Tab.Screen
-          name={routesNamesByScreen[Screen.Game]}
+          name={routesNames[Screen.Game]}
           component={GameTabContent}
         />
         <Tab.Screen
-          name={routesNamesByScreen[Screen.Dictionary]}
+          name={routesNames[Screen.Dictionary]}
           component={DictionaryTabContent}
         />
         <Tab.Screen
-          name={routesNamesByScreen[Screen.Settings]}
+          name={routesNames[Screen.Settings]}
           component={SettingsTabContent}
         />
       </Tab.Navigator>

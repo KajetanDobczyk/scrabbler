@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { useTranslation } from 'react-i18next';
 
 import FlatButton from 'src/theme/components/FlatButton';
 import { PlayerId, IPlayersNames } from 'src/modules/Players/interfaces';
@@ -17,6 +18,7 @@ type Props = {
 };
 
 const NewGame: React.FC<Props> = ({ navigation }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const themedStyles = styles(useSelector(selectTheme));
@@ -58,7 +60,7 @@ const NewGame: React.FC<Props> = ({ navigation }) => {
           ))}
         </View>
         <FlatButton
-          label="Rozpocznij grę"
+          label={t('actions.startGame')}
           onPress={startGame}
           disabled={!areAtLeastTwoPlayersPresent}
         />
