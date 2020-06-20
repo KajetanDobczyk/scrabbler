@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import Header from 'src/layout/components/Header';
 import { selectTheme } from 'src/modules/Settings/store/selectors';
@@ -25,13 +26,15 @@ type Props = {
 };
 
 const WordSearch: React.FC<Props> = () => {
+  const { t } = useTranslation('dictionary');
+
   const theme = useSelector(selectTheme);
   const themedStyles = styles(theme);
   const fetchStatus = useSelector(selectWordSearchFetchStatus);
 
   return (
     <>
-      <Header title={DictionaryScreen.Home} />
+      <Header title={t('routeName')} />
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={themedStyles.container}>
           <SearchBar />

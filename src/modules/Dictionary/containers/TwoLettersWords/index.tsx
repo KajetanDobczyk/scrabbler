@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { twoLettersWords } from 'src/modules/Dictionary/data';
 import Header from 'src/layout/components/Header';
@@ -24,6 +25,7 @@ type Props = {
 };
 
 const TwoLettersWords: React.FC<Props> = ({ navigation }) => {
+  const { t } = useTranslation('dictionary');
   const dispatch = useDispatch();
 
   const themedStyles = styles(useSelector(selectTheme));
@@ -37,7 +39,7 @@ const TwoLettersWords: React.FC<Props> = ({ navigation }) => {
   return (
     <>
       <Header
-        title={DictionaryScreen.TwoLettersWords}
+        title={t('twoLettersWords')}
         onGoBack={() => navigation.goBack()}
         hideMenuButton
       />

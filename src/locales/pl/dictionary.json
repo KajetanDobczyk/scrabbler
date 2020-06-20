@@ -1,3 +1,8 @@
 {
-  "routeName": "Słownik"
+  "routeName": "Słownik",
+  "twoLettersWords": "Dwuliterówki",
+  "results": {
+    "allowed": "Dopuszczalne w grach",
+    "unallowed": "Nie występuje w słowniku"
+  }
 }

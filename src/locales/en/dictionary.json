@@ -1,3 +1,8 @@
 {
-  "routeName": "Dictionary"
+  "routeName": "Dictionary",
+  "twoLettersWords": "Two letters words",
+  "results": {
+    "allowed": "Allowed in games",
+    "unallowed": "Doesn't exist in the dictionary"
+  }
 }

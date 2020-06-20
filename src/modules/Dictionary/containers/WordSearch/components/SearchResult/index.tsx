@@ -12,8 +12,10 @@ import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import { styles } from './styles';
 import Comment from './components/Comment';
+import { useTranslation } from 'react-i18next';
 
 const SearchResult = () => {
+  const { t } = useTranslation('dictionary');
   const isWordAllowed = useSelector(selectIsWordAllowed);
   const word = useSelector(selectSearchedWord);
   const description = useSelector(selectWordDescription);
@@ -29,7 +31,7 @@ const SearchResult = () => {
           isWordAllowed ? themedStyles.allowed : themedStyles.unallowed,
         ]}
       >
-        {isWordAllowed ? 'Dopuszczalne w grach' : 'Nie występuje w słowniku'}
+        {isWordAllowed ? t('results.allowed') : t('results.unallowed')}
       </Text>
       {description && (
         <Text style={themedStyles.description}>{description}</Text>

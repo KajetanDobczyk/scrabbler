@@ -1,6 +1,6 @@
 export enum DictionaryScreen {
-  Home = 'Słownik',
-  TwoLettersWords = 'Dwuliterówki',
+  Home = 'Dictionary',
+  TwoLettersWords = 'Two Letters Words',
 }
 
 export type DictionaryTabParamList = Record<DictionaryScreen, any>;
