@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import FlatButton from 'src/theme/components/FlatButton';
 import {
@@ -14,11 +15,12 @@ import { selectTheme } from 'src/modules/Settings/store/selectors';
 import { styles } from './styles';
 
 const menuActions: Record<string, any> = {
-  reverse: removeLastMove,
+  undo: removeLastMove,
   skip: skipTurn,
 };
 
 const CurrentPlayerMenu = () => {
+  const { t } = useTranslation('game');
   const dispatch = useDispatch();
 
   const isFirstMove = useSelector(selectIsFirstMove);
@@ -40,14 +42,20 @@ const CurrentPlayerMenu = () => {
     <View style={themedStyles.container}>
       {!isFirstMove && (
         <View style={themedStyles.buttonWrapper}>
-          <FlatButton label="Cofnij" onPress={handleMenuAction('reverse')} />
+          <FlatButton
+            label={t('actions.undo')}
+            onPress={handleMenuAction('undo')}
+          />
         </View>
       )}
       <View style={themedStyles.buttonWrapper}>
-        <FlatButton label="Wymiana / pas" onPress={handleMenuAction('skip')} />
+        <FlatButton
+          label={t('actions.skip')}
+          onPress={handleMenuAction('skip')}
+        />
       </View>
       <View style={themedStyles.buttonWrapper}>
-        <FlatButton label="Ułóż słowo" onPress={scrollToBoard} />
+        <FlatButton label={t('actions.newWord')} onPress={scrollToBoard} />
       </View>
     </View>
   );

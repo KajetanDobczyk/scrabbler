@@ -3,9 +3,9 @@ import { FetchStatus } from 'src/api/interfaces';
 import { PlayerId } from '../Players/interfaces';
 
 export enum GameScreen {
-  NewGame = 'Nowa gra',
-  Game = 'Gra',
-  FinishedGame = 'Zakończ grę',
+  NewGame = 'New Game',
+  Game = 'Game',
+  FinishedGame = 'Finished Game',
 }
 
 export type GameTabParamList = Record<GameScreen, any>;

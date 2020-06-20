@@ -21,6 +21,7 @@ import SegmentedControlTab from 'src/shared/components/SegmentedControlTab';
 
 import PlayerTilesLeft from './components/PlayerTilesLeft';
 import { styles } from './styles';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   onFinish: () => void;
@@ -28,6 +29,7 @@ type Props = {
 };
 
 const EndGameModal: React.FC<Props> = ({ onFinish, onClose }) => {
+  const { t } = useTranslation('game');
   const dispatch = useDispatch();
 
   const previousPlayerId = useSelector(selectPreviousPlayerId);
@@ -101,14 +103,14 @@ const EndGameModal: React.FC<Props> = ({ onFinish, onClose }) => {
   return (
     <Modal isVisible onBackdropPress={onClose} onSwipeCancel={onClose}>
       <ScrollView contentContainerStyle={themedStyles.container}>
-        <Text style={themedStyles.header}>Kto zakończył grę?</Text>
+        <Text style={themedStyles.header}>{t('endGame.whoFinished')}</Text>
         <SegmentedControlTab
           values={playersIds.map((playerId) => players[playerId]?.name)}
           selectedIndex={parseInt(endingPlayerId)}
           onTabPress={handleSelectEndingPlayer}
         />
         <Text style={themedStyles.header}>
-          Zaznacz płytki pozostałych graczy
+          {t('endGame.selectOthersTiles')}
         </Text>
         {notEndingPlayersIds.map((playerId) => (
           <PlayerTilesLeft
@@ -122,8 +124,8 @@ const EndGameModal: React.FC<Props> = ({ onFinish, onClose }) => {
           />
         ))}
         <View style={themedStyles.buttonsWrapper}>
-          <FlatButton label="Anuluj" onPress={onClose} />
-          <FlatButton label="Zakończ" onPress={finish} />
+          <FlatButton label={t('actions.cancel')} onPress={onClose} />
+          <FlatButton label={t('actions.finish')} onPress={finish} />
         </View>
       </ScrollView>
     </Modal>

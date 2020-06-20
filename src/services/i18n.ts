@@ -29,7 +29,7 @@ const resources = {
 i18n.use(initReactI18next).init({
   resources,
   defaultNS: 'common',
-  lng: 'pl',
+  lng: 'en',
 });
 
 export default i18n;

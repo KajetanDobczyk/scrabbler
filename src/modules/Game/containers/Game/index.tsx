@@ -7,9 +7,9 @@ import {
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { useTranslation } from 'react-i18next';
 
 import Header from 'src/layout/components/Header';
-import { Screen } from 'src/layout/interfaces';
 import IconButton from 'src/theme/components/IconButton';
 import { selectTheme } from 'src/modules/Settings/store/selectors';
 
@@ -29,6 +29,7 @@ type Props = {
 };
 
 const Game: React.FC<Props> = ({ navigation }) => {
+  const { t } = useTranslation('game');
   const dispatch = useDispatch();
   const scrollView = useRef<ScrollView>(null);
 
@@ -60,7 +61,7 @@ const Game: React.FC<Props> = ({ navigation }) => {
 
   return (
     <>
-      <Header title={Screen.Game}>
+      <Header title={t('routeName')}>
         <IconButton
           icon="stop"
           iconSet="FontAwesome5"

@@ -1,3 +1,32 @@
 {
-  "routeName": "Points Tracker"
+  "routeName": "Points Tracker",
+  "newGame": {
+    "title": "New game",
+    "playersNames": "Players names"
+  },
+  "finishedGame": {
+    "header": "Game finished!"
+  },
+  "endGame": {
+    "whoFinished": "Who finished the game?",
+    "selectOthersTiles": "Select other players tiles"
+  },
+  "actions": {
+    "startNewGame": "Start new game",
+    "start": "Start",
+    "undo": "Undo",
+    "skip": "Skip / exchange",
+    "newWord": "New word",
+    "cancel": "Cancel",
+    "accept": "OK",
+    "finish": "Finish",
+    "selectLetter": "Select letter"
+  },
+  "errors": {
+    "moveUnallowed": "Move unallowed",
+    "firstMoveCreateWord": "First move must create a word!",
+    "firstMoveCenter": "First move must cross the center field!",
+    "looseLetters": "Not all letters allign to others!",
+    "newMoveLoose": "New move doesn't allign to other letters!"
+  }
 }

@@ -9,6 +9,7 @@ import {
   IBoardField,
   ICoordinates,
 } from '../../interfaces';
+import i18n from 'src/services/i18n';
 
 export const getFieldLetter = (
   boardFields: IBoardFields,
@@ -87,16 +88,16 @@ export const validateNewMove = (
   isFirstMove: boolean,
 ) => {
   if (isFirstMove && newMoveTiles.length === 1) {
-    return 'Pierwszy ruch musi tworzyć wyraz!';
+    return i18n.t('game:errors.firstMoveCreateWord');
   }
   if (isFirstMove && !isMoveThroughCenter(newMoveTiles)) {
-    return 'Pierwszy ruch musi przechodzić przez środek!';
+    return i18n.t('game:errors.firstMoveCenter');
   }
   if (isAnyLetterLoose(newMoveTiles, boardFields)) {
-    return 'Nie wszystkie litery przylegają do innych!';
+    return i18n.t('game:errors.looseLetters');
   }
   if (!isFirstMove && isNewMoveLoose(newMoveTiles, boardFields)) {
-    return 'Nowy wyraz nie przylega do obecnych!';
+    return i18n.t('game:errors.newMoveLoose');
   }
 };
 

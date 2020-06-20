@@ -18,7 +18,7 @@ type Props = {
 };
 
 const NewGame: React.FC<Props> = ({ navigation }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('game');
   const dispatch = useDispatch();
 
   const themedStyles = styles(useSelector(selectTheme));
@@ -48,7 +48,7 @@ const NewGame: React.FC<Props> = ({ navigation }) => {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={themedStyles.container}>
-        <Text style={themedStyles.header}>Podaj imiona graczy</Text>
+        <Text style={themedStyles.header}>{t('newGame.playersNames')}</Text>
         <View>
           {(Object.keys(playersNames) as PlayerId[]).map((playerId, i) => (
             <PlayerName
@@ -60,7 +60,7 @@ const NewGame: React.FC<Props> = ({ navigation }) => {
           ))}
         </View>
         <FlatButton
-          label={t('actions.startGame')}
+          label={t('actions.start')}
           onPress={startGame}
           disabled={!areAtLeastTwoPlayersPresent}
         />

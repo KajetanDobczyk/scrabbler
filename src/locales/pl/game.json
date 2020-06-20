@@ -1,3 +1,32 @@
 {
-  "routeName": "Licznik Punktów"
+  "routeName": "Licznik Punktów",
+  "newGame": {
+    "title": "Nowa gra",
+    "playersNames": "Imiona graczy"
+  },
+  "finishedGame": {
+    "header": "Koniec gry!"
+  },
+  "endGame": {
+    "whoFinished": "Kto zakończył grę?",
+    "selectOthersTiles": "Zaznacz płytki pozostałych graczy"
+  },
+  "actions": {
+    "startNewGame": "Rozpocznij nową grę",
+    "start": "Rozpocznij",
+    "undo": "Cofnij",
+    "skip": "Wymiana / pas",
+    "newWord": "Ułóż słowo",
+    "cancel": "Anuluj",
+    "accept": "OK",
+    "finish": "Zakończ",
+    "selectLetter": "Wybierz literę"
+  },
+  "errors": {
+    "moveUnallowed": "Niedozwolony ruch",
+    "firstMoveCreateWord": "Pierwszy ruch musi tworzyć wyraz!",
+    "firstMoveCenter": "Pierwszy ruch musi przechodzić przez środek!",
+    "looseLetters": "Nie wszystkie litery przylegają do innych!",
+    "newMoveLoose": "Nowy wyraz nie przylega do obecnych!"
+  }
 }

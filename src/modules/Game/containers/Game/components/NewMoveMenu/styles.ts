@@ -8,7 +8,9 @@ export const styles = ({ color }: Theme) =>
       flexGrow: 1,
       justifyContent: 'space-between',
       backgroundColor: color.board,
-      padding: 2.5,
+      paddingTop: 2.5,
+      paddingHorizontal: 5,
+      paddingBottom: 5,
     },
     buttonsWrapper: {
       flexDirection: 'row',

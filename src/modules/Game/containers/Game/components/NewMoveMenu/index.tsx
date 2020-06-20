@@ -13,6 +13,7 @@ import { selectTheme } from 'src/modules/Settings/store/selectors';
 import TilesList from './components/TilesList';
 import BlankModal from './components/BlankModal';
 import { styles } from './styles';
+import { useTranslation } from 'react-i18next';
 
 const menuActions: Record<string, any> = {
   cancel: cancelNewMove,
@@ -20,6 +21,7 @@ const menuActions: Record<string, any> = {
 };
 
 const NewMoveMenu = () => {
+  const { t } = useTranslation('game');
   const dispatch = useDispatch();
 
   const [isBlankModalVisible, setIsBlankModalVisible] = useState(false);
@@ -53,9 +55,15 @@ const NewMoveMenu = () => {
         />
         <View style={themedStyles.buttonsWrapper}>
           <View style={themedStyles.leftButtonWrapper}>
-            <FlatButton label="Anuluj" onPress={handleMenuAction('cancel')} />
+            <FlatButton
+              label={t('actions.cancel')}
+              onPress={handleMenuAction('cancel')}
+            />
           </View>
-          <FlatButton label="OK" onPress={handleMenuAction('accept')} />
+          <FlatButton
+            label={t('actions.accept')}
+            onPress={handleMenuAction('accept')}
+          />
         </View>
       </View>
       {isBlankModalVisible && <BlankModal onClose={toggleBlankModal} />}

@@ -30,6 +30,7 @@ import {
   selectPreviousPlayerId,
   selectPlayers,
 } from './selectors';
+import i18n from 'src/services/i18n';
 
 export const startNewGame = (playersNames: IPlayersNames): AppThunk => (
   dispatch,
@@ -51,7 +52,7 @@ export const tryNewMove = (): AppThunk => (dispatch, getState) => {
 
   if (errorMessage) {
     return Alert.alert(
-      'Niedozwolony ruch',
+      i18n.t('game:errors.moveUnallowed'),
       errorMessage,
       [{ text: 'Ok', onPress: () => noop, style: 'cancel' }],
       { cancelable: true },

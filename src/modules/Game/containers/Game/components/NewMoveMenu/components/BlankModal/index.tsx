@@ -10,12 +10,14 @@ import { listBoardTilePressed } from 'src/modules/Game/store/board/thunks';
 import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import { styles } from './styles';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   onClose: () => void;
 };
 
 const BlankModal: React.FC<Props> = ({ onClose }) => {
+  const { t } = useTranslation('game');
   const dispatch = useDispatch();
 
   const tilesList = useSelector(selectTilesList);
@@ -29,7 +31,7 @@ const BlankModal: React.FC<Props> = ({ onClose }) => {
   return (
     <Modal isVisible onBackdropPress={onClose} onSwipeCancel={onClose}>
       <View style={themedStyles.container}>
-        <Text style={themedStyles.header}>Wybierz literę</Text>
+        <Text style={themedStyles.header}>{t('actions.selectLetter')}</Text>
         <View style={themedStyles.tilesList}>
           {(Object.keys(tilesList) as Letter[]).map((letter) =>
             !!(letter !== '?' && tilesList[letter].amountLeft) ? (
