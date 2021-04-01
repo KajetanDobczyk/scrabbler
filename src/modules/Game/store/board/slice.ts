@@ -64,6 +64,16 @@ const board = createSlice({
       state.boardFields[y][x].blankLetter = blankLetter;
       state.tilesList[letter].amountLeft--;
     },
+    removeLastNewMoveTile(state) {
+      const lastTile = state.newMove.tiles.pop();
+
+      if (lastTile) {
+        state.boardFields[lastTile.y][lastTile.x].letter = null;
+        state.boardFields[lastTile.y][lastTile.x].blankLetter = undefined;
+
+        state.tilesList[lastTile.letter].amountLeft++;
+      }
+    },
     cancelNewMove(state) {
       state.newMove.tiles.forEach(({ x, y, letter }) => {
         state.boardFields[y][x].letter = null;
@@ -90,6 +100,7 @@ export const {
   resetNewMoveTarget,
   changeNewMoveDirection,
   addNewMoveTile,
+  removeLastNewMoveTile,
   cancelNewMove,
   resetNewMove,
 } = board.actions;

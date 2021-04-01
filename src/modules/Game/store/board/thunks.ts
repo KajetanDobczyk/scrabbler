@@ -13,6 +13,7 @@ import {
   resetNewMoveTarget,
   changeNewMoveDirection,
   addNewMoveTile,
+  removeLastNewMoveTile,
 } from './slice';
 
 export const boardFieldPressed = (x: number, y: number): AppThunk => (
@@ -93,8 +94,12 @@ export const listBoardTilePressed = (
 };
 
 export const eraseLastTile = (): AppThunk => (dispatch, getState) => {
-  const boardFields = selectBoardFields(getState());
   const newMove = selectNewMove(getState());
 
-  console.log('erase last tile');
+  if (newMove.tiles.length) {
+    dispatch(removeLastNewMoveTile());
+
+    const previousTile = newMove.tiles[newMove.tiles.length - 1];
+    dispatch(setNewMoveTarget({ x: previousTile.x, y: previousTile.y }));
+  }
 };
