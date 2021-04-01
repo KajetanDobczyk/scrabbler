@@ -22,6 +22,7 @@ type Props = {
   onPress: () => void;
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
+  iconStyle?: StyleProp<ViewStyle>;
   dark?: boolean;
 };
 
@@ -32,7 +33,7 @@ const IconButton: React.FC<Props> = ({
   onPress,
   disabled,
   style,
-  dark,
+  iconStyle,
 }) => {
   const themedStyles = styles(useSelector(selectTheme));
 
@@ -47,9 +48,7 @@ const IconButton: React.FC<Props> = ({
       <IconComponent
         name={icon}
         size={size}
-        style={
-          dark ? [themedStyles.icon, themedStyles.darkIcon] : themedStyles.icon
-        }
+        style={iconStyle ? [themedStyles.icon, iconStyle] : themedStyles.icon}
       />
     </TouchableOpacity>
   );

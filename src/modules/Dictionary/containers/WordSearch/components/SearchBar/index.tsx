@@ -37,7 +37,7 @@ const SearchBar = () => {
         size={20}
         onPress={handleSearch}
         disabled={!query.length}
-        dark
+        iconStyle={themedStyles.searchIcon}
       />
     </View>
   );

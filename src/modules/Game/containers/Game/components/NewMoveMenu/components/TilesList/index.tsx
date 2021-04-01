@@ -1,8 +1,11 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import { ITilesList } from 'src/modules/Game/interfaces';
+import IconButton from 'src/theme/components/IconButton';
+import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import { styles } from './styles';
 import TilesListElement from './components/TilesListElement';
@@ -26,10 +29,12 @@ const TilesList: React.FC<Props> = ({
     }
   };
 
+  const themedStyles = styles(useSelector(selectTheme));
+
   const availableTiles = Object.keys(tilesList) as Letter[];
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={themedStyles.container}>
       {availableTiles.map((letter) => (
         <TilesListElement
           key={letter}
@@ -38,6 +43,13 @@ const TilesList: React.FC<Props> = ({
           onPress={selectTile}
         />
       ))}
+      <IconButton
+        icon="ios-backspace"
+        iconSet="Ionicons"
+        size={25}
+        onPress={() => console.log('xd')}
+        iconStyle={themedStyles.eraseButton}
+      />
     </ScrollView>
   );
 };

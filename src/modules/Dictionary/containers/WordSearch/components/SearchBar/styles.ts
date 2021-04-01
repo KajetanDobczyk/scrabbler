@@ -15,4 +15,7 @@ export const styles = ({ color }: Theme) =>
       borderBottomColor: color.black,
       marginRight: 10,
     },
+    searchIcon: {
+      color: color.black,
+    },
   });

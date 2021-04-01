@@ -12,10 +12,6 @@ export const styles = ({ color }: Theme) =>
       textAlign: 'center',
       color: color.white,
     },
-    darkIcon: {
-      textAlign: 'center',
-      color: color.black,
-    },
     disabled: {
       opacity: 0.3,
     },
