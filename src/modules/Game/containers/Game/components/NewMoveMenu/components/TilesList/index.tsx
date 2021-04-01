@@ -1,32 +1,37 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import { ITilesList } from 'src/modules/Game/interfaces';
 import IconButton from 'src/theme/components/IconButton';
 import { selectTheme } from 'src/modules/Settings/store/selectors';
+import {
+  eraseLastTile,
+  listBoardTilePressed,
+} from 'src/modules/Game/store/board/thunks';
 
 import { styles } from './styles';
 import TilesListElement from './components/TilesListElement';
 
 type Props = {
   tilesList: ITilesList;
-  onTilePressed: (letter: Letter) => void;
   onBlankPressed: () => void;
 };
 
-const TilesList: React.FC<Props> = ({
-  tilesList,
-  onTilePressed,
-  onBlankPressed,
-}) => {
+const TilesList: React.FC<Props> = ({ tilesList, onBlankPressed }) => {
+  const dispatch = useDispatch();
+
   const selectTile = (letter: Letter) => {
     if (letter === '?') {
       onBlankPressed();
     } else {
-      onTilePressed(letter);
+      dispatch(listBoardTilePressed(letter));
     }
+  };
+
+  const eraseTile = () => {
+    dispatch(eraseLastTile());
   };
 
   const themedStyles = styles(useSelector(selectTheme));
@@ -47,7 +52,7 @@ const TilesList: React.FC<Props> = ({
         icon="ios-backspace"
         iconSet="Ionicons"
         size={25}
-        onPress={() => console.log('xd')}
+        onPress={eraseTile}
         iconStyle={themedStyles.eraseButton}
       />
     </ScrollView>

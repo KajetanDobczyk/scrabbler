@@ -41,18 +41,10 @@ const NewMoveMenu = () => {
     setIsBlankModalVisible(!isBlankModalVisible);
   };
 
-  const handleOnTilePressed = (letter: Letter) => {
-    dispatch(listBoardTilePressed(letter));
-  };
-
   return (
     <>
       <View style={themedStyles.container}>
-        <TilesList
-          tilesList={tilesList}
-          onTilePressed={handleOnTilePressed}
-          onBlankPressed={toggleBlankModal}
-        />
+        <TilesList tilesList={tilesList} onBlankPressed={toggleBlankModal} />
         <View style={themedStyles.buttonsWrapper}>
           <View style={themedStyles.leftButtonWrapper}>
             <FlatButton

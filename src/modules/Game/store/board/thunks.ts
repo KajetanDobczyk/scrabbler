@@ -91,3 +91,10 @@ export const listBoardTilePressed = (
       : resetNewMoveTarget(),
   );
 };
+
+export const eraseLastTile = (): AppThunk => (dispatch, getState) => {
+  const boardFields = selectBoardFields(getState());
+  const newMove = selectNewMove(getState());
+
+  console.log('erase last tile');
+};
