@@ -8,6 +8,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useTranslation } from 'react-i18next';
+import { Dimensions } from 'react-native';
 
 import Header from 'src/layout/components/Header';
 import IconButton from 'src/theme/components/IconButton';
@@ -40,6 +41,7 @@ const Game: React.FC<Props> = ({ navigation }) => {
   const [isEndGameModalVisible, setIsEndGameModalVisible] = useState(false);
 
   useEffect(() => {
+    console.log(view);
     if (view === 'points') {
       scrollView.current?.scrollTo({ x: 0 });
     } else {
@@ -55,7 +57,11 @@ const Game: React.FC<Props> = ({ navigation }) => {
     event: NativeSyntheticEvent<NativeScrollEvent>,
   ) => {
     dispatch(
-      setGameView(event.nativeEvent.contentOffset.x ? 'points' : 'board'),
+      setGameView(
+        event.nativeEvent.contentOffset.x === Dimensions.get('window').width
+          ? 'board'
+          : 'points',
+      ),
     );
   };
 
