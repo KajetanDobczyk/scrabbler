@@ -1,5 +1,7 @@
 import { Platform, Dimensions, StatusBar } from 'react-native';
 
+export const FB_APP_ID = '951215315653994';
+
 export const MEASURE_TIMEOUT = Platform.select({
   android: 300,
   ios: 100,

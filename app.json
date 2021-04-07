@@ -3,11 +3,7 @@
     "name": "Scrabbler",
     "slug": "scrabbler",
     "privacy": "public",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -19,12 +15,13 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
-    "description": ""
+    "description": "",
+    "facebookScheme": "fb951215315653994",
+    "facebookAppId": "951215315653994",
+    "facebookDisplayName": "Scrabbler"
   }
 }

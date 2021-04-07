@@ -2,5 +2,8 @@
   "routeName": "Ustawienia",
   "language": "Język",
   "colorVersion": "Wersja kolorystyczna",
-  "showTilesAmountLeft": "Pokaż pozostałą ilość literek"
+  "showTilesAmountLeft": "Pokaż pozostałą ilość literek",
+  "players": {
+    "login": "Zaloguj"
+  }
 }
