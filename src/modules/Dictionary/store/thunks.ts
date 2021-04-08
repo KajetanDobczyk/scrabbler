@@ -15,7 +15,7 @@ export const fetchWordData = (): AppThunk => async (dispatch, getState) => {
   const query = selectWordSearchQuery(getState());
 
   try {
-    const wordPage = await api.getWordDictionaryPage(query);
+    const wordPage = await api.dictionary.getWordDictionaryPage(query);
 
     dispatch(
       fetchWordDataSucceeded({ word: query, ...parseWordPage(wordPage) }),

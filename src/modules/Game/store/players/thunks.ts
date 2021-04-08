@@ -5,6 +5,7 @@ import { Alert } from 'react-native';
 
 import { AppThunk } from 'src/redux/store';
 import { IPlayersNames } from 'src/modules/Players/interfaces';
+import i18n from 'src/services/i18n';
 
 import {
   selectCurrentPlayerId,
@@ -30,7 +31,6 @@ import {
   selectPreviousPlayerId,
   selectPlayers,
 } from './selectors';
-import i18n from 'src/services/i18n';
 
 export const startNewGame = (playersNames: IPlayersNames): AppThunk => (
   dispatch,

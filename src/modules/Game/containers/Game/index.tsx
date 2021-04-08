@@ -41,7 +41,6 @@ const Game: React.FC<Props> = ({ navigation }) => {
   const [isEndGameModalVisible, setIsEndGameModalVisible] = useState(false);
 
   useEffect(() => {
-    console.log(view);
     if (view === 'points') {
       scrollView.current?.scrollTo({ x: 0 });
     } else {

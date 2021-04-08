@@ -1,9 +1,9 @@
 import { PlayerId } from 'src/modules/Players/interfaces';
 
-import { IPlayers, IPlayedMove } from '../../interfaces';
+import { ICurrentPlayers, IPlayedMove } from '../../interfaces';
 
-export type IPlayersState = {
-  players: IPlayers;
+export type ICurrentPlayersState = {
+  players: ICurrentPlayers;
   currentPlayerId: PlayerId;
   endingPlayerId?: PlayerId;
 };

@@ -17,7 +17,6 @@ const initSocialLogin = async () => {
       appId: FB_APP_ID,
       appName: 'Scrabbler',
     });
-    console.log('init fb login');
   } catch (e) {
     console.log(e);
   }

@@ -62,6 +62,6 @@ export interface IPlayer {
   finalTiles: Letter[];
 }
 
-export type IPlayers = Partial<Record<PlayerId, IPlayer>>;
+export type ICurrentPlayers = Partial<Record<PlayerId, IPlayer>>;
 
 export type IFinalPlayersTiles = Record<PlayerId, Letter[]>;

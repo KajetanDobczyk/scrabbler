@@ -1,6 +1,6 @@
-import { IPlayersState } from './interfaces';
+import { ICurrentPlayersState } from './interfaces';
 
-export const initialState: IPlayersState = {
+export const initialState: ICurrentPlayersState = {
   players: {},
   currentPlayerId: '0',
 };
