@@ -15,13 +15,22 @@ import DictionaryTabContent from 'src/modules/Dictionary/navigation';
 import PlayersTabContent from 'src/modules/Players/navigation';
 import SettingsTabContent from 'src/modules/Settings/navigation';
 import { selectTheme } from 'src/modules/Settings/store/selectors';
+import { selectIsUserLoggedIn } from 'src/modules/Players/store/selectors';
+import Login from 'src/modules/Players/containers/Login';
 
 import { Screen } from './interfaces';
 
 const Tab = createBottomTabNavigator();
 
-const BottomTabNavigation = () => {
+const MainNavigation = () => {
   const { t } = useTranslation(['dictionary', 'game', 'settings', 'players']);
+
+  const isUserLoggedIn = useSelector(selectIsUserLoggedIn);
+
+  if (!isUserLoggedIn) {
+    return <Login />;
+  }
+
   const { color } = useSelector(selectTheme);
 
   const routesNames: Record<Screen, string> = {
@@ -88,4 +97,4 @@ const BottomTabNavigation = () => {
   );
 };
 
-export default BottomTabNavigation;
+export default MainNavigation;

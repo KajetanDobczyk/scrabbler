@@ -2,25 +2,13 @@ import 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import * as Facebook from 'expo-facebook';
 
-import BottomTabNavigation from 'src/layout/BottomTabNavigation';
+import { initSocialLogin } from 'src/modules/Players/helpers';
+import MainNavigation from 'src/layout/MainNavigation';
 import store from 'src/redux/store';
 import 'src/services/i18n';
-import { FB_APP_ID } from 'src/config';
 
 EStyleSheet.build();
-
-const initSocialLogin = async () => {
-  try {
-    await Facebook.initializeAsync({
-      appId: FB_APP_ID,
-      appName: 'Scrabbler',
-    });
-  } catch (e) {
-    console.log(e);
-  }
-};
 
 const App = () => {
   useEffect(() => {
@@ -29,7 +17,7 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <BottomTabNavigation />
+      <MainNavigation />
     </Provider>
   );
 };
