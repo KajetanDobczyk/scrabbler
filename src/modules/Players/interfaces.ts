@@ -1,5 +1,5 @@
 export enum PlayersScreen {
-  Login = 'Login',
+  PlayersList = 'PlayersList',
 }
 
 export type PlayersTabParamList = Record<PlayersScreen, any>;

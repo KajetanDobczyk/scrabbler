@@ -15,16 +15,14 @@ const Login = () => {
 
   const themedStyles = styles(useSelector(selectTheme));
 
-  const login = () => {
+  const login = async () => {
     dispatch(loginByFacebook());
   };
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={themedStyles.container}>
-        <TextButton label={t('login')} onPress={login} />
-      </View>
-    </TouchableWithoutFeedback>
+    <View style={themedStyles.container}>
+      <TextButton label={t('login')} onPress={login} />
+    </View>
   );
 };
 
