@@ -9,7 +9,7 @@ import {
   setEndingPlayerId as setEndingPlayerIdAction,
   updateFinalPlayersTiles,
 } from 'src/modules/Game/store/players/slice';
-import FlatButton from 'src/theme/components/FlatButton';
+import FlatButton from 'src/components/FlatButton';
 import {
   selectPreviousPlayerId,
   selectPlayers,
@@ -17,7 +17,7 @@ import {
 import { selectTilesList } from 'src/modules/Game/store/board/selectors';
 import { IFinalPlayersTiles } from 'src/modules/Game/interfaces';
 import { selectTheme } from 'src/modules/Settings/store/selectors';
-import SegmentedControlTab from 'src/shared/components/SegmentedControlTab';
+import SegmentedControlTab from 'src/components/SegmentedControlTab';
 
 import PlayerTilesLeft from './components/PlayerTilesLeft';
 import { styles } from './styles';
@@ -48,9 +48,10 @@ const EndGameModal: React.FC<Props> = ({ onFinish, onClose }) => {
 
   const [tilesLeft, setTilesLeft] = useState(useSelector(selectTilesList));
   const [endingPlayerId, setEndingPlayerId] = useState(previousPlayerId);
-  const [finalPlayersTiles, setFinalPlayersTiles] = useState<
-    IFinalPlayersTiles
-  >(initialPlayersTiles);
+  const [
+    finalPlayersTiles,
+    setFinalPlayersTiles,
+  ] = useState<IFinalPlayersTiles>(initialPlayersTiles);
 
   const handleSelectEndingPlayer = (playerId: any) => {
     setEndingPlayerId(playerId.toString());

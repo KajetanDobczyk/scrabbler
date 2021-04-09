@@ -1,4 +1,4 @@
-import classicTheme from 'src/theme/classic';
+import classicTheme from 'src/theme/themes/classic';
 
 import { ISettingsState } from './interfaces';
 

@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
 
-import FlatButton from 'src/theme/components/FlatButton';
+import FlatButton from 'src/components/FlatButton';
 import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import FinishedGameDetails from './components/FinishedGameDetails';

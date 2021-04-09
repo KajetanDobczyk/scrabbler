@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import FlatButton from 'src/theme/components/FlatButton';
+import FlatButton from 'src/components/FlatButton';
 import {
   removeLastMove,
   skipTurn,

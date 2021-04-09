@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { selectTheme } from 'src/modules/Settings/store/selectors';
-import TextButton from 'src/theme/components/TextButton';
+import TextButton from 'src/components/TextButton';
 
 import { styles } from './styles';
 import { loginByFacebook } from '../../store/thunks';

@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Letter } from 'src/modules/Dictionary/interfaces';
-import FlatButton from 'src/theme/components/FlatButton';
+import FlatButton from 'src/components/FlatButton';
 import { cancelNewMove } from 'src/modules/Game/store/board/slice';
 import { tryNewMove } from 'src/modules/Game/store/players/thunks';
 import { selectTilesList } from 'src/modules/Game/store/board/selectors';

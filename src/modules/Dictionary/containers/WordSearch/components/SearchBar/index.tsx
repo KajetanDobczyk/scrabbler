@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectWordSearchQuery } from 'src/modules/Dictionary/store/selectors';
 import { setSearchQuery } from 'src/modules/Dictionary/store/slice';
 import { fetchWordData } from 'src/modules/Dictionary/store/thunks';
-import IconButton from 'src/theme/components/IconButton';
+import IconButton from 'src/components/IconButton';
 import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import { styles } from './styles';

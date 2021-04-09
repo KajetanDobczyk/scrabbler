@@ -3,7 +3,7 @@ import { View, Text, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { useNavigation, DrawerActions } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
-import IconButton from 'src/theme/components/IconButton';
+import IconButton from 'src/components/IconButton';
 import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import { styles } from './styles';

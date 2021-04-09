@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { Dimensions } from 'react-native';
 
 import Header from 'src/layout/components/Header';
-import IconButton from 'src/theme/components/IconButton';
+import IconButton from 'src/components/IconButton';
 import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import { GameTabParamList, GameScreen } from '../../interfaces';

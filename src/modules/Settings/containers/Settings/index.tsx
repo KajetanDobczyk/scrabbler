@@ -1,19 +1,18 @@
 import React from 'react';
-import { View, TouchableWithoutFeedback, Keyboard, Text } from 'react-native';
+import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Picker } from '@react-native-community/picker';
 
 import Header from 'src/layout/components/Header';
 import { Screen } from 'src/layout/interfaces';
-import SegmentedControlTab from 'src/shared/components/SegmentedControlTab';
-import Toggle from 'src/shared/components/Toggle';
+import SegmentedControlTab from 'src/components/SegmentedControlTab';
+import Toggle from 'src/components/Toggle';
 import { Language, LanguageName } from 'src/services/i18n/interfaces';
 
-import { styles } from './styles';
+import * as S from './styles';
 import {
   selectIsTilesAmountDisplayed,
-  selectTheme,
   selectThemeName,
   selectLanguage,
 } from '../../store/selectors';
@@ -30,7 +29,6 @@ const Settings = () => {
   const language = useSelector(selectLanguage);
   const themeName = useSelector(selectThemeName);
   const isTilesAmountDisplayed = useSelector(selectIsTilesAmountDisplayed);
-  const themedStyles = styles(useSelector(selectTheme));
 
   const handleSelectLanguage = (language: Language) => {
     dispatch(setLanguage(language));
@@ -44,9 +42,9 @@ const Settings = () => {
     <>
       <Header title={Screen.Settings} hideMenuButton />
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View style={themedStyles.container}>
-          <View style={themedStyles.settingRow}>
-            <Text style={themedStyles.label}>{t('language')}</Text>
+        <S.Container>
+          <S.SettingsRow>
+            <S.Label>{t('language')}</S.Label>
             <Picker
               selectedValue={language}
               onValueChange={handleSelectLanguage}
@@ -54,23 +52,23 @@ const Settings = () => {
               <Picker.Item label={LanguageName.en} value="en" />
               <Picker.Item label={LanguageName.pl} value="pl" />
             </Picker>
-          </View>
-          <View style={themedStyles.settingRow}>
-            <Text style={themedStyles.label}>{t('colorVersion')}</Text>
+          </S.SettingsRow>
+          <S.SettingsRow>
+            <S.Label>{t('colorVersion')}</S.Label>
             <SegmentedControlTab
               values={['Classic', 'Deluxe']}
               selectedIndex={themeName === 'classic' ? 0 : 1}
               onTabPress={handleSelectTheme}
             />
-          </View>
-          <View style={themedStyles.settingRow}>
+          </S.SettingsRow>
+          <S.SettingsRow>
             <Toggle
               label={t('showTilesAmountLeft')}
               value={isTilesAmountDisplayed}
               onChange={() => dispatch(toggleIsTilesAmountDisplayed())}
             />
-          </View>
-        </View>
+          </S.SettingsRow>
+        </S.Container>
       </TouchableWithoutFeedback>
     </>
   );

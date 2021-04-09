@@ -1,5 +1,5 @@
-import { font } from './variables';
-import { Color } from './interfaces';
+import { font } from '../variables';
+import { Color } from '../interfaces';
 
 const color: Color = {
   white: '#ffffff',

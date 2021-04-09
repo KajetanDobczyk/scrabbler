@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import { ITilesList } from 'src/modules/Game/interfaces';
-import IconButton from 'src/theme/components/IconButton';
+import IconButton from 'src/components/IconButton';
 import { selectTheme } from 'src/modules/Settings/store/selectors';
 import {
   eraseLastTile,

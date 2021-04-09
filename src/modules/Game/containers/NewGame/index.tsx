@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useTranslation } from 'react-i18next';
 
-import FlatButton from 'src/theme/components/FlatButton';
+import FlatButton from 'src/components/FlatButton';
 import { PlayerId, IPlayersNames } from 'src/modules/Players/interfaces';
 import { selectTheme } from 'src/modules/Settings/store/selectors';
 
