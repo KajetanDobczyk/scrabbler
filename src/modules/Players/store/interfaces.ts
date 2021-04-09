@@ -1,3 +1,5 @@
+import { ImageSourcePropType } from 'react-native';
+
 import { FetchStatus } from 'src/api/interfaces';
 
 export interface IPlayersState {

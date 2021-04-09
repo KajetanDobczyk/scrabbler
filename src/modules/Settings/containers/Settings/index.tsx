@@ -1,13 +1,8 @@
 import React from 'react';
-import {
-  View,
-  TouchableWithoutFeedback,
-  Keyboard,
-  Text,
-  Picker,
-} from 'react-native';
+import { View, TouchableWithoutFeedback, Keyboard, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { Picker } from '@react-native-community/picker';
 
 import Header from 'src/layout/components/Header';
 import { Screen } from 'src/layout/interfaces';
