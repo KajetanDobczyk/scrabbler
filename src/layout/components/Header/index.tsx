@@ -1,13 +1,11 @@
 import React from 'react';
-import { View, Text, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { useNavigation, DrawerActions } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
 import { css } from '@emotion/native';
 
 import IconButton from 'src/components/IconButton';
-import { selectTheme } from 'src/modules/Settings/store/selectors';
 
-import { styles } from './styles';
+import * as S from './styles';
 
 type Props = {
   title: string;
@@ -23,8 +21,6 @@ const Header: React.FC<Props> = ({
 }) => {
   const navigation = useNavigation();
 
-  const themedStyles = styles(useSelector(selectTheme));
-
   const openDrawerNavigation = () => {
     Keyboard.dismiss();
     navigation.dispatch(DrawerActions.openDrawer());
@@ -32,23 +28,24 @@ const Header: React.FC<Props> = ({
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={themedStyles.container}>
+      <S.HeaderWrapper>
         {onGoBack && (
           <IconButton icon="ios-arrow-back" size={20} onPress={onGoBack} />
         )}
-        <Text style={themedStyles.title}>{title}</Text>
-        <View style={themedStyles.rightMenu}>
+        <S.Title>{title}</S.Title>
+        <S.RightMenu>
           {children}
           {!hideMenuButton && (
-            <IconButton
-              icon="ios-menu"
-              size={20}
-              onPress={openDrawerNavigation}
-              style={css({ marginLeft: 5 })}
-            />
+            <View style={css({ marginLeft: 10 })}>
+              <IconButton
+                icon="ios-menu"
+                size={20}
+                onPress={openDrawerNavigation}
+              />
+            </View>
           )}
-        </View>
-      </View>
+        </S.RightMenu>
+      </S.HeaderWrapper>
     </TouchableWithoutFeedback>
   );
 };

@@ -1,14 +1,14 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { TouchableOpacity, ScrollView } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { css } from '@emotion/native';
 
 import { twoLettersWords } from 'src/modules/Dictionary/data';
 import Header from 'src/layout/components/Header';
-import { selectTheme } from 'src/modules/Settings/store/selectors';
 
-import { styles } from './styles';
+import * as S from './styles';
 import {
   DictionaryTabParamList,
   DictionaryScreen,
@@ -28,8 +28,6 @@ const TwoLettersWords: React.FC<Props> = ({ navigation }) => {
   const { t } = useTranslation('dictionary');
   const dispatch = useDispatch();
 
-  const themedStyles = styles(useSelector(selectTheme));
-
   const searchWord = (word: string) => () => {
     dispatch(setSearchQuery(word));
     dispatch(fetchWordData());
@@ -43,22 +41,22 @@ const TwoLettersWords: React.FC<Props> = ({ navigation }) => {
         onGoBack={() => navigation.goBack()}
         hideMenuButton
       />
-      <View style={themedStyles.container}>
-        <ScrollView contentContainerStyle={themedStyles.scrollContainer}>
+      <S.TwoLettersWordsWrapper>
+        <ScrollView contentContainerStyle={css({ padding: 20 })}>
           {(Object.keys(twoLettersWords) as Letter[]).map((letter) => (
-            <View key={letter} style={themedStyles.letterRow}>
-              <Text style={themedStyles.letter}>{letter}</Text>
-              <View style={themedStyles.letterWords}>
+            <S.LetterRow key={letter}>
+              <S.Letter>{letter}</S.Letter>
+              <S.LetterWords>
                 {twoLettersWords[letter]!.map((word) => (
                   <TouchableOpacity key={word} onPress={searchWord(word)}>
-                    <Text style={themedStyles.word}>{word}</Text>
+                    <S.Word>{word}</S.Word>
                   </TouchableOpacity>
                 ))}
-              </View>
-            </View>
+              </S.LetterWords>
+            </S.LetterRow>
           ))}
         </ScrollView>
-      </View>
+      </S.TwoLettersWordsWrapper>
     </>
   );
 };

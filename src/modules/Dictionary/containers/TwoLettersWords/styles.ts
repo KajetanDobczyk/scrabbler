@@ -1,33 +1,29 @@
-import { StyleSheet } from 'react-native';
+import styled from '@emotion/native';
 
-import { Theme } from 'src/theme/interfaces';
+export const TwoLettersWordsWrapper = styled.View(({ theme }) => ({
+  flex: 1,
+  backgroundColor: theme.color.white,
+}));
 
-export const styles = ({ color }: Theme) =>
-  StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: color.white,
-    },
-    scrollContainer: {
-      padding: 20,
-    },
-    letterRow: {
-      flexDirection: 'row',
-      marginBottom: 10,
-    },
-    letter: {
-      width: 25,
-      textTransform: 'uppercase',
-      fontWeight: 'bold',
-      color: color.board,
-    },
-    letterWords: {
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-    },
-    word: {
-      textTransform: 'uppercase',
-      marginRight: 10,
-      marginBottom: 2,
-    },
-  });
+export const LetterRow = styled.View({
+  flexDirection: 'row',
+  marginBottom: 10,
+});
+
+export const Letter = styled.Text(({ theme }) => ({
+  width: 25,
+  textTransform: 'uppercase',
+  fontWeight: 'bold',
+  color: theme.color.board,
+}));
+
+export const LetterWords = styled.View({
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+});
+
+export const Word = styled.Text(({ theme }) => ({
+  textTransform: 'uppercase',
+  marginRight: 10,
+  marginBottom: 2,
+}));

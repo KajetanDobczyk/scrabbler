@@ -1,29 +1,24 @@
-import { StyleSheet } from 'react-native';
+import styled from '@emotion/native';
 
 import { StatusBarHeight } from 'src/config';
-import { Theme } from 'src/theme/interfaces';
 
-export const styles = ({ color, font }: Theme) =>
-  StyleSheet.create({
-    container: {
-      backgroundColor: color.board,
-      paddingTop: StatusBarHeight + 20,
-      paddingHorizontal: 20,
-      paddingBottom: 20,
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-    },
-    backIcon: {
-      color: color.white,
-    },
-    title: {
-      color: color.white,
-      fontWeight: 'bold',
-      fontSize: font.size.base,
-    },
-    rightMenu: {
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-  });
+export const HeaderWrapper = styled.View(({ theme }) => ({
+  backgroundColor: theme.color.board,
+  paddingTop: StatusBarHeight + 20,
+  paddingHorizontal: 20,
+  paddingBottom: 20,
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+}));
+
+export const Title = styled.Text(({ theme }) => ({
+  color: theme.color.white,
+  fontWeight: 'bold',
+  fontSize: theme.font.size.base,
+}));
+
+export const RightMenu = styled.View({
+  flexDirection: 'row',
+  alignItems: 'center',
+});
