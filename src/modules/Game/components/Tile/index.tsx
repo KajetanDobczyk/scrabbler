@@ -1,12 +1,10 @@
 import React, { useEffect, useRef } from 'react';
-import { Text, Animated, Easing, View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { Animated, Easing } from 'react-native';
 
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import { tilesPoints } from 'src/modules/Dictionary/data';
-import { selectTheme } from 'src/modules/Settings/store/selectors';
 
-import { styles } from './styles';
+import * as S from './styles';
 
 type Props = {
   letter: Letter;
@@ -21,8 +19,6 @@ const Tile: React.FC<Props> = ({
   isHighlighted,
   hidePoints,
 }) => {
-  const theme = useSelector(selectTheme);
-
   const points = !hidePoints && tilesPoints[letter];
   const animatedValue = useRef(new Animated.Value(0)).current;
   const animation = Animated.loop(
@@ -46,29 +42,20 @@ const Tile: React.FC<Props> = ({
     }
   }, [isHighlighted]);
 
-  const themedStyles = styles(theme, {
-    opacity: blankLetter ? 0.3 : 1,
-  });
-
   return (
-    <Animated.View style={themedStyles.container}>
-      <Animated.View
-        style={[
-          themedStyles.highlightOverlay,
-          {
-            opacity: highlightOverlayOpacityAnimation,
-          },
-        ]}
+    <S.TileWrapper>
+      <S.HighlightOverlay
+        style={{
+          opacity: highlightOverlayOpacityAnimation,
+        }}
       />
-      <View style={themedStyles.content}>
-        <Text style={themedStyles.letter}>
+      <S.Content>
+        <S.Letter isBlank={Boolean(blankLetter)}>
           {letter !== '?' ? letter : blankLetter || ''}
-        </Text>
-        {points ? (
-          <Text style={themedStyles.points}>{tilesPoints[letter]}</Text>
-        ) : null}
-      </View>
-    </Animated.View>
+        </S.Letter>
+        {points ? <S.Points>{tilesPoints[letter]}</S.Points> : null}
+      </S.Content>
+    </S.TileWrapper>
   );
 };
 

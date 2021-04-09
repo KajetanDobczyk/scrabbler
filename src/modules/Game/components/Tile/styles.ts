@@ -1,42 +1,38 @@
-import { StyleSheet } from 'react-native';
+import styled from '@emotion/native';
+import Animated from 'react-native-reanimated';
 
-import { Theme } from 'src/theme/interfaces';
+export const TileWrapper = styled(Animated.View)(({ theme }) => ({
+  aspectRatio: 1,
+  position: 'relative',
+  backgroundColor: theme.color.tile,
+  borderRadius: 2,
+}));
 
-type StylesProps = {
-  opacity: number;
-};
+export const HighlightOverlay = styled<any>(Animated.View)(({ theme }) => ({
+  backgroundColor: theme.color.white,
+  position: 'absolute',
+  width: '100%',
+  height: '100%',
+  zIndex: 0,
+}));
 
-export const styles = ({ color, font }: Theme, { opacity }: StylesProps) =>
-  StyleSheet.create({
-    container: {
-      aspectRatio: 1,
-      position: 'relative',
-      backgroundColor: color.tile,
-      borderRadius: 2,
-    },
-    highlightOverlay: {
-      backgroundColor: color.white,
-      position: 'absolute',
-      width: '100%',
-      height: '100%',
-      zIndex: 0,
-    },
-    content: {
-      position: 'absolute',
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '100%',
-      height: '100%',
-      zIndex: 1,
-    },
-    letter: {
-      textTransform: 'uppercase',
-      opacity,
-    },
-    points: {
-      position: 'absolute',
-      bottom: 0,
-      right: 2,
-      fontSize: font.size.xxs,
-    },
-  });
+export const Content = styled.View({
+  position: 'absolute',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+  height: '100%',
+  zIndex: 1,
+});
+
+export const Letter = styled.Text<{ isBlank: boolean }>(({ isBlank }) => ({
+  textTransform: 'uppercase',
+  opacity: isBlank ? 0.3 : 1,
+}));
+
+export const Points = styled.Text(({ theme }) => ({
+  position: 'absolute',
+  bottom: 0,
+  right: 2,
+  fontSize: theme.font.size.xxs,
+}));
