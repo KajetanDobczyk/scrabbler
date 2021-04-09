@@ -15,6 +15,7 @@ const SearchBar = () => {
 
   const themedStyles = styles(useSelector(selectTheme));
   const query = useSelector(selectWordSearchQuery);
+  const theme = useSelector(selectTheme);
 
   const handleOnChangeText = (text: string) => {
     dispatch(setSearchQuery(text));
@@ -37,7 +38,7 @@ const SearchBar = () => {
         size={20}
         onPress={handleSearch}
         disabled={!query.length}
-        iconStyle={themedStyles.searchIcon}
+        color={theme.color.black}
       />
     </View>
   );

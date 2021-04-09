@@ -1,11 +1,11 @@
 import React, { ComponentType } from 'react';
-import { TouchableOpacity, StyleProp, ViewStyle } from 'react-native';
 import { Ionicons, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 import { useSelector } from 'react-redux';
+import { css } from '@emotion/native';
 
 import { selectTheme } from 'src/modules/Settings/store/selectors';
 
-import { styles } from './styles';
+import * as S from './styles';
 
 type IconSet = 'FontAwesome5' | 'Ionicons' | 'MaterialIcons';
 
@@ -21,9 +21,7 @@ type Props = {
   size: number;
   onPress: () => void;
   disabled?: boolean;
-  style?: StyleProp<ViewStyle>;
-  iconStyle?: StyleProp<ViewStyle>;
-  dark?: boolean;
+  color?: string;
 };
 
 const IconButton: React.FC<Props> = ({
@@ -32,25 +30,23 @@ const IconButton: React.FC<Props> = ({
   size,
   onPress,
   disabled,
-  style,
-  iconStyle,
+  color,
 }) => {
-  const themedStyles = styles(useSelector(selectTheme));
+  const theme = useSelector(selectTheme);
 
   const IconComponent = iconSets[iconSet];
 
   return (
-    <TouchableOpacity
-      style={style ? [themedStyles.container, style] : themedStyles.container}
-      onPress={onPress}
-      disabled={disabled}
-    >
+    <S.IconButtonWrapper onPress={onPress} disabled={disabled}>
       <IconComponent
         name={icon}
         size={size}
-        style={iconStyle ? [themedStyles.icon, iconStyle] : themedStyles.icon}
+        style={css({
+          textAlign: 'center',
+          color: color || theme.color.white,
+        })}
       />
-    </TouchableOpacity>
+    </S.IconButtonWrapper>
   );
 };
 

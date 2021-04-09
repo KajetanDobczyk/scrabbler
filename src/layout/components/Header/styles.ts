@@ -26,7 +26,4 @@ export const styles = ({ color, font }: Theme) =>
       flexDirection: 'row',
       alignItems: 'center',
     },
-    menuButton: {
-      marginLeft: 20,
-    },
   });

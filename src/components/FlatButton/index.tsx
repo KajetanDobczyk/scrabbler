@@ -9,7 +9,7 @@ type Props = {
 };
 
 const FlatButton: React.FC<Props> = ({ label, onPress, disabled }) => (
-  <S.FlatButtonWrapper disabled={Boolean(disabled)} onPress={onPress}>
+  <S.FlatButtonWrapper disabled={disabled} onPress={onPress}>
     <S.Label>{label}</S.Label>
   </S.FlatButtonWrapper>
 );

@@ -10,8 +10,4 @@ export const styles = ({ color }: Theme) =>
       flexWrap: 'wrap',
       justifyContent: 'flex-start',
     },
-    eraseButton: {
-      color: color.tile,
-      marginLeft: 5,
-    },
   });

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { css } from '@emotion/native';
 
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import { ITilesList } from 'src/modules/Game/interfaces';
@@ -35,6 +36,7 @@ const TilesList: React.FC<Props> = ({ tilesList, onBlankPressed }) => {
   };
 
   const themedStyles = styles(useSelector(selectTheme));
+  const theme = useSelector(selectTheme);
 
   const availableTiles = Object.keys(tilesList) as Letter[];
 
@@ -53,7 +55,8 @@ const TilesList: React.FC<Props> = ({ tilesList, onBlankPressed }) => {
         iconSet="Ionicons"
         size={25}
         onPress={eraseTile}
-        iconStyle={themedStyles.eraseButton}
+        color={theme.color.tile}
+        style={css({ marginLeft: 5 })}
       />
     </ScrollView>
   );

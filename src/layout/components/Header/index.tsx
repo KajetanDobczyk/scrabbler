@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { useNavigation, DrawerActions } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+import { css } from '@emotion/native';
 
 import IconButton from 'src/components/IconButton';
 import { selectTheme } from 'src/modules/Settings/store/selectors';
@@ -43,7 +44,7 @@ const Header: React.FC<Props> = ({
               icon="ios-menu"
               size={20}
               onPress={openDrawerNavigation}
-              style={themedStyles.menuButton}
+              style={css({ marginLeft: 5 })}
             />
           )}
         </View>
