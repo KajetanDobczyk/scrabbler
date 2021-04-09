@@ -1,11 +1,8 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { useSelector } from 'react-redux';
 
 import { IPlayer } from 'src/modules/Game/interfaces';
-import { selectTheme } from 'src/modules/Settings/store/selectors';
 
-import { styles } from './styles';
+import * as S from './styles';
 
 type Props = {
   player: IPlayer;
@@ -17,21 +14,11 @@ const FinishedGamePlayerTile: React.FC<Props> = ({
   player,
   points,
   isWinner,
-}) => {
-  const themedStyles = styles(useSelector(selectTheme));
-
-  return (
-    <View
-      style={
-        isWinner
-          ? [themedStyles.container, themedStyles.winner]
-          : themedStyles.container
-      }
-    >
-      <Text style={themedStyles.name}>{player.name}</Text>
-      <Text style={themedStyles.points}>{points}</Text>
-    </View>
-  );
-};
+}) => (
+  <S.FinishedGamePlayerTileWrapper isWinner={isWinner}>
+    <S.Name>{player.name}</S.Name>
+    <S.Points>{points}</S.Points>
+  </S.FinishedGamePlayerTileWrapper>
+);
 
 export default FinishedGamePlayerTile;

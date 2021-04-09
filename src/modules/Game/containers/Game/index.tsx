@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
-  View,
   ScrollView,
   NativeSyntheticEvent,
   NativeScrollEvent,
@@ -9,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useTranslation } from 'react-i18next';
 import { Dimensions } from 'react-native';
+import { css } from '@emotion/native';
 
 import Header from 'src/layout/components/Header';
 import IconButton from 'src/components/IconButton';
@@ -19,7 +19,7 @@ import Board from './components/Board';
 import EndGameModal from './components/EndGameModal';
 import NewMoveMenu from './components/NewMoveMenu';
 import TilesAvailability from './components/TilesAvailability';
-import { styles } from './styles';
+import * as S from './styles';
 import { selectNewMove } from '../../store/board/selectors';
 import { selectGameView } from '../../store/config/selectors';
 import { setGameView } from '../../store/config/slice';
@@ -36,7 +36,7 @@ const Game: React.FC<Props> = ({ navigation }) => {
 
   const newMove = useSelector(selectNewMove);
   const view = useSelector(selectGameView);
-  const themedStyles = styles(useSelector(selectTheme));
+  const theme = useSelector(selectTheme);
 
   const [isEndGameModalVisible, setIsEndGameModalVisible] = useState(false);
 
@@ -77,21 +77,24 @@ const Game: React.FC<Props> = ({ navigation }) => {
       <ScrollView
         ref={scrollView}
         horizontal={true}
-        contentContainerStyle={themedStyles.scrollViewContent}
+        contentContainerStyle={css({
+          flexGrow: 1,
+          backgroundColor: theme.color.board,
+        })}
         pagingEnabled={true}
         onMomentumScrollEnd={handleOnMomentumScrollEnd}
       >
-        <View style={themedStyles.horizontalScreen}>
+        <S.HorizontalScreen>
           <ScoresTable />
-        </View>
-        <View style={themedStyles.horizontalScreen}>
+        </S.HorizontalScreen>
+        <S.HorizontalScreen>
           <Board />
           {newMove.tiles.length || newMove.target ? (
             <NewMoveMenu />
           ) : (
             <TilesAvailability />
           )}
-        </View>
+        </S.HorizontalScreen>
       </ScrollView>
       {isEndGameModalVisible && (
         <EndGameModal

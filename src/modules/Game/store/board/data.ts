@@ -1,5 +1,5 @@
 import { Letter } from 'src/modules/Dictionary/interfaces';
-import { Theme } from 'src/theme/interfaces';
+import { Color } from 'src/theme/interfaces';
 import { initialTilesAmount } from 'src/modules/Dictionary/data';
 
 import { IBoardFields, FieldBonus, ITilesList } from '../../interfaces';
@@ -7,7 +7,7 @@ import { IBoardState } from './interfaces';
 
 export const rowFieldsAmount = 15;
 
-export const getBoardFieldsColors = ({ color }: Theme) => ({
+export const getBoardFieldsBgColors = (color: Color) => ({
   0: color.boardField,
   dl: color.doubleLetter,
   tl: color.trippleLetter,

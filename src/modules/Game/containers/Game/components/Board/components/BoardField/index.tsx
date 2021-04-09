@@ -1,13 +1,14 @@
 import React, { useRef } from 'react';
-import { View, Animated, TouchableOpacity, Easing } from 'react-native';
 import { useSelector } from 'react-redux';
+import { Animated, Easing } from 'react-native';
+import { css } from '@emotion/native';
 
 import { IBoardField } from 'src/modules/Game/interfaces';
 import Tile from 'src/modules/Game/components/Tile';
-import { getBoardFieldsColors } from 'src/modules/Game/store/board/data';
+import { getBoardFieldsBgColors } from 'src/modules/Game/store/board/data';
 import { selectTheme } from 'src/modules/Settings/store/selectors';
 
-import { styles } from './styles';
+import * as S from './styles';
 
 type Props = {
   x: number;
@@ -48,33 +49,27 @@ const BoardField: React.FC<Props> = ({
     animation.stop();
   }
 
-  const themedStyles = styles(theme, {
-    backgroundColor: getBoardFieldsColors(theme)[field.bonus],
-  });
-
+  //TODO: Refactor getBoardFieldsBgColors to be more readable and efficient
   return (
-    <TouchableOpacity
-      style={themedStyles.container}
+    <S.BoardFieldWrapper
       onPress={() => onPress(x, y)}
+      style={css({
+        backgroundColor: getBoardFieldsBgColors(theme.color)[field.bonus],
+      })}
     >
       {isTarget && (
-        <Animated.View
-          style={[
-            themedStyles.highlightOverlay,
-            { opacity: overlayOpacityAnimation },
-          ]}
-        />
+        <S.HighlightOverlay style={{ opacity: overlayOpacityAnimation }} />
       )}
       {field.letter ? (
-        <View style={themedStyles.tileWrapper}>
+        <S.TileWrapper>
           <Tile
             letter={field.letter}
             blankLetter={field.blankLetter}
             isHighlighted={isInNewMove}
           />
-        </View>
+        </S.TileWrapper>
       ) : null}
-    </TouchableOpacity>
+    </S.BoardFieldWrapper>
   );
 };
 
