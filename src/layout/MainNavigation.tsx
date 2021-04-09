@@ -26,12 +26,11 @@ const MainNavigation = () => {
   const { t } = useTranslation(['dictionary', 'game', 'settings', 'players']);
 
   const isUserLoggedIn = useSelector(selectIsUserLoggedIn);
+  const { color } = useSelector(selectTheme);
 
   if (!isUserLoggedIn) {
     return <Login />;
   }
-
-  const { color } = useSelector(selectTheme);
 
   const routesNames: Record<Screen, string> = {
     [Screen.Game]: t('game:routeName'),

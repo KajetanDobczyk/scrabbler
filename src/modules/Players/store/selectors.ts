@@ -9,6 +9,8 @@ export const selectUser = createSelector(
   (players) => players.user,
 );
 
+export const selectUserData = createSelector(selectUser, (user) => user.data);
+
 export const selectIsUserLoggedIn = createSelector(selectUser, (user) =>
   Boolean(user.token),
 );
