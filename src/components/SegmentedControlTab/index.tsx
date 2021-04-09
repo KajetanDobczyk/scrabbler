@@ -3,23 +3,31 @@ import SegmentedControlTabBase, {
   SegmentedControlTabProperties,
 } from 'react-native-segmented-control-tab';
 import { useSelector } from 'react-redux';
+import { css } from '@emotion/native';
 
 import { selectTheme } from 'src/modules/Settings/store/selectors';
-
-import { styles } from './styles';
 
 const SegmentedControlTab: React.FC<SegmentedControlTabProperties> = (
   props,
 ) => {
-  const themedStyles = styles(useSelector(selectTheme));
+  const { color } = useSelector(selectTheme);
 
   return (
     <SegmentedControlTabBase
       {...props}
-      tabsContainerStyle={themedStyles.controlTabWrapper}
-      tabStyle={themedStyles.controlTab}
-      tabTextStyle={themedStyles.controlTabText}
-      activeTabStyle={themedStyles.activeControlTab}
+      tabsContainerStyle={css({
+        marginTop: 10,
+      })}
+      tabStyle={css({
+        backgroundColor: color.board,
+        borderColor: color.boardField,
+      })}
+      tabTextStyle={css({
+        color: color.boardField,
+      })}
+      activeTabStyle={css({
+        backgroundColor: color.boardField,
+      })}
     />
   );
 };

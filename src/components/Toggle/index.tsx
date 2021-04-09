@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Switch, Text } from 'react-native';
+import { Switch, Text } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import { selectTheme } from 'src/modules/Settings/store/selectors';
 
-import { styles } from './styles';
+import * as S from './styles';
 
 type Props = {
   label: string;
@@ -16,7 +16,7 @@ const Toggle: React.FC<Props> = ({ label, value, onChange }) => {
   const { color } = useSelector(selectTheme);
 
   return (
-    <View style={styles.container}>
+    <S.ToggleWrapper>
       <Text>{label}</Text>
       <Switch
         trackColor={{ false: color.grayLight, true: color.boardField }}
@@ -25,7 +25,7 @@ const Toggle: React.FC<Props> = ({ label, value, onChange }) => {
         onValueChange={onChange}
         value={value}
       />
-    </View>
+    </S.ToggleWrapper>
   );
 };
 

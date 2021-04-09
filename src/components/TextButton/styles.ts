@@ -1,16 +1,14 @@
-import { StyleSheet } from 'react-native';
+import styled from '@emotion/native';
 
-import { Theme } from 'src/theme/interfaces';
+export const TextButtonWrapper = styled.TouchableOpacity<{
+  disabled?: boolean;
+}>(({ disabled }) => ({
+  opacity: disabled ? 0.3 : 1,
+}));
 
-export const styles = ({ color, font }: Theme) =>
-  StyleSheet.create({
-    disabled: {
-      opacity: 0.3,
-    },
-    label: {
-      textAlign: 'center',
-      textTransform: 'uppercase',
-      fontSize: font.size.sm,
-      color: color.white,
-    },
-  });
+export const Label = styled.Text(({ theme }) => ({
+  textAlign: 'center',
+  textTransform: 'uppercase',
+  fontSize: theme.font.size.sm,
+  color: theme.color.white,
+}));

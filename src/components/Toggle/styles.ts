@@ -1,9 +1,7 @@
-import { StyleSheet } from 'react-native';
+import styled from '@emotion/native';
 
-export const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
+export const ToggleWrapper = styled.TouchableOpacity({
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
 });

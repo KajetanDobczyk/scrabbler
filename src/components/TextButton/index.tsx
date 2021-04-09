@@ -1,10 +1,6 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
-import { useSelector } from 'react-redux';
 
-import { selectTheme } from 'src/modules/Settings/store/selectors';
-
-import { styles } from './styles';
+import * as S from './styles';
 
 type Props = {
   label: string;
@@ -12,14 +8,10 @@ type Props = {
   disabled?: boolean;
 };
 
-const TextButton: React.FC<Props> = ({ label, onPress, disabled }) => {
-  const themedStyles = styles(useSelector(selectTheme));
-
-  return (
-    <TouchableOpacity onPress={onPress} disabled={disabled}>
-      <Text style={themedStyles.label}>{label}</Text>
-    </TouchableOpacity>
-  );
-};
+const TextButton: React.FC<Props> = ({ label, onPress, disabled }) => (
+  <S.TextButtonWrapper disabled={disabled} onPress={onPress}>
+    <S.Label>{label}</S.Label>
+  </S.TextButtonWrapper>
+);
 
 export default TextButton;
