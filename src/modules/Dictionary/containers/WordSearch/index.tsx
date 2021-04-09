@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  View,
   ActivityIndicator,
   TouchableWithoutFeedback,
   Keyboard,
@@ -12,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import Header from 'src/layout/components/Header';
 import { selectTheme } from 'src/modules/Settings/store/selectors';
 
-import { styles } from './styles';
+import * as S from './styles';
 import { DictionaryTabParamList, DictionaryScreen } from '../../interfaces';
 import SearchBar from './components/SearchBar';
 import { selectWordSearchFetchStatus } from '../../store/selectors';
@@ -29,20 +28,19 @@ const WordSearch: React.FC<Props> = () => {
   const { t } = useTranslation('dictionary');
 
   const theme = useSelector(selectTheme);
-  const themedStyles = styles(theme);
   const fetchStatus = useSelector(selectWordSearchFetchStatus);
 
   return (
     <>
       <Header title={t('routeName')} />
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View style={themedStyles.container}>
+        <S.SearchBarWrapper>
           <SearchBar />
           {fetchStatus === 'inProgress' && (
             <ActivityIndicator color={theme.color.board} />
           )}
           {fetchStatus === 'succeeded' && <SearchResult />}
-        </View>
+        </S.SearchBarWrapper>
       </TouchableWithoutFeedback>
     </>
   );

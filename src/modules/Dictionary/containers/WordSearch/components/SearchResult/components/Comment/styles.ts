@@ -1,24 +1,23 @@
-import { StyleSheet } from 'react-native';
+import styled from '@emotion/native';
 
-import { Theme } from 'src/theme/interfaces';
+export const CommentWrapper = styled.View({
+  marginBottom: 20,
+});
 
-export const styles = ({ color, font }: Theme) =>
-  StyleSheet.create({
-    container: {
-      marginBottom: 20,
-    },
-    header: {
-      flexDirection: 'row',
-      alignItems: 'flex-end',
-      justifyContent: 'space-between',
-    },
-    author: {
-      fontWeight: 'bold',
-      color: color.board,
-    },
-    date: {
-      fontSize: font.size.sm,
-      opacity: 0.4,
-    },
-    content: {},
-  });
+export const Header = styled.Text({
+  flexDirection: 'row',
+  alignItems: 'flex-end',
+  justifyContent: 'space-between',
+});
+
+export const Author = styled.Text(({ theme }) => ({
+  fontWeight: 'bold',
+  color: theme.color.board,
+}));
+
+export const Date = styled.Text(({ theme }) => ({
+  fontSize: theme.font.size.sm,
+  opacity: 0.4,
+}));
+
+export const Content = styled.Text();

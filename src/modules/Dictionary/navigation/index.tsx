@@ -6,6 +6,7 @@ import {
   DrawerContentScrollView,
 } from '@react-navigation/drawer';
 import { useSelector } from 'react-redux';
+import { css } from '@emotion/native';
 
 import { RootTabParamList, Screen } from 'src/layout/interfaces';
 import WordSearch from 'src/modules/Dictionary/containers/WordSearch/';
@@ -14,7 +15,6 @@ import { DictionaryScreen } from 'src/modules/Dictionary/interfaces';
 import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import DrawerContent from './components/DrawerContent';
-import { styles } from './styles';
 
 const Drawer = createDrawerNavigator();
 
@@ -24,13 +24,13 @@ type Props = {
 };
 
 const DictionaryTabContent: React.FC<Props> = () => {
-  const themedStyles = styles(useSelector(selectTheme));
+  const { color } = useSelector(selectTheme);
 
   return (
     <Drawer.Navigator
       initialRouteName={DictionaryScreen.Home}
       drawerContent={(props) => (
-        <DrawerContentScrollView style={themedStyles.container}>
+        <DrawerContentScrollView style={css({ backgroundColor: color.board })}>
           <DrawerContent {...props} />
         </DrawerContentScrollView>
       )}

@@ -1,5 +1,4 @@
 import React from 'react';
-import { View, Text, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import {
@@ -8,9 +7,8 @@ import {
   selectWordDescription,
   selectWordComments,
 } from 'src/modules/Dictionary/store/selectors';
-import { selectTheme } from 'src/modules/Settings/store/selectors';
 
-import { styles } from './styles';
+import * as S from './styles';
 import Comment from './components/Comment';
 import { useTranslation } from 'react-i18next';
 
@@ -20,30 +18,22 @@ const SearchResult = () => {
   const word = useSelector(selectSearchedWord);
   const description = useSelector(selectWordDescription);
   const comments = useSelector(selectWordComments);
-  const themedStyles = styles(useSelector(selectTheme));
 
   return (
-    <ScrollView style={themedStyles.container}>
-      <Text style={themedStyles.word}>{word}</Text>
-      <Text
-        style={[
-          themedStyles.isAllowedText,
-          isWordAllowed ? themedStyles.allowed : themedStyles.unallowed,
-        ]}
-      >
+    <S.SearchResultWrapper>
+      <S.Word>{word}</S.Word>
+      <S.IsAllowedText isAllowed={isWordAllowed}>
         {isWordAllowed ? t('results.allowed') : t('results.unallowed')}
-      </Text>
-      {description && (
-        <Text style={themedStyles.description}>{description}</Text>
-      )}
+      </S.IsAllowedText>
+      {description && <S.Description>{description}</S.Description>}
       {comments?.length ? (
-        <View style={themedStyles.comments}>
+        <S.Comments>
           {comments.map((comment, i) => (
             <Comment key={i} comment={comment} />
           ))}
-        </View>
+        </S.Comments>
       ) : null}
-    </ScrollView>
+    </S.SearchResultWrapper>
   );
 };
 

@@ -1,21 +1,14 @@
-import { StyleSheet } from 'react-native';
+import styled from '@emotion/native';
 
-import { Theme } from 'src/theme/interfaces';
+export const SearchBarWrapper = styled.View({
+  flexDirection: 'row',
+  width: '100%',
+  padding: 20,
+});
 
-export const styles = ({ color }: Theme) =>
-  StyleSheet.create({
-    container: {
-      flexDirection: 'row',
-      width: '100%',
-      padding: 20,
-    },
-    input: {
-      flex: 1,
-      borderBottomWidth: 1,
-      borderBottomColor: color.black,
-      marginRight: 10,
-    },
-    searchIcon: {
-      color: color.black,
-    },
-  });
+export const TextInput = styled.TextInput(({ theme }) => ({
+  flex: 1,
+  borderBottomWidth: 1,
+  borderBottomColor: theme.color.black,
+  marginRight: 10,
+}));

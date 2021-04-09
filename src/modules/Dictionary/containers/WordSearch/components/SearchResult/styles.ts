@@ -1,32 +1,28 @@
-import { StyleSheet } from 'react-native';
+import styled from '@emotion/native';
 
-import { Theme } from 'src/theme/interfaces';
+export const SearchResultWrapper = styled.ScrollView({
+  flex: 1,
+  paddingHorizontal: 20,
+});
 
-export const styles = ({ color, font }: Theme) =>
-  StyleSheet.create({
-    container: {
-      flex: 1,
-      paddingHorizontal: 20,
-    },
-    word: {
-      fontSize: font.size.xl,
-      marginBottom: 5,
-    },
-    isAllowedText: {
-      marginBottom: 20,
-    },
-    allowed: {
-      color: color.board,
-    },
-    unallowed: {
-      color: color.trippleWord,
-    },
-    description: {
-      marginBottom: 20,
-    },
-    comments: {
-      paddingTop: 20,
-      borderTopColor: color.black,
-      borderTopWidth: 1,
-    },
-  });
+export const Word = styled.Text(({ theme }) => ({
+  fontSize: theme.font.size.xl,
+  marginBottom: 5,
+}));
+
+export const IsAllowedText = styled.Text<{ isAllowed: boolean }>(
+  ({ theme, isAllowed }) => ({
+    marginBottom: 20,
+    color: isAllowed ? theme.color.board : theme.color.trippleWord,
+  }),
+);
+
+export const Description = styled.Text({
+  marginBottom: 20,
+});
+
+export const Comments = styled.View(({ theme }) => ({
+  paddingTop: 20,
+  borderTopColor: theme.color.black,
+  borderTopWidth: 1,
+}));

@@ -1,11 +1,6 @@
-import { StyleSheet } from 'react-native';
+import styled from '@emotion/native';
 
-import { Theme } from 'src/theme/interfaces';
-
-export const styles = ({ color }: Theme) =>
-  StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: color.white,
-    },
-  });
+export const SearchBarWrapper = styled.View(({ theme }) => ({
+  flex: 1,
+  backgroundColor: theme.color.white,
+}));
