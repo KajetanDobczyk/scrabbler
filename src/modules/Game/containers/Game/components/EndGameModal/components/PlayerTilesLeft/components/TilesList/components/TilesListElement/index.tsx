@@ -1,10 +1,9 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
 
 import Tile from 'src/modules/Game/components/Tile';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 
-import { styles } from './styles';
+import * as S from './styles';
 
 type Props = {
   letter: Letter;
@@ -13,17 +12,13 @@ type Props = {
 };
 
 const TilesListElement: React.FC<Props> = ({ letter, amountLeft, onPress }) => (
-  <TouchableOpacity
-    style={
-      amountLeft
-        ? styles.tileWrapper
-        : [styles.tileWrapper, styles.noAmountLeft]
-    }
+  <S.TilesListElementWrapper
+    noAmountLeft={Boolean(amountLeft)}
     onPress={() => onPress(letter)}
     disabled={!amountLeft}
   >
     <Tile letter={letter} />
-  </TouchableOpacity>
+  </S.TilesListElementWrapper>
 );
 
 export default TilesListElement;

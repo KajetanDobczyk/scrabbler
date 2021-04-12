@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Text, ScrollView, View } from 'react-native';
 import Modal from 'react-native-modal';
 import { useSelector, useDispatch } from 'react-redux';
+import { css } from '@emotion/native';
 
 import { PlayerId } from 'src/modules/Players/interfaces';
 import { Letter } from 'src/modules/Dictionary/interfaces';
@@ -20,7 +21,7 @@ import { selectTheme } from 'src/modules/Settings/store/selectors';
 import SegmentedControlTab from 'src/components/SegmentedControlTab';
 
 import PlayerTilesLeft from './components/PlayerTilesLeft';
-import { styles } from './styles';
+import * as S from './styles';
 import { useTranslation } from 'react-i18next';
 
 type Props = {
@@ -34,7 +35,7 @@ const EndGameModal: React.FC<Props> = ({ onFinish, onClose }) => {
 
   const previousPlayerId = useSelector(selectPreviousPlayerId);
   const players = useSelector(selectPlayers);
-  const themedStyles = styles(useSelector(selectTheme));
+  const theme = useSelector(selectTheme);
 
   const playersIds = Object.keys(players) as PlayerId[];
 
@@ -103,16 +104,20 @@ const EndGameModal: React.FC<Props> = ({ onFinish, onClose }) => {
 
   return (
     <Modal isVisible onBackdropPress={onClose} onSwipeCancel={onClose}>
-      <ScrollView contentContainerStyle={themedStyles.container}>
-        <Text style={themedStyles.header}>{t('endGame.whoFinished')}</Text>
+      <ScrollView
+        contentContainerStyle={css({
+          backgroundColor: theme.color.board,
+          padding: 20,
+          borderRadius: 4,
+        })}
+      >
+        <S.Header>{t('endGame.whoFinished')}</S.Header>
         <SegmentedControlTab
           values={playersIds.map((playerId) => players[playerId]?.name)}
           selectedIndex={parseInt(endingPlayerId)}
           onTabPress={handleSelectEndingPlayer}
         />
-        <Text style={themedStyles.header}>
-          {t('endGame.selectOthersTiles')}
-        </Text>
+        <S.Header>{t('endGame.selectOthersTiles')}</S.Header>
         {notEndingPlayersIds.map((playerId) => (
           <PlayerTilesLeft
             key={playerId}
@@ -124,10 +129,10 @@ const EndGameModal: React.FC<Props> = ({ onFinish, onClose }) => {
             onPlayerTilePressed={removePlayerTileLeft}
           />
         ))}
-        <View style={themedStyles.buttonsWrapper}>
+        <S.ButtonsWrapper>
           <FlatButton label={t('actions.cancel')} onPress={onClose} />
           <FlatButton label={t('actions.finish')} onPress={finish} />
-        </View>
+        </S.ButtonsWrapper>
       </ScrollView>
     </Modal>
   );

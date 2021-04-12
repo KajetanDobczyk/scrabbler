@@ -1,11 +1,10 @@
 import React from 'react';
-import { View } from 'react-native';
 
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import { ITilesList } from 'src/modules/Game/interfaces';
 
 import TilesListElement from './components/TilesListElement';
-import { styles } from './styles';
+import * as S from './styles';
 
 type Props = {
   tilesList: ITilesList;
@@ -29,7 +28,7 @@ const TilesList: React.FC<Props> = ({
   const availableTiles = Object.keys(tilesList) as Letter[];
 
   return (
-    <View style={styles.container}>
+    <S.PlayerTilesLeftWrapper>
       {availableTiles.map((letter) => (
         <TilesListElement
           key={letter}
@@ -38,7 +37,7 @@ const TilesList: React.FC<Props> = ({
           onPress={selectTile}
         />
       ))}
-    </View>
+    </S.PlayerTilesLeftWrapper>
   );
 };
 

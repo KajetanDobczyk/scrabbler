@@ -1,20 +1,11 @@
-import { StyleSheet } from 'react-native';
+import styled from '@emotion/native';
 
-import { Theme } from 'src/theme/interfaces';
+export const Header = styled.Text(({ theme }) => ({
+  color: theme.color.white,
+}));
 
-export const styles = ({ color }: Theme) =>
-  StyleSheet.create({
-    container: {
-      backgroundColor: color.board,
-      padding: 20,
-      borderRadius: 4,
-    },
-    header: {
-      color: color.white,
-    },
-    buttonsWrapper: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      marginTop: 20,
-    },
-  });
+export const ButtonsWrapper = styled.View({
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  marginTop: 20,
+});

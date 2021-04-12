@@ -1,18 +1,13 @@
-import EStyleSheet from 'react-native-extended-stylesheet';
+import styled from '@emotion/native';
 
-import { Theme } from 'src/theme/interfaces';
-
-export const styles = ({ color }: Theme) =>
-  EStyleSheet.create({
-    container: {
-      position: 'relative',
-      flexBasis: 0,
-      flexGrow: 1,
-      backgroundColor: color.white,
-      borderRightColor: color.board,
-      borderRightWidth: 1,
-    },
-    'container:last-child': {
-      borderRightWidth: 0,
-    },
-  });
+export const PlayersMovesWrapper = styled.View(({ theme }) => ({
+  backgroundColor: theme.color.board,
+  paddingHorizontal: 2.5,
+  paddingBottom: 5,
+  flexDirection: 'row',
+  justifyContent: 'flex-end',
+  alignItems: 'center',
+  '&:last-child': {
+    borderRightWidth: 0,
+  },
+}));

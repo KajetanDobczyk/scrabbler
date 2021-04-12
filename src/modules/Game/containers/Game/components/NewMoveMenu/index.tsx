@@ -1,19 +1,15 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Letter } from 'src/modules/Dictionary/interfaces';
 import FlatButton from 'src/components/FlatButton';
 import { cancelNewMove } from 'src/modules/Game/store/board/slice';
 import { tryNewMove } from 'src/modules/Game/store/players/thunks';
 import { selectTilesList } from 'src/modules/Game/store/board/selectors';
-import { listBoardTilePressed } from 'src/modules/Game/store/board/thunks';
-import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import TilesList from './components/TilesList';
 import BlankModal from './components/BlankModal';
-import { styles } from './styles';
 import { useTranslation } from 'react-i18next';
+import * as S from './styles';
 
 const menuActions: Record<string, any> = {
   cancel: cancelNewMove,
@@ -27,7 +23,6 @@ const NewMoveMenu = () => {
   const [isBlankModalVisible, setIsBlankModalVisible] = useState(false);
 
   const tilesList = useSelector(selectTilesList);
-  const themedStyles = styles(useSelector(selectTheme));
 
   const handleMenuAction = (actionLabel: string) => () => {
     const action = menuActions[actionLabel];
@@ -43,21 +38,21 @@ const NewMoveMenu = () => {
 
   return (
     <>
-      <View style={themedStyles.container}>
+      <S.NewMoveMenuWrapper>
         <TilesList tilesList={tilesList} onBlankPressed={toggleBlankModal} />
-        <View style={themedStyles.buttonsWrapper}>
-          <View style={themedStyles.leftButtonWrapper}>
+        <S.ButtonsWrapper>
+          <S.LeftButtonWrapper>
             <FlatButton
               label={t('actions.cancel')}
               onPress={handleMenuAction('cancel')}
             />
-          </View>
+          </S.LeftButtonWrapper>
           <FlatButton
             label={t('actions.accept')}
             onPress={handleMenuAction('accept')}
           />
-        </View>
-      </View>
+        </S.ButtonsWrapper>
+      </S.NewMoveMenuWrapper>
       {isBlankModalVisible && <BlankModal onClose={toggleBlankModal} />}
     </>
   );

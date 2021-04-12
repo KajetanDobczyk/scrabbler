@@ -1,5 +1,4 @@
 import React from 'react';
-import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
@@ -10,9 +9,8 @@ import {
 } from 'src/modules/Game/store/players/thunks';
 import { selectIsFirstMove } from 'src/modules/Game/store/players/selectors';
 import { setGameView } from 'src/modules/Game/store/config/slice';
-import { selectTheme } from 'src/modules/Settings/store/selectors';
 
-import { styles } from './styles';
+import * as S from './styles';
 
 const menuActions: Record<string, any> = {
   undo: removeLastMove,
@@ -24,7 +22,6 @@ const CurrentPlayerMenu = () => {
   const dispatch = useDispatch();
 
   const isFirstMove = useSelector(selectIsFirstMove);
-  const themedStyles = styles(useSelector(selectTheme));
 
   const handleMenuAction = (actionLabel: string) => () => {
     const action = menuActions[actionLabel];
@@ -39,25 +36,25 @@ const CurrentPlayerMenu = () => {
   };
 
   return (
-    <View style={themedStyles.container}>
+    <S.CurrentPlayerMenuWrapper>
       {!isFirstMove && (
-        <View style={themedStyles.buttonWrapper}>
+        <S.ButtonWrapper>
           <FlatButton
             label={t('actions.undo')}
             onPress={handleMenuAction('undo')}
           />
-        </View>
+        </S.ButtonWrapper>
       )}
-      <View style={themedStyles.buttonWrapper}>
+      <S.ButtonWrapper>
         <FlatButton
           label={t('actions.skip')}
           onPress={handleMenuAction('skip')}
         />
-      </View>
-      <View style={themedStyles.buttonWrapper}>
+      </S.ButtonWrapper>
+      <S.ButtonWrapper>
         <FlatButton label={t('actions.newWord')} onPress={scrollToBoard} />
-      </View>
-    </View>
+      </S.ButtonWrapper>
+    </S.CurrentPlayerMenuWrapper>
   );
 };
 

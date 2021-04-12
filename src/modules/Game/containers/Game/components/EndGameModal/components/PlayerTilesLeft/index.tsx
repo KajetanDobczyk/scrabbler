@@ -1,17 +1,15 @@
 import React from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import range from 'lodash/range';
-import { useSelector } from 'react-redux';
 
 import { PlayerId } from 'src/modules/Players/interfaces';
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import Tile from 'src/modules/Game/components/Tile';
 import { ITilesList } from 'src/modules/Game/interfaces';
 import { tilesPoints } from 'src/modules/Dictionary/data';
-import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import TilesList from './components/TilesList';
-import { styles } from './styles';
+import * as S from './styles';
 
 type Props = {
   playerId: PlayerId;
@@ -34,8 +32,6 @@ const PlayerTilesLeft: React.FC<Props> = ({
   onListTilePressed,
   onPlayerTilePressed,
 }) => {
-  const themedStyles = styles(useSelector(selectTheme));
-
   const handleOnTilePressed = (letter: Letter) => {
     onListTilePressed(playerId, letter);
   };
@@ -55,33 +51,32 @@ const PlayerTilesLeft: React.FC<Props> = ({
   );
 
   return (
-    <View style={themedStyles.container}>
-      <View style={themedStyles.header}>
-        <Text style={themedStyles.name}>{playerName}</Text>
-        <View style={themedStyles.tilesLeft}>
+    <S.PlayerTilesLeftWrapper>
+      <S.Header>
+        <S.Name>{playerName}</S.Name>
+        <S.TilesLeft>
           {range(placeholdersAmount).map((i) => (
-            <View key={i} style={themedStyles.tilePlaceholder}></View>
+            <S.TilePlaceholder key={i}></S.TilePlaceholder>
           ))}
           {playerTilesLeft.map((letter, i) => (
-            <TouchableOpacity
+            <S.TileLeftWrapper
               key={i}
-              style={themedStyles.tileLeftWrapper}
               onPress={handleOnPlayerTilePressed(letter, i)}
             >
               <Tile letter={letter} />
-            </TouchableOpacity>
+            </S.TileLeftWrapper>
           ))}
-        </View>
-      </View>
+        </S.TilesLeft>
+      </S.Header>
       <TilesList
         tilesList={tilesLeft}
         onTilePressed={handleOnTilePressed}
         onBlankPressed={handleOnBlankPressed}
       />
-      <View style={themedStyles.minusPointsWrapper}>
-        <Text style={themedStyles.minusPoints}>{minusPoints}</Text>
-      </View>
-    </View>
+      <S.MinusPointsWrapper>
+        <S.MinusPoints>{minusPoints}</S.MinusPoints>
+      </S.MinusPointsWrapper>
+    </S.PlayerTilesLeftWrapper>
   );
 };
 

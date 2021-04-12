@@ -1,16 +1,14 @@
 import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import Tile from 'src/modules/Game/components/Tile';
 import { selectTilesList } from 'src/modules/Game/store/board/selectors';
 import { listBoardTilePressed } from 'src/modules/Game/store/board/thunks';
-import { selectTheme } from 'src/modules/Settings/store/selectors';
 
-import { styles } from './styles';
-import { useTranslation } from 'react-i18next';
+import * as S from './styles';
 
 type Props = {
   onClose: () => void;
@@ -21,7 +19,6 @@ const BlankModal: React.FC<Props> = ({ onClose }) => {
   const dispatch = useDispatch();
 
   const tilesList = useSelector(selectTilesList);
-  const themedStyles = styles(useSelector(selectTheme));
 
   const handleTilePress = (letter: Letter) => () => {
     dispatch(listBoardTilePressed('?', letter));
@@ -30,22 +27,18 @@ const BlankModal: React.FC<Props> = ({ onClose }) => {
 
   return (
     <Modal isVisible onBackdropPress={onClose} onSwipeCancel={onClose}>
-      <View style={themedStyles.container}>
-        <Text style={themedStyles.header}>{t('actions.selectLetter')}</Text>
-        <View style={themedStyles.tilesList}>
+      <S.ModalContent>
+        <S.Header>{t('actions.selectLetter')}</S.Header>
+        <S.TilesList>
           {(Object.keys(tilesList) as Letter[]).map((letter) =>
             !!(letter !== '?' && tilesList[letter].amountLeft) ? (
-              <TouchableOpacity
-                key={letter}
-                style={themedStyles.tileWrapper}
-                onPress={handleTilePress(letter)}
-              >
+              <S.TileWrapper key={letter} onPress={handleTilePress(letter)}>
                 <Tile letter={letter} hidePoints />
-              </TouchableOpacity>
+              </S.TileWrapper>
             ) : null,
           )}
-        </View>
-      </View>
+        </S.TilesList>
+      </S.ModalContent>
     </Modal>
   );
 };

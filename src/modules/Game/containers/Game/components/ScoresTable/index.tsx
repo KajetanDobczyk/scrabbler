@@ -8,7 +8,6 @@ import PlayersNames from './components/PlayersNames';
 import PlayersMoves from './components/PlayersMoves';
 import PlayersTotalScores from './components/PlayersTotalScores';
 import CurrentPlayerMenu from './components/CurrentPlayerMenu';
-import { styles } from './styles';
 
 const ScoresTable = () => {
   const players = useSelector(selectPlayers);
@@ -33,7 +32,11 @@ const ScoresTable = () => {
       <PlayersNames />
       <ScrollView
         ref={scrollView}
-        contentContainerStyle={styles.container}
+        contentContainerStyle={{
+          width: '100%',
+          flexGrow: 1,
+          flexDirection: 'row',
+        }}
         onContentSizeChange={scrollToEnd}
       >
         {Object.values(players).map((player, i) =>
@@ -41,8 +44,6 @@ const ScoresTable = () => {
             <PlayersMoves
               key={i}
               player={player}
-              index={i}
-              playersAmount={Object.keys(players).length}
               movesHeights={movesHeights}
               onAdjustMoveHeight={adjustMovesHeights}
             />

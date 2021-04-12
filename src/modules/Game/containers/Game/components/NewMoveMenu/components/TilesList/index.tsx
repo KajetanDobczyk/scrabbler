@@ -1,5 +1,4 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { css } from '@emotion/native';
 
@@ -12,7 +11,7 @@ import {
   listBoardTilePressed,
 } from 'src/modules/Game/store/board/thunks';
 
-import { styles } from './styles';
+import * as S from './styles';
 import TilesListElement from './components/TilesListElement';
 
 type Props = {
@@ -35,13 +34,12 @@ const TilesList: React.FC<Props> = ({ tilesList, onBlankPressed }) => {
     dispatch(eraseLastTile());
   };
 
-  const themedStyles = styles(useSelector(selectTheme));
   const theme = useSelector(selectTheme);
 
   const availableTiles = Object.keys(tilesList) as Letter[];
 
   return (
-    <ScrollView contentContainerStyle={themedStyles.container}>
+    <S.TilesListWrapper>
       {availableTiles.map((letter) => (
         <TilesListElement
           key={letter}
@@ -58,7 +56,7 @@ const TilesList: React.FC<Props> = ({ tilesList, onBlankPressed }) => {
         color={theme.color.tile}
         style={css({ marginLeft: 5 })}
       />
-    </ScrollView>
+    </S.TilesListWrapper>
   );
 };
 

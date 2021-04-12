@@ -1,20 +1,16 @@
-import { StyleSheet } from 'react-native';
+import styled from '@emotion/native';
 
-import { Theme } from 'src/theme/interfaces';
+export const CurrentPlayerMenuWrapper = styled.View(({ theme }) => ({
+  backgroundColor: theme.color.board,
+  paddingHorizontal: 2.5,
+  paddingBottom: 5,
+  flexDirection: 'row',
+  justifyContent: 'flex-end',
+  alignItems: 'center',
+}));
 
-export const styles = ({ color }: Theme) =>
-  StyleSheet.create({
-    container: {
-      backgroundColor: color.board,
-      paddingHorizontal: 2.5,
-      paddingBottom: 5,
-      flexDirection: 'row',
-      justifyContent: 'flex-end',
-      alignItems: 'center',
-    },
-    buttonWrapper: {
-      flexGrow: 1,
-      flexDirection: 'column',
-      paddingHorizontal: 2.5,
-    },
-  });
+export const ButtonWrapper = styled.View({
+  flexGrow: 1,
+  flexDirection: 'column',
+  paddingHorizontal: 2.5,
+});

@@ -1,12 +1,9 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import { useSelector } from 'react-redux';
 
 import Tile from 'src/modules/Game/components/Tile';
 import { Letter } from 'src/modules/Dictionary/interfaces';
-import { selectTheme } from 'src/modules/Settings/store/selectors';
 
-import { styles } from './styles';
+import * as S from './styles';
 
 type Props = {
   letter: Letter;
@@ -14,22 +11,14 @@ type Props = {
   onPress: (letter: Letter) => void;
 };
 
-const TilesListElement: React.FC<Props> = ({ letter, amountLeft, onPress }) => {
-  const themedStyles = styles(useSelector(selectTheme));
-
-  return (
-    <TouchableOpacity
-      style={
-        amountLeft
-          ? themedStyles.tileWrapper
-          : [themedStyles.tileWrapper, themedStyles.noAmountLeft]
-      }
-      onPress={() => onPress(letter)}
-      disabled={!amountLeft}
-    >
-      <Tile letter={letter} />
-    </TouchableOpacity>
-  );
-};
+const TilesListElement: React.FC<Props> = ({ letter, amountLeft, onPress }) => (
+  <S.TilesListElementWrapper
+    noAmountLeft={Boolean(amountLeft)}
+    onPress={() => onPress(letter)}
+    disabled={!amountLeft}
+  >
+    <Tile letter={letter} />
+  </S.TilesListElementWrapper>
+);
 
 export default TilesListElement;

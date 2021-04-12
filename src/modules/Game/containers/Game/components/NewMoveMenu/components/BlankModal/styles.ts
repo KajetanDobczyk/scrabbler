@@ -1,26 +1,24 @@
-import { StyleSheet } from 'react-native';
+import styled from '@emotion/native';
 
-import { Theme } from 'src/theme/interfaces';
+export const ModalContent = styled.View(({ theme }) => ({
+  backgroundColor: theme.color.board,
+  padding: 20,
+  borderRadius: 4,
+}));
 
-export const styles = ({ color }: Theme) =>
-  StyleSheet.create({
-    container: {
-      backgroundColor: color.board,
-      padding: 20,
-      borderRadius: 4,
-    },
-    header: {
-      color: color.white,
-      marginBottom: 20,
-    },
-    tilesList: {
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      justifyContent: 'flex-start',
-    },
-    tileWrapper: {
-      width: 25,
-      marginRight: 8,
-      marginBottom: 8,
-    },
-  });
+export const Header = styled.Text(({ theme }) => ({
+  color: theme.color.white,
+  marginBottom: 20,
+}));
+
+export const TilesList = styled.View({
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  justifyContent: 'flex-start',
+});
+
+export const TileWrapper = styled.TouchableOpacity({
+  width: 25,
+  marginRight: 8,
+  marginBottom: 8,
+});
