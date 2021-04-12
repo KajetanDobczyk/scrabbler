@@ -1,12 +1,9 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { useSelector } from 'react-redux';
 
 import { IPlayedMove } from 'src/modules/Game/interfaces';
 import { countPlayedWordPoints } from 'src/modules/Game/store/players/helpers';
-import { selectTheme } from 'src/modules/Settings/store/selectors';
 
-import { styles } from './styles';
+import * as S from './styles';
 
 type Props = {
   index: number;
@@ -16,8 +13,6 @@ type Props = {
 };
 
 const PlayedMove: React.FC<Props> = ({ index, move, height, onLayout }) => {
-  const themedStyles = styles(useSelector(selectTheme));
-
   const isSeven = move.tiles.length === 7;
 
   let movePoints = isSeven ? 50 : 0;
@@ -35,53 +30,36 @@ const PlayedMove: React.FC<Props> = ({ index, move, height, onLayout }) => {
   };
 
   return (
-    <View
-      style={
-        height ? [themedStyles.container, { height }] : themedStyles.container
-      }
-      onLayout={handleOnLayout}
-    >
+    <S.PlayedMoveWrapper height={height} onLayout={handleOnLayout}>
       {move.words.map((word, i) => {
         const wordPoints = countPlayedWordPoints(word, move.tiles);
         movePoints += wordPoints;
 
         return (
-          <View key={i} style={themedStyles.wordRow}>
-            <View style={themedStyles.letters}>
+          <S.WordRow key={i}>
+            <S.Letters>
               {word.map((field, j) => (
-                <Text
-                  key={j}
-                  style={[
-                    themedStyles.letter,
-                    {
-                      opacity: field.blankLetter ? 0.3 : 1,
-                    },
-                  ]}
-                >
+                <S.Letter key={j} isBlank={Boolean(field.blankLetter)}>
                   {field.blankLetter || field.letter}
-                </Text>
+                </S.Letter>
               ))}
-            </View>
-            <Text style={themedStyles.points}>{wordPoints}</Text>
-          </View>
+            </S.Letters>
+            <S.Points>{wordPoints}</S.Points>
+          </S.WordRow>
         );
       })}
       {isSeven && (
-        <View style={themedStyles.wordRow}>
-          <View style={themedStyles.letters}>
-            <Text style={[themedStyles.letter, themedStyles.bonus]}>Bonus</Text>
-          </View>
-          <Text style={[themedStyles.points, themedStyles.bonus]}>50</Text>
-        </View>
+        <S.WordRow>
+          <S.Letters>
+            <S.Letter isBonus>Bonus</S.Letter>
+          </S.Letters>
+          <S.Points isBonus>50</S.Points>
+        </S.WordRow>
       )}
-      {move.type === 'skipped' && (
-        <Text style={[themedStyles.movePoints, themedStyles.skipped]}>—</Text>
-      )}
-      {move.type === 'loss' && (
-        <Text style={[themedStyles.movePoints, themedStyles.loss]}>X</Text>
-      )}
-      {!move.type && <Text style={themedStyles.movePoints}>{movePoints}</Text>}
-    </View>
+      {move.type === 'skipped' && <S.MovePoints skipped>—</S.MovePoints>}
+      {move.type === 'loss' && <S.MovePoints loss>X</S.MovePoints>}
+      {!move.type && <S.MovePoints>{movePoints}</S.MovePoints>}
+    </S.PlayedMoveWrapper>
   );
 };
 
