@@ -20,9 +20,4 @@ export type Font = {
   size: Record<FontSize, number>;
 };
 
-export type Theme = {
-  color: Color;
-  font: Font;
-};
-
 export type IThemeName = 'classic' | 'deluxe';

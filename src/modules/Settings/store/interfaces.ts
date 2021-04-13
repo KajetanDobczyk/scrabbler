@@ -1,4 +1,6 @@
-import { Theme, IThemeName } from 'src/theme/interfaces';
+import { Theme } from '@emotion/react';
+
+import { IThemeName } from 'src/theme/interfaces';
 import { Language } from 'src/services/i18n/interfaces';
 
 export type ISettingsState = {
