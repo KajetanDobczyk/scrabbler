@@ -1,52 +1,41 @@
 import React from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import { getAreAllLetterTilesUsed } from 'src/modules/Dictionary/helpers';
 import { selectTilesList } from 'src/modules/Game/store/board/selectors';
-import { selectTheme } from 'src/modules/Settings/store/selectors';
 import { initialTilesAmount } from 'src/modules/Dictionary/data';
 
-import { styles } from './styles';
+import * as S from './styles';
 
 const TilesAvailability = () => {
   const tilesList = useSelector(selectTilesList);
-  const themedStyles = styles(useSelector(selectTheme));
 
   return (
-    <ScrollView contentContainerStyle={themedStyles.container}>
+    <ScrollView
+      contentContainerStyle={{
+        flexGrow: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignItems: 'flex-start',
+        paddingTop: 8,
+        paddingHorizontal: 10,
+      }}
+    >
       {(Object.keys(tilesList) as Letter[]).map((letter) => (
-        <View key={letter} style={themedStyles.tileInfoWrapper}>
-          <Text
-            style={
-              getAreAllLetterTilesUsed(tilesList, letter)
-                ? [themedStyles.letter, themedStyles.used]
-                : themedStyles.letter
-            }
-          >
+        <S.TileInfoWrapper key={letter}>
+          <S.Letter isUsed={getAreAllLetterTilesUsed(tilesList, letter)}>
             {letter}
-          </Text>
-          <Text
-            style={
-              getAreAllLetterTilesUsed(tilesList, letter)
-                ? [themedStyles.amount, themedStyles.used]
-                : themedStyles.amount
-            }
-          >
+          </S.Letter>
+          <S.Amount isUsed={getAreAllLetterTilesUsed(tilesList, letter)}>
             {tilesList[letter].amountLeft}
-          </Text>
-          <Text
-            style={
-              getAreAllLetterTilesUsed(tilesList, letter)
-                ? [themedStyles.amount, themedStyles.used]
-                : themedStyles.amount
-            }
-          >
+          </S.Amount>
+          <S.Amount isUsed={getAreAllLetterTilesUsed(tilesList, letter)}>
             {' '}
             / {initialTilesAmount[letter]}
-          </Text>
-        </View>
+          </S.Amount>
+        </S.TileInfoWrapper>
       ))}
     </ScrollView>
   );

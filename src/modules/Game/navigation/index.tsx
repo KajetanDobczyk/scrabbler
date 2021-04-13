@@ -15,7 +15,6 @@ import { GameScreen } from 'src/modules/Game/interfaces';
 import { selectTheme } from 'src/modules/Settings/store/selectors';
 
 import DrawerContent from './components/DrawerContent';
-import { styles } from './styles';
 
 const Drawer = createDrawerNavigator();
 
@@ -25,13 +24,13 @@ type Props = {
 };
 
 const GameTabContent: React.FC<Props> = () => {
-  const themedStyles = styles(useSelector(selectTheme));
+  const theme = useSelector(selectTheme);
 
   return (
     <Drawer.Navigator
       initialRouteName={GameScreen.NewGame}
       drawerContent={(props) => (
-        <DrawerContentScrollView style={themedStyles.container}>
+        <DrawerContentScrollView style={{ backgroundColor: theme.color.board }}>
           <DrawerContent {...props} />
         </DrawerContentScrollView>
       )}

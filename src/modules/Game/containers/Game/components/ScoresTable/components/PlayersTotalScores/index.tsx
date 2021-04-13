@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { View, Text } from 'react-native';
 
 import { PlayerId } from 'src/modules/Players/interfaces';
 import {
@@ -8,31 +7,23 @@ import {
   selectCurrentPlayerId,
 } from 'src/modules/Game/store/players/selectors';
 import { sumMovesPoints } from 'src/modules/Game/store/players/helpers';
-import { selectTheme } from 'src/modules/Settings/store/selectors';
 
-import { styles } from './styles';
+import * as S from './styles';
 
 const PlayersTotalScores = () => {
   const players = useSelector(selectPlayers);
   const currentPlayerId = useSelector(selectCurrentPlayerId);
-  const themedStyles = styles(useSelector(selectTheme));
 
   return (
-    <View style={themedStyles.container}>
+    <S.PlayersTotalScoresWrapper>
       {(Object.keys(players) as PlayerId[]).map((playerId, i) => (
-        <View key={i} style={themedStyles.pointsWrapper}>
-          <Text
-            style={
-              currentPlayerId === playerId
-                ? [themedStyles.points, themedStyles.currentPlayerPoints]
-                : themedStyles.points
-            }
-          >
+        <S.PointsWrapper key={i}>
+          <S.Points isCurrentPlayer={currentPlayerId === playerId}>
             {sumMovesPoints(players[playerId]!.moves)}
-          </Text>
-        </View>
+          </S.Points>
+        </S.PointsWrapper>
       ))}
-    </View>
+    </S.PlayersTotalScoresWrapper>
   );
 };
 

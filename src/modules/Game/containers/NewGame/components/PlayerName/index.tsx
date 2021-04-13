@@ -1,11 +1,8 @@
 import React from 'react';
-import { View, TextInput, Text } from 'react-native';
-import { useSelector } from 'react-redux';
 
 import { PlayerId } from 'src/modules/Players/interfaces';
-import { selectTheme } from 'src/modules/Settings/store/selectors';
 
-import { styles } from './styles';
+import * as S from './styles';
 
 type Props = {
   id: PlayerId;
@@ -15,30 +12,19 @@ type Props = {
 };
 
 const PlayerName: React.FC<Props> = ({ id, name, onChange, autoFocus }) => {
-  const themedStyles = styles(useSelector(selectTheme));
-
   const normalizedIndex = parseInt(id) + 1;
 
   return (
-    <View style={themedStyles.container}>
-      <Text
-        style={
-          name === ''
-            ? themedStyles.index
-            : [themedStyles.index, themedStyles.indexHighlighted]
-        }
-      >
-        {normalizedIndex}
-      </Text>
+    <S.PlayerNameWrapper>
+      <S.Index isHighlighted={name !== ''}>{normalizedIndex}</S.Index>
 
-      <TextInput
-        style={themedStyles.input}
+      <S.Input
         value={name}
         onChangeText={onChange(id)}
         autoFocus={autoFocus}
         autoCapitalize="sentences"
       />
-    </View>
+    </S.PlayerNameWrapper>
   );
 };
 

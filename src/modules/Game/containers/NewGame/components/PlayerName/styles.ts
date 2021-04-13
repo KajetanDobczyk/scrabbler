@@ -1,27 +1,23 @@
-import { StyleSheet } from 'react-native';
+import styled from '@emotion/native';
 
-import { Theme } from 'src/theme/interfaces';
+export const PlayerNameWrapper = styled.View({
+  width: 200,
+  height: 30,
+  flexDirection: 'row',
+  alignItems: 'center',
+  marginBottom: 20,
+});
 
-export const styles = ({ color }: Theme) =>
-  StyleSheet.create({
-    container: {
-      width: 200,
-      height: 30,
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginBottom: 20,
-    },
-    index: {
-      color: color.boardField,
-      marginRight: 10,
-    },
-    indexHighlighted: {
-      color: color.white,
-    },
-    input: {
-      flex: 1,
-      color: color.white,
-      borderBottomColor: color.boardField,
-      borderBottomWidth: 1,
-    },
-  });
+export const Index = styled.Text<{ isHighlighted?: boolean }>(
+  ({ theme, isHighlighted }) => ({
+    color: isHighlighted ? theme.color.white : theme.color.boardField,
+    marginRight: 10,
+  }),
+);
+
+export const Input = styled.TextInput(({ theme }) => ({
+  flex: 1,
+  color: theme.color.white,
+  borderBottomColor: theme.color.boardField,
+  borderBottomWidth: 1,
+}));

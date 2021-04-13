@@ -1,36 +1,19 @@
-import { StyleSheet } from 'react-native';
+import styled from '@emotion/native';
 
-import { Theme } from 'src/theme/interfaces';
+export const TileInfoWrapper = styled.View(({ theme }) => ({
+  flexDirection: 'row',
+  backgroundColor: theme.color.boardField,
+}));
 
-export const styles = ({ color, font }: Theme) =>
-  StyleSheet.create({
-    container: {
-      flexGrow: 1,
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      alignItems: 'flex-start',
-      paddingTop: 8,
-      paddingHorizontal: 10,
-    },
-    tileInfoWrapper: {
-      width: '20%',
-      flexDirection: 'row',
-      alignItems: 'flex-end',
-      marginBottom: 8,
-      paddingHorizontal: 5,
-    },
-    letter: {
-      width: 12,
-      color: color.white,
-      marginRight: 10,
-      fontWeight: 'bold',
-      textTransform: 'uppercase',
-    },
-    amount: {
-      color: color.white,
-      fontSize: font.size.sm,
-    },
-    used: {
-      color: color.boardField,
-    },
-  });
+export const Letter = styled.Text<{ isUsed: boolean }>(({ theme, isUsed }) => ({
+  width: 12,
+  color: isUsed ? theme.color.boardField : theme.color.white,
+  marginRight: 10,
+  fontWeight: 'bold',
+  textTransform: 'uppercase',
+}));
+
+export const Amount = styled.Text<{ isUsed: boolean }>(({ theme, isUsed }) => ({
+  color: isUsed ? theme.color.boardField : theme.color.white,
+  fontSize: theme.font.size.sm,
+}));

@@ -1,27 +1,23 @@
-import { StyleSheet } from 'react-native';
+import styled from '@emotion/native';
 
-import { Theme } from 'src/theme/interfaces';
+export const PlayersTotalScoresWrapper = styled.View(({ theme }) => ({
+  flexDirection: 'row',
+  backgroundColor: theme.color.boardField,
+}));
 
-export const styles = ({ color }: Theme) =>
-  StyleSheet.create({
-    container: {
-      flexDirection: 'row',
-      backgroundColor: color.boardField,
-    },
-    pointsWrapper: {
-      flexBasis: 0,
-      flexGrow: 1,
-      flexDirection: 'row',
-      justifyContent: 'flex-end',
-      alignItems: 'center',
-      padding: 5,
-      backgroundColor: color.board,
-    },
-    points: {
-      fontWeight: 'bold',
-      color: color.boardField,
-    },
-    currentPlayerPoints: {
-      color: color.white,
-    },
-  });
+export const PointsWrapper = styled.View(({ theme }) => ({
+  flexBasis: 0,
+  flexGrow: 1,
+  flexDirection: 'row',
+  justifyContent: 'flex-end',
+  alignItems: 'center',
+  padding: 5,
+  backgroundColor: theme.color.board,
+}));
+
+export const Points = styled.Text<{ isCurrentPlayer?: boolean }>(
+  ({ theme, isCurrentPlayer }) => ({
+    fontWeight: 'bold',
+    color: isCurrentPlayer ? theme.color.white : theme.color.boardField,
+  }),
+);
