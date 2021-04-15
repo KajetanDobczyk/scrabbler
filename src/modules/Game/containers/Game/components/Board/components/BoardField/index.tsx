@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { Animated, Easing } from 'react-native';
+import { Animated } from 'react-native';
 import { css } from '@emotion/native';
 
 import { IBoardField } from 'src/modules/Game/interfaces';
@@ -29,25 +29,20 @@ const BoardField: React.FC<Props> = ({
 }) => {
   const theme = useSelector(selectTheme);
 
-  const animatedValue = useRef(new Animated.Value(0)).current;
-  // const animation = Animated.loop(
-  //   Animated.timing(animatedValue, {
-  //     toValue: 1,
-  //     easing: Easing.linear,
-  //     duration: 2000,
-  //   }),
-  // );
+  const animatedOpacity = useRef(new Animated.Value(0)).current;
 
-  const overlayOpacityAnimation = animatedValue.interpolate({
-    inputRange: [0, 0.5, 1],
-    outputRange: [0, isTarget ? 0.5 : 0.2, 0],
-  });
-
-  // if (isTarget) {
-  //   animation.start();
-  // } else {
-  //   animation.stop();
-  // }
+  useEffect(() => {
+    if (isTarget) {
+      Animated.loop(
+        Animated.timing(animatedOpacity, {
+          toValue: 0.05,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+        { iterations: -1 },
+      ).start();
+    }
+  }, [isTarget]);
 
   //TODO: Refactor getBoardFieldsBgColors to be more readable and efficient
   return (
@@ -57,9 +52,7 @@ const BoardField: React.FC<Props> = ({
         backgroundColor: getBoardFieldsBgColors(theme.color)[field.bonus],
       })}
     >
-      {isTarget && (
-        <S.HighlightOverlay style={{ opacity: overlayOpacityAnimation }} />
-      )}
+      {isTarget && <S.HighlightOverlay style={{ opacity: animatedOpacity }} />}
       {field.letter ? (
         <S.TileWrapper>
           <Tile

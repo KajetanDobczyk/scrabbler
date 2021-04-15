@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Animated, Easing } from 'react-native';
+import { Animated } from 'react-native';
 
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import { tilesPoints } from 'src/modules/Dictionary/data';
@@ -20,33 +20,26 @@ const Tile: React.FC<Props> = ({
   hidePoints,
 }) => {
   const points = !hidePoints && tilesPoints[letter];
-  const animatedValue = useRef(new Animated.Value(0)).current;
-  // const animation = Animated.loop(
-  //   Animated.timing(animatedValue, {
-  //     toValue: 1,
-  //     easing: Easing.linear,
-  //     duration: 2000,
-  //   }),
-  // );
-
-  const highlightOverlayOpacityAnimation = animatedValue.interpolate({
-    inputRange: [0, 0.5, 1],
-    outputRange: [0, 0.2, 0],
-  });
+  const animatedOpacity = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    // if (isHighlighted) {
-    //   animation.start();
-    // } else {
-    //   animation.stop();
-    // }
+    if (isHighlighted) {
+      Animated.loop(
+        Animated.timing(animatedOpacity, {
+          toValue: 1,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+        { iterations: -1 },
+      ).start();
+    }
   }, [isHighlighted]);
 
   return (
     <S.TileWrapper>
       <S.HighlightOverlay
         style={{
-          opacity: highlightOverlayOpacityAnimation,
+          opacity: animatedOpacity,
         }}
       />
       <S.Content>

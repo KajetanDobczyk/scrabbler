@@ -1,5 +1,5 @@
 import styled from '@emotion/native';
-import Animated from 'react-native-reanimated';
+import { Animated } from 'react-native';
 
 export const TileWrapper = styled(Animated.View)(({ theme }) => ({
   aspectRatio: 1,
