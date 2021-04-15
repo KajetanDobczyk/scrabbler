@@ -1,4 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { persistReducer } from 'redux-persist';
 
 import gameReducer from 'src/modules/Game/store/slice';
 import dictionaryReducer from 'src/modules/Dictionary/store/slice';
@@ -11,11 +13,16 @@ import { IBoardState } from 'src/modules/Game/store/board/interfaces';
 import { ICurrentPlayersState } from 'src/modules/Game/store/players/interfaces';
 import { IPlayersState } from 'src/modules/Players/store/interfaces';
 
+const persistConfig = {
+  key: 'root',
+  storage: AsyncStorage,
+};
+
 const rootReducer = combineReducers({
   game: gameReducer,
   dictionary: dictionaryReducer,
   players: playersReducer,
-  settings: settingsReducer,
+  settings: persistReducer(persistConfig, settingsReducer),
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

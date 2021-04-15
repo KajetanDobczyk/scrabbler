@@ -19,10 +19,11 @@ const settings = createSlice({
       const themeName = action.payload;
       const theme = themes[action.payload];
 
-      state.theme = {
+      const themeObj = {
         name: themeName,
         theme,
       };
+      state.theme = themeObj;
     },
     toggleIsTilesAmountDisplayed(state) {
       state.isTilesAmountDisplayed = !state.isTilesAmountDisplayed;

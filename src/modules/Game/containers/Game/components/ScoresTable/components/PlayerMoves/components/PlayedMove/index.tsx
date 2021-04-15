@@ -19,7 +19,6 @@ const PlayedMove: React.FC<Props> = ({ index, move, height, onLayout }) => {
 
   // Can't use nativeEvent's height, because it's same height as in given styles
   const handleOnLayout = () => {
-    console.log('xd');
     const localHeight =
       26 +
       (move.tiles.length === 7 ? move.words.length + 1 : move.words.length) *
