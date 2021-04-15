@@ -8,7 +8,6 @@ export const NewGameWrapper = styled.View(({ theme }) => ({
 }));
 
 export const Header = styled.Text(({ theme }) => ({
-  flex: 1,
   color: theme.color.white,
   marginBottom: 20,
 }));
