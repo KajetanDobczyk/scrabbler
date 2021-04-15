@@ -21,13 +21,13 @@ const Tile: React.FC<Props> = ({
 }) => {
   const points = !hidePoints && tilesPoints[letter];
   const animatedValue = useRef(new Animated.Value(0)).current;
-  const animation = Animated.loop(
-    Animated.timing(animatedValue, {
-      toValue: 1,
-      easing: Easing.linear,
-      duration: 2000,
-    }),
-  );
+  // const animation = Animated.loop(
+  //   Animated.timing(animatedValue, {
+  //     toValue: 1,
+  //     easing: Easing.linear,
+  //     duration: 2000,
+  //   }),
+  // );
 
   const highlightOverlayOpacityAnimation = animatedValue.interpolate({
     inputRange: [0, 0.5, 1],
@@ -35,11 +35,11 @@ const Tile: React.FC<Props> = ({
   });
 
   useEffect(() => {
-    if (isHighlighted) {
-      animation.start();
-    } else {
-      animation.stop();
-    }
+    // if (isHighlighted) {
+    //   animation.start();
+    // } else {
+    //   animation.stop();
+    // }
   }, [isHighlighted]);
 
   return (

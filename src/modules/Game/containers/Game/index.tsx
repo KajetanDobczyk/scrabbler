@@ -8,7 +8,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useTranslation } from 'react-i18next';
 import { Dimensions } from 'react-native';
-import { css } from '@emotion/native';
 
 import Header from 'src/layout/components/Header';
 import IconButton from 'src/components/IconButton';
@@ -77,10 +76,10 @@ const Game: React.FC<Props> = ({ navigation }) => {
       <ScrollView
         ref={scrollView}
         horizontal={true}
-        contentContainerStyle={css({
+        contentContainerStyle={{
           flexGrow: 1,
           backgroundColor: theme.color.board,
-        })}
+        }}
         pagingEnabled={true}
         onMomentumScrollEnd={handleOnMomentumScrollEnd}
       >

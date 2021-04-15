@@ -30,24 +30,24 @@ const BoardField: React.FC<Props> = ({
   const theme = useSelector(selectTheme);
 
   const animatedValue = useRef(new Animated.Value(0)).current;
-  const animation = Animated.loop(
-    Animated.timing(animatedValue, {
-      toValue: 1,
-      easing: Easing.linear,
-      duration: 2000,
-    }),
-  );
+  // const animation = Animated.loop(
+  //   Animated.timing(animatedValue, {
+  //     toValue: 1,
+  //     easing: Easing.linear,
+  //     duration: 2000,
+  //   }),
+  // );
 
   const overlayOpacityAnimation = animatedValue.interpolate({
     inputRange: [0, 0.5, 1],
     outputRange: [0, isTarget ? 0.5 : 0.2, 0],
   });
 
-  if (isTarget) {
-    animation.start();
-  } else {
-    animation.stop();
-  }
+  // if (isTarget) {
+  //   animation.start();
+  // } else {
+  //   animation.stop();
+  // }
 
   //TODO: Refactor getBoardFieldsBgColors to be more readable and efficient
   return (

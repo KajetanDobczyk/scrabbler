@@ -27,7 +27,7 @@ export const Content = styled.View({
 
 export const Letter = styled.Text<{ isBlank: boolean }>(({ isBlank }) => ({
   textTransform: 'uppercase',
-  opacity: isBlank ? 0.3 : 0.5,
+  opacity: isBlank ? 0.3 : 1,
 }));
 
 export const Points = styled.Text(({ theme }) => ({

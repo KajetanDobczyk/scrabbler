@@ -13,7 +13,7 @@ type Props = {
 
 const TilesListElement: React.FC<Props> = ({ letter, amountLeft, onPress }) => (
   <S.TilesListElementWrapper
-    noAmountLeft={Boolean(amountLeft)}
+    noAmountLeft={!Boolean(amountLeft)}
     onPress={() => onPress(letter)}
     disabled={!amountLeft}
   >
