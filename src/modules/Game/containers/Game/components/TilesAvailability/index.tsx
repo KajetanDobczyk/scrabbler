@@ -19,7 +19,7 @@ const TilesAvailability = () => {
         flexDirection: 'row',
         flexWrap: 'wrap',
         alignItems: 'flex-start',
-        paddingTop: 8,
+        paddingTop: 15,
         paddingHorizontal: 10,
       }}
     >

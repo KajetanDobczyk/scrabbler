@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { css } from '@emotion/native';
 
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import { ITilesList } from 'src/modules/Game/interfaces';
@@ -54,7 +53,6 @@ const TilesList: React.FC<Props> = ({ tilesList, onBlankPressed }) => {
         size={25}
         onPress={eraseTile}
         color={theme.color.tile}
-        style={css({ marginLeft: 5 })}
       />
     </S.TilesListWrapper>
   );
