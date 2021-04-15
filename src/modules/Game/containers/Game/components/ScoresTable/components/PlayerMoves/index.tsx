@@ -9,14 +9,16 @@ type Props = {
   player: IPlayer;
   movesHeights: Record<string, number>;
   onAdjustMoveHeight: (index: number, height: number) => void;
+  isLastPlayer?: boolean;
 };
 
-const PlayersMoves: React.FC<Props> = ({
+const PlayerMoves: React.FC<Props> = ({
   player,
   movesHeights,
   onAdjustMoveHeight,
+  isLastPlayer,
 }) => (
-  <S.PlayersMovesWrapper>
+  <S.PlayerMovesWrapper isLastPlayer={isLastPlayer}>
     {player.moves.map((move, i) => (
       <PlayedMove
         key={i}
@@ -26,7 +28,7 @@ const PlayersMoves: React.FC<Props> = ({
         onLayout={onAdjustMoveHeight}
       />
     ))}
-  </S.PlayersMovesWrapper>
+  </S.PlayerMovesWrapper>
 );
 
-export default PlayersMoves;
+export default PlayerMoves;

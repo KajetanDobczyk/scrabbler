@@ -5,7 +5,7 @@ import { ScrollView } from 'react-native';
 import { selectPlayers } from 'src/modules/Game/store/players/selectors';
 
 import PlayersNames from './components/PlayersNames';
-import PlayersMoves from './components/PlayersMoves';
+import PlayerMoves from './components/PlayerMoves';
 import PlayersTotalScores from './components/PlayersTotalScores';
 import CurrentPlayerMenu from './components/CurrentPlayerMenu';
 
@@ -27,6 +27,8 @@ const ScoresTable = () => {
     });
   };
 
+  const validPlayers = Object.values(players).filter((player) => player);
+
   return (
     <>
       <PlayersNames />
@@ -39,16 +41,15 @@ const ScoresTable = () => {
         }}
         onContentSizeChange={scrollToEnd}
       >
-        {Object.values(players).map((player, i) =>
-          player ? (
-            <PlayersMoves
-              key={i}
-              player={player}
-              movesHeights={movesHeights}
-              onAdjustMoveHeight={adjustMovesHeights}
-            />
-          ) : null,
-        )}
+        {validPlayers.map((player, i) => (
+          <PlayerMoves
+            key={i}
+            player={player!}
+            movesHeights={movesHeights}
+            onAdjustMoveHeight={adjustMovesHeights}
+            isLastPlayer={i === validPlayers.length - 1}
+          />
+        ))}
       </ScrollView>
       <PlayersTotalScores />
       <CurrentPlayerMenu />

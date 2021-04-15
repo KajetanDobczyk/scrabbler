@@ -17,7 +17,6 @@ const PlayerName: React.FC<Props> = ({ id, name, onChange, autoFocus }) => {
   return (
     <S.PlayerNameWrapper>
       <S.Index isHighlighted={name !== ''}>{normalizedIndex}</S.Index>
-
       <S.Input
         value={name}
         onChangeText={onChange(id)}
