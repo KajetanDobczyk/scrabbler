@@ -4,14 +4,15 @@ import { persistReducer } from 'redux-persist';
 
 import gameReducer from 'src/modules/Game/store/slice';
 import dictionaryReducer from 'src/modules/Dictionary/store/slice';
-import playersReducer from 'src/modules/Players/store/slice';
 import settingsReducer from 'src/modules/Settings/store/slice';
 import { IDictionaryState } from 'src/modules/Dictionary/store/interfaces';
 import { ISettingsState } from 'src/modules/Settings/store/interfaces';
 import { IConfigState } from 'src/modules/Game/store/config/interfaces';
 import { IBoardState } from 'src/modules/Game/store/board/interfaces';
 import { ICurrentPlayersState } from 'src/modules/Game/store/players/interfaces';
-import { IPlayersState } from 'src/modules/Players/store/interfaces';
+import { IUserState } from 'src/modules/User/store/interfaces';
+
+import userReducer from 'src/modules/User/store/slice';
 
 const persistConfig = {
   key: 'root',
@@ -21,8 +22,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
   game: gameReducer,
   dictionary: dictionaryReducer,
-  players: playersReducer,
   settings: persistReducer(persistConfig, settingsReducer),
+  user: userReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -34,8 +35,8 @@ export type State = {
     players: ICurrentPlayersState;
   };
   dictionary: IDictionaryState;
-  players: IPlayersState;
   settings: ISettingsState;
+  user: IUserState;
 };
 
 export default rootReducer;

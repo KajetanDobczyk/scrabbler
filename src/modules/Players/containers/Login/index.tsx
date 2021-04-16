@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import TextButton from 'src/components/TextButton';
 
 import * as S from './styles';
-import { loginByFacebook } from '../../store/thunks';
+import { loginByFacebook } from '../../../User/store/thunks';
 
 const Login = () => {
   const { t } = useTranslation('players');

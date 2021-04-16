@@ -8,7 +8,7 @@ import DictionaryTabContent from 'src/modules/Dictionary/navigation';
 import PlayersTabContent from 'src/modules/Players/navigation';
 import SettingsTabContent from 'src/modules/Settings/navigation';
 import { selectTheme } from 'src/modules/Settings/store/selectors';
-import { selectIsUserLoggedIn } from 'src/modules/Players/store/selectors';
+import { selectIsUserLoggedIn } from 'src/modules/User/store/selectors';
 import Login from 'src/modules/Players/containers/Login';
 
 import { Screen } from './interfaces';

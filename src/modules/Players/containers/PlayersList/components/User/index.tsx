@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { selectUserData } from 'src/modules/Players/store/selectors';
+import { selectUserData } from 'src/modules/User/store/selectors';
 
 import * as S from './styles';
 
