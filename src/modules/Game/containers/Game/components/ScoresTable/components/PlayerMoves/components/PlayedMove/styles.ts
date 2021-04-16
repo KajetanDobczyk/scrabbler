@@ -1,14 +1,14 @@
 import styled from '@emotion/native';
 
-export const PlayedMoveWrapper = styled.View<{ height?: number }>(
+export const PlayedMoveWrapper = styled.ScrollView<{ height?: number }>(
   ({ theme, height }) => ({
     position: 'relative',
     paddingTop: 5,
     paddingHorizontal: 5,
     paddingBottom: 20,
     borderBottomWidth: 1,
-    borderBottomColor: theme.color.board,
-    height: height || 'auto',
+    borderBottomColor: theme.color.boardField,
+    height,
   }),
 );
 
@@ -21,12 +21,11 @@ export const Letters = styled.View({
   flexDirection: 'row',
 });
 
-export const Letter = styled.Text<{ isBlank?: boolean; isBonus?: boolean }>(
-  ({ theme, isBlank, isBonus }) => ({
+export const Letter = styled.Text<{ isBlank?: boolean }>(
+  ({ theme, isBlank }) => ({
     textTransform: 'uppercase',
     fontSize: theme.font.size.xs,
     opacity: isBlank ? 0.3 : 1,
-    fontWeight: isBonus ? 'normal' : 'bold',
   }),
 );
 
@@ -40,14 +39,14 @@ export const Points = styled.Text<{ isBonus?: boolean }>(
 export const MovePoints = styled.Text<{ skipped?: boolean; loss?: boolean }>(
   ({ theme, skipped, loss }) => ({
     position: 'absolute',
-    bottom: 5,
-    right: 5,
+    bottom: -17,
+    right: 0,
     fontSize: theme.font.size.xs,
     fontWeight: 'bold',
     color: skipped
       ? theme.color.grayMedium
       : loss
       ? theme.color.trippleWord
-      : theme.color.white,
+      : theme.color.black,
   }),
 );

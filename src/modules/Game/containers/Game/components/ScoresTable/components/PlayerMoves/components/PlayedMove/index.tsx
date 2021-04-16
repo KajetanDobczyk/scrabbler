@@ -51,7 +51,7 @@ const PlayedMove: React.FC<Props> = ({ index, move, height, onLayout }) => {
       {isSeven && (
         <S.WordRow>
           <S.Letters>
-            <S.Letter isBonus>Bonus</S.Letter>
+            <S.Letter>Bonus</S.Letter>
           </S.Letters>
           <S.Points isBonus>50</S.Points>
         </S.WordRow>
