@@ -1,13 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import {
-  Ionicons,
-  Entypo,
-  FontAwesome5,
-  MaterialCommunityIcons,
-} from '@expo/vector-icons';
-import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import GameTabContent from 'src/modules/Game/navigation';
@@ -19,46 +12,18 @@ import { selectIsUserLoggedIn } from 'src/modules/Players/store/selectors';
 import Login from 'src/modules/Players/containers/Login';
 
 import { Screen } from './interfaces';
+import { getTabBarIcon } from './helpers';
+import { routesNames } from './helperData';
 
 const Tab = createBottomTabNavigator();
 
 const MainNavigation = () => {
-  const { t } = useTranslation(['dictionary', 'game', 'settings', 'players']);
-
   const isUserLoggedIn = useSelector(selectIsUserLoggedIn);
   const { color } = useSelector(selectTheme);
 
   if (!isUserLoggedIn) {
     return <Login />;
   }
-
-  const routesNames: Record<Screen, string> = {
-    [Screen.Game]: t('game:routeName'),
-    [Screen.Dictionary]: t('dictionary:routeName'),
-    [Screen.Players]: t('players:routeName'),
-    [Screen.Settings]: t('settings:routeName'),
-  };
-
-  const getTabBarIcon = (routeName: string, color: string) => {
-    switch (routeName) {
-      case routesNames[Screen.Game]:
-        return <FontAwesome5 name="chess-board" size={15} color={color} />;
-      case routesNames[Screen.Dictionary]:
-        return <Entypo name="book" size={20} color={color} />;
-      case routesNames[Screen.Players]:
-        return (
-          <MaterialCommunityIcons
-            name="account-group"
-            size={25}
-            color={color}
-          />
-        );
-      case routesNames[Screen.Settings]:
-        return <Ionicons name="md-settings" size={20} color={color} />;
-      default:
-        return null;
-    }
-  };
 
   return (
     <NavigationContainer>
