@@ -1,19 +1,20 @@
 import styled from '@emotion/native';
-import { Animated } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 
-export const TileWrapper = styled(Animated.View)(({ theme }) => ({
+export const TileWrapper = styled.View(({ theme }) => ({
   aspectRatio: 1,
   position: 'relative',
   backgroundColor: theme.color.tile,
   borderRadius: 2,
 }));
 
-export const HighlightOverlay = styled<any>(Animated.View)(({ theme }) => ({
+export const HighlightOverlay = styled(Animatable.View)(({ theme }) => ({
   backgroundColor: theme.color.white,
   position: 'absolute',
   width: '100%',
   height: '100%',
   zIndex: 0,
+  borderRadius: 2,
 }));
 
 export const Content = styled.View({

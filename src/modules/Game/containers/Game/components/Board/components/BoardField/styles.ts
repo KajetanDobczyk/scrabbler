@@ -1,5 +1,5 @@
 import styled from '@emotion/native';
-import { Animated } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 
 export const BoardFieldWrapper = styled.TouchableOpacity(({ theme }) => ({
   position: 'relative',
@@ -9,7 +9,7 @@ export const BoardFieldWrapper = styled.TouchableOpacity(({ theme }) => ({
   borderWidth: 1,
 }));
 
-export const HighlightOverlay = styled(Animated.View)(({ theme }) => ({
+export const HighlightOverlay = styled(Animatable.View)(({ theme }) => ({
   backgroundColor: theme.color.white,
   position: 'absolute',
   width: '100%',

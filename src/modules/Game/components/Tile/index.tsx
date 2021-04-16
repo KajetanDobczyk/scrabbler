@@ -1,8 +1,10 @@
-import React, { useEffect, useRef } from 'react';
-import { Animated } from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 
 import { Letter } from 'src/modules/Dictionary/interfaces';
 import { tilesPoints } from 'src/modules/Dictionary/data';
+import animations from 'src/theme/animations';
 
 import * as S from './styles';
 
@@ -20,28 +22,16 @@ const Tile: React.FC<Props> = ({
   hidePoints,
 }) => {
   const points = !hidePoints && tilesPoints[letter];
-  const animatedOpacity = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    if (isHighlighted) {
-      Animated.loop(
-        Animated.timing(animatedOpacity, {
-          toValue: 1,
-          duration: 1000,
-          useNativeDriver: true,
-        }),
-        { iterations: -1 },
-      ).start();
-    }
-  }, [isHighlighted]);
 
   return (
     <S.TileWrapper>
-      <S.HighlightOverlay
-        style={{
-          opacity: animatedOpacity,
-        }}
-      />
+      {isHighlighted && (
+        <S.HighlightOverlay
+          animation={animations.flash}
+          iterationCount="infinite"
+          easing="ease-in-out"
+        />
+      )}
       <S.Content>
         <S.Letter isBlank={Boolean(blankLetter)}>
           {letter !== '?' ? letter : blankLetter || ''}

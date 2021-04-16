@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, ScrollView, View } from 'react-native';
+import { ScrollView } from 'react-native';
 import Modal from 'react-native-modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { css } from '@emotion/native';
@@ -117,7 +117,9 @@ const EndGameModal: React.FC<Props> = ({ onFinish, onClose }) => {
           selectedIndex={parseInt(endingPlayerId)}
           onTabPress={handleSelectEndingPlayer}
         />
-        <S.Header>{t('endGame.selectOthersTiles')}</S.Header>
+        <S.Header style={css({ paddingTop: 20 })}>
+          {t('endGame.selectOthersTiles')}
+        </S.Header>
         {notEndingPlayersIds.map((playerId) => (
           <PlayerTilesLeft
             key={playerId}
