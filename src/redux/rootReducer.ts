@@ -5,14 +5,13 @@ import { persistReducer } from 'redux-persist';
 import gameReducer from 'src/modules/Game/store/slice';
 import dictionaryReducer from 'src/modules/Dictionary/store/slice';
 import settingsReducer from 'src/modules/Settings/store/slice';
+import userReducer from 'src/modules/User/store/slice';
 import { IDictionaryState } from 'src/modules/Dictionary/store/interfaces';
 import { ISettingsState } from 'src/modules/Settings/store/interfaces';
 import { IConfigState } from 'src/modules/Game/store/config/interfaces';
 import { IBoardState } from 'src/modules/Game/store/board/interfaces';
 import { ICurrentPlayersState } from 'src/modules/Game/store/players/interfaces';
 import { IUserState } from 'src/modules/User/store/interfaces';
-
-import userReducer from 'src/modules/User/store/slice';
 
 const persistConfig = {
   key: 'root',

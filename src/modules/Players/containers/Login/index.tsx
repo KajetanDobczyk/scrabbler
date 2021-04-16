@@ -3,9 +3,9 @@ import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import TextButton from 'src/components/TextButton';
+import { loginByFacebook } from 'src/modules/User/store/thunks';
 
 import * as S from './styles';
-import { loginByFacebook } from '../../../User/store/thunks';
 
 const Login = () => {
   const { t } = useTranslation('players');

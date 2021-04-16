@@ -3,7 +3,8 @@
   "language": "Język",
   "colorVersion": "Wersja kolorystyczna",
   "showTilesAmountLeft": "Pokaż pozostałą ilość literek",
-  "players": {
-    "login": "Zaloguj"
+  "user": {
+    "login": "Zaloguj",
+    "logout": "Wyloguj"
   }
 }

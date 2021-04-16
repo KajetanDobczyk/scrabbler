@@ -9,6 +9,7 @@ export const selectUserData = createSelector(
   (user) => user.data,
 );
 
-export const selectIsUserLoggedIn = createSelector(selectUserState, (user) =>
-  Boolean(user.token),
+export const selectIsUserLoggedIn = createSelector(
+  selectUserState,
+  (user) => user.isLoggedIn,
 );

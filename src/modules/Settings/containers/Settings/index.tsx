@@ -9,8 +9,9 @@ import { Screen } from 'src/layout/interfaces';
 import SegmentedControlTab from 'src/components/SegmentedControlTab';
 import Toggle from 'src/components/Toggle';
 import { Language, LanguageName } from 'src/services/i18n/interfaces';
+import FlatButton from 'src/components/FlatButton';
+import { logout } from 'src/modules/User/store/thunks';
 
-import * as S from './styles';
 import {
   selectIsTilesAmountDisplayed,
   selectThemeName,
@@ -21,6 +22,7 @@ import {
   setTheme,
   setLanguage,
 } from '../../store/slice';
+import * as S from './styles';
 
 const Settings = () => {
   const { t } = useTranslation('settings');
@@ -36,6 +38,10 @@ const Settings = () => {
 
   const handleSelectTheme = (index: number) => {
     dispatch(setTheme(index === 0 ? 'classic' : 'deluxe'));
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
   };
 
   return (
@@ -67,6 +73,9 @@ const Settings = () => {
               value={isTilesAmountDisplayed}
               onChange={() => dispatch(toggleIsTilesAmountDisplayed())}
             />
+          </S.SettingsRow>
+          <S.SettingsRow>
+            <FlatButton label={t('user.logout')} onPress={handleLogout} />
           </S.SettingsRow>
         </S.Container>
       </TouchableWithoutFeedback>

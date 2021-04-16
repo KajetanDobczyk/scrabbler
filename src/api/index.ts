@@ -1,4 +1,5 @@
 import * as Facebook from 'expo-facebook';
+import * as SecureStore from 'expo-secure-store';
 
 import httpClient from 'src/services/httpClient';
 
@@ -10,7 +11,7 @@ export const api = {
       return data;
     },
   },
-  players: {
+  user: {
     loginByFacebook: async () => {
       const { token, type } = await Facebook.logInWithReadPermissionsAsync();
 
@@ -27,13 +28,18 @@ export const api = {
       );
       const pictureOBject = await pictureResponse.json();
 
+      await SecureStore.setItemAsync('fbToken', token);
+
       return {
-        data: {
-          ...user,
-          photoUrl: pictureOBject.data.url,
-        },
-        token,
+        ...user,
+        photoUrl: pictureOBject.data.url,
       };
+    },
+    getLoggedInToken: async () => {
+      return await SecureStore.getItemAsync('fbToken');
+    },
+    logout: async () => {
+      return await SecureStore.deleteItemAsync('fbToken');
     },
   },
 };

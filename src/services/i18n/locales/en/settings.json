@@ -2,5 +2,9 @@
   "routeName": "Settings",
   "language": "Language",
   "colorVersion": "Color version",
-  "showTilesAmountLeft": "Show tiles amount left"
+  "showTilesAmountLeft": "Show tiles amount left",
+  "user": {
+    "login": "Login",
+    "logout": "Logout"
+  }
 }
